@@ -470,7 +470,7 @@
                     </ul>
                 </li> -->
                 <li class="Ul_li--hover">
-                <a class="dropdown-item" href="{{route('signIn')}}">Sign out</a>
+                <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
                 </li>
 
                 </ul>
