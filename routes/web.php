@@ -54,10 +54,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Dashboard routes
-Route::get('/get_clients', ['uses' => 'App\Http\Controllers\DashboardController@get_clients', 'as' => 'get_clients']);
 
-//Dsd routes
-Route::get('/get_dfc_clients', ['uses' => 'App\Http\Controller\DcmReportController@get_dfc_clients', 'as' => 'get_dfc_clients']);
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/logout', ['uses'=>'App\Http\Controllers\Auth\LoginController@logout', 'as' => 'logout']);
+    Route::get('/get_clients', ['uses' => 'App\Http\Controllers\DashboardController@get_clients', 'as' => 'get_clients']);
+    Route::get('/get_dfc_clients', ['uses' => 'App\Http\Controller\DcmReportController@get_dfc_clients', 'as' => 'get_dfc_clients']);
+});
