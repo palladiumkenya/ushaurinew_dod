@@ -22,7 +22,7 @@
                     <a href="#"><i class="i-Library"></i> Documentation</a>
                     <a href="#"><i class="i-Drop"></i> Wiki</a>
                     <a href="#"><i class="i-File-Clipboard-File--Text"></i> Apis</a>
-                    <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+                    <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Logout</a>
                   
                 </div>
             </div>

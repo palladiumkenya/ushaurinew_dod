@@ -1,7 +1,7 @@
 <!-- start sidebar -->
 <div class="sidebar-panel">
     <div class="gull-brand pr-3 text-center mt-4 mb-2 d-flex justify-content-center align-items-center">
-        <img class="pl-3" src="{{ asset('assets/images/logo.png') }}" alt="">
+        <img class="pl-3" src="{{ asset('assets/images/ushauri.jpeg') }}" alt="ushauri">
         <!-- <span class=" item-name text-20 text-primary font-weight-700">GULL</span> -->
         <div class="sidebar-compact-switch ml-auto"><span></span></div>
 
@@ -470,7 +470,7 @@
                     </ul>
                 </li> -->
                 <li class="Ul_li--hover">
-                <a class="dropdown-item" href="{{route('logout')}}">Log out</a>
+                <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Log out</a>
                 </li>
 
                 </ul>
