@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        session(['layout' => 'vertical']);
         return view('dashboard.dashboardv1');
     }
 }

@@ -23,7 +23,7 @@
                                     <span class="item-badge badge badge-warning">100+</span>
                                 </a>
                             </li>
-                            
+
                         </ul> -->
                 <ul class="metismenu" id="menu">
                     <!-- <p class="main-menu-title text-muted ml-3 font-weight-700 text-13 mt-4 mb-2">Apps</p> -->
@@ -100,7 +100,7 @@
                     <li class="item-name">
                             <a class="has-arrow cursor-pointer">
                                 <i class="nav-icon i-Receipt"></i>
-                                <span class="item-name">Appointment Diary </span>
+                                <span class="item-name">App Diary </span>
 
                             </a>
                             <ul class="mm-collapse">
@@ -233,7 +233,7 @@
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
                         <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
-                        <span class="item-name  text-muted">Administration Tools</span>
+                        <span class="item-name  text-muted">Admin Tools</span>
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
@@ -409,13 +409,13 @@
                         </li>
                     </ul>
                 </li>
-                <li class="Ul_li--hover">
+                <!-- <li class="Ul_li--hover">
                     <a class="" href="datatables.html">
                         <i class="i-File-Horizontal-Text text-20 mr-2 text-muted"></i>
                         <span class="item-name  text-muted">Datatables</span>
                     </a>
-                </li>
-                <li class="Ul_li--hover">
+                </li> -->
+                <!-- <li class="Ul_li--hover">
                     <a class="has-arrow">
                         <i class="i-Administrator text-20 mr-2 text-muted"></i>
                         <span class="item-name  text-muted">Sessions</span>
@@ -441,8 +441,8 @@
                         </li>
 
                     </ul>
-                </li>
-                <li class="Ul_li--hover">
+                </li> -->
+                <!-- <li class="Ul_li--hover">
                     <a class="has-arrow">
                         <i class="i-Double-Tap text-20 mr-2 text-muted"></i>
                         <span class="item-name  text-muted">Others</span>
@@ -468,7 +468,7 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> -->
                 <li class="Ul_li--hover">
                 <a class="dropdown-item" href="{{route('signIn')}}">Sign out</a>
                 </li>

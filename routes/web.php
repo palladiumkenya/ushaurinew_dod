@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('dashboard.dashboardv1');
 });
@@ -160,11 +159,10 @@ Route::view('others/faq', 'others.faq')->name('faq');
 Route::view('others/pricing-table', 'others.pricing-table')->name('pricing-table');
 Route::view('others/search-result', 'others.search-result')->name('search-result');
 
-// Auth::routes();
+Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
