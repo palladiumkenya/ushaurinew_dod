@@ -120,11 +120,6 @@
         {{-- @include('layouts.search') --}}
         <!-- ============ Search UI End ============= -->
 
-        <!-- ============ Customizer UI Start ============= -->
-        @include('layouts.common.customizer')
-        <!-- ============ Customizer UI Start ============= -->
-
-
 
         {{-- common js --}}
         <script src="{{ asset('assets/js/common-bundle-script.js') }}"></script>

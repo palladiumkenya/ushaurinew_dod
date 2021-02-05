@@ -24,31 +24,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('dashboard.dashboardv1');
-});
-// Route::view('/', 'starter')->name('starter');
-Route::get('large-compact-sidebar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'compact']);
-    return view('dashboard.dashboardv1');
-})->name('compact');
 
-Route::get('large-sidebar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'normal']);
-    return view('dashboard.dashboardv1');
-})->name('normal');
-
-Route::get('horizontal-bar/dashboard/dashboard1', function () {
-    // set layout sesion(key)
-    session(['layout' => 'horizontal']);
-    return view('dashboard.dashboardv1');
-})->name('horizontal');
-
-
-// sessions
-Route::view('sessions/signIn', 'sessions.signIn')->name('signIn');
 Route::get('/', function () {
     return view('sessions/signIn');
 });
