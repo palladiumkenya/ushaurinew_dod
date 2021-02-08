@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     use HasFactory;
+    public $table = 'tbl_client';
+    public $timestamps = false;
+    public $incrementing = false;
+    
+    protected $fillable = [
+        
+    ];
 }
