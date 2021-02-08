@@ -10,7 +10,7 @@ class Dcm extends Model
     use HasFactory;
 
     use HasFactory;
-    public $table = 'tbl_dfc_module';
+    public $table = 'vw_dfc_module_ccc_numbers';
     public $timestamps = false;
     public $incrementing = false;
     

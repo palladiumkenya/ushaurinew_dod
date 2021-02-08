@@ -9,33 +9,48 @@ use App\Models\Dcm;
 class DcmReportController extends Controller
 {
     //
-    public function get_dfc_clients()
-    {
-        $data = [];
+    public function index(){
 
-        $all_clients_duration_less_well = Dcm::where('duration_less', '=', 'Well');
-        $all_clients_duration_less_advanced = Dcm::where('duration_less', '=', 'Advanced');
-        $all_clients_duration_more_unstable = Dcm::where('duration_more', '=', 'Unstable');
-        $all_clients_duration_more_stable = Dcm::where('duration_more', '=', 'Stable');
+        $facilities = Facility::with('sub_county.county','partner')->whereNotNull('mobile')->whereNotNull('partner_id');
+        
+        if(Auth::user()->user_level == 2){
+            $facilities->where('partner_id', Auth::user()->partner_id);
+        }
+        if(Auth::user()->user_level == 5){
+            $facilities->join('sub_county','sub_county.id', '=', 'health_facilities.Sub_County_ID')->where('sub_county.county_id', Auth::user()->county_id);
+        }
+
+        return view('facility.facility')->with('facilities', $facilities->get());
+    }
+    public function get_dcm_less_well()
+    {       
+        $all_clients_duration_less_well = Dcm::where('status_two', '=', 'Well'); 
+             
         $all_clients_stsbility_status_on = Dcm::where('stability_status', '=', 'DCM');
         $all_clients_stability_status_not = Dcm::where('stability_status', '=', 'NotDCM');
         $all_clients_clinical_app = Dcm::whereNotNull('clinical_visit_date');
         $all_clients_refill_app = Dcm::whereNotNull('refill_date');
         $all_clients_facility_based = Dcm::whereNotNull('facility_based');
         $all_clients_community_based = Dcm::whereNotNull('community_based');
-
-        $data['all_clients_duration_less_well'] = $all_clients_duration_less_well->get();
-        $data['all_clients_duration_less_advanced'] = $all_clients_duration_less_advanced->get();
-        $data['all_clients_duration_more_unstable'] = $all_clients_duration_more_unstable->get();
-        $data['all_clients_duration_more_stable'] = $all_clients_duration_more_stable->get();
-        $data['all_clients_stability_status_on'] = $all_clients_stsbility_status_on->get();
-        $data['all_clients_stability_status_not'] = $all_clients_stability_status_not->get();
-        $data['all_clients_clinical_app'] = $all_clients_clinical_app->get();
-        $data['all_clients_refill_app'] = $all_clients_refill_app->get();
-        $data['all_clients_facility_based'] = $all_clients_facility_based->get();
-        $data['all_clients_community_based'] = $all_clients_community_based->get();
-
-
-        return $data;
-    }
+      
+        return view('dashboard/dcm_less_well')->with('all_clients_duration_less_well', $all_clients_duration_less_well->get());
+}
+public function get_dcm_less_advanced()
+{          
+    $all_clients_duration_less_advanced = Dcm::where('status_two', '=', 'Advanced');
+    
+    return view('dashboard/dcm_less_advanced')->with('all_clients_duration_less_advanced', $all_clients_duration_less_advanced->get());
+}
+public function get_dcm_more_stable()
+{          
+    $all_clients_duration_more_stable = Dcm::where('status', '=', 'Stable');
+    
+    return view('dashboard/dcm_more_stable')->with('all_clients_duration_more_stable', $all_clients_duration_more_stable->get());
+}
+public function get_dcm_more_unstable()
+{          
+    $all_clients_duration_more_unstable = Dcm::where('status', '=', 'Unstable');
+    
+    return view('dashboard/dcm_more_unstable')->with('all_clients_duration_more_unstable', $all_clients_duration_more_unstable->get());
+}
 }
