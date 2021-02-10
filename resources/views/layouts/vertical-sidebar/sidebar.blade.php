@@ -372,10 +372,48 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="form.validation.html">
-                                <i class="nav-icon i-Close-Window"></i>
-                                <span class="item-name">PMTCT Report</span>
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">PMTCT Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_booked_clients')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Client Booked</span>
                             </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_less_advanced')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Appointments Kept</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_dcm_more_stable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Unscheduled Visits</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Missed Clients</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Defaulted Clients</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Lost To Follow Up</span>
+                            </a>
+                        </li>
+                        </ul>
                         </li>
                         <li class="item-name">
                         <a class="has-arrow" href="#">

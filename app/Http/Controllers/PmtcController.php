@@ -53,4 +53,13 @@ class PmtcController extends Controller
         return $data;
 
     }
+
+    public function get_pmtct_booked_clients()
+    {
+        $all_pmtct_clients = Pmtct::select('client_id')->whereNotNull('client_id');
+        $booked_appointment_clients = Appointments::select('client_id')->where('app_status', '=', 'Booked')->whereIn('client_id', $all_pmtct_clients);
+        $all_booked_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $booked_appointment_clients);
+        return view('pmtct/booked_clients')->with('all_booked_pmtct_clients', $all_booked_pmtct_clients->get());
+    }
+
 }
