@@ -23,6 +23,7 @@
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
+                                            <th>No</th>
                                             <th>CCC Number</th>
                                                 <th>Status</th>
                                                 <th>Stability Status</th>
@@ -35,7 +36,7 @@
                                             @if (count($all_clients_duration_less_advanced) > 0)
                                                 @foreach($all_clients_duration_less_advanced as $clients)
                                                     <tr> 
-                                                       
+                                                    <td> {{ $loop->iteration }}</td>
                                                     <td> {{ ucwords($clients->clinic_number)}}</td>
                                                         <td>  {{$clients->status_two}}</td>
                                                         <td>  {{$clients->stability_status}}</td>

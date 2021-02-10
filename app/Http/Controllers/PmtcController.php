@@ -28,18 +28,18 @@ class PmtcController extends Controller
         $booked_appointment_clients = Appointments::select('client_id')->where('app_status', '=', 'Booked')->whereIn('client_id', $all_pmtct_clients);
 
         // mother as client
-        $all_honored_appointment_clients = Client::select('id', 'clinic_number')->whereIn('id', $honored_appointment_clients);
-        $all_unschedule_appointment_clients = Client::select('id', 'clinic_number')->whereIn('id', $unschedule_appointment_clients);
-        $all_schedule_appointment_clients = Client::select('id', 'clinic_number')->whereIn('id', $scheduled_appointment_clients);
-        $all_missed_appointment_clients = Client::select('id', 'clinic_number')->whereIn('id', $missed_appointment_clients);
-        $all_defaulted_appointment_clients = Client::select('id', 'clinic_number')->whereIn('id', $defaulted_appointment_clients);
-        $all_deceased_pmtct_clients = Client::select('id')->where('status', '=', 'Deceased')->whereIn('id', $all_pmtct_clients);
-        $all_ltfu_pmtct_clients = Client::select('id', 'clinic_number')->whereIn('id', $ltfu_appointment_clients);
-        $all_booked_pmtct_clients = Client::select('id', 'clinic_number')->whereIn('id', $booked_appointment_clients);
+        $all_honored_appointment_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $honored_appointment_clients);
+        $all_unschedule_appointment_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $unschedule_appointment_clients);
+        $all_schedule_appointment_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $scheduled_appointment_clients);
+        $all_missed_appointment_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $missed_appointment_clients);
+        $all_defaulted_appointment_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $defaulted_appointment_clients);
+        $all_deceased_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->where('status', '=', 'Deceased')->whereIn('id', $all_pmtct_clients);
+        $all_ltfu_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $ltfu_appointment_clients);
+        $all_booked_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $booked_appointment_clients);
         
         
         // mother data
-        $data['all_honored_appointment_clients'] = $all_honored_appointment_clients->count();
+        $data['all_honored_appointment_clients'] = $all_honored_appointment_clients->get();
         $data['all_unschedule_appointment_clients'] = $all_unschedule_appointment_clients->count();
         $data['all_schedule_appointment_clients'] = $all_schedule_appointment_clients->count();
         $data['all_missed_appointment_clients'] = $all_missed_appointment_clients->count();
@@ -47,6 +47,8 @@ class PmtcController extends Controller
         $data['all_deceased_pmtct_clients'] = $all_deceased_pmtct_clients->count();
         $data['all_ltfu_pmtct_clients'] = $all_ltfu_pmtct_clients->count();
         $data['all_booked_pmtct_clients'] = $all_booked_pmtct_clients->count();
+
+        // hei pmtct
     
         return $data;
 
