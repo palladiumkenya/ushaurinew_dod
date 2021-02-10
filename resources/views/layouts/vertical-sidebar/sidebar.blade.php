@@ -35,7 +35,7 @@
                         <ul class="mm-collapse">
                             <li class="item-name">
 
-                                <a class="" href="dashboard.v1.html">
+                                <a class="" href="{{route('home')}}">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Summary</span>
                                 </a>
@@ -380,37 +380,49 @@
                         <li class="item-name">
                             <a href="{{route('get_pmtct_booked_clients')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Client Booked</span>
+                                <span class="item-name">Clients Booked</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_dcm_less_advanced')}}">
+                            <a class="" href="{{route('get_pmtct_honored_appointment')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Appointments Kept</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="{{route('get_dcm_more_stable')}}">
+                            <a href="{{route('get_pmtct_scheduled_appointments')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Unscheduled Visits</span>
+                                <span class="item-name">Scheduled Appointments</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                            <a href="{{route('get_pmtct_unscheduled_appointments')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Unscheduled Appointments</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_missed_clients')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Missed Clients</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                            <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Defaulted Clients</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                            <a class="" href="{{route('get_pmtct_ltfu_clients')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Lost To Follow Up</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_deceased_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Deceased</span>
                             </a>
                         </li>
                         </ul>

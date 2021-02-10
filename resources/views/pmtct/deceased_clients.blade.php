@@ -10,41 +10,37 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                            <h4 class="card-title mb-3">Showing {{count($all_booked_pmtct_clients)}} Booked Clients</h4>
-                            <div class="col-md-12" style="margin-top:10px; ">
-                            
-                                
-                            </div>
-                                <div class="table-responsive">                                    
+                        <h4 class="card-title mb-3">Showing, {{count($all_deceased_pmtct_clients)}} Deceased Clients </h4>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                   
+                </div>     
+                            <div class="table-responsive">                                    
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Clinic Number</th>
-                                                <th>First Name</th>
-                                                <th>Middle Name</th>
-                                                <th>Last Name</th>
-                                                <th>Date Booked</th>
-                                                
+                                            <th>No</th>
+                                            <th>CCC Number</th>
+                                            <th>First Name</th> 
+                                            <th>Middle Name</th> 
+                                            <th>Last Name</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_booked_pmtct_clients) > 0)
-                                                @foreach($all_booked_pmtct_clients as $result)
+                                            @if (count($all_deceased_pmtct_clients) > 0)
+                                                @foreach($all_deceased_pmtct_clients as $clients)
                                                     <tr> 
-                                                        <td> {{ $loop->iteration }}</td>
-                                                        <td>  {{$result->clinic_number}}</td>
-                                                        <td>  {{$result->f_name}}</td>
-                                                        <td>  {{$result->m_name}}</td>
-                                                        <td>  {{$result->l_name}}</td>
-                                                        <td>  {{$result->l_name}}</td>                                                        
+                                                    <td> {{ $loop->iteration }}</td>
+                                                    <td> {{ ucwords($clients->clinic_number)}}</td>
+                                                    <td>  {{$clients->f_name}}</td> 
+                                                    <td>  {{$clients->m_name}}</td>
+                                                    <td>  {{$clients->l_name}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
                                         </tbody>
                                      
                                     </table>
-                                    
                                 </div>
 
                         </div>
@@ -52,11 +48,13 @@
                 </div>
                 <!-- end of col -->
 
+
+
 @endsection
 
 @section('page-js')
 
- <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+<script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
  <script type="text/javascript">
    // multi column ordering
    $('#multicolumn_ordering_table').DataTable({

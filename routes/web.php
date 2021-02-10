@@ -45,6 +45,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_dcm_more_unstable', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_more_unstable', 'as' => 'get_dcm_more_unstable']);
 
     // PMTCT routes
+    Route::get('/get_pmtct_clients_data', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_clients_data', 'as' => 'get_pmtct_clients_data']);
+
     Route::get('/get_pmtct_booked_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_booked_clients', 'as' => 'get_pmtct_booked_clients']);
-    
+    Route::get('/get_pmtct_honored_appointment', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_honored_appointment', 'as' => 'get_pmtct_honored_appointment']);
+    Route::get('/get_pmtct_scheduled_appointments', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_scheduled_appointments', 'as' => 'get_pmtct_scheduled_appointments']);
+    Route::get('/get_pmtct_unscheduled_appointments', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_unscheduled_appointments', 'as' => 'get_pmtct_unscheduled_appointments']);
+    Route::get('/get_pmtct_missed_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_missed_clients', 'as' => 'get_pmtct_missed_clients']);
+    Route::get('/get_pmtct_defaulted_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_defaulted_clients', 'as' => 'get_pmtct_defaulted_clients']);
+    Route::get('/get_pmtct_ltfu_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_ltfu_clients', 'as' => 'get_pmtct_ltfu_clients']);
+    Route::get('/get_deceased_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_deceased_clients', 'as' => 'get_deceased_clients']);
 });
