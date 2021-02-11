@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dcm extends Model
+class DcmUnstable extends Model
 {
     use HasFactory;
 
     use HasFactory;
-    public $table = 'vw_dfc_module';
+    public $table = 'tbl_dfc_module';
     public $timestamps = false;
     public $incrementing = false;
     
