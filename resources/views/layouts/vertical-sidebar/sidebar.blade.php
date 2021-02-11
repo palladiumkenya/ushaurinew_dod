@@ -89,6 +89,12 @@
                             <span class="item-name">Client Extract</span>
                         </a>
                     </li>
+                    <li class="item-name">
+                        <a href={{route('upload-clients-form')}}>
+                            <i class="nav-icon i-Cursor-Click"></i>
+                            <span class="item-name">Upload Clients</span>
+                        </a>
+                    </li>
                 </ul>
                 </li>
                 <li class="Ul_li--hover">
