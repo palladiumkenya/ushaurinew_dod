@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+ini_set('max_execution_time', 0);
+ini_set('memory_limit', '1024M');
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Excel;
 use Carbon\Carbon;
+use App\Models\Client;
+use Auth;
 
 class BulkUploadController extends Controller
 {
@@ -92,21 +96,51 @@ class BulkUploadController extends Controller
                 $smsenable = "Yes";
                 $language = 2;
 
+                $client = new Client;
+
+                $client->f_name = $first_name;
+                $client->m_name = $middle_name;
+                $client->l_name = $last_name;
+                $client->clinic_number = $clinic_number;
+                $client->phone_no = $phone_number;
+                $client->group_id = $group_id;
+                $client->language_id = $language;
+                $client->facility_id = $facility_id;
+                $client->mfl_code = $mfl_code;
+                $client->gender = $gender;
+                $client->marital = $marital;
+                $client->dob = $dob;
+                $client->art_date = $art_start_date;
+                $client->enrollment_date = $enrollment_date;
+                $client->partner_id = $partner_id;
+                $client->status = $status;
+                $client->client_status = $client_status;
+                $client->clinic_id = $clinic_id;
+                $client->txt_frequency = $text_frequency;
+                $client->txt_time = $text_time;
+                $client->wellness_enable = $wellness;
+                $client->motivational_enable = $motivational;
+                $client->created_by =  Auth::user()->id;
+                $client->updated_by = Auth::user()->id;
+
+                $existing  = Client::where('clinic_number', $clinic_number)->first();
+
+                if($existing){
+                    echo ('Client' . $clinic_number  . ' already exists in the system <br>');
+
+                }else{
+
+                    if ($client->save()) {
+                        echo ('Insert Client Record successfully for client.' . $clinic_number. '<br>');
+                    }else{
+                        echo ('Could not insert record for client.' . $clinic_number. '<br>');
+                    }
+                }
 
 
-
-
-
-
-
-
-
-
-
-            //language
             }
         }
-
+        echo  "Done";
     }
 
 
