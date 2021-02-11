@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dcm extends Model
+class Pmtct extends Model
 {
     use HasFactory;
-
-    use HasFactory;
-    public $table = 'vw_dfc_module_ccc_numbers';
+    public $table = 'tbl_pmtct';
     public $timestamps = false;
     public $incrementing = false;
     

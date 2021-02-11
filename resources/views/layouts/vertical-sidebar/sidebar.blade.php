@@ -35,7 +35,7 @@
                         <ul class="mm-collapse">
                             <li class="item-name">
 
-                                <a class="" href="dashboard.v1.html">
+                                <a class="" href="{{route('home')}}">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Summary</span>
                                 </a>
@@ -378,16 +378,92 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="form.validation.html">
-                                <i class="nav-icon i-Close-Window"></i>
-                                <span class="item-name">PMTCT Report</span>
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">PMTCT Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_booked_clients')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Clients Booked</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="form.validation.html">
-                                <i class="nav-icon i-Close-Window"></i>
-                                <span class="item-name">DCM Report</span>
+                            <a class="" href="{{route('get_pmtct_honored_appointment')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Appointments Kept</span>
                             </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_scheduled_appointments')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Scheduled Appointments</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_unscheduled_appointments')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Unscheduled Appointments</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_missed_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Missed Clients</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Defaulted Clients</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_ltfu_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Lost To Follow Up</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_deceased_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Deceased</span>
+                            </a>
+                        </li>
+                        </ul>
+                        </li>
+                        <li class="item-name">
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">DCM Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('get_dcm_less_well')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Less Well</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_less_advanced')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Less Advanced</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_dcm_more_stable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">More Stable</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_dcm_more_unstable')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">More Unstable</span>
+                            </a>
+                        </li>
+                        </ul>
                         </li>
                         <li class="item-name">
                             <a href="smart.wizard.html">
