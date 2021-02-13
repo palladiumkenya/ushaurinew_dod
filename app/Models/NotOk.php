@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class NotOk extends Model
 {
     use HasFactory;
 
-    public $table = 'tbl_groups';
+    public $table = 'tbl_not_ok';
     public $timestamps = false;
     public $incrementing = false;
     
