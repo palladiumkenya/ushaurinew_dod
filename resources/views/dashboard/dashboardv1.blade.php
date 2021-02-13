@@ -28,7 +28,7 @@
                             <i class="i-Financial"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">No. of Clients</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">$4021</p>
+                                <p id="all_clients_number" class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -374,8 +374,31 @@
 @endsection
 
 @section('page-js')
+
+     
      <script src="{{asset('assets/js/vendor/echarts.min.js')}}"></script>
      <script src="{{asset('assets/js/es5/echart.options.min.js')}}"></script>
      <script src="{{asset('assets/js/es5/dashboard.v1.script.js')}}"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js">
+    </script>
+
+     <script type="text/javascript">
+
+     $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: "{{ route('get_client_data') }}",
+            success: function(data) {
+                $("#all_clients_number").html(data.all_clients_number);
+                
+            }
+        });
+
+        </script>
 
 @endsection

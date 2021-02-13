@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dashboard extends Model
 {
     use HasFactory;
-    public $table = 'tbl_client';
+    public $table = 'vw_client_summary_report';
     public $timestamps = false;
     public $incrementing = false;
     

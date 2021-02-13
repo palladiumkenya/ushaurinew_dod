@@ -10,10 +10,9 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                            <h4 class="card-title mb-3">Showing {{count($all_booked_pmtct_clients)}} Booked Clients</h4>
+                           <! <h4 class="card-title mb-3">Missed Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
-                            
-                                
+                                                           
                             </div>
                                 <div class="table-responsive">                                    
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
@@ -21,23 +20,37 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Clinic Number</th>
+                                                <th>Serial No</th>
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>
-                                                <th>Date Booked</th>
+                                                <th>Phone No</th>
+                                                <th>Appointment Date</th>
+                                                <th>Appointment Type</th>
+                                                <th>No of Calls</th>
+                                                <th>No of Msgs</th>
+                                                <th>No of Visits</th>
+                                                <th>Outgoing Msgs</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_booked_pmtct_clients) > 0)
-                                                @foreach($all_booked_pmtct_clients as $result)
+                                            @if (count($all_missed_appointments) > 0)
+                                                @foreach($all_missed_appointments as $result)
                                                     <tr> 
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
+                                                        <td>  {{$result->file_no}}</td>
                                                         <td>  {{$result->f_name}}</td>
                                                         <td>  {{$result->m_name}}</td>
                                                         <td>  {{$result->l_name}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>                                                        
+                                                        <td>  {{$result->phone_no}}</td>
+                                                        <td>  {{$result->appntmnt_date}}</td>
+                                                        <td>  {{$result->app_type_1}}</td>
+                                                        <td>  {{$result->no_calls}}</td>
+                                                        <td>  {{$result->no_msgs}}</td>
+                                                        <td>  {{$result->home_visits}}</td>
+                                                        <td>  {{$result->app_msg}}</td>                                                        
                                                     </tr>
                                                 @endforeach
                                             @endif

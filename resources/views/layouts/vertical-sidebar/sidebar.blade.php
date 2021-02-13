@@ -111,7 +111,7 @@
                             </a>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                    <a class="" href="todo-list.html">
+                                <a href="{{route('get_future_appointments')}}">
                                         <i class="nav-icon i-Receipt"></i>
                                         <span class="item-name">Future</span>
                                     </a>
@@ -126,7 +126,7 @@
                             </a>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                    <a class="" href="todo-list.html">
+                                <a href={{route('report-appointments-missed')}}>
                                         <i class="nav-icon i-Receipt"></i>
                                         <span class="item-name">Missed</span>
                                     </a>
@@ -134,7 +134,7 @@
                             </ul>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                    <a class="" href="todo-list.html">
+                                <a href={{route('report-appointments-defaulted')}}>
                                         <i class="nav-icon i-Receipt"></i>
                                         <span class="item-name">Defaulted</span>
                                     </a>
@@ -142,7 +142,7 @@
                             </ul>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                    <a class="" href="todo-list.html">
+                                <a href={{route('report-appointments-ltfu_clients')}}>
                                         <i class="nav-icon i-Receipt"></i>
                                         <span class="item-name">Lost To Follow Up</span>
                                     </a>

@@ -25,11 +25,11 @@
                                             <tr>
                                             <th>No</th>
                                             <th>CCC Number</th>
+                                                <th>First Name</th>
+                                                <th>Middle Name</th>
+                                                <th>Last Name</th>
                                                 <th>Status</th>
-                                                <th>Stability Status</th>
-                                                <th>Refill Date</th>
-                                                <th>Clinical Review Date</th>
-                                               
+                                                <th>Appointment Date</th>                                               
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -38,10 +38,11 @@
                                                     <tr> 
                                                     <td> {{ $loop->iteration }}</td>
                                                     <td> {{ ucwords($clients->clinic_number)}}</td>
-                                                        <td>  {{$clients->status_two}}</td>
-                                                        <td>  {{$clients->stability_status}}</td>
-                                                        <td>  {{$clients->refill_date}}</td>
-                                                        <td>  {{$clients->clinical_visit_date}}</td>
+                                                    <td>  {{$clients->f_name}}</td>
+                                                        <td>  {{$clients->m_name}}</td>
+                                                        <td>  {{$clients->l_name}}</td>
+                                                        <td>  {{$clients->duration_less}}</td>
+                                                        <td>  {{$clients->appntmnt_date}}</td>
                                                        
                                                        
                                                     </tr>

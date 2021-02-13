@@ -10,10 +10,9 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                            <h4 class="card-title mb-3">Showing {{count($all_booked_pmtct_clients)}} Booked Clients</h4>
+                           <! <h4 class="card-title mb-3">Future Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
-                            
-                                
+                                                           
                             </div>
                                 <div class="table-responsive">                                    
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
@@ -21,23 +20,29 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Clinic Number</th>
+                                                <th>Serial No</th>
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>
-                                                <th>Date Booked</th>
+                                                <th>Phone No</th>
+                                                <th>Appointment Date</th>
+                                                <th>Appointment Type</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_booked_pmtct_clients) > 0)
-                                                @foreach($all_booked_pmtct_clients as $result)
+                                            @if (count($all_future_appointments) > 0)
+                                                @foreach($all_future_appointments as $result)
                                                     <tr> 
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
+                                                        <td>  {{$result->file_no}}</td>
                                                         <td>  {{$result->f_name}}</td>
                                                         <td>  {{$result->m_name}}</td>
                                                         <td>  {{$result->l_name}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>                                                        
+                                                        <td>  {{$result->phone_no}}</td>
+                                                        <td>  {{$result->appntmnt_date}}</td>
+                                                        <td>  {{$result->app_type_1}}</td>                                                        
                                                     </tr>
                                                 @endforeach
                                             @endif

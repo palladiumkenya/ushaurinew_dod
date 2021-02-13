@@ -23,7 +23,8 @@
                                             <th>CCC Number</th>
                                             <th>First Name</th> 
                                             <th>Middle Name</th> 
-                                            <th>Last Name</th> 
+                                            <th>Last Name</th>
+                                            <th>Appointment Date</th>  
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -35,6 +36,7 @@
                                                     <td>  {{$clients->f_name}}</td> 
                                                     <td>  {{$clients->m_name}}</td>
                                                     <td>  {{$clients->l_name}}</td>
+                                                    <td>  {{$clients->appntmnt_date}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif

@@ -28,20 +28,19 @@ class DcmReportController extends Controller
     }
     public function get_dcm_less_well()
     {       
-        $all_clients_duration_less_well = Dcm::where('status_two', '=', 'Well'); 
-             
-        $all_clients_stsbility_status_on = Dcm::where('stability_status', '=', 'DCM');
-        $all_clients_stability_status_not = Dcm::where('stability_status', '=', 'NotDCM');
-        $all_clients_clinical_app = Dcm::whereNotNull('clinical_visit_date');
-        $all_clients_refill_app = Dcm::whereNotNull('refill_date');
-        $all_clients_facility_based = Dcm::whereNotNull('facility_based');
-        $all_clients_community_based = Dcm::whereNotNull('community_based');
+        $all_clients_duration_less_well = DcmUnstable::join('tbl_client', 'tbl_client.id', '=', 'tbl_dfc_module.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_dfc_module.duration_less, tbl_appointment.appntmnt_date')
+        ->where('duration_less', '=', 'Well'); 
       
         return view('dashboard/dcm_less_well')->with('all_clients_duration_less_well', $all_clients_duration_less_well->get());
 }
 public function get_dcm_less_advanced()
 {          
-    $all_clients_duration_less_advanced = Dcm::where('duration_less', '=', 'Advanced');
+    $all_clients_duration_less_advanced = DcmUnstable::join('tbl_client', 'tbl_client.id', '=', 'tbl_dfc_module.client_id')
+    ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+    ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_dfc_module.duration_less, tbl_appointment.appntmnt_date')
+    ->where('duration_less', '=', 'Advanced');
     
     return view('dashboard/dcm_less_advanced')->with('all_clients_duration_less_advanced', $all_clients_duration_less_advanced->get());
 }
@@ -55,7 +54,10 @@ public function get_dcm_more_unstable()
 {   
 
     $all_clients_duration_more_unstable = DcmUnstable::join('tbl_client', 'tbl_client.id', '=', 'tbl_dfc_module.client_id')
-    ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_dfc_module.duration_more, tbl_appointment.appntmnt_date')->where('tbl_dfc_module.duration_more', '=', 'Unstable');
+    ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+    ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_dfc_module.duration_more, tbl_appointment.appntmnt_date')
+    ->where('tbl_dfc_module.duration_more', '=', 'Unstable')
+    ->where('tbl_appointment.active_app', '=', 1);
 
     return view('dashboard/dcm_more_unstable')->with('all_clients_duration_more_unstable', $all_clients_duration_more_unstable->get());
 }
