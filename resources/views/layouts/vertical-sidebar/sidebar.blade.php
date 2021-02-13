@@ -156,7 +156,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="tour.html">
+                        <a href={{route('report-appointments')}}>
                                 <i class="nav-icon i-Plane"></i>
                                 <span class="item-name">Appointments</span>
                             </a>
