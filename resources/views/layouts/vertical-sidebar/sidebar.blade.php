@@ -182,19 +182,19 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                            <a href="contact-list-table.html">
+                        <a href={{route('report-ok_clients')}}>
                                 <i class="nav-icon i-Business-Mens"></i>
                                 <span class="item-name">Ok</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="invoice.html">
+                        <a href={{route('report-not_ok_clients')}}>
                                 <i class="nav-icon i-Add-File"></i>
                                 <span class="item-name">Not Ok</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="inbox.html">
+                        <a href={{route('report-unrecognised_response')}}>
                                 <i class="nav-icon i-Email"></i>
                                 <span class="item-name">Unrecognised</span>
                             </a>

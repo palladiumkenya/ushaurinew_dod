@@ -10,7 +10,8 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                           <! <h4 class="card-title mb-3">Missed Appointments List</h4>
+                        <! <h4 class="card-title mb-3">Check-ins List</h4>
+                           <p>List of Clients Check-Ins</p>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -20,37 +21,31 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Clinic Number</th>
-                                                <th>Serial No</th>
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>
                                                 <th>Phone No</th>
-                                                <th>Appointment Date</th>
-                                                <th>Appointment Type</th>
-                                                <th>No of Calls</th>
-                                                <th>No of Msgs</th>
-                                                <th>No of Visits</th>
-                                                <th>Outgoing Msgs</th>
+                                                <th>Grouping</th>
+                                                <th>Treatment</th>
+                                                <th>Response</th>
+                                                <th>Sent Date</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_missed_appointments) > 0)
-                                                @foreach($all_missed_appointments as $result)
+                                            @if (count($all_ok_clients) > 0)
+                                                @foreach($all_ok_clients as $result)
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
-                                                        <td>  {{$result->file_no}}</td>
                                                         <td>  {{$result->f_name}}</td>
                                                         <td>  {{$result->m_name}}</td>
                                                         <td>  {{$result->l_name}}</td>
                                                         <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>
-                                                        <td>  {{$result->app_type_1}}</td>
-                                                        <td>  {{$result->no_calls}}</td>
-                                                        <td>  {{$result->no_msgs}}</td>
-                                                        <td>  {{$result->home_visits}}</td>
-                                                        <td>  {{$result->app_msg}}</td>
+                                                        <td>  {{$result->name}}</td>
+                                                        <td>  {{$result->client_status}}</td>
+                                                        <td>  {{$result->msg}}</td>
+                                                        <td>  {{$result->created_at}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
