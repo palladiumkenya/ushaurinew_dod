@@ -210,25 +210,25 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                            <a class="" href="widget-card.html">
+                        <a href={{route('report-adolescent_clients')}}>
                                 <i class="nav-icon i-Receipt-4"></i>
                                 <span class="item-name">Adolescent</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="widgets-statistics.html">
+                        <a href={{route('report-pmtct_clients')}}>
                                 <i class="nav-icon i-Receipt-4"></i>
                                 <span class="item-name">PMTCT</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="widget-list.html">
+                        <a href={{route('report-adults_clients')}}>
                                 <i class="nav-icon i-Receipt-4"></i>
                                 <span class="item-name">Adult</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="widget-app.html">
+                        <a href={{route('report-paeds_clients')}}>
                                 <i class="nav-icon i-Receipt-4"></i>
                                 <span class="item-name">Paeds </span>
                             </a>
@@ -417,6 +417,63 @@
                             <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Defaulted Clients</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_ltfu_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Lost To Follow Up</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_deceased_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Deceased</span>
+                            </a>
+                        </li>
+                        </ul>
+                        </li>
+
+                        <li class="item-name">
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">Hei Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('report-all_heis')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">All Hei</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_honored_appointment')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Hei Booked</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_scheduled_appointments')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Unscheduled</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('get_pmtct_unscheduled_appointments')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Scheduled</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_missed_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Missed</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Defaulted</span>
                             </a>
                         </li>
                         <li class="item-name">

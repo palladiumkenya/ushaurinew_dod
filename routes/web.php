@@ -80,4 +80,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_pmtct_defaulted_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_defaulted_clients', 'as' => 'get_pmtct_defaulted_clients']);
     Route::get('/get_pmtct_ltfu_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_ltfu_clients', 'as' => 'get_pmtct_ltfu_clients']);
     Route::get('/get_deceased_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_deceased_clients', 'as' => 'get_deceased_clients']);
+
+    Route::get('/report/all_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_all_hei', 'as' => 'report-all_heis']);
 });

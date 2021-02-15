@@ -16,11 +16,11 @@ class PmtcController extends Controller
     public function get_pmtct_clients_data()
     {
         $data = [];
-         
-        
+
+
          // mother pmtct
         $all_pmtct_clients = Pmtct::select('client_id')->whereNotNull('client_id');
- 
+
         //mother appointment
         $honored_appointment_clients = Appointments::select('client_id')->where('appointment_kept', '=', 'Yes')->whereIn('client_id', $all_pmtct_clients);
         $unschedule_appointment_clients = Appointments::select('client_id')->where('visit_type', '=', 'Un-Scheduled')->whereIn('client_id', $all_pmtct_clients);
@@ -40,8 +40,8 @@ class PmtcController extends Controller
         $all_deceased_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->where('status', '=', 'Deceased')->whereIn('id', $all_pmtct_clients);
         $all_ltfu_pmtct_clients = Client::selectRaw('id, clinic_number, CONCAT(f_name, " ", m_name, "", l_name) AS client_name')->whereIn('id', $ltfu_appointment_clients);
         $all_booked_pmtct_clients = Client::select('id', 'clinic_number', 'f_name', 'm_name', 'l_name')->whereIn('id', $booked_appointment_clients);
-        
-        
+
+
         // mother data
         $data['all_honored_appointment_clients'] = $all_honored_appointment_clients->count();
         $data['all_unschedule_appointment_clients'] = $all_unschedule_appointment_clients->count();
@@ -53,7 +53,7 @@ class PmtcController extends Controller
         $data['all_booked_pmtct_clients'] = $all_booked_pmtct_clients->get();
 
         // hei pmtct
-    
+
         return $data;
 
     }
@@ -130,7 +130,7 @@ class PmtcController extends Controller
        //->innerJoin('tbl_appointment_types')->ON('tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
         ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
         ->where('app_status', '=', 'LTFU');
-        
+
         return view('pmtct/ltfu_appointments')->with('all_ltfu_pmtct_clients', $all_ltfu_pmtct_clients->get());
     }
 
@@ -141,5 +141,14 @@ class PmtcController extends Controller
 
         return view('pmtct/deceased_clients')->with('all_deceased_pmtct_clients', $all_deceased_pmtct_clients->get());
     }
+
+    public function get_all_hei()
+    {
+        $all_hei = Client::select('clinic_number', 'f_name', 'm_name', 'l_name', 'dob', 'client_status', 'phone_no', 'enrollment_date', 'art_date', 'hei_no')
+        ->whereNotNull('hei_no');
+
+        return view('pmtct/all_heis')->with('all_hei', $all_hei->get());
+    }
+    
 
 }
