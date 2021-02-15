@@ -39,7 +39,7 @@ class GroupController extends Controller
     {
         $all_paeds_clients = Client::join('tbl_groups', 'tbl_group.id', '=', 'tbl_client.group_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.client_status, tbl_client.phone_no, tbl_client.enrollment_date, tbl_groups.name')
-        ->where('tbl_groups.name', '=', 'PAEDS');
+        ->where('tbl_groups.name', '=', 'Paeds');
 
         return view('clients.pmtct_clients')->with('all_paeds_clients', $all_paeds_clients->get());
     }

@@ -57,6 +57,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('report/not_ok_clients', ['uses'=>'App\Http\Controllers\WellnessController@get_not_ok_clients', 'as' => 'report-not_ok_clients']);
     Route::get('report/unrecognised_response', ['uses'=>'App\Http\Controllers\WellnessController@get_unrecoginised_clients', 'as' => 'report-unrecognised_response']);
 
+    // grouping routes
+    Route::get('report/adolescent_clients', ['uses'=>'App\Http\Controllers\GroupController@get_adolescents_clients', 'as' => 'report-adolescent_clients']);
+    Route::get('report/pmtct_clients', ['uses'=>'App\Http\Controllers\GroupController@get_pmtct_clients', 'as' => 'report-pmtct_clients']);
+    Route::get('report/adults_clients', ['uses'=>'App\Http\Controllers\GroupController@get_psc_clients', 'as' => 'report-adults_clients']);
+    Route::get('report/paeds_clients', ['uses'=>'App\Http\Controllers\GroupController@get_paeds_clients', 'as' => 'report-paeds_clients']);
 
     //routes for bulk clients upload
     Route::get('/upload/clients/form', ['uses'=>'App\Http\Controllers\BulkUploadController@uploadClientForm', 'as' => 'upload-clients-form']);
