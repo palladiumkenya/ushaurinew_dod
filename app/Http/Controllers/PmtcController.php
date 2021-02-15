@@ -149,6 +149,23 @@ class PmtcController extends Controller
 
         return view('pmtct/all_heis')->with('all_hei', $all_hei->get());
     }
-    
+    public function get_booked_hei()
+    {
+        $all_booked_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->whereNotNull('tbl_client.hei_no');
 
+        return view('pmtct/booked_heis')->with('all_booked_heis', $all_booked_heis->get());
+    }
+
+    public function get_scheduled_hei()
+    {
+        $all_scheduled_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/scheduled_heis')->with('all_scheduled_heis', $all_scheduled_heis->get());
+    }
 }

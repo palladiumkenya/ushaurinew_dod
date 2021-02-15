@@ -447,7 +447,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_honored_appointment')}}">
+                            <a class="" href="{{route('report-booked_heis')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Hei Booked</span>
                             </a>

@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Heis Listing</h4>
+                        <! <h4 class="card-title mb-3">Booked Heis List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -25,14 +25,14 @@
                                                 <th>Last Name</th>
                                                 <th>Hei Number</th>
                                                 <th>Phone No</th>
-                                                <th>Birth Date</th>
-                                                <th>Treatment</th>
+                                                <th>Appointment Date</th>
+                                                <th>Appoitment Type</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_hei) > 0)
-                                                @foreach($all_hei as $result)
+                                            @if (count($all_booked_heis) > 0)
+                                                @foreach($all_booked_heis as $result)
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
@@ -41,8 +41,8 @@
                                                         <td>  {{$result->l_name}}</td>
                                                         <td>  {{$result->hei_no}}</td>
                                                         <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->dob}}</td>
-                                                        <td>  {{$result->client_status}}</td>
+                                                        <td>  {{$result->appntmnt_date}}</td>
+                                                        <td>  {{$result->app_type_1}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
