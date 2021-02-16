@@ -84,4 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/all_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_all_hei', 'as' => 'report-all_heis']);
     Route::get('/report/booked_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_booked_hei', 'as' => 'report-booked_heis']);
     Route::get('/report/scheduled_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_scheduled_hei', 'as' => 'report-scheduled_heis']);
+    Route::get('/report/unscheduled_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_unscheduled_hei', 'as' => 'report-unscheduled_heis']);
+    Route::get('/report/missed_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_missed_hei', 'as' => 'report-missed_heis']);
+    Route::get('/report/defaulted_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_defaulted_hei', 'as' => 'report-defaulted_heis']);
 });

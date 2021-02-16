@@ -162,10 +162,40 @@ class PmtcController extends Controller
     public function get_scheduled_hei()
     {
         $all_scheduled_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.visit_type')
         ->where('tbl_appointment.visit_type', '=', 'Scheduled')
         ->whereNotNull('tbl_client.hei_no');
 
         return view('pmtct/scheduled_heis')->with('all_scheduled_heis', $all_scheduled_heis->get());
+    }
+
+    public function get_unscheduled_hei()
+    {
+        $all_unscheduled_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.visit_type')
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/unscheduled_heis')->with('all_unscheduled_heis', $all_unscheduled_heis->get());
+    }
+
+    public function get_missed_hei()
+    {
+        $all_missed_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/missed_heis')->with('all_missed_heis', $all_missed_heis->get());
+    }
+
+    public function get_defaulted_hei()
+    {
+        $all_defaulted_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/defaulted_heis')->with('all_defaulted_heis', $all_defaulted_heis->get());
     }
 }

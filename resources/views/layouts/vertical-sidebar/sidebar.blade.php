@@ -453,25 +453,25 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="{{route('get_pmtct_scheduled_appointments')}}">
+                            <a href="{{route('report-unscheduled_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Unscheduled</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="{{route('get_pmtct_unscheduled_appointments')}}">
+                            <a href="{{route('report-scheduled_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Scheduled</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_missed_clients')}}">
+                            <a class="" href="{{route('report-missed_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Missed</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
+                            <a class="" href="{{route('report-defaulted_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Defaulted</span>
                             </a>
