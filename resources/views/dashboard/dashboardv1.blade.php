@@ -2,11 +2,61 @@
 @section('main-content')
            <div class="breadcrumb">
                 <ul>
-                    <li><a href="">Dashboard</a></li>  
+                    <li><a href="">Dashboard</a></li>
                 </ul>
             </div>
 
             <div class="separator-breadcrumb border-top"></div>
+            <form role="form" method="post" action="#" id="dataFilter">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for=" partners" class="col-form-label"><b>Select Partner(s)</b></label>
+                    <select class=" partners form-control selectpicker" id="partners" name="partners[]" multiple
+                        data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for=" counties" class="col-form-label"><b>Select County(s)</b></label>
+                    <select class=" counties form-control selectpicker" id="counties" name="counties[]" multiple
+                        data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="subcounties" class="col-form-label"><b>Select Sub-County(s)</b></label>
+                    <select class=" subcounties form-control selectpicker" id="subcounties" name="subcounties[]"
+                        multiple data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="facilities" class="col-form-label"><b>Select Facility(s)</b></label>
+                    <select class="facilities form-control selectpicker" id="facilities" name="facilities[]" multiple
+                        data-live-search="true">
+
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="daterange" class="col-form-label"></label>
+                    <button type="submit" class="btn btn-warning"><b>Filter</b> <i
+                            class="i-Filter"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div class="separator-breadcrumb border-top"></div>
 
             <div class="row">
                 <!-- ICON BG -->
@@ -16,7 +66,7 @@
                             <i class="i-Add-User"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Target Active Clients</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">205</p>
+                                <p id='sum(actual_clients)' class="text-primary text-24 line-height-1 mb-2">205</p>
                             </div>
                         </div>
                     </div>
@@ -27,7 +77,7 @@
                         <div class="card-body text-center">
                             <i class="i-Financial"></i>
                             <div class="content">
-                                <p class="text-muted mt-2 mb-0">No. of Clients</p>
+                                <p class="text-muted mt-2 mb-0">No. of Active Clients</p>
                                 <p id="all_clients_number" class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
@@ -52,7 +102,7 @@
                             <i class="i-Money-2"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Consented Clients</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">$1200</p>
+                                <p id="all_consented_clients" class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -63,7 +113,7 @@
                             <i class="i-Money-2"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Future Appointments</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">$1200</p>
+                                <p id="all_future_appointments" class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -75,7 +125,7 @@
                             <i class="i-Money-2"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">No. of Facilities</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">$1200</p>
+                                <p id='number_of_facilities' class="text-primary text-24 line-height-1 mb-2">$1200</p>
                             </div>
                         </div>
                     </div>
@@ -375,7 +425,7 @@
 
 @section('page-js')
 
-     
+
      <script src="{{asset('assets/js/vendor/echarts.min.js')}}"></script>
      <script src="{{asset('assets/js/es5/echart.options.min.js')}}"></script>
      <script src="{{asset('assets/js/es5/dashboard.v1.script.js')}}"></script>
@@ -394,8 +444,14 @@
             type: 'GET',
             url: "{{ route('get_client_data') }}",
             success: function(data) {
+                $("#partners").selectpicker('refresh');
+                $("#counties").selectpicker('refresh');
                 $("#all_clients_number").html(data.all_clients_number);
-                
+                $("#all_consented_clients").html(data.all_consented_clients);
+                $("#all_future_appointments").html(data.all_future_appointments);
+                $("#number_of_facilities").html(data.number_of_facilities);
+                $("#sum(actual_clients)").html(data.sum(actual_clients));
+
             }
         });
 

@@ -198,4 +198,24 @@ class PmtcController extends Controller
 
         return view('pmtct/defaulted_heis')->with('all_defaulted_heis', $all_defaulted_heis->get());
     }
+
+    public function get_ltfu_hei()
+    {
+        $all_ltfu_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/ltfu_heis')->with('all_ltfu_heis', $all_ltfu_heis->get());
+    }
+
+    public function get_deceased_hei()
+    {
+        $all_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
+        ->where('tbl_appointment.app_status', '=', 'Deceased')
+        ->whereNotNull('tbl_client.hei_no');
+
+        return view('pmtct/deceased_heis')->with('all_deceased_heis', $all_deceased_heis->get());
+    }
 }

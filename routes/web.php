@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/Login', function () {
     return view('sessions/signIn');
 });
 
@@ -37,8 +37,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/Reports/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/logout', ['uses'=>'App\Http\Controllers\Auth\LoginController@logout', 'as' => 'logout']);
 
-    // DCM routes
+    // Dashboard routes
     Route::get('/get_client_data', ['uses' => 'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
+
+    // DCM routes
+   // Route::get('/get_client_data', ['uses' => 'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
     Route::get('/get_dfc_clients', ['uses' => 'App\Http\Controller\DcmReportController@get_dfc_clients', 'as' => 'get_dfc_clients']);
     Route::get('/get_dcm_less_well', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_less_well', 'as' => 'get_dcm_less_well']);
     Route::get('/get_dcm_less_advanced', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_less_advanced', 'as' => 'get_dcm_less_advanced']);
@@ -87,4 +90,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/unscheduled_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_unscheduled_hei', 'as' => 'report-unscheduled_heis']);
     Route::get('/report/missed_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_missed_hei', 'as' => 'report-missed_heis']);
     Route::get('/report/defaulted_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_defaulted_hei', 'as' => 'report-defaulted_heis']);
+    Route::get('/report/ltfu_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_ltfu_hei', 'as' => 'report-ltfu_heis']);
+    Route::get('/report/deceased_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_deceased_hei', 'as' => 'report-deceased_heis']);
 });

@@ -477,13 +477,13 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_ltfu_clients')}}">
+                            <a class="" href="{{route('report-ltfu_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Lost To Follow Up</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="{{route('get_deceased_clients')}}">
+                            <a class="" href="{{route('report-deceased_heis')}}">
                                 <i class="nav-icon i-Split-Vertical"></i>
                                 <span class="item-name">Deceased</span>
                             </a>
