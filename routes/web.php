@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('report/appointments/defaulted', ['uses'=>'App\Http\Controllers\AppointmentController@get_defaulted_appointments', 'as' => 'report-appointments-defaulted']);
     Route::get('report/appointments/ltfu_clients', ['uses'=>'App\Http\Controllers\AppointmentController@get_ltfu_appointments', 'as' => 'report-appointments-ltfu_clients']);
     Route::get('report/appointments', ['uses'=>'App\Http\Controllers\AppointmentController@get_appointment_list', 'as' => 'report-appointments']);
+    //Route::get('report/edit-appointments', ['uses'=>'App\Http\Controllers\AppointmentController@get_appointment_list', 'as' => 'report-appointments']);
 
     // wellness routes
     Route::get('report/ok_clients', ['uses'=>'App\Http\Controllers\WellnessController@get_ok_clients', 'as' => 'report-ok_clients']);

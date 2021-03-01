@@ -56,7 +56,7 @@ class AppointmentController extends Controller
     {
         $all_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_client.status, tbl_client.enrollment_date, tbl_client.art_date, tbl_client.created_at')
-        ->whereNotNull('tbl_appointment.appntmnt_date');
+        ->whereNotNull('tbl_appointment.appntmnt_date')->orderBy('tbl_appointment.appntmnt_date')->limit(1000);
 
         return view('appointments.appointments_list')->with('all_appointments', $all_appointments->get());
 

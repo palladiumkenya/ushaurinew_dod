@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                           <! <h4 class="card-title mb-3">Lost To Follow Up Appointments List</h4>
+                           <! <h4 class="card-title mb-3"> Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
                                                            
                             </div>
@@ -35,8 +35,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($all_ltfu_appointments) > 0)
-                                                @foreach($all_ltfu_appointments as $result)
+                                            @if (count($all_appointments) > 0)
+                                                @foreach($all_appointments as $result)
                                                     <tr> 
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>

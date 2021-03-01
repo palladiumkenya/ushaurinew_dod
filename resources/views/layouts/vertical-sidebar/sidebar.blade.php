@@ -150,13 +150,13 @@
                             </ul>
                         </li>
                         <li class="item-name">
-                            <a href="sweet.alerts.html">
+                            <a href="">
                                 <i class="nav-icon i-Approved-Window"></i>
                                 <span class="item-name">Edit Appointment</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-appointments')}}>
+                        <a href="{{route('report-appointments')}}">
                                 <i class="nav-icon i-Plane"></i>
                                 <span class="item-name">Appointments</span>
                             </a>
