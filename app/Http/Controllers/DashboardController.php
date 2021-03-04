@@ -14,6 +14,7 @@ use App\Models\Consented;
 use App\Models\Appointments;
 use App\Models\County;
 use Carbon\Carbon;
+use Auth;
 
 use Illuminate\Http\Request;
 

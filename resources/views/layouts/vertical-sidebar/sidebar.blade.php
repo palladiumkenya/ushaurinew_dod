@@ -77,7 +77,7 @@
                             </li>
                             <li class="item-name">
                             <li class="nav-item">
-                                <a href="dropdown.html">
+                            <a href={{route('report-clients-list')}}>
                                     <i class="nav-icon i-Bell1"></i>
                                     <span class="item-name">Clients</span>
                                 </a>
@@ -162,13 +162,13 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="upload.html">
+                        <a href=>
                                 <i class="nav-icon i-Data-Upload"></i>
                                 <span class="item-name">Appointment Diary</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="upload.html">
+                        <a href={{route('report-appointments-calender')}}>
                                 <i class="nav-icon i-Data-Upload"></i>
                                 <span class="item-name">Calender</span>
                             </a>

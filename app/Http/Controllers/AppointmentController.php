@@ -8,6 +8,8 @@ ini_set('memory_limit', '1024M');
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Appointments;
+use App\Models\AppointmentType;
+use Redirect,Response;
 use Auth;
 
 class AppointmentController extends Controller
@@ -60,5 +62,36 @@ class AppointmentController extends Controller
 
         return view('appointments.appointments_list')->with('all_appointments', $all_appointments->get());
 
+    }
+
+    public function get_count_appointments()
+    {
+        $data = [];
+        $all_count_appointment = Appointments::selectRaw('tbl_appointment_types.name, tbl_client.clinic_number, tbl_appointment.appntmnt_date AS start, COUNT(tbl_appointment.id) AS title')
+        ->join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->whereNotNull('tbl_appointment.id');
+
+       // ->innerJoin('tbl_appointment_types') ON 'tbl_appointment_types.id' = 'tbl_appointment.app_type_1'
+
+       $data['all_count_appointment'] = $all_count_appointment->get();
+       return $data;
+    }
+
+    public function get_appointment_count()
+    {
+        $data = [
+            'start AS appntmnt_date',
+            'end AS appntmnt_',
+            'title AS name',
+        ];
+        $all_count_appointment = Appointments::selectRaw('tbl_appointment_types.name, tbl_appointment.appntmnt_date AS start, COUNT(tbl_appointment.id) AS title')
+        ->join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->whereNotNull('tbl_appointment.id')
+        ->get($data);
+
+        $calender_data = $all_count_appointment->toJson();
+        //console.log( $calender_data );
     }
 }

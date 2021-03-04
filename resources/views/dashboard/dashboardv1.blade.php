@@ -125,7 +125,7 @@
                             <i class="i-Money-2"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">No. of Facilities</p>
-                                <p id='number_of_facilities' class="text-primary text-24 line-height-1 mb-2">$1200</p>
+                                <p id='number_of_facilities' class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
