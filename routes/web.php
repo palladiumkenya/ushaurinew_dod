@@ -52,6 +52,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_dcm_more_unstable', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_more_unstable', 'as' => 'get_dcm_more_unstable']);
 
     // Appointments routes
+
+    Route::get('report/appointment/dashboard', ['uses'=>'App\Http\Controllers\AppointmentController@appointment_dashboard', 'as' => 'report-appointment-dashboard']);
+    Route::get('report/active/missed', ['uses'=>'App\Http\Controllers\AppointmentController@get_active_missed', 'as' => 'report-active-missed']);
+    Route::get('report/active/defaulted', ['uses'=>'App\Http\Controllers\AppointmentController@get_active_defaulted', 'as' => 'report-active-defaulted']);
+    Route::get('report/active/ltfu', ['uses'=>'App\Http\Controllers\AppointmentController@get_active_ltfu', 'as' => 'report-active-ltfu']);
+    Route::get('report/appointment/honourned', ['uses'=>'App\Http\Controllers\AppointmentController@get_app_honourned', 'as' => 'report-appointment-honourned']);
+    Route::get('report/created/appointments', ['uses'=>'App\Http\Controllers\AppointmentController@get_created_appointments', 'as' => 'report-created-appointments']);
     Route::get('get_future_appointments', ['uses'=>'App\Http\Controllers\AppointmentController@get_future_appointments', 'as' => 'get_future_appointments']);
     Route::get('report/appointments/missed', ['uses'=>'App\Http\Controllers\AppointmentController@get_missed_appointments', 'as' => 'report-appointments-missed']);
     Route::get('report/appointments/defaulted', ['uses'=>'App\Http\Controllers\AppointmentController@get_defaulted_appointments', 'as' => 'report-appointments-defaulted']);

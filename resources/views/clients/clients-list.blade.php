@@ -45,7 +45,7 @@
                                                         <td>  {{$result->client_name}}</td>
                                                         <td>  {{$result->phone_no}}</td>
                                                         <td>  {{$result->dob}}</td>
-                                                        <td>  {{$result->group_name}}</td>
+                                                        <td>  {{$result->name}}</td>
                                                         <td>  {{$result->group_name}}</td>
                                                         <td>  {{$result->client_status}}</td>
                                                         <td>  {{$result->status}}</td>

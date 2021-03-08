@@ -41,13 +41,7 @@
                                 </a>
                             </li>
                             <li class="item-name">
-                                <a class="" href="dashboard.v2.html">
-                                    <i class="i-Circular-Point  mr-2 text-muted"></i>
-                                    <span class=" text-muted"> Clients </span>
-                                </a>
-                            </li>
-                            <li class="item-name">
-                                <a class="" href="dashboard.v3.html">
+                            <a class="" href="{{route('report-appointment-dashboard')}}">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Appointments</span>
                                 </a>
