@@ -377,6 +377,12 @@
                         <span class="item-name  text-muted">PMTCT Reports</span>
                     </a>
                     <ul class="mm-collapse">
+                    <li class="item-name">
+                            <a href="{{route('get_pmtct_booked_clients')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Summary</span>
+                            </a>
+                        </li>
                         <li class="item-name">
                             <a href="{{route('get_pmtct_booked_clients')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
@@ -434,6 +440,12 @@
                         <span class="item-name  text-muted">Hei Reports</span>
                     </a>
                     <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('report-all_heis')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Summary</span>
+                            </a>
+                        </li>
                         <li class="item-name">
                             <a href="{{route('report-all_heis')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>

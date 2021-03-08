@@ -218,4 +218,9 @@ class PmtcController extends Controller
 
         return view('pmtct/deceased_heis')->with('all_deceased_heis', $all_deceased_heis->get());
     }
+
+    public function pmtct_dashboard()
+    {
+        
+    }
 }

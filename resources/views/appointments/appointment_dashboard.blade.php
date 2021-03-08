@@ -19,7 +19,69 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/themes/high-contrast-light.js"></script>
 
-    <div id="container" name="container"></div>
+    <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="col-2">
+                            <div class="card">
+                                <div class="card-body grey" id="allApps">
+                                    <b><?php echo $created_appointmnent_count; ?><br></b>
+                                    Created Appointments
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card">
+                                <div class="card-body grey" id="keptApps">
+                                    <b>{{$kept_appointmnent_count}}<br></b>
+                                    Honoured Appointments
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card">
+                                <div class="card-body grey" id="defaultedApps">
+                                    <b>{{$defaulted_appointmnent_count}}<br></b>
+                                    Active Defaulted Appointments
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card">
+                                <div class="card-body grey" id="missedApps">
+                                    <b>{{$missed_appointmnent_count}}<br></b>
+                                    Active Missed Appointments
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="card">
+                                <div class="card-body grey" id="ltfuApps">
+                                    <b>{{$ltfu_appointmnent_count}}<br></b>
+                                    Active LTFU Appointments
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card-body row">
+                                <div id="container" class="col" style="height: 450px;margin-top:40px;"></div> <br />
+                            </div>
+                            <div class="card-body row">
+                                <div id="trend" class="col" style="height: 450px;margin-top:40px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
     <script type="text/javascript">
         var singleMissed =  <?php echo json_encode($all_appointment_by_marital_single_missed) ?>;
         var singleDefaulted =  <?php echo json_encode($all_appointment_by_marital_single_defaulted) ?>;

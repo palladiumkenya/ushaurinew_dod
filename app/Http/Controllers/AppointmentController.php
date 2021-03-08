@@ -176,6 +176,35 @@ class AppointmentController extends Controller
         ->where('active_app', '=', 1)
         ->where('app_status', '=', 'Missed');
 
+        // appointments count
+        $created_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))
+        ->whereNotNull('id')
+        ->pluck('count');
+
+        $kept_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))
+        ->whereNotNull('id')
+        ->where('appointment_kept', '=', 'Yes')
+        ->pluck('count');
+
+        $defaulted_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))
+        ->whereNotNull('id')
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'Defaulted')
+        ->pluck('count');
+
+        $missed_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))
+        ->whereNotNull('id')
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'Missed')
+        ->pluck('count');
+
+        $ltfu_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))
+        ->whereNotNull('id')
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'LTFU')
+        ->pluck('count');
+
+
         // single active appointment
 
         $all_appointment_by_marital_single_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
@@ -385,7 +414,7 @@ class AppointmentController extends Controller
         ->where('tbl_marital_status.marital', '=', 'Not Applicable')
         ->pluck('count');
 
-        return view('appointments.appointment_dashboard', compact('all_appointment_by_marital_single_missed', 'all_appointment_by_marital_single_defaulted', 'all_appointment_by_marital_single_ltfu', 'all_appointment_by_marital_monogomous_missed', 'all_appointment_by_marital_monogomous_defaulted', 'all_appointment_by_marital_monogomous_lftu',
+        return view('appointments.appointment_dashboard', compact('created_appointmnent_count', 'kept_appointmnent_count', 'missed_appointmnent_count', 'defaulted_appointmnent_count', 'ltfu_appointmnent_count', 'all_appointment_by_marital_single_missed', 'all_appointment_by_marital_single_defaulted', 'all_appointment_by_marital_single_ltfu', 'all_appointment_by_marital_monogomous_missed', 'all_appointment_by_marital_monogomous_defaulted', 'all_appointment_by_marital_monogomous_lftu',
         'all_appointment_by_marital_divorced_missed', 'all_appointment_by_marital_divorced_defaulted', 'all_appointment_by_marital_divorced_lftu', 'all_appointment_by_marital_widowed_missed', 'all_appointment_by_marital_widowed_defaulted', 'all_appointment_by_marital_widowed_lftu', 'all_appointment_by_marital_cohabiting_missed',
         'all_appointment_by_marital_cohabiting_defaulted', 'all_appointment_by_marital_cohabiting_lftu', 'all_appointment_by_marital_unavailable_missed', 'all_appointment_by_marital_unavailable_defaulted', 'all_appointment_by_marital_unavailable_lftu',
         'all_appointment_by_marital_polygamous_missed', 'all_appointment_by_marital_polygamous_defaulted', 'all_appointment_by_marital_polygamous_lftu', 'all_appointment_by_marital_notapplicable_missed', 'all_appointment_by_marital_notapplicable_defaulted', 'all_appointment_by_marital_notapplicable_lftu'));
