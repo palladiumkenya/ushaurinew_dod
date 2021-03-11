@@ -35,7 +35,7 @@
                         <ul class="mm-collapse">
                             <li class="item-name">
 
-                                <a class="" href="{{route('home')}}">
+                                <a class="" href="{{route('Reports-facility_home')}}">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Summary</span>
                                 </a>

@@ -12,6 +12,7 @@ use App\Models\Marital;
 use App\Models\AppointmentType;
 use Redirect,Response;
 use Auth;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -163,18 +164,58 @@ class AppointmentController extends Controller
     }
     public function appointment_dashboard()
     {
+        $ranges = [ // the start of each age-range.
+            '0-9' => 0,
+            '10-14' => 10,
+            '15-19' => 15,
+            '20-24' => 20,
+            '25+' => 25
+        ];
 
-        $all_missed_app_over25 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->whereDate('tbl_client.dob', '>=',  now()->subYears(25))
+        $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->whereBetween('tbl_client.dob', [now()->subYears(10), now()->subYears(14)])
         ->where('tbl_client.mfl_code', '=', 12345)
         ->where('active_app', '=', 1)
-        ->where('app_status', '=', 'Missed');
+        ->where('app_status', '=', 'LTFU')
+        ->pluck('count');
 
         $all_missed_app_0_9 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->whereDate('tbl_client.dob', '>=',  now()->subYears(9))
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'LTFU')
+        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('tbl_client.dob', '<=',  now()->subYears(9))
+        ->pluck('count');
+
+        $all_ltfu_app_15_19 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->whereBetween('tbl_client.dob', [now()->subYears(15), now()->subYears(19)])
         ->where('tbl_client.mfl_code', '=', 12345)
         ->where('active_app', '=', 1)
-        ->where('app_status', '=', 'Missed');
+        ->where('app_status', '=', 'LTFU')
+        ->pluck('count');
+
+        $all_ltfu_app_20_24 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where(function ($query) {
+            $query->where('tbl_client.dob', '>=', now()->subYears(20))
+                  ->where('tbl_client.dob', '<=', now()->subYears(24));
+        })
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'LTFU')
+        ->toSql();
+
+
+        $all_ltfu_app_25 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('active_app', '=', 1)
+        ->where('app_status', '=', 'LTFU')
+        ->where('tbl_client.dob', '>=',   Carbon::now()->subYears(25))
+        ->pluck('count');
+
 
         // appointments count
         $created_appointmnent_count = Appointments::select(\DB::raw("COUNT(id) as count"))

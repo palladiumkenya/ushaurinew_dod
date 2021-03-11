@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <div class="card">
                                 <div class="card-body grey" id="allApps">
                                     <b><?php echo $created_appointmnent_count; ?><br></b>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-3">
                             <div class="card">
                                 <div class="card-body grey" id="ltfuApps">
                                     <b>{{$ltfu_appointmnent_count}}<br></b>

@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class TodayAppointment extends Model
 {
     use HasFactory;
-    public $table = 'tbl_client';
+    public $table = 'todays_appointments';
     public $timestamps = false;
     public $incrementing = false;
 
     protected $fillable = [
 
     ];
-
-    public function getAgeAttribute() {
-        return $this->dob->diffInYears(\Carbon\Carbon::now());
-    }
 }
