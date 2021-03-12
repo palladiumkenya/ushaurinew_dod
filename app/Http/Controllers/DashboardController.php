@@ -118,33 +118,141 @@ class DashboardController extends Controller
 
 
         return view('dashboard.facility_dashboard', compact('clients_count', 'consented_count', 'appointment_count', 'messages_count', 'today_appointment', 'missed_appoitment', 'defaulted_appoitment', 'ltfu_appoitment'));
+    }
 
-        public function client_distribution_graphs()
-        {
-            $gender_male = Client::whereNotNull('clinic_number')
-            ->select(\DB::raw("COUNT(id) as count"))
-            ->where('gender', '=', 2)
-            ->pluck('count');
 
-            $gender_female = Client::whereNotNull('clinic_number')
-            ->select(\DB::raw("COUNT(id) as count"))
-            ->where('gender', '=', 2)
-            ->pluck('count');
+    public function client_distribution_graphs()
+    {
+        $gender_male = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('gender', '=', 2)
+        ->pluck('count');
 
-            $gender_male = Client::whereNotNull('clinic_number')
-            ->select(\DB::raw("COUNT(id) as count"))
-            ->where('gender', '=', 5)
-            ->pluck('count');
+        $gender_female = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('gender', '=', 2)
+        ->pluck('count');
 
-            $language_swahili = Client::whereNotNull('clinic_number')
-            ->select(\DB::raw("COUNT(id) as count"))
-            ->where('language_id', '=', 1)
-            ->pluck('count');
+        $gender_unavailable = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('gender', '=', 5)
+        ->pluck('count');
 
-            $english_swahili = Client::whereNotNull('clinic_number')
-            ->select(\DB::raw("COUNT(id) as count"))
-            ->where('language_id', '=', 1)
-            ->pluck('count');
-        }
+        $language_swahili = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('language_id', '=', 1)
+        ->pluck('count');
+
+        $language_english = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('language_id', '=', 2)
+        ->pluck('count');
+
+        $language_nolanguage = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('language_id', '=', 5)
+        ->pluck('count');
+
+        $marital_single = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 1)
+        ->pluck('count');
+
+        $marital_monogamous = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 2)
+        ->pluck('count');
+
+        $marital_divorced = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 3)
+        ->pluck('count');
+
+        $marital_widowed = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 4)
+        ->pluck('count');
+
+        $marital_cohabating = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 5)
+        ->pluck('count');
+
+        $marital_unavailable = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 6)
+        ->pluck('count');
+
+        $marital_notapplicable = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 7)
+        ->pluck('count');
+
+        $marital_polygamous = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('marital', '=', 8)
+        ->pluck('count');
+
+        $client_type_new = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('client_type', '=', 'New')
+        ->pluck('count');
+
+        $client_type_transfer = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('client_type', '=', 'Transfer')
+        ->pluck('count');
+
+        $client_entry_point_mobile = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('entry_point', '=', 'Mobile')
+        ->pluck('count');
+
+        $client_entry_point_web = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('entry_point', '=', 'Web')
+        ->pluck('count');
+
+        $client_entry_point_il = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('entry_point', '=', 'IL')
+        ->pluck('count');
+
+        $group_adults = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 1)
+        ->pluck('count');
+
+        $group_adolescents = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 2)
+        ->pluck('count');
+
+        $group_peads = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 3)
+        ->pluck('count');
+
+        $group_art_clients = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 4)
+        ->pluck('count');
+
+        $group_prenatal = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 5)
+        ->pluck('count');
+
+        $group_postalnatal = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('group_id', '=', 10)
+        ->pluck('count');
+
+       // dd($client_entry_point_mobile);
+
+        return view('dashboard.client_registration_distribution', compact('gender_male', 'gender_female', 'gender_unavailable', 'language_swahili', 'language_english',
+        'language_nolanguage', 'group_postalnatal', 'group_prenatal', 'group_art_clients', 'group_peads', 'group_adolescents', 'group_adults',
+        'client_entry_point_il', 'client_entry_point_web', 'client_entry_point_mobile', 'client_type_transfer', 'client_type_new', 'marital_polygamous',
+        'marital_notapplicable', 'marital_unavailable', 'marital_cohabating', 'marital_widowed', 'marital_divorced', 'marital_monogamous', 'marital_single'));
     }
 }

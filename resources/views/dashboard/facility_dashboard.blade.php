@@ -1,57 +1,75 @@
 @extends('layouts.master')
 @section('page-css')
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
 
 @endsection
-
 @section('main-content')
 
-<div class="col-md-12 mb-4">
-<div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body row">
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body grey" id="allApps">
+    <div class="separator-breadcrumb border-top"></div>
+
+            <div class="row">
+                <!-- ICON BG -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Add-User"></i>
+                            <div class="content">
+                            <a class="has-arrow" href="{{route('Reports-clients-distribution')}}">
                                     <b><?php echo $clients_count; ?><br></b>
                                     Clients
-                                </div>
+                                 </a>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body grey" id="keptApps">
-                                    <b>{{$consented_count}}<br></b>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Financial"></i>
+                            <div class="content">
+                            <b>{{$consented_count}}<br></b>
                                     Consented Clients
-                                </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body grey" id="defaultedApps">
-                                    <b>{{$appointment_count}}<br></b>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Checkout-Basket"></i>
+                            <div class="content">
+                            <b>{{$appointment_count}}<br></b>
                                     Appointments
-                                </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body grey" id="missedApps">
-                                    <b>{{$messages_count}}<br></b>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Money-2"></i>
+                            <div class="content">
+                            <b>{{$messages_count}}<br></b>
                                     Messages Sent
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class=" col-lg-6 col-sm-6">
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <i class="icon-table"></i>Today Appointments
-                                            </div>
+            </div>
 
-
-                                            <div class="table-responsive">
-                                                <table id="today_appointment_table" class="display table table-striped table-bordered">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-4">
+                    <div class="panel-heading">
+                      <i class="icon-table"></i>Today Appointments
+                     </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+                                                <table id="today_appointment_table" class="display table table-striped table-bordered" style="width:50%">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -80,22 +98,19 @@
                                                 @endforeach
                                             @endif
                                         </tbody>
-                                                </table>
-                                            </div>
-
-
-
-                                        </div>
+                                      </table>
                                     </div>
-                                    <div class=" col-lg-6 col-sm-6">
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <i class="icon-table"></i>Missed Appointments
-                                            </div>
-
-
-                                            <div class="table-responsive">
-                                                <table id="missed_table" class="display table table-striped table-bordered">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card mb-4">
+                    <div class="panel-heading">
+                         <i class="icon-table"></i>Missed Appointments
+                          </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+                                                <table id="missed_table" class="display table table-striped table-bordered" style="width:50%">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -105,10 +120,6 @@
                                                             <th>Phone No</th>
                                                             <th>Appointment Date</th>
                                                             <th>Appointment Type</th>
-                                                            <th>Other Appointment Type</th>
-                                                            <th>No of Actions</th>
-
-
 
                                                         </tr>
                                                     </thead>
@@ -131,18 +142,20 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                        </div>
-                                    </div>
-                                    <div class=" col-lg-6 col-sm-6">
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <i class="icon-table"></i>Defaulted Appointments
-                                            </div>
-
-
-                                            <div class="table-responsive">
-                                                <table id="defaulted_table" class="display table table-striped table-bordered">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-4">
+                    <div class="panel-heading">
+                      <i class="icon-table"></i>Defaulted Appointments
+                     </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+                                                <table id="defaulted_table" class="display table table-striped table-bordered" style="width:50%">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -152,9 +165,6 @@
                                                             <th>Phone No</th>
                                                             <th>Appointment Date</th>
                                                             <th>Appointment Type</th>
-                                                            <th>Other Appointment Type</th>
-                                                            <th>No of Actions</th>
-
 
 
                                                         </tr>
@@ -177,20 +187,17 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class=" col-lg-6 col-sm-6">
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <i class="icon-table"></i>LTFU Appointments
-                                            </div>
-
-
-                                            <div class="table-responsive">
-                                                <table id="ltfu_table" class="display table table-striped table-bordered">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card mb-4">
+                    <div class="panel-heading">
+                         <i class="icon-table"></i>LTFU Appointments
+                         </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+                                                <table id="ltfu_table" class="display table table-striped table-bordered" style="width:50%">
                                                     <thead>
                                                         <tr>
                                                             <th>No.</th>
@@ -200,10 +207,6 @@
                                                             <th>Phone No</th>
                                                             <th>Appointment Date</th>
                                                             <th>Appointment Type</th>
-                                                            <th>Other Appointment Type</th>
-                                                            <th>No of Actions</th>
-
-
 
                                                         </tr>
                                                     </thead>
@@ -226,28 +229,25 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-
-
-
-                                        </div>
-                                    </div>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
+     </div>
 
-        </div>
-</div>
+
 
 @endsection
 
 @section('page-js')
 
- <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
- <script type="text/javascript">
-   // multi column ordering
-   $('#today_appointment_table').DataTable({
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js"> </script>
+     <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+
+     <script type="text/javascript">
+
+$('#today_appointment_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]
@@ -267,8 +267,7 @@
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-     // multi column ordering
-   $('#missed_table').DataTable({
+    $('#missed_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]
@@ -288,8 +287,7 @@
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-     // multi column ordering
-   $('#defaulted_table').DataTable({
+    $('#defaulted_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]
@@ -331,7 +329,7 @@
         ]
     });
 
-    </script>
 
+        </script>
 
 @endsection

@@ -52,10 +52,11 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
+
     public function login(Request $request)
     {
 
-        
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -74,7 +75,7 @@ class LoginController extends Controller
 
         // Customization: Validate if status status is active (1)
         $email = $request->get($this->username());
-        // Customization: It's assumed that email field should be an unique field 
+        // Customization: It's assumed that email field should be an unique field
         $user = User::where($this->username(), $email)->first();
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -130,5 +131,5 @@ class LoginController extends Controller
             ->withErrors($errors);
     }
 
-   
+
 }

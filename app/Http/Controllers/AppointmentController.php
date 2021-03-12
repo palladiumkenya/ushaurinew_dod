@@ -82,19 +82,13 @@ class AppointmentController extends Controller
 
     public function get_appointment_count()
     {
-        $data = [
-            'start AS appntmnt_date',
-            'end AS appntmnt_',
-            'title AS name',
-        ];
+       
         $all_count_appointment = Appointments::selectRaw('tbl_appointment_types.name, tbl_appointment.appntmnt_date AS start, COUNT(tbl_appointment.id) AS title')
         ->join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
-        ->whereNotNull('tbl_appointment.id')
-        ->get($data);
+        ->whereNotNull('tbl_appointment.id');
 
-        $calender_data = $all_count_appointment->toJson();
-        //console.log( $calender_data );
+        return view('appointments.appointment_calender')->with('all_count_appointment', $all_count_appointment->count());
     }
     public function get_created_appointments()
     {
