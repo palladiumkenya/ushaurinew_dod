@@ -90,7 +90,7 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
-                $("#sum(actual_clients)").html(data.sum(actual_clients));
+               // $("#sum(actual_clients)").html(data.sum(actual_clients));
 
             }
         });

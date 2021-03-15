@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Appointments;
 use App\Models\Marital;
+use App\Models\Lab;
 use App\Models\AppointmentType;
 use Redirect,Response;
 use Auth;
@@ -82,7 +83,7 @@ class AppointmentController extends Controller
 
     public function get_appointment_count()
     {
-       
+
         $all_count_appointment = Appointments::selectRaw('tbl_appointment_types.name, tbl_appointment.appntmnt_date AS start, COUNT(tbl_appointment.id) AS title')
         ->join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
@@ -453,5 +454,26 @@ class AppointmentController extends Controller
         'all_appointment_by_marital_divorced_missed', 'all_appointment_by_marital_divorced_defaulted', 'all_appointment_by_marital_divorced_lftu', 'all_appointment_by_marital_widowed_missed', 'all_appointment_by_marital_widowed_defaulted', 'all_appointment_by_marital_widowed_lftu', 'all_appointment_by_marital_cohabiting_missed',
         'all_appointment_by_marital_cohabiting_defaulted', 'all_appointment_by_marital_cohabiting_lftu', 'all_appointment_by_marital_unavailable_missed', 'all_appointment_by_marital_unavailable_defaulted', 'all_appointment_by_marital_unavailable_lftu',
         'all_appointment_by_marital_polygamous_missed', 'all_appointment_by_marital_polygamous_defaulted', 'all_appointment_by_marital_polygamous_lftu', 'all_appointment_by_marital_notapplicable_missed', 'all_appointment_by_marital_notapplicable_defaulted', 'all_appointment_by_marital_notapplicable_lftu'));
+    }
+
+    public function lab_investigation()
+    {
+        $ranges = [ // the start of each age-range.
+            '1-9' => 9,
+            '10-14' => 14,
+            '20-24' => 24,
+            '25-29' => 29,
+            '30-34' => 34,
+            '35-39' => 39,
+            '40-49' => 49,
+            '50 +' => 50
+        ];
+        $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'age_group', \DB::raw('count(age_group) as total'))
+        ->groupBy('age_group')
+        ->get();
+
+        dd($all_lab_app);
+
+        return view('appointments.lab_investigation', compact('all_lab_app'));
     }
 }

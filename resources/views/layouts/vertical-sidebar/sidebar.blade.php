@@ -540,18 +540,6 @@
                                 <span class="item-name">Consented Reports</span>
                             </a>
                         </li>
-                        <li class="item-name">
-                            <a href="tag.input.html">
-                                <i class="nav-icon i-Tag-2"></i>
-                                <span class="item-name">Tag Input</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="editor.html">
-                                <i class="nav-icon i-Pen-2"></i>
-                                <span class="item-name">Rich Editor</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <!-- <li class="Ul_li--hover">
