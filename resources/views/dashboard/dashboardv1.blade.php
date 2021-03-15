@@ -19,7 +19,7 @@
                             <i class="i-Add-User"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Target Active Clients</p>
-                                <p id='sum(actual_clients)' class="text-primary text-24 line-height-1 mb-2">205</p>
+                                <p id='actual_clients' class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             <i class="i-Checkout-Basket"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">% No. of Active Clients</p>
-                                <p class="text-primary text-24 line-height-1 mb-2">80</p>
+                                <p id="" class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>

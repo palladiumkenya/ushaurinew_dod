@@ -107,4 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/defaulted_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_defaulted_hei', 'as' => 'report-defaulted_heis']);
     Route::get('/report/ltfu_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_ltfu_hei', 'as' => 'report-ltfu_heis']);
     Route::get('/report/deceased_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_deceased_hei', 'as' => 'report-deceased_heis']);
+
+    // general reports
+    Route::get('/report/deactivated_clients', ['uses' => 'App\Http\Controllers\ReportController@deactivated_clients', 'as' => 'report-deactivated_clients']);
 });

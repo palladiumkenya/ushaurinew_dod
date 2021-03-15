@@ -360,7 +360,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="form.input.group.html">
+                            <a href="{{route('report-deactivated_clients')}}">
                                 <i class="nav-icon i-Receipt-4"></i>
                                 <span class="item-name">Deactivated</span>
                             </a>
