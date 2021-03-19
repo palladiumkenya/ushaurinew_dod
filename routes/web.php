@@ -110,4 +110,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // general reports
     Route::get('/report/deactivated_clients', ['uses' => 'App\Http\Controllers\ReportController@deactivated_clients', 'as' => 'report-deactivated_clients']);
+    Route::get('/report/transfer_out', ['uses' => 'App\Http\Controllers\ReportController@transfer_out', 'as' => 'report-transfer_out']);
+    Route::get('/report/transfer_in', ['uses' => 'App\Http\Controllers\ReportController@transfer_in', 'as' => 'report-transfer_in']);
 });

@@ -116,6 +116,33 @@ class DashboardController extends Controller
         ->where('tbl_appointment.active_app', '=', 1)
         ->get();
 
+        if (Auth::user()->access_level == 'Facility') {
+            $clients_count->where('facility_id', Auth::user()->facility_id);
+
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $clients_count->where('partner_id', Auth::user()->partner_id);
+            $consented_count->where('partner_id', Auth::user()->partner_id);
+            $appointment_count->where('partner_id', Auth::user()->partner_id);
+            $messages_count->where('partner_id', Auth::user()->partner_id);
+            $today_appointment->where('partner_id', Auth::user()->partner_id);
+            $missed_appoitment->where('partner_id', Auth::user()->partner_id);
+            $defaulted_appoitment->where('partner_id', Auth::user()->partner_id);
+            $ltfu_appoitment->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $clients_count->where('donor_id', Auth::user()->donor_id);
+            $consented_count->where('donor_id', Auth::user()->donor_id);
+            $appointment_count->where('donor_id', Auth::user()->donor_id);
+            $messages_count->where('donor_id', Auth::user()->donor_id);
+            $today_appointment->where('donor_id', Auth::user()->donor_id);
+            $missed_appoitment->where('donor_id', Auth::user()->donor_id);
+            $defaulted_appoitment->where('donor_id', Auth::user()->donor_id);
+            $ltfu_appoitment->where('donor_id', Auth::user()->donor_id);
+        }
+
 
         return view('dashboard.facility_dashboard', compact('clients_count', 'consented_count', 'appointment_count', 'messages_count', 'today_appointment', 'missed_appoitment', 'defaulted_appoitment', 'ltfu_appoitment'));
     }

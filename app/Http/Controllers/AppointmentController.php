@@ -23,8 +23,16 @@ class AppointmentController extends Controller
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
         ->where('tbl_appointment.appntmnt_date', '>', Now());
 
-        if (Auth::user()->role_id == 4 || Auth::user()->role_id == 7 || Auth::user()->role_id == 8) {
-            $all_future_appointments->where('facility', Auth::user()->facility->name);
+        if (Auth::user()->access_level == 'Facility') {
+            $all_future_appointments->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_future_appointments->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_future_appointments->where('donor_id', Auth::user()->donor_id);
         }
 
         return view('appointments.future_appointments')->with('all_future_appointments', $all_future_appointments->get());
@@ -36,6 +44,18 @@ class AppointmentController extends Controller
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_msg, tbl_appointment.no_calls, tbl_appointment.no_msgs, tbl_appointment.home_visits')
         ->where('tbl_appointment.app_status', '=', 'Missed');
 
+        if (Auth::user()->access_level == 'Facility') {
+            $all_missed_appointments->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_missed_appointments->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_missed_appointments->where('donor_id', Auth::user()->donor_id);
+        }
+
         return view('appointments.missed_appointments')->with('all_missed_appointments', $all_missed_appointments->get());
     }
 
@@ -44,6 +64,18 @@ class AppointmentController extends Controller
         $all_defaulted_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_msg, tbl_appointment.no_calls, tbl_appointment.no_msgs, tbl_appointment.home_visits')
         ->where('tbl_appointment.app_status', '=', 'Defaulted');
+
+        if (Auth::user()->access_level == 'Facility') {
+            $all_defaulted_appointments->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_defaulted_appointments->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_defaulted_appointments->where('donor_id', Auth::user()->donor_id);
+        }
 
         return view('appointments.defaulted_appointments')->with('all_defaulted_appointments', $all_defaulted_appointments->get());
     }
@@ -54,6 +86,18 @@ class AppointmentController extends Controller
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_msg, tbl_appointment.no_calls, tbl_appointment.no_msgs, tbl_appointment.home_visits')
         ->where('tbl_appointment.app_status', '=', 'LTFU');
 
+        if (Auth::user()->access_level == 'Facility') {
+            $all_ltfu_appointments->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_ltfu_appointments->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_ltfu_appointments->where('donor_id', Auth::user()->donor_id);
+        }
+
         return view('appointments.ltfu_appointments')->with('all_ltfu_appointments', $all_ltfu_appointments->get());
     }
 
@@ -61,7 +105,19 @@ class AppointmentController extends Controller
     {
         $all_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_client.status, tbl_client.enrollment_date, tbl_client.art_date, tbl_client.created_at')
-        ->whereNotNull('tbl_appointment.appntmnt_date')->orderBy('tbl_appointment.appntmnt_date')->limit(1000);
+        ->whereNotNull('tbl_appointment.appntmnt_date')->orderBy('tbl_appointment.appntmnt_date');
+
+        if (Auth::user()->access_level == 'Facility') {
+            $all_appointments->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_appointments->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_appointments->where('donor_id', Auth::user()->donor_id);
+        }
 
         return view('appointments.appointments_list')->with('all_appointments', $all_appointments->get());
 
@@ -89,6 +145,18 @@ class AppointmentController extends Controller
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
         ->whereNotNull('tbl_appointment.id');
 
+        if (Auth::user()->access_level == 'Facility') {
+            $all_count_appointment->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_count_appointment->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_count_appointment->where('donor_id', Auth::user()->donor_id);
+        }
+
         return view('appointments.appointment_calender')->with('all_count_appointment', $all_count_appointment->count());
     }
     public function get_created_appointments()
@@ -97,6 +165,18 @@ class AppointmentController extends Controller
 
         $all_created_appointment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->where('tbl_client.mfl_code', '=', 12345);
+
+        if (Auth::user()->access_level == 'Facility') {
+            $all_created_appointment->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_created_appointment->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_created_appointment->where('donor_id', Auth::user()->donor_id);
+        }
 
         $data['all_created_appointment'] = $all_created_appointment->count();
 
@@ -112,6 +192,18 @@ class AppointmentController extends Controller
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'Missed');
 
+        if (Auth::user()->access_level == 'Facility') {
+            $data->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $data->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $data->where('donor_id', Auth::user()->donor_id);
+        }
+
         $data['all_active_missed'] = $all_active_missed->count();
 
         return $data;
@@ -124,6 +216,18 @@ class AppointmentController extends Controller
         ->where('tbl_client.mfl_code', '=', 12345)
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'Defaulted');
+
+        if (Auth::user()->access_level == 'Facility') {
+            $all_active_defaulted->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_active_defaulted->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_active_defaulted->where('donor_id', Auth::user()->donor_id);
+        }
 
         $data['all_active_defaulted'] = $all_active_defaulted->count();
 
@@ -138,6 +242,18 @@ class AppointmentController extends Controller
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU');
 
+        if (Auth::user()->access_level == 'Facility') {
+            $all_active_ltfu->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_active_ltfu->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_active_ltfu->where('donor_id', Auth::user()->donor_id);
+        }
+
         $data['all_active_ltfu'] = $all_active_ltfu->count();
 
         return $data;
@@ -151,7 +267,17 @@ class AppointmentController extends Controller
          ->where('tbl_appointment.active_app', '=', 0)
          ->where('tbl_appointment.appointment_kept', '=', 'Yes')
          ->where('tbl_appointment.appntmnt_date', '<', Now());
-       // ->where('tbl_appointment.app_status', '=', 'Notified');
+         if (Auth::user()->access_level == 'Facility') {
+            $all_app_honourned->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $all_app_honourned->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $all_app_honourned->where('donor_id', Auth::user()->donor_id);
+        }
 
         $data['all_app_honourned'] = $all_app_honourned->count();
 
@@ -449,6 +575,23 @@ class AppointmentController extends Controller
         ->where('tbl_appointment.app_status', '=', 'LTFU')
         ->where('tbl_marital_status.marital', '=', 'Not Applicable')
         ->pluck('count');
+
+        if (Auth::user()->access_level == 'Facility') {
+            $created_appointmnent_count->where('facility_id', Auth::user()->facility_id);
+            $kept_appointmnent_count->where('facility_id', Auth::user()->facility_id);
+            $missed_appointmnent_count->where('facility_id', Auth::user()->facility_id);
+            $defaulted_appointmnent_count->where('facility_id', Auth::user()->facility_id);
+            $ltfu_appointmnent_count->where('facility_id', Auth::user()->facility_id);
+            $all_appointment_by_marital_single_missed->where('facility_id', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $created_appointmnent_count->where('partner_id', Auth::user()->partner_id);
+        }
+
+        if (Auth::user()->access_level == 'Donor') {
+            $created_appointmnent_count->where('donor_id', Auth::user()->donor_id);
+        }
 
         return view('appointments.appointment_dashboard', compact('created_appointmnent_count', 'kept_appointmnent_count', 'missed_appointmnent_count', 'defaulted_appointmnent_count', 'ltfu_appointmnent_count', 'all_appointment_by_marital_single_missed', 'all_appointment_by_marital_single_defaulted', 'all_appointment_by_marital_single_ltfu', 'all_appointment_by_marital_monogomous_missed', 'all_appointment_by_marital_monogomous_defaulted', 'all_appointment_by_marital_monogomous_lftu',
         'all_appointment_by_marital_divorced_missed', 'all_appointment_by_marital_divorced_defaulted', 'all_appointment_by_marital_divorced_lftu', 'all_appointment_by_marital_widowed_missed', 'all_appointment_by_marital_widowed_defaulted', 'all_appointment_by_marital_widowed_lftu', 'all_appointment_by_marital_cohabiting_missed',
