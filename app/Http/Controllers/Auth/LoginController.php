@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
 
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -20,17 +17,14 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
-    use AuthenticatesUsers;
-
-    /**
+use AuthenticatesUsers;
+/**
      * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo = '/Reports/dashboard';
-
-    /**
+/**
      * Create a new controller instance.
      *
      * @return void
@@ -45,20 +39,14 @@ class LoginController extends Controller
         return redirect('/Login');
       }
 
-
-// public function guard()
-  //  {
-    // return Auth::guard('api');
-    //}
-
-    /**
-     * Handle a login request to the application.
+/**
+     * Get the needed authorization credentials from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return array
      */
 
-    public function login(Request $request)
+     public function login(Request $request)
     {
 
 
@@ -102,27 +90,14 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    /**
-     * Get the needed authorization credentials from the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     protected function credentials(Request $request)
     {
-        $credentials = $request->only($this->username(), 'password');
-        // Customization: validate if status status is active (1)
-        $credentials['status'] = 'Active';
-        return $credentials;
+        if(is_numeric($request->get('email'))){
+            return ['phone_no'=>$request->get('email'),'password'=>$request->get('password')];
+        }
+        return $request->only($this->username(), 'password');
     }
 
-    /**
-     * Get the failed login response instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $field
-     * @return \Illuminate\Http\RedirectResponse
-     */
     protected function sendFailedLoginResponse(Request $request, $trans = 'auth.failed')
     {
         $errors = [$this->username() => trans($trans)];
@@ -135,6 +110,4 @@ class LoginController extends Controller
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors($errors);
     }
-
-
 }

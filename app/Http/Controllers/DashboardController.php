@@ -24,6 +24,12 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
 
+    public function index()
+    {
+
+       // return view('dashboard.dashboardv1');
+    }
+
     public function get_client_data()
     {
         $data = [];

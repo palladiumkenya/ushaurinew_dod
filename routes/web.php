@@ -34,7 +34,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/Reports/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('Reports-dashboard');
+    Route::get('/Reports/dashboard', ['uses'=>'App\Http\Controllers\HomeController@index', 'as' => 'Reports-dashboard']);
+   // Route::get('/Reports/dashboard', ['uses' => 'App\Http\Controllers\HomeController@index', 'as' => 'Reports-dashboard']);
     Route::get('/logout', ['uses'=>'App\Http\Controllers\Auth\LoginController@logout', 'as' => 'logout']);
 
     // Dashboard routes

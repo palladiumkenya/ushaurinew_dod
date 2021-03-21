@@ -24,11 +24,10 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input id="email"
+                                        <label for="email">Phone Number/Email address</label>
+                                        <input id="email" type="text"
                                             class="form-control form-control-rounded @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email') }}" required autocomplete="email"
-                                            autofocus>
+                                            name="email" value="{{ old('email') }}" required autofocus>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
