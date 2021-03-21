@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use App\Models\User;
 use Auth;
 class LoginController extends Controller
 {
@@ -76,7 +76,7 @@ use AuthenticatesUsers;
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
         if (!($user)) {
-            return $this->sendFailedLoginResponse($request, 'Account does not exist');
+            return $this->sendFailedLoginResponse($request, 'User does not exist or Wrong Password');
         }
 
         // Customization: If status status is inactive (0) return failed_status error.

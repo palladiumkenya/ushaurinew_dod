@@ -84,28 +84,82 @@ class DashboardController extends Controller
     public function facility_dashboard()
     {
         // clients count
-        $clients_count = Client::whereNotNull('clinic_number')
+        if (Auth::user()->access_level == 'Admin') {
+
+            $clients_count = Client::whereNotNull('clinic_number')
+           ->select(\DB::raw("COUNT(id) as count"))
+           ->pluck('count');
+           $consented_count = Client::where('smsenable', '=', 'Yes')
+           ->select(\DB::raw("COUNT(id) as count"))
+           ->pluck('count');
+           $appointment_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+           ->whereNotNull('tbl_appointment.id')
+           ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+           ->pluck('count');
+           $messages_count = Message::join('tbl_client', 'tbl_client.id', '=', 'tbl_clnt_outgoing.clnt_usr_id')
+           ->where('tbl_clnt_outgoing.recepient_type', '=', 'Client')
+           ->select(\DB::raw("COUNT(tbl_clnt_outgoing.id) as count"))
+           ->pluck('count');
+
+           // today's appointments
+           $today_appointment = TodayAppointment::select('clinic_no', 'file_no', 'client_name', 'client_phone_no', 'appntmnt_date', 'appointment_type')
+           ->get();
+           $missed_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+           ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+           ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+           ->whereNotNull('tbl_appointment.id')
+           ->where('tbl_appointment.app_status', '=', 'Missed')
+           ->where('tbl_appointment.active_app', '=', 1)
+           ->get();
+           $defaulted_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+           ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+           ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+           ->whereNotNull('tbl_appointment.id')
+           ->where('tbl_appointment.app_status', '=', 'Defaulted')
+           ->where('tbl_appointment.active_app', '=', 1)
+           ->get();
+           $ltfu_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+           ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+           ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+           ->whereNotNull('tbl_appointment.id')
+           ->where('tbl_appointment.app_status', '=', 'LTFU')
+           ->where('tbl_appointment.active_app', '=', 1)
+           ->get();
+
+           }
+
+        if (Auth::user()->access_level == 'Facility') {
+
+         $clients_count = Client::whereNotNull('clinic_number')
         ->select(\DB::raw("COUNT(id) as count"))
+        ->where('mfl_code', Auth::user()->facility_id)
         ->pluck('count');
         $consented_count = Client::where('smsenable', '=', 'Yes')
         ->select(\DB::raw("COUNT(id) as count"))
+        ->where('mfl_code', Auth::user()->facility_id)
         ->pluck('count');
-        $appointment_count = Appointments::whereNotNull('id')
-        ->select(\DB::raw("COUNT(id) as count"))
+        $appointment_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->whereNotNull('tbl_appointment.id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
         $messages_count = Message::join('tbl_client', 'tbl_client.id', '=', 'tbl_clnt_outgoing.clnt_usr_id')
         ->where('tbl_clnt_outgoing.recepient_type', '=', 'Client')
         ->select(\DB::raw("COUNT(tbl_clnt_outgoing.id) as count"))
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
 
         // today's appointments
-        $today_appointment = TodayAppointment::select('clinic_no', 'file_no', 'client_name', 'client_phone_no', 'appntmnt_date', 'appointment_type')->get();
+        $today_appointment = TodayAppointment::select('clinic_no', 'file_no', 'client_name', 'client_phone_no', 'appntmnt_date', 'appointment_type')
+        ->where('mfl_code', Auth::user()->facility_id)
+        ->get();
         $missed_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
         ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
         ->whereNotNull('tbl_appointment.id')
         ->where('tbl_appointment.app_status', '=', 'Missed')
         ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->get();
         $defaulted_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
@@ -113,6 +167,7 @@ class DashboardController extends Controller
         ->whereNotNull('tbl_appointment.id')
         ->where('tbl_appointment.app_status', '=', 'Defaulted')
         ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->get();
         $ltfu_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
@@ -120,22 +175,61 @@ class DashboardController extends Controller
         ->whereNotNull('tbl_appointment.id')
         ->where('tbl_appointment.app_status', '=', 'LTFU')
         ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->get();
-
-        if (Auth::user()->access_level == 'Facility') {
-            $clients_count->where('facility_id', Auth::user()->facility_id);
 
         }
 
         if (Auth::user()->access_level == 'Partner') {
-            $clients_count->where('partner_id', Auth::user()->partner_id);
-            $consented_count->where('partner_id', Auth::user()->partner_id);
-            $appointment_count->where('partner_id', Auth::user()->partner_id);
-            $messages_count->where('partner_id', Auth::user()->partner_id);
-            $today_appointment->where('partner_id', Auth::user()->partner_id);
-            $missed_appoitment->where('partner_id', Auth::user()->partner_id);
-            $defaulted_appoitment->where('partner_id', Auth::user()->partner_id);
-            $ltfu_appoitment->where('partner_id', Auth::user()->partner_id);
+
+        $clients_count = Client::whereNotNull('clinic_number')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+        $consented_count = Client::where('smsenable', '=', 'Yes')
+        ->select(\DB::raw("COUNT(id) as count"))
+        ->where('partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+        $appointment_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->whereNotNull('tbl_appointment.id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+        $messages_count = Message::join('tbl_client', 'tbl_client.id', '=', 'tbl_clnt_outgoing.clnt_usr_id')
+        ->where('tbl_clnt_outgoing.recepient_type', '=', 'Client')
+        ->select(\DB::raw("COUNT(tbl_clnt_outgoing.id) as count"))
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        // today's appointments
+        $today_appointment = TodayAppointment::select('clinic_no', 'file_no', 'client_name', 'client_phone_no', 'appntmnt_date', 'appointment_type')
+        ->where('id', Auth::user()->id)
+        ->get();
+        $missed_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+        ->whereNotNull('tbl_appointment.id')
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->get();
+        $defaulted_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+        ->whereNotNull('tbl_appointment.id')
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->get();
+        $ltfu_appoitment = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"), 'tbl_client.phone_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name', 'tbl_appointment.app_msg', 'tbl_appointment.no_calls', 'tbl_appointment.home_visits', 'tbl_appointment.no_msgs')
+        ->whereNotNull('tbl_appointment.id')
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->get();
+
         }
 
         if (Auth::user()->access_level == 'Donor') {
