@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 use App\Models\ClientList;
 use App\Models\Group;
 use App\Models\Clinic;
+use App\Models\Client;
 use App\Models\Facility;
 use Auth;
+use DB;
 
 class ClientListController extends Controller
 {
@@ -18,13 +20,13 @@ class ClientListController extends Controller
     {
 
 
-        $all_clients = ClientList:: selectRaw('client_list.client_name, tbl_clinic.name, client_list.file_no, client_list.group_name, client_list.dob, client_list.status, client_list.clinic_number, client_list.phone_no, client_list.created_at, client_list.enrollment_date, client_list.art_date, client_list.client_status')
-        ->join('tbl_client', 'tbl_client.id', '=', 'client_list.client_id')
-        ->join('tbl_clinic', 'tbl_clinic.id', 'tbl_client.clinic_id')
-        ->whereNotNull('client_list.clinic_number');
+        $all_clients = Client:: select('tbl_clinic.name', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as client_name"), 'tbl_groups.name AS group_name', 'tbl_client.dob', 'tbl_client.status', 'tbl_client.clinic_number', 'tbl_client.phone_no', 'tbl_client.created_at', 'tbl_client.enrollment_date', 'tbl_client.art_date', 'tbl_client.client_status')
+        ->join('tbl_groups', 'tbl_groups.id', '=', 'tbl_client.group_id')
+        ->join('tbl_clinic', 'tbl_clinic.id', '=', 'tbl_client.clinic_id')
+        ->whereNotNull('tbl_client.clinic_number');
 
         if (Auth::user()->access_level == 'Facility') {
-            $all_clients->where('facility_id', Auth::user()->facility_id);
+            $all_clients->where('mfl_code', Auth::user()->facility_id);
         }
 
         if (Auth::user()->access_level == 'Partner') {
