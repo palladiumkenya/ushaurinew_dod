@@ -34,17 +34,20 @@ class DashboardController extends Controller
     {
         $data = [];
 
-        $all_clients_number = ClientPerformance::selectRaw('sum(actual_clients)');
+        $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
+        $all_target_clients = ClientPerformance::selectRaw('target_clients')->sum('target_clients');
         $all_consented_clients = Client::where('smsenable', '=', 'Yes')->whereNotNull('clinic_number');
         $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())->whereNotNull('client_id');
         $number_of_facilities = ClientPerformance::whereNotNull('mfl_code');
-        $number_of_consented_clients = Consented::selectRaw('sum(no_of_consented_clients)');
+       // $number_of_consented_clients = Consented::selectRaw('sum(no_of_consented_clients)');
 
-        $data['all_clients_number'] = $all_clients_number->get();
+        $data['all_clients_number'] = $all_clients_number;
+        $data['all_target_clients'] = $all_target_clients;
         $data['all_consented_clients'] = $all_consented_clients->count();
         $data['all_future_appointments'] = $all_future_appointments->count();
         $data['number_of_facilities'] = $number_of_facilities->count();
-        $data['number_of_consented_clients'] = $number_of_consented_clients->get();
+       // $data['all_clients_number'] = $all_clients_number->get();
+       // $data['number_of_consented_clients'] = $number_of_consented_clients->count();
 
         return $data;
 

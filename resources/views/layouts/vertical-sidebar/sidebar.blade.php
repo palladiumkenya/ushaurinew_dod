@@ -34,11 +34,24 @@
                         </a>
                         <ul class="mm-collapse">
                             <li class="item-name">
-
+                              @if (Auth::user()->access_level == 'Facility')
                                 <a class="" href="{{route('Reports-facility_home')}}">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Summary</span>
                                 </a>
+                                @endif
+                                @if (Auth::user()->access_level == 'Admin')
+                                <a class="" href="{{route('Reports-dashboard')}}">
+                                    <i class="i-Circular-Point  mr-2 text-muted"></i>
+                                    <span class=" text-muted">Summary</span>
+                                </a>
+                                @endif
+                                @if (Auth::user()->access_level == 'Partner')
+                                <a class="" href="{{route('Reports-dashboard')}}">
+                                    <i class="i-Circular-Point  mr-2 text-muted"></i>
+                                    <span class=" text-muted">Summary</span>
+                                </a>
+                                @endif
                             </li>
                             <li class="item-name">
                             <a class="" href="{{route('report-appointment-dashboard')}}">
@@ -83,12 +96,14 @@
                             <span class="item-name">Client Extract</span>
                         </a>
                     </li>
+                    @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
                     <li class="item-name">
                         <a href={{route('upload-clients-form')}}>
                             <i class="nav-icon i-Cursor-Click"></i>
                             <span class="item-name">Upload Clients</span>
                         </a>
                     </li>
+                    @endif
                 </ul>
                 </li>
                 <li class="Ul_li--hover">
@@ -236,6 +251,7 @@
                         <span class="item-name  text-muted">Admin Tools</span>
                     </a>
                     <ul class="mm-collapse">
+                    @if (Auth::user()->access_level == 'Admin')
                         <li class="item-name">
                             <a class="" href="charts.echarts.html">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
@@ -278,12 +294,7 @@
                                 <span class="item-name">Module Mngr</span>
                             </a>
                         </li>
-                        <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Broadcast</span>
-                            </a>
-                        </li>
+
                         <li class="item-name">
                             <a class="" href="charts.chartsjs.html">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
@@ -326,6 +337,33 @@
                                 <span class="item-name">County Tier</span>
                             </a>
                         </li>
+                        <li class="item-name">
+                            <a class="" href="charts.chartsjs.html">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="charts.chartsjs.html">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Manual SMS</span>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->access_level == 'Facility')
+                        <li class="item-name">
+                            <a class="" href="charts.chartsjs.html">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="charts.chartsjs.html">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Manual SMS</span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </li>
 

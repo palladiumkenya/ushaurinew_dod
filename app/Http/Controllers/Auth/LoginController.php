@@ -26,12 +26,14 @@ use AuthenticatesUsers;
    // protected $redirectTo = '/Reports/dashboard';
 
    protected function authenticated(Request $request, $user) {
-    if ($user->access_level == 'Admin') {
-        return redirect('/Reports/dashboard');
+    if ($user->access_level == 'Facility') {
+        return redirect('/Reports/facility_home');
     } else if ($user->access_level == 'Partner') {
         return redirect('/Reports/dashboard');
-    } else {
-        return redirect('/Reports/facility_home');
+    } else if ($user->access_level == 'Admin') {
+        return redirect('/Reports/dashboard');
+    }else {
+        return redirect('/Reports/dashboard');
     }
 }
 /**

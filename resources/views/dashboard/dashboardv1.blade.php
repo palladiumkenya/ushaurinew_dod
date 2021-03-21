@@ -19,7 +19,7 @@
                             <i class="i-Add-User"></i>
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Target Active Clients</p>
-                                <p id='actual_clients' class="text-primary text-24 line-height-1 mb-2"></p>
+                                <p id='all_target_clients' class="text-primary text-24 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -130,10 +130,11 @@
                 $("#partners").selectpicker('refresh');
                 $("#counties").selectpicker('refresh');
                 $("#all_clients_number").html(data.all_clients_number);
+                $("#all_target_clients").html(data.all_target_clients);
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
-               // $("#sum(actual_clients)").html(data.sum(actual_clients));
+                $("#sum(actual_clients)").html(data.sum(actual_clients));
 
             }
         });
