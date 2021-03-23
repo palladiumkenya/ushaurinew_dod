@@ -277,7 +277,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href={{route('admin-users')}}>>
+                            <a class="" href={{route('admin-users')}}>
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Users</span>
                             </a>

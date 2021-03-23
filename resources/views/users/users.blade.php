@@ -12,7 +12,7 @@
         <div class="card-body">
 
             <div style="margin-bottom:10px; ">
-                <a type="button" href="" class="btn btn-primary btn-md pull-right">Add User</a>
+                <a type="button" href="{{route('admin-users-form')}}" class="btn btn-primary btn-md pull-right">Add User</a>
             </div>
             <div class="table-responsive">
                 <table id="multicolumn_ordering_table" class="display table table-striped table-bordered"
