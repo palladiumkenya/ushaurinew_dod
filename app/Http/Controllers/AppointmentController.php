@@ -607,6 +607,621 @@ class AppointmentController extends Controller
 
         }
 
+        if (Auth::user()->access_level == 'Admin') {
+
+            $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereBetween('tbl_client.dob', [now()->subYears(10), now()->subYears(14)])
+            ->where('tbl_client.mfl_code', '=', 12345)
+            ->where('active_app', '=', 1)
+            ->where('app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $all_missed_app_0_9 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('active_app', '=', 1)
+            ->where('app_status', '=', 'LTFU')
+            ->where('tbl_client.mfl_code', '=', 12345)
+            ->where('tbl_client.dob', '<=',  now()->subYears(9))
+            ->pluck('count');
+
+            $all_ltfu_app_15_19 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereBetween('tbl_client.dob', [now()->subYears(15), now()->subYears(19)])
+            ->where('tbl_client.mfl_code', '=', 12345)
+            ->where('active_app', '=', 1)
+            ->where('app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $all_ltfu_app_20_24 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_client.mfl_code', '=', 12345)
+            ->where(function ($query) {
+                $query->where('tbl_client.dob', '>=', now()->subYears(20))
+                      ->where('tbl_client.dob', '<=', now()->subYears(24));
+            })
+            ->where('active_app', '=', 1)
+            ->where('app_status', '=', 'LTFU')
+            ->toSql();
+
+
+            $all_ltfu_app_25 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_client.mfl_code', '=', 12345)
+            ->where('active_app', '=', 1)
+            ->where('app_status', '=', 'LTFU')
+            ->where('tbl_client.dob', '>=',   Carbon::now()->subYears(25))
+            ->pluck('count');
+
+
+            // appointments count
+            $created_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereNotNull('tbl_appointment.id')
+            ->pluck('count');
+
+            $kept_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereNotNull('tbl_appointment.id')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $defaulted_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereNotNull('tbl_appointment.id')
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $missed_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereNotNull('tbl_appointment.id')
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $ltfu_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->whereNotNull('tbl_appointment.id')
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+
+            // single active appointment
+
+            $all_appointment_by_marital_single_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Single')
+            ->pluck('count');
+
+            $all_appointment_by_marital_single_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Single')
+            ->pluck('count');
+
+            $all_appointment_by_marital_single_ltfu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Single')
+            ->pluck('count');
+
+            // Married Monogomous Active Appointment
+
+            $all_appointment_by_marital_monogomous_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+            ->pluck('count');
+
+            $all_appointment_by_marital_monogomous_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+            ->pluck('count');
+
+            $all_appointment_by_marital_monogomous_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+            ->pluck('count');
+
+            // Divorced Active Appointment
+
+            $all_appointment_by_marital_divorced_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Divorced')
+            ->pluck('count');
+
+            $all_appointment_by_marital_divorced_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Divorced')
+            ->pluck('count');
+
+            $all_appointment_by_marital_divorced_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Divorced')
+            ->pluck('count');
+
+            // Widowed Active Appointment
+
+            $all_appointment_by_marital_widowed_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Widowed')
+            ->pluck('count');
+
+            $all_appointment_by_marital_widowed_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Widowed')
+            ->pluck('count');
+
+            $all_appointment_by_marital_widowed_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Widowed')
+            ->pluck('count');
+
+            // Cohabiting Active Appointment
+
+            $all_appointment_by_marital_cohabiting_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+            ->pluck('count');
+
+            $all_appointment_by_marital_cohabiting_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+            ->pluck('count');
+
+            $all_appointment_by_marital_cohabiting_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+            ->pluck('count');
+
+            // Unavailable Active Appointment
+
+            $all_appointment_by_marital_unavailable_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Unavailable')
+            ->pluck('count');
+
+            $all_appointment_by_marital_unavailable_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Unavailable')
+            ->pluck('count');
+
+            $all_appointment_by_marital_unavailable_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Unavailable')
+            ->pluck('count');
+
+            // Polygamous Active Appointment
+
+            $all_appointment_by_marital_polygamous_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+            ->pluck('count');
+
+            $all_appointment_by_marital_polygamous_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+            ->pluck('count');
+
+            $all_appointment_by_marital_polygamous_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+            ->pluck('count');
+
+            // Not applicable Active Appointment
+
+            $all_appointment_by_marital_notapplicable_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+            ->pluck('count');
+
+
+            $all_appointment_by_marital_notapplicable_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+            ->pluck('count');
+
+            $all_appointment_by_marital_notapplicable_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->where('tbl_appointment.active_app', '=', 1)
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+            ->pluck('count');
+
+
+            }
+
+            if (Auth::user()->access_level == 'Partner') {
+
+                $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereBetween('tbl_client.dob', [now()->subYears(10), now()->subYears(14)])
+                ->where('tbl_client.mfl_code', '=', 12345)
+                ->where('active_app', '=', 1)
+                ->where('app_status', '=', 'LTFU')
+                ->pluck('count');
+
+                $all_missed_app_0_9 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('active_app', '=', 1)
+                ->where('app_status', '=', 'LTFU')
+                ->where('tbl_client.mfl_code', '=', 12345)
+                ->where('tbl_client.dob', '<=',  now()->subYears(9))
+                ->pluck('count');
+
+                $all_ltfu_app_15_19 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereBetween('tbl_client.dob', [now()->subYears(15), now()->subYears(19)])
+                ->where('tbl_client.mfl_code', '=', 12345)
+                ->where('active_app', '=', 1)
+                ->where('app_status', '=', 'LTFU')
+                ->pluck('count');
+
+                $all_ltfu_app_20_24 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_client.mfl_code', '=', 12345)
+                ->where(function ($query) {
+                    $query->where('tbl_client.dob', '>=', now()->subYears(20))
+                          ->where('tbl_client.dob', '<=', now()->subYears(24));
+                })
+                ->where('active_app', '=', 1)
+                ->where('app_status', '=', 'LTFU')
+                ->toSql();
+
+
+                $all_ltfu_app_25 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_client.mfl_code', '=', 12345)
+                ->where('active_app', '=', 1)
+                ->where('app_status', '=', 'LTFU')
+                ->where('tbl_client.dob', '>=',   Carbon::now()->subYears(25))
+                ->pluck('count');
+
+
+                // appointments count
+                $created_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereNotNull('tbl_appointment.id')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $kept_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereNotNull('tbl_appointment.id')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $defaulted_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereNotNull('tbl_appointment.id')
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $missed_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereNotNull('tbl_appointment.id')
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $ltfu_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->whereNotNull('tbl_appointment.id')
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+
+                // single active appointment
+
+                $all_appointment_by_marital_single_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Single')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_single_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Single')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_single_ltfu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Single')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Married Monogomous Active Appointment
+
+                $all_appointment_by_marital_monogomous_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_monogomous_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_monogomous_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Married Monogamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Divorced Active Appointment
+
+                $all_appointment_by_marital_divorced_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Divorced')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_divorced_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Divorced')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_divorced_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Divorced')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Widowed Active Appointment
+
+                $all_appointment_by_marital_widowed_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Widowed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_widowed_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Widowed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_widowed_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Widowed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Cohabiting Active Appointment
+
+                $all_appointment_by_marital_cohabiting_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_cohabiting_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_cohabiting_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Cohabiting')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Unavailable Active Appointment
+
+                $all_appointment_by_marital_unavailable_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Unavailable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_unavailable_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Unavailable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_unavailable_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Unavailable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Polygamous Active Appointment
+
+                $all_appointment_by_marital_polygamous_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_polygamous_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_polygamous_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Maried polygamous')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Not applicable Active Appointment
+
+                $all_appointment_by_marital_notapplicable_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+
+                $all_appointment_by_marital_notapplicable_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $all_appointment_by_marital_notapplicable_lftu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->join('tbl_marital_status', 'tbl_marital_status.id', '=', 'tbl_client.marital')
+                ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+                ->where('tbl_appointment.active_app', '=', 1)
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_marital_status.marital', '=', 'Not Applicable')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+
+                }
+
         return view('appointments.appointment_dashboard', compact('created_appointmnent_count', 'kept_appointmnent_count', 'missed_appointmnent_count', 'defaulted_appointmnent_count', 'ltfu_appointmnent_count', 'all_appointment_by_marital_single_missed', 'all_appointment_by_marital_single_defaulted', 'all_appointment_by_marital_single_ltfu', 'all_appointment_by_marital_monogomous_missed', 'all_appointment_by_marital_monogomous_defaulted', 'all_appointment_by_marital_monogomous_lftu',
         'all_appointment_by_marital_divorced_missed', 'all_appointment_by_marital_divorced_defaulted', 'all_appointment_by_marital_divorced_lftu', 'all_appointment_by_marital_widowed_missed', 'all_appointment_by_marital_widowed_defaulted', 'all_appointment_by_marital_widowed_lftu', 'all_appointment_by_marital_cohabiting_missed',
         'all_appointment_by_marital_cohabiting_defaulted', 'all_appointment_by_marital_cohabiting_lftu', 'all_appointment_by_marital_unavailable_missed', 'all_appointment_by_marital_unavailable_defaulted', 'all_appointment_by_marital_unavailable_lftu',

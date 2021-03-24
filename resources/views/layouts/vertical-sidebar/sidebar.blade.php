@@ -395,7 +395,71 @@
                         </ul>
                         </li>
                         <li class="item-name">
-                            <a href="form.basic.html">
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">PMTCT Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                    <li class="item-name">
+                            <a href="">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Summary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-pmtct-appointment-dairy')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">App Diary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-pmtct-defaulter-dairy')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Defaulter Diary</span>
+                            </a>
+                        </li>
+                        </ul>
+                        </li>
+                        <li class="item-name">
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">Hei Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="{{route('report-all_heis')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Summary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-all_heis')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Hei List</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('report-hei-appointment-dairy')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">App Diary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-hei-defaulter-dairy')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Defaulter Diary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-hei-final-outcome')}}">
+                                <i class="nav-icon i-Split-Vertical"></i>
+                                <span class="item-name">Final Outcome</span>
+                            </a>
+                        </li>
+                        </ul>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-lab_investigation')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Lab Investigation</span>
                             </a>
@@ -430,134 +494,9 @@
                                 <span class="item-name">Messages Extract</span>
                             </a>
                         </li>
-                 <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
-                        <span class="item-name  text-muted">PMTCT Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
-                    <li class="item-name">
-                            <a href="{{route('get_pmtct_booked_clients')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Summary</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('get_pmtct_booked_clients')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Clients Booked</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_honored_appointment')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Appointments Kept</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('get_pmtct_scheduled_appointments')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Scheduled Appointments</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('get_pmtct_unscheduled_appointments')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Unscheduled Appointments</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_missed_clients')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Missed Clients</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_defaulted_clients')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Defaulted Clients</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_pmtct_ltfu_clients')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Lost To Follow Up</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_deceased_clients')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Deceased</span>
-                            </a>
-                        </li>
-                        </ul>
-                        </li>
 
                         <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
-                        <span class="item-name  text-muted">Hei Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
-                        <li class="item-name">
-                            <a href="{{route('report-all_heis')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Summary</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-all_heis')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">All Hei</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-booked_heis')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Hei Booked</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-unscheduled_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Unscheduled</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-scheduled_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Scheduled</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-missed_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Missed</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-defaulted_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Defaulted</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-ltfu_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Lost To Follow Up</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-deceased_heis')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">Deceased</span>
-                            </a>
-                        </li>
-                        </ul>
-                        </li>
-
-                        <li class="item-name">
-                            <a href="smart.wizard.html">
+                            <a href="{{route('report-transfer')}}">
                                 <i class="nav-icon i-Width-Window"></i>
                                 <span class="item-name">Transfers</span>
                             </a>
