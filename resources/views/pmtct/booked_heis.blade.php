@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Booked Heis List</h4>
+                        <h4 class="card-title mb-3">Booked Heis List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>

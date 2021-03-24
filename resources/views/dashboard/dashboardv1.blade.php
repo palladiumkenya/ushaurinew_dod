@@ -117,7 +117,6 @@
     </script>
 
      <script type="text/javascript">
-
      $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -135,10 +134,8 @@
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
                 $("#sum(actual_clients)").html(data.sum(actual_clients));
-
             }
         });
-
         </script>
 
 @endsection

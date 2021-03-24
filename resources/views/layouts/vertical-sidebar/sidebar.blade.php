@@ -373,6 +373,27 @@
                         <span class="item-name  text-muted">Reports</span>
                     </a>
                     <ul class="mm-collapse">
+
+                    <li class="item-name">
+                        <a class="has-arrow" href="#">
+                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">DSD Reports</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                            <a href="">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">Summary</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('Reports-dsd')}}">
+                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                                <span class="item-name">DSD Dairy</span>
+                            </a>
+                        </li>
+                        </ul>
+                        </li>
                         <li class="item-name">
                             <a href="form.basic.html">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
@@ -534,38 +555,7 @@
                         </li>
                         </ul>
                         </li>
-                        <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
-                        <span class="item-name  text-muted">DCM Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
-                        <li class="item-name">
-                            <a href="{{route('get_dcm_less_well')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Less Well</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_dcm_less_advanced')}}">
-                                <i class="nav-icon i-File-Clipboard-Text--Image"></i>
-                                <span class="item-name">Less Advanced</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('get_dcm_more_stable')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">More Stable</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('get_dcm_more_unstable')}}">
-                                <i class="nav-icon i-Split-Vertical"></i>
-                                <span class="item-name">More Unstable</span>
-                            </a>
-                        </li>
-                        </ul>
-                        </li>
+
                         <li class="item-name">
                             <a href="smart.wizard.html">
                                 <i class="nav-icon i-Width-Window"></i>

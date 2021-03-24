@@ -37,7 +37,6 @@
         var mobileEntry =  <?php echo json_encode($client_entry_point_mobile) ?>;
         var ilEntry =  <?php echo json_encode($client_entry_point_il) ?>;
         var webEntry =  <?php echo json_encode($client_entry_point_web) ?>;
-
         Highcharts.chart('entryPoint', {
     chart: {
         plotBackgroundColor: null,

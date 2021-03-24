@@ -246,7 +246,6 @@
      <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
 
      <script type="text/javascript">
-
 $('#today_appointment_table').DataTable({
         columnDefs: [{
             targets: [0],
@@ -328,8 +327,6 @@ $('#today_appointment_table').DataTable({
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
-
-
         </script>
 
 @endsection

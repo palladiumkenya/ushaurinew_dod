@@ -49,12 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/clients/list', ['uses' => 'App\Http\Controllers\ClientListController@get_client_list', 'as' => 'report-clients-list']);
 
     // DCM routes
-   // Route::get('/get_client_data', ['uses' => 'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
     Route::get('/Reports/dsd', ['uses' => 'App\Http\Controllers\DcmReportController@dcm_report', 'as' => 'Reports-dsd']);
-    Route::get('/get_dcm_less_well', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_less_well', 'as' => 'get_dcm_less_well']);
-    Route::get('/get_dcm_less_advanced', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_less_advanced', 'as' => 'get_dcm_less_advanced']);
-    Route::get('/get_dcm_more_stable', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_more_stable', 'as' => 'get_dcm_more_stable']);
-    Route::get('/get_dcm_more_unstable', ['uses' => 'App\Http\Controllers\DcmReportController@get_dcm_more_unstable', 'as' => 'get_dcm_more_unstable']);
 
     // Appointments routes
 
@@ -92,6 +87,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // PMTCT routes
     Route::get('/get_pmtct_clients_data', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_clients_data', 'as' => 'get_pmtct_clients_data']);
+    Route::get('/report/pmtct/defaulter/dairy', ['uses' => 'App\Http\Controllers\PmtcController@pmtct_defaulter_dairy', 'as' => 'report-pmtct-defaulter-dairy']);
+    Route::get('/report/pmtct/appointment/dairy', ['uses' => 'App\Http\Controllers\PmtcController@pmtct_appointment_dairy', 'as' => 'report-pmtct-appointment-dairy']);
 
     Route::get('/get_pmtct_booked_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_booked_clients', 'as' => 'get_pmtct_booked_clients']);
     Route::get('/get_pmtct_honored_appointment', ['uses' => 'App\Http\Controllers\PmtcController@get_pmtct_honored_appointment', 'as' => 'get_pmtct_honored_appointment']);
@@ -103,6 +100,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_deceased_clients', ['uses' => 'App\Http\Controllers\PmtcController@get_deceased_clients', 'as' => 'get_deceased_clients']);
 
     Route::get('/report/all_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_all_hei', 'as' => 'report-all_heis']);
+    Route::get('/report/hei/appointment/dairy', ['uses' => 'App\Http\Controllers\PmtcController@hei_appointment_dairy', 'as' => 'report-hei-appointment-dairy']);
+    Route::get('/report/hei/defaulter/dairy', ['uses' => 'App\Http\Controllers\PmtcController@hei_defaulter_dairy', 'as' => 'report-hei-defaulter-dairy']);
+    Route::get('/report/hei/final/outcome', ['uses' => 'App\Http\Controllers\PmtcController@hei_final_outcome', 'as' => 'report-hei-final-outcome']);
+
     Route::get('/report/booked_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_booked_hei', 'as' => 'report-booked_heis']);
     Route::get('/report/scheduled_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_scheduled_hei', 'as' => 'report-scheduled_heis']);
     Route::get('/report/unscheduled_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_unscheduled_hei', 'as' => 'report-unscheduled_heis']);

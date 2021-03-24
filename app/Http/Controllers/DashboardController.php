@@ -235,17 +235,6 @@ class DashboardController extends Controller
 
         }
 
-        if (Auth::user()->access_level == 'Donor') {
-            $clients_count->where('donor_id', Auth::user()->donor_id);
-            $consented_count->where('donor_id', Auth::user()->donor_id);
-            $appointment_count->where('donor_id', Auth::user()->donor_id);
-            $messages_count->where('donor_id', Auth::user()->donor_id);
-            $today_appointment->where('donor_id', Auth::user()->donor_id);
-            $missed_appoitment->where('donor_id', Auth::user()->donor_id);
-            $defaulted_appoitment->where('donor_id', Auth::user()->donor_id);
-            $ltfu_appoitment->where('donor_id', Auth::user()->donor_id);
-        }
-
 
         return view('dashboard.facility_dashboard', compact('clients_count', 'consented_count', 'appointment_count', 'messages_count', 'today_appointment', 'missed_appoitment', 'defaulted_appoitment', 'ltfu_appoitment'));
     }
