@@ -388,6 +388,10 @@ class PmtcController extends Controller
             ->whereNotNull('tbl_client.hei_no')
             ->get();
 
+            $test = Client::whereNotNull('dob')
+            ->age;
+            dd($test);
+
         }
 
         if (Auth::user()->access_level == 'Partner') {
@@ -414,51 +418,16 @@ class PmtcController extends Controller
 
         }
 
-        return view('pmtct/hei_final_outcome', compact('all_deceased_heis', 'all_transfer_heis', 'all_discharged_heis'));
+        return view('pmtct/hei_final_outcome', compact('test', 'all_deceased_heis', 'all_transfer_heis', 'all_discharged_heis'));
     }
 
-    public function get_missed_hei()
-    {
-        $all_missed_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_appointment.app_status', '=', 'Missed')
-        ->whereNotNull('tbl_client.hei_no');
-
-        return view('pmtct/missed_heis')->with('all_missed_heis', $all_missed_heis->get());
-    }
-
-    public function get_defaulted_hei()
-    {
-        $all_defaulted_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_appointment.app_status', '=', 'Defaulted')
-        ->whereNotNull('tbl_client.hei_no');
-
-        return view('pmtct/defaulted_heis')->with('all_defaulted_heis', $all_defaulted_heis->get());
-    }
-
-    public function get_ltfu_hei()
-    {
-        $all_ltfu_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_appointment.app_status', '=', 'LTFU')
-        ->whereNotNull('tbl_client.hei_no');
-
-        return view('pmtct/ltfu_heis')->with('all_ltfu_heis', $all_ltfu_heis->get());
-    }
-
-    public function get_deceased_hei()
-    {
-        $all_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_client.status', '=', 'Deceased')
-        ->whereNotNull('tbl_client.hei_no');
-
-        return view('pmtct/deceased_heis')->with('all_deceased_heis', $all_deceased_heis->get());
-    }
 
     public function pmtct_dashboard()
     {
+        $test = Client::whereNotNull('dob')
+        ->age;
+        dd($test);
 
+        return view('pmtct/hei_final_outcome', compact('test'));
     }
 }

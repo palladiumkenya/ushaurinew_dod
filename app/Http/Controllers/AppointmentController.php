@@ -897,7 +897,6 @@ class AppointmentController extends Controller
             ->where('tbl_marital_status.marital', '=', 'Not Applicable')
             ->pluck('count');
 
-
             }
 
             if (Auth::user()->access_level == 'Partner') {
