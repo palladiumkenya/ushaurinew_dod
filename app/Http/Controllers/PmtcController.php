@@ -388,10 +388,6 @@ class PmtcController extends Controller
             ->whereNotNull('tbl_client.hei_no')
             ->get();
 
-            $test = Client::whereNotNull('dob')
-            ->age;
-            dd($test);
-
         }
 
         if (Auth::user()->access_level == 'Partner') {
@@ -418,7 +414,7 @@ class PmtcController extends Controller
 
         }
 
-        return view('pmtct/hei_final_outcome', compact('test', 'all_deceased_heis', 'all_transfer_heis', 'all_discharged_heis'));
+        return view('pmtct/hei_final_outcome', compact('all_deceased_heis', 'all_transfer_heis', 'all_discharged_heis'));
     }
 
 

@@ -16,7 +16,7 @@ class Client extends Model
 
     ];
 
-    public function age() {
+    public function getAgeAttribute() {
         return $this->dob->diffInYears(\Carbon\Carbon::now());
     }
 }

@@ -46,8 +46,13 @@ public function dcm_report()
     ->where('tbl_dfc_module.duration_more', '=', 'Unstable')
     ->where('tbl_appointment.active_app', '=', 1)->get();
 
+    $age = Client::whereDate('dob', '>=', now()->subYears(10))
+    ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+    ->get();
+
+
     }
 
-    return view('reports.dcm_reports', compact('all_clients_duration_less_well', 'all_clients_duration_less_advanced', 'all_clients_duration_more_stable', 'all_clients_duration_more_unstable'));
+    return view('reports.dcm_reports', compact('age', 'all_clients_duration_less_well', 'all_clients_duration_less_advanced', 'all_clients_duration_more_stable', 'all_clients_duration_more_unstable'));
 }
 }
