@@ -15,6 +15,8 @@ use App\Models\Appointments;
 use App\Models\TodayAppointment;
 use App\Models\Message;
 use App\Models\County;
+use App\Models\MainDashboardBar;
+use App\Models\ClientRegistration;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -35,23 +37,42 @@ class DashboardController extends Controller
         $data = [];
 
         $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
+        $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
+        $pec_client_count = ClientRegistration::select('total_percentage')->avg('total_percentage');
+       // $all_client_pec = $pec_client_sum / $pec_client_count * 1000;
         $all_target_clients = ClientPerformance::selectRaw('target_clients')->sum('target_clients');
-        $all_consented_clients = Client::where('smsenable', '=', 'Yes')->whereNotNull('clinic_number');
+        $all_consented_clients = ClientRegistration::select('consented')->sum('consented');
         $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())->whereNotNull('client_id');
         $number_of_facilities = ClientPerformance::whereNotNull('mfl_code');
-       // $number_of_consented_clients = Consented::selectRaw('sum(no_of_consented_clients)');
+
+        $registered_clients = MainDashboardBar::select('clients')->sum('clients')->groupBy('MONTH');
+        $consented_clients = MainDashboardBar::select('consented')->sum('consented')->groupBy('MONTH');
+        $month_count = MainDashboardBar::select('MONTH')->orderBy('MONTH', 'asc');
+
+
 
         $data['all_clients_number'] = $all_clients_number;
+        $data['pec_client_count'] = $pec_client_count;
         $data['all_target_clients'] = $all_target_clients;
-        $data['all_consented_clients'] = $all_consented_clients->count();
+        $data['all_consented_clients'] = $all_consented_clients;
         $data['all_future_appointments'] = $all_future_appointments->count();
         $data['number_of_facilities'] = $number_of_facilities->count();
-       // $data['all_clients_number'] = $all_clients_number->get();
-       // $data['number_of_consented_clients'] = $number_of_consented_clients->count();
+
+        $data['registered_clients'] = $registered_client->count();
+        $data['consented_clients'] = $consented_clients->count();
+        $data['month_count'] = $month_count->get()->count();
+
+
+
+
+        //return view('dashboard.dashboardv1', compact('registered_clients', 'consented_clients', 'month_count'));
+
 
         return $data;
 
     }
+
+
     public function get_dashboard_counties(Request $request)
     {
         $partner_ids = array();
@@ -83,6 +104,7 @@ class DashboardController extends Controller
         }
         return $all_counties;
     }
+
 
     public function facility_dashboard()
     {

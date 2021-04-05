@@ -401,7 +401,7 @@
                     </a>
                     <ul class="mm-collapse">
                     <li class="item-name">
-                            <a href="">
+                            <a href="{{route('report-pmtct-summary')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Summary</span>
                             </a>
