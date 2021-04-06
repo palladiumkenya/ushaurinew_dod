@@ -67,6 +67,14 @@
     var ToNine_booked =  <?php echo json_encode($tonine_booked) ?>;
     var ToFourteen_booked =  <?php echo json_encode($tofourteen_booked) ?>;
     var ToNineteen_booked =  <?php echo json_encode($tonineteen_booked) ?>;
+    var ToTwentyFour_booked =  <?php echo json_encode($totwentyfour_booked) ?>;
+    var ToTwentyNine_booked =  <?php echo json_encode($totwentynine_booked) ?>;
+    var ToThirtyFour_booked =  <?php echo json_encode($tothirtyfour_booked) ?>;
+    var ToThirtyNine_booked =  <?php echo json_encode($tothirtynine_booked) ?>;
+    var ToFortyFour_booked =  <?php echo json_encode($tofortyfour_booked) ?>;
+    var ToFortyNine_booked =  <?php echo json_encode($tofortynine_booked) ?>;
+    var ToFirtyPlus_booked =  <?php echo json_encode($tofifty_booked) ?>;
+    var Total_booked =  <?php echo json_encode($tototal_booked) ?>;
 
 
 
@@ -233,7 +241,7 @@ plotOptions: {
 
 series: [{
     name: 'Booked',
-    data: [ToNine_booked, ToFourteen_booked, ToNineteen_booked]
+    data: [ToNine_booked, ToFourteen_booked, ToNineteen_booked, ToTwentyFour_booked, ToTwentyNine_booked, ToThirtyFour_booked, ToThirtyNine_booked, ToFortyFour_booked, ToFortyNine_booked, ToFirtyPlus_booked, Total_booked]
 },{
     name: 'App Kept',
 },{
