@@ -132,7 +132,7 @@
 // user options
 var tableTop = 55,
     colWidth = 95,
-    tableLeft = 40,
+    tableLeft = 60,
     rowHeight = 40,
     cellPadding = 6,
     valueDecimals = 0;
@@ -271,7 +271,7 @@ title: {
 
 xAxis: {
     visible: false,
-    categories: ['0-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50+', 'Total']
+    categories: ['10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49', '50+', 'Total']
 },
 
 yAxis: {
@@ -289,28 +289,28 @@ plotOptions: {
 
 series: [{
     name: 'Booked',
-    data: [ToNine_booked, ToFourteen_booked, ToNineteen_booked, ToTwentyFour_booked, ToTwentyNine_booked, ToThirtyFour_booked, ToThirtyNine_booked, ToFortyFour_booked, ToFortyNine_booked, ToFirtyPlus_booked, Total_booked]
+    data: [ToFourteen_booked, ToNineteen_booked, ToTwentyFour_booked, ToTwentyNine_booked, ToThirtyFour_booked, ToThirtyNine_booked, ToFortyFour_booked, ToFortyNine_booked, ToFirtyPlus_booked, Total_booked]
 },{
     name: 'App Honoured',
-    data: [ToNine_honoured, ToFourteen_honoured, ToNineteen_honoured, ToTwentyFour_honoured, ToTwentyNine_honoured, ToThirtyFour_honoured, ToThirtyNine_honoured, ToFortyFour_honoured, ToFortyNine_honoured, ToFirtyPlus_honoured, Total_honoured]
+    data: [ToFourteen_honoured, ToNineteen_honoured, ToTwentyFour_honoured, ToTwentyNine_honoured, ToThirtyFour_honoured, ToThirtyNine_honoured, ToFortyFour_honoured, ToFortyNine_honoured, ToFirtyPlus_honoured, Total_honoured]
 },{
     name: 'Scheduled',
-    data: [ToNine_scheduled, ToFourteen_scheduled, ToNineteen_scheduled, ToTwentyFour_scheduled, ToTwentyNine_scheduled, ToThirtyFour_scheduled, ToThirtyNine_scheduled, ToFortyFour_scheduled, ToFortyNine_scheduled, ToFirtyPlus_scheduled, Total_Scheduled]
+    data: [ToFourteen_scheduled, ToNineteen_scheduled, ToTwentyFour_scheduled, ToTwentyNine_scheduled, ToThirtyFour_scheduled, ToThirtyNine_scheduled, ToFortyFour_scheduled, ToFortyNine_scheduled, ToFirtyPlus_scheduled, Total_Scheduled]
 }, {
     name: 'Un-Scheduled',
-    data: [ToNine_unscheduled, ToFourteen_unscheduled, ToNineteen_unscheduled, ToTwentyFour_unscheduled, ToTwentyNine_unscheduled, ToThirtyFour_unscheduled, ToThirtyNine_unscheduled, ToFortyFour_unscheduled, ToFortyNine_unscheduled, ToFirtyPlus_unscheduled, Total_unscheduled]
+    data: [ToFourteen_unscheduled, ToNineteen_unscheduled, ToTwentyFour_unscheduled, ToTwentyNine_unscheduled, ToThirtyFour_unscheduled, ToThirtyNine_unscheduled, ToFortyFour_unscheduled, ToFortyNine_unscheduled, ToFirtyPlus_unscheduled, Total_unscheduled]
 
 }, {
     name: 'Defaulter',
-    data: [ToNine_defaulted, ToFourteen_defaulted, ToNineteen_defaulted, ToTwentyFour_defaulted, ToTwentyNine_defaulted, ToThirtyFour_defaulted, ToThirtyNine_defaulted, ToFortyFour_defaulted, ToFortyNine_defaulted, ToFirtyPlus_defaulted, Total_defaulted]
+    data: [ToFourteen_defaulted, ToNineteen_defaulted, ToTwentyFour_defaulted, ToTwentyNine_defaulted, ToThirtyFour_defaulted, ToThirtyNine_defaulted, ToFortyFour_defaulted, ToFortyNine_defaulted, ToFirtyPlus_defaulted, Total_defaulted]
 
 }, {
     name: 'Missed',
-    data: [ToNine_missed, ToFourteen_missed, ToNineteen_missed, ToTwentyFour_missed, ToTwentyNine_missed, ToThirtyFour_missed, ToThirtyNine_missed, ToFortyFour_missed, ToFortyNine_missed, ToFirtyPlus_missed, Total_missed]
+    data: [ToFourteen_missed, ToNineteen_missed, ToTwentyFour_missed, ToTwentyNine_missed, ToThirtyFour_missed, ToThirtyNine_missed, ToFortyFour_missed, ToFortyNine_missed, ToFirtyPlus_missed, Total_missed]
 
 }, {
     name: 'LTFU',
-    data: [ToNine_ltfu, ToFourteen_ltfu, ToNineteen_ltfu, ToTwentyFour_ltfu, ToTwentyNine_ltfu, ToThirtyFour_ltfu, ToThirtyNine_ltfu, ToFortyFour_ltfu, ToFortyNine_ltfu, ToFirtyPlus_ltfu, Total_ltfu]
+    data: [ToFourteen_ltfu, ToNineteen_ltfu, ToTwentyFour_ltfu, ToTwentyNine_ltfu, ToThirtyFour_ltfu, ToThirtyNine_ltfu, ToFortyFour_ltfu, ToFortyNine_ltfu, ToFirtyPlus_ltfu, Total_ltfu]
 
 }]
 });

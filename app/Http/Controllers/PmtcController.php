@@ -524,7 +524,7 @@ class PmtcController extends Controller
 
             $tototal_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->whereNull('tbl_client.hei_no')
             ->where('tbl_appointment.visit_type', '=', 'Scheduled')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
@@ -615,7 +615,7 @@ class PmtcController extends Controller
             $tototal_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
@@ -714,7 +714,7 @@ class PmtcController extends Controller
             $tototal_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.app_status', '=', 'Booked')
             ->where('tbl_appointment.appntmnt_date', '>', Now())
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
@@ -805,7 +805,7 @@ class PmtcController extends Controller
             $tototal_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.app_status', '=', 'Defaulted')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
@@ -894,7 +894,7 @@ class PmtcController extends Controller
             $tototal_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.app_status', '=', 'Missed')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
@@ -983,7 +983,7 @@ class PmtcController extends Controller
             $tototal_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.app_status', '=', 'LTFU')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
@@ -1072,9 +1072,1212 @@ class PmtcController extends Controller
             $tototal_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->whereNull('tbl_client.hei_no')
-            ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
             ->where('tbl_appointment.appointment_kept', '=', 'Yes')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+            ->pluck('count');
+        }
+
+        // partner level
+
+        if (Auth::user()->access_level == 'Partner') {
+
+
+                $tonine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofiftyplus_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Un-Scheduled
+                $tonine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                //Booked
+                $tonine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.app_status', '=', 'Booked')
+                ->where('tbl_appointment.appntmnt_date', '>', Now())
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Defaulter
+
+                $tonine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // Missed
+                $tonine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // LTFU
+                $tonine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                // honoured appointments
+                $tonine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofourteen_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tonineteen_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                 ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $totwentynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tothirtynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofortynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tofifty_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+                ->whereNull('tbl_client.hei_no')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+
+                $tototal_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+                ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+                ->whereNull('tbl_client.hei_no')
+                ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.partner_id', Auth::user()->partner_id)
+                ->pluck('count');
+            }
+
+            // Administrator
+
+        if (Auth::user()->access_level == 'Admin') {
+
+
+            $tonine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tofourteen_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tonineteen_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $totwentyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $totwentynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tothirtyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tothirtynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tofortyfour_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tofortynine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tofiftyplus_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            $tototal_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+            ->pluck('count');
+
+            // Un-Scheduled
+            $tonine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tofourteen_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tonineteen_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $totwentyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $totwentynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tothirtyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tothirtynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tofortyfour_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tofortynine_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tofifty_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            $tototal_unscheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+            ->pluck('count');
+
+            //Booked
+            $tonine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tofourteen_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tonineteen_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $totwentyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $totwentynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tothirtyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tothirtynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tofortyfour_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tofortynine_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tofifty_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            $tototal_booked = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.app_status', '=', 'Booked')
+            ->where('tbl_appointment.appntmnt_date', '>', Now())
+            ->pluck('count');
+
+            // Defaulter
+
+            $tonine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tofourteen_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tonineteen_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $totwentyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $totwentynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tothirtyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tothirtynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tofortyfour_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tofortynine_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tofifty_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            $tototal_defaulted = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.app_status', '=', 'Defaulted')
+            ->pluck('count');
+
+            // Missed
+            $tonine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tofourteen_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tonineteen_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $totwentyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $totwentynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tothirtyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tothirtynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tofortyfour_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tofortynine_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tofifty_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            $tototal_missed = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.app_status', '=', 'Missed')
+            ->pluck('count');
+
+            // LTFU
+            $tonine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tofourteen_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tonineteen_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $totwentyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $totwentynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tothirtyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tothirtynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tofortyfour_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tofortynine_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tofifty_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            $tototal_ltfu = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.app_status', '=', 'LTFU')
+            ->pluck('count');
+
+            // honoured appointments
+            $tonine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tofourteen_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tonineteen_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $totwentyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $totwentynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tothirtyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 30) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 34)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tothirtynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 35) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 39)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tofortyfour_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 40) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 44)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tofortynine_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 45) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 49)) then `tbl_client`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tofifty_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 50) and ((year(curdate()) - year(`tbl_client`.`dob`)) >= 50)) then `tbl_pmtct`.`id` end)) AS count"))
+            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+            ->pluck('count');
+
+            $tototal_honoured = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+            ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->whereNull('tbl_client.hei_no')
+            ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) >=10)) then `tbl_client`.`id` end)) AS count"))
+            ->where('tbl_appointment.appointment_kept', '=', 'Yes')
             ->pluck('count');
         }
 
