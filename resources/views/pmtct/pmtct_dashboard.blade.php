@@ -112,6 +112,18 @@
     var ToFirtyPlus_ltfu =  <?php echo json_encode($tofifty_ltfu) ?>;
     var Total_ltfu =  <?php echo json_encode($tototal_ltfu) ?>;
 
+    var ToNine_honoured =  <?php echo json_encode($tonine_honoured) ?>;
+    var ToFourteen_honoured =  <?php echo json_encode($tofourteen_honoured) ?>;
+    var ToNineteen_honoured =  <?php echo json_encode($tonineteen_honoured) ?>;
+    var ToTwentyFour_honoured =  <?php echo json_encode($totwentyfour_honoured) ?>;
+    var ToTwentyNine_honoured =  <?php echo json_encode($totwentynine_honoured) ?>;
+    var ToThirtyFour_honoured =  <?php echo json_encode($tothirtyfour_honoured) ?>;
+    var ToThirtyNine_honoured =  <?php echo json_encode($tothirtynine_honoured) ?>;
+    var ToFortyFour_honoured =  <?php echo json_encode($tofortyfour_honoured) ?>;
+    var ToFortyNine_honoured =  <?php echo json_encode($tofortynine_honoured) ?>;
+    var ToFirtyPlus_honoured =  <?php echo json_encode($tofifty_honoured) ?>;
+    var Total_honoured =  <?php echo json_encode($tototal_honoured) ?>;
+
 
 
   Highcharts.drawTable = function() {
@@ -120,9 +132,9 @@
 // user options
 var tableTop = 55,
     colWidth = 95,
-    tableLeft = 10,
+    tableLeft = 40,
     rowHeight = 40,
-    cellPadding = 4,
+    cellPadding = 6,
     valueDecimals = 0;
 
 var chart = this,
@@ -279,7 +291,8 @@ series: [{
     name: 'Booked',
     data: [ToNine_booked, ToFourteen_booked, ToNineteen_booked, ToTwentyFour_booked, ToTwentyNine_booked, ToThirtyFour_booked, ToThirtyNine_booked, ToFortyFour_booked, ToFortyNine_booked, ToFirtyPlus_booked, Total_booked]
 },{
-    name: 'App Kept',
+    name: 'App Honoured',
+    data: [ToNine_honoured, ToFourteen_honoured, ToNineteen_honoured, ToTwentyFour_honoured, ToTwentyNine_honoured, ToThirtyFour_honoured, ToThirtyNine_honoured, ToFortyFour_honoured, ToFortyNine_honoured, ToFirtyPlus_honoured, Total_honoured]
 },{
     name: 'Scheduled',
     data: [ToNine_scheduled, ToFourteen_scheduled, ToNineteen_scheduled, ToTwentyFour_scheduled, ToTwentyNine_scheduled, ToThirtyFour_scheduled, ToThirtyNine_scheduled, ToFortyFour_scheduled, ToFortyNine_scheduled, ToFirtyPlus_scheduled, Total_Scheduled]
@@ -298,9 +311,6 @@ series: [{
 }, {
     name: 'LTFU',
     data: [ToNine_ltfu, ToFourteen_ltfu, ToNineteen_ltfu, ToTwentyFour_ltfu, ToTwentyNine_ltfu, ToThirtyFour_ltfu, ToThirtyNine_ltfu, ToFortyFour_ltfu, ToFortyNine_ltfu, ToFirtyPlus_ltfu, Total_ltfu]
-
-}, {
-    name: 'TO',
 
 }]
 });
