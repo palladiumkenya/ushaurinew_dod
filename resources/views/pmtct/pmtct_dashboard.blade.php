@@ -76,6 +76,18 @@
     var ToFirtyPlus_booked =  <?php echo json_encode($tofifty_booked) ?>;
     var Total_booked =  <?php echo json_encode($tototal_booked) ?>;
 
+    var ToNine_defaulted =  <?php echo json_encode($tonine_defaulted) ?>;
+    var ToFourteen_defaulted =  <?php echo json_encode($tofourteen_defaulted) ?>;
+    var ToNineteen_defaulted =  <?php echo json_encode($tonineteen_defaulted) ?>;
+    var ToTwentyFour_defaulted =  <?php echo json_encode($totwentyfour_defaulted) ?>;
+    var ToTwentyNine_defaulted =  <?php echo json_encode($totwentynine_defaulted) ?>;
+    var ToThirtyFour_defaulted =  <?php echo json_encode($tothirtyfour_defaulted) ?>;
+    var ToThirtyNine_defaulted =  <?php echo json_encode($tothirtynine_defaulted) ?>;
+    var ToFortyFour_defaulted =  <?php echo json_encode($tofortyfour_defaulted) ?>;
+    var ToFortyNine_defaulted =  <?php echo json_encode($tofortynine_defaulted) ?>;
+    var ToFirtyPlus_defaulted =  <?php echo json_encode($tofifty_defaulted) ?>;
+    var Total_defaulted =  <?php echo json_encode($tototal_defaulted) ?>;
+
 
 
   Highcharts.drawTable = function() {
@@ -253,6 +265,7 @@ series: [{
 
 }, {
     name: 'Defaulter',
+    data: [ToNine_defaulted, ToFourteen_defaulted, ToNineteen_defaulted, ToTwentyFour_defaulted, ToTwentyNine_defaulted, ToThirtyFour_defaulted, ToThirtyNine_defaulted, ToFortyFour_defaulted, ToFortyNine_defaulted, ToFirtyPlus_defaulted, Total_defaulted]
 
 }, {
     name: 'Missed',
