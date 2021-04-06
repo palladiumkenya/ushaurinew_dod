@@ -100,6 +100,18 @@
     var ToFirtyPlus_missed =  <?php echo json_encode($tofifty_missed) ?>;
     var Total_missed =  <?php echo json_encode($tototal_missed) ?>;
 
+    var ToNine_ltfu =  <?php echo json_encode($tonine_ltfu) ?>;
+    var ToFourteen_ltfu =  <?php echo json_encode($tofourteen_ltfu) ?>;
+    var ToNineteen_ltfu =  <?php echo json_encode($tonineteen_ltfu) ?>;
+    var ToTwentyFour_ltfu =  <?php echo json_encode($totwentyfour_ltfu) ?>;
+    var ToTwentyNine_ltfu =  <?php echo json_encode($totwentynine_ltfu) ?>;
+    var ToThirtyFour_ltfu =  <?php echo json_encode($tothirtyfour_ltfu) ?>;
+    var ToThirtyNine_ltfu =  <?php echo json_encode($tothirtynine_ltfu) ?>;
+    var ToFortyFour_ltfu =  <?php echo json_encode($tofortyfour_ltfu) ?>;
+    var ToFortyNine_ltfu =  <?php echo json_encode($tofortynine_ltfu) ?>;
+    var ToFirtyPlus_ltfu =  <?php echo json_encode($tofifty_ltfu) ?>;
+    var Total_ltfu =  <?php echo json_encode($tototal_ltfu) ?>;
+
 
 
   Highcharts.drawTable = function() {
@@ -285,6 +297,7 @@ series: [{
 
 }, {
     name: 'LTFU',
+    data: [ToNine_ltfu, ToFourteen_ltfu, ToNineteen_ltfu, ToTwentyFour_ltfu, ToTwentyNine_ltfu, ToThirtyFour_ltfu, ToThirtyNine_ltfu, ToFortyFour_ltfu, ToFortyNine_ltfu, ToFirtyPlus_ltfu, Total_ltfu]
 
 }, {
     name: 'TO',
