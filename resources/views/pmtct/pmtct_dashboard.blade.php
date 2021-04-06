@@ -88,6 +88,18 @@
     var ToFirtyPlus_defaulted =  <?php echo json_encode($tofifty_defaulted) ?>;
     var Total_defaulted =  <?php echo json_encode($tototal_defaulted) ?>;
 
+    var ToNine_missed =  <?php echo json_encode($tonine_missed) ?>;
+    var ToFourteen_missed =  <?php echo json_encode($tofourteen_missed) ?>;
+    var ToNineteen_missed =  <?php echo json_encode($tonineteen_missed) ?>;
+    var ToTwentyFour_missed =  <?php echo json_encode($totwentyfour_missed) ?>;
+    var ToTwentyNine_missed =  <?php echo json_encode($totwentynine_missed) ?>;
+    var ToThirtyFour_missed =  <?php echo json_encode($tothirtyfour_missed) ?>;
+    var ToThirtyNine_missed =  <?php echo json_encode($tothirtynine_missed) ?>;
+    var ToFortyFour_missed =  <?php echo json_encode($tofortyfour_missed) ?>;
+    var ToFortyNine_missed =  <?php echo json_encode($tofortynine_missed) ?>;
+    var ToFirtyPlus_missed =  <?php echo json_encode($tofifty_missed) ?>;
+    var Total_missed =  <?php echo json_encode($tototal_missed) ?>;
+
 
 
   Highcharts.drawTable = function() {
@@ -96,7 +108,7 @@
 // user options
 var tableTop = 55,
     colWidth = 95,
-    tableLeft = 20,
+    tableLeft = 10,
     rowHeight = 40,
     cellPadding = 4,
     valueDecimals = 0;
@@ -269,6 +281,7 @@ series: [{
 
 }, {
     name: 'Missed',
+    data: [ToNine_missed, ToFourteen_missed, ToNineteen_missed, ToTwentyFour_missed, ToTwentyNine_missed, ToThirtyFour_missed, ToThirtyNine_missed, ToFortyFour_missed, ToFortyNine_missed, ToFirtyPlus_missed, Total_missed]
 
 }, {
     name: 'LTFU',
