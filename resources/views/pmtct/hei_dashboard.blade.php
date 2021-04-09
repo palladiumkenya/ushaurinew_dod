@@ -28,6 +28,15 @@
                         <div class="col-12">
 
                             <div class="card-body row">
+                                <div id="hei_graph" class="col" style="height:  400px;margin-top:20px;width: 900px"></div> <br />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card-body row">
                                 <div id="container" class="col" style="height:  350px;margin-top:20px;width: 900px"></div> <br />
                             </div>
 
@@ -44,39 +53,100 @@
     var ToFour_scheduled =  <?php echo json_encode($tofour_scheduled_heis) ?>;
     var ToNine_scheduled =  <?php echo json_encode($tonine_scheduled_heis) ?>;
     var ToFourteen_scheduled =  <?php echo json_encode($tofourteen_scheduled_heis) ?>;
+    var ToTotal_scheduled =  <?php echo json_encode($tototal_scheduled_heis) ?>;
 
 
     var Toone_unscheduled =  <?php echo json_encode($toone_unscheduled_heis) ?>;
     var ToFour_unscheduled =  <?php echo json_encode($tofour_unscheduled_heis) ?>;
     var ToNine_unscheduled =  <?php echo json_encode($tonine_unscheduled_heis) ?>;
     var ToFourteen_unscheduled =  <?php echo json_encode($tofourteen_unscheduled_heis) ?>;
+    var ToTotal_unscheduled =  <?php echo json_encode($tototal_unscheduled_heis) ?>;
 
     var Toone_booked =  <?php echo json_encode($toone_booked_heis) ?>;
     var ToFour_booked =  <?php echo json_encode($tofour_booked_heis) ?>;
     var ToNine_booked =  <?php echo json_encode($tonine_booked_heis) ?>;
     var ToFourteen_booked =  <?php echo json_encode($tofourteen_booked_heis) ?>;
+    var ToTotal_booked =  <?php echo json_encode($tototal_booked_heis) ?>;
 
     var Toone_defaulted =  <?php echo json_encode($toone_defaulted_heis) ?>;
     var ToFour_defaulted =  <?php echo json_encode($tofour_defaulted_heis) ?>;
     var ToNine_defaulted =  <?php echo json_encode($tonine_defaulted_heis) ?>;
     var ToFourteen_defaulted =  <?php echo json_encode($tofourteen_defaulted_heis) ?>;
+    var ToTotal_defaulted =  <?php echo json_encode($tototal_defaulted_heis) ?>;
 
 
     var Toone_missed =  <?php echo json_encode($toone_missed_heis) ?>;
     var ToFour_missed =  <?php echo json_encode($tofour_missed_heis) ?>;
     var ToNine_missed =  <?php echo json_encode($tonine_missed_heis) ?>;
     var ToFourteen_missed =  <?php echo json_encode($tofourteen_missed_heis) ?>;
+    var ToTotal_missed =  <?php echo json_encode($tototal_missed_heis) ?>;
 
 
     var Toone_ltfu =  <?php echo json_encode($toone_ltfu_heis) ?>;
     var ToFour_ltfu =  <?php echo json_encode($tofour_ltfu_heis) ?>;
     var ToNine_ltfu =  <?php echo json_encode($tonine_ltfu_heis) ?>;
     var ToFourteen_ltfu =  <?php echo json_encode($tofourteen_ltfu_heis) ?>;
+    var ToTotal_ltfu =  <?php echo json_encode($tototal_ltfu_heis) ?>;
+
+    var Booked_count =  <?php echo json_encode($count_booked_heis) ?>;
+    var Scheduled_count =  <?php echo json_encode($count_scheduled_heis) ?>;
+    var Unscheduled_count =  <?php echo json_encode($count_unscheduled_heis) ?>;
+    var Deceased_count =  <?php echo json_encode($count_deceased_heis) ?>;
+    var Transfer_count =  <?php echo json_encode($count_transfer_heis) ?>;
+    var Discharged_count =  <?php echo json_encode($count_discharged_heis) ?>;
+    var Missed_count =  <?php echo json_encode($count_missed_heis) ?>;
+    var Defaulted_count =  <?php echo json_encode($count_defaulted_heis) ?>;
+    var LTFU_count =  <?php echo json_encode($count_ltfu_heis) ?>;
 
 
 
 
+    Highcharts.chart('hei_graph', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Hei Evaluation Report Summary'
+        },
+        xAxis: {
+            categories: ['Booked', 'Scheduled', 'Un-Scheduled', 'Missed', 'Defaulter', 'LTFU', 'Deceased', 'Transfer Out', 'Discharged']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Heis Count'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: ( // theme
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || 'gray'
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>';
+            }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+            }
+        },
+        series: [{
+                name: 'Total Hei',
+                data: [Booked_count, Scheduled_count, Unscheduled_count, Missed_count, Defaulted_count, LTFU_count, Deceased_count, Transfer_count, Discharged_count]
+            }
+        ],
 
+    });
+
+    var colors = Highcharts.getOptions().colors;
 
   Highcharts.drawTable = function() {
 
@@ -218,7 +288,7 @@ chart: {
 },
 
 title: {
-    text: 'Evaluation of Retention/Attendance Summary'
+    text: 'Hiv Infected Children Report Summary'
 },
 
 xAxis: {
@@ -241,25 +311,25 @@ plotOptions: {
 
 series: [{
     name: 'Booked',
-    data: [Toone_booked, ToFour_booked, ToNine_booked, ToFourteen_booked]
+    data: [Toone_booked, ToFour_booked, ToNine_booked, ToFourteen_booked, ToTotal_booked]
 },{
     name: 'Scheduled',
-    data: [Toone_scheduled, ToFour_scheduled, ToNine_scheduled, ToFourteen_scheduled]
+    data: [Toone_scheduled, ToFour_scheduled, ToNine_scheduled, ToFourteen_scheduled, ToTotal_scheduled]
 }, {
     name: 'Un-Scheduled',
-    data: [Toone_unscheduled, ToFour_unscheduled, ToNine_unscheduled, ToFourteen_unscheduled]
+    data: [Toone_unscheduled, ToFour_unscheduled, ToNine_unscheduled, ToFourteen_unscheduled, ToTotal_unscheduled]
 
 }, {
     name: 'Defaulter',
-    data: [Toone_defaulted, ToFour_defaulted, ToNine_defaulted, ToFourteen_defaulted]
+    data: [Toone_defaulted, ToFour_defaulted, ToNine_defaulted, ToFourteen_defaulted, ToTotal_defaulted]
 
 }, {
     name: 'Missed',
-    data: [Toone_missed, ToFour_missed, ToNine_missed, ToFourteen_missed]
+    data: [Toone_missed, ToFour_missed, ToNine_missed, ToFourteen_missed, ToTotal_missed]
 
 }, {
     name: 'LTFU',
-    data: [Toone_ltfu, ToFour_ltfu, ToNine_ltfu, ToFourteen_ltfu]
+    data: [Toone_ltfu, ToFour_ltfu, ToNine_ltfu, ToFourteen_ltfu, ToTotal_ltfu]
 
 }]
 });
