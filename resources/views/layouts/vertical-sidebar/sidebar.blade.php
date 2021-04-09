@@ -427,7 +427,7 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                            <a href="{{route('report-all_heis')}}">
+                            <a href="{{route('report-hei-summary')}}">
                                 <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                                 <span class="item-name">Summary</span>
                             </a>
