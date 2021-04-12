@@ -16,11 +16,11 @@ class Client extends Model
 
     ];
 
-    protected $appends = ['age'];
+   // protected $appends = ['age'];
 
-    public function getAgeAttribute() {
+   // public function getAgeAttribute() {
 
-        return $this->dob->diffInYears(\Carbon\Carbon::now());
+       // return $this->dob->diffInYears(\Carbon\Carbon::now());
         //return Carbon::parse($this->attributes['dob'])->age;
-    }
+    //}
 }

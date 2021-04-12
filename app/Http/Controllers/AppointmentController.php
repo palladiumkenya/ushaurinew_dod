@@ -188,7 +188,6 @@ class AppointmentController extends Controller
         $data = [];
 
         $all_active_missed = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->where('tbl_client.mfl_code', '=', 12345)
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'Missed');
 
@@ -213,7 +212,6 @@ class AppointmentController extends Controller
         $data = [];
 
         $all_active_defaulted = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->where('tbl_client.mfl_code', '=', 12345)
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'Defaulted');
 
@@ -238,7 +236,6 @@ class AppointmentController extends Controller
         $data = [];
 
         $all_active_ltfu = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->where('tbl_client.mfl_code', '=', 12345)
          ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU');
 

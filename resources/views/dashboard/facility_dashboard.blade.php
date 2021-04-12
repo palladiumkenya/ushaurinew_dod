@@ -12,7 +12,6 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Add-User"></i>
                             <div class="content">
                             <a class="has-arrow" href="{{route('Reports-clients-distribution')}}">
                                     <b><?php echo $clients_count; ?><br></b>
@@ -26,7 +25,6 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Financial"></i>
                             <div class="content">
                             <b>{{$consented_count}}<br></b>
                                     Consented Clients
@@ -38,7 +36,6 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Checkout-Basket"></i>
                             <div class="content">
                             <b>{{$appointment_count}}<br></b>
                                     Appointments
@@ -50,7 +47,6 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
-                            <i class="i-Money-2"></i>
                             <div class="content">
                             <b>{{$messages_count}}<br></b>
                                     Messages Sent

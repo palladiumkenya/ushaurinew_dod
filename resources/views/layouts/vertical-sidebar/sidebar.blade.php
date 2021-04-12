@@ -77,9 +77,15 @@
                         </a>
                         <ul class="mm-collapse">
                             <li class="item-name">
-                                <a href="alerts.html">
+                                <a href="">
                                     <i class="nav-icon i-Bell1"></i>
                                     <span class="item-name">Client Profile</span>
+                                </a>
+                            </li>
+                            <li class="item-name">
+                                <a href="{{route('report-clients-consent')}}">
+                                    <i class="nav-icon i-Bell1"></i>
+                                    <span class="item-name">Client Consent</span>
                                 </a>
                             </li>
                             <li class="item-name">
@@ -91,7 +97,7 @@
                             </li>
                     </li>
                     <li class="item-name">
-                        <a href="buttons.html">
+                        <a href="">
                             <i class="nav-icon i-Cursor-Click"></i>
                             <span class="item-name">Client Extract</span>
                         </a>
@@ -502,9 +508,15 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href="smart.wizard.html">
+                            <a href="{{route('report-consented')}}">
                                 <i class="nav-icon i-Width-Window"></i>
                                 <span class="item-name">Consented Reports</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('report-today_appointments')}}">
+                                <i class="nav-icon i-Width-Window"></i>
+                                <span class="item-name">Todays Appointment</span>
                             </a>
                         </li>
                     </ul>

@@ -45,8 +45,8 @@ class DashboardController extends Controller
         $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())->whereNotNull('client_id');
         $number_of_facilities = ClientPerformance::whereNotNull('mfl_code');
 
-        $registered_clients = MainDashboardBar::select('clients')->sum('clients')->groupBy('MONTH');
-        $consented_clients = MainDashboardBar::select('consented')->sum('consented')->groupBy('MONTH');
+        $registered_clients = MainDashboardBar::select('clients')->sum('clients')->groupBy('MONTH')->get();
+        $consented_clients = MainDashboardBar::select('consented')->sum('consented')->groupBy('MONTH')->get();
         $month_count = MainDashboardBar::select('MONTH')->orderBy('MONTH', 'asc');
 
 
@@ -58,17 +58,53 @@ class DashboardController extends Controller
         $data['all_future_appointments'] = $all_future_appointments->count();
         $data['number_of_facilities'] = $number_of_facilities->count();
 
-        $data['registered_clients'] = $registered_client->count();
-        $data['consented_clients'] = $consented_clients->count();
-        $data['month_count'] = $month_count->get()->count();
+        $data['registered_clients'] = $registered_client;
+       $data['consented_clients'] = $consented_clients;
+       $data['month_count'] = $month_count->get();
 
 
-
-
-        //return view('dashboard.dashboardv1', compact('registered_clients', 'consented_clients', 'month_count'));
-
+        //return view('dashboard.dashboardv1', compact('data', 'registered_clients', 'consented_clients', 'month_count'));
+        dd($data);
 
         return $data;
+    }
+
+    public function main_graph_dashboard()
+    {
+        if (Auth::user()->access_level == 'Admin') {
+
+        $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
+        $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
+        $pec_client_count = ClientRegistration::select('total_percentage')->avg('total_percentage');
+       // $all_client_pec = $pec_client_sum / $pec_client_count * 1000;
+        $all_target_clients = ClientPerformance::selectRaw('target_clients')->sum('target_clients');
+        $all_consented_clients = ClientRegistration::select('consented')->sum('consented');
+        $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())
+        ->whereNotNull('client_id')
+        ->count();
+        $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
+
+        $registered_clients = MainDashboardBar::select(\DB::raw("SUM(clients) as count"))
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $registered_clients = array_column($registered_clients, 'count');
+
+        $consented_clients = MainDashboardBar::select(\DB::raw("SUM(consented) as count"))
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $consented_clients = array_column($consented_clients, 'count');
+        $month_count = MainDashboardBar::select('MONTH as months')
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $month_count = array_column($month_count, 'months');
+
+    //dd($registered_clients);
+       }
+        return view('dashboard.dashboardv1', compact('registered_clients', 'consented_clients', 'month_count', 'all_clients_number', 'all_target_clients',
+       'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count'));
 
     }
 

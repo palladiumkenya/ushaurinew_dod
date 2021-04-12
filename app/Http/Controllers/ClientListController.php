@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+//use GuzzleHttp\Client;
 
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '1024M');
@@ -38,4 +39,6 @@ class ClientListController extends Controller
         }
         return view('clients.clients-list')->with('all_clients', $all_clients->get());
     }
+
+   
 }
