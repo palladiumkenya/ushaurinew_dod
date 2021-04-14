@@ -83,7 +83,7 @@
                                 </a>
                             </li>
                             <li class="item-name">
-                                <a href="{{route('report-clients-consent')}}">
+                                <a href="{{route('consent-clients')}}">
                                     <i class="nav-icon i-Bell1"></i>
                                     <span class="item-name">Client Consent</span>
                                 </a>

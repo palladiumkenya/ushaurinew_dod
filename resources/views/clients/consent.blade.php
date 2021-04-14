@@ -1,56 +1,103 @@
 @extends('layouts.master')
-@section('before-css')
+@section('page-css')
 
-
+<link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
 @endsection
 
 @section('main-content')
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card mb-4">
+
+<div class="col-md-12 mb-4">
+                    <div class="card text-left">
+
                         <div class="card-body">
-                            <div class="card-title mb-3">Consent Client</div>
-                            <form role="form" method="post"action="">
-                            {{ csrf_field() }}
-                                <div class="row">
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">CCC Number</label>
-                                        <input type="text" class="form-control" id="firstName1" name="fname" placeholder="Enter CCC Number">
-                                    </div>
+                         <h4 class="card-title mb-3">{{count($consented_clients)}} Client Consent</h4>
+                         <div style="margin-bottom:10px; ">
+                                <a type="button" href="{{route('add-consent')}}" class="btn btn-primary btn-md pull-right">Consent Client</a>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px; ">
 
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="middleName1">Middle name</label>
-                                        <input type="text" class="form-control" id="middleName1" name="mname" placeholder="Enter your middle name">
-                                    </div>
+                            </div>
+                                <div class="table-responsive">
+                                    <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>UPN</th>
+                                                <th>Serial No</th>
+                                                <th>Client Name</th>
+                                                <th>Phone No</th>
+                                                <th>DOB</th>
+                                                <th>Type</th>
+                                                <th>Consented</th>
+                                                <th>Date Consented</th>
+                                                <th>Status</th>
+                                                <th>Treatment</th>
+                                                <th>Enrollment Date</th>
+                                                <th>ART Date</th>
+                                                <th>Date Added</th>
+                                                <th>Date Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (count($consented_clients) > 0)
+                                                @foreach($consented_clients as $consent)
+                                                    <tr>
+                                                        <td> {{ $loop->iteration }}</td>
+                                                        <td>  {{$consent->clinic_number}}</td>
+                                                        <td>  {{$consent->file_no}}</td>
+                                                        <td>  {{$consent->full_name}}</td>
+                                                        <td>  {{$consent->phone_no}}</td>
+                                                        <td>  {{$consent->dob}}</td>
+                                                        <td>  {{$consent->name}}</td>
+                                                        <td>  {{$consent->smsenable}}</td>
+                                                        <td>  {{$consent->consent_date}}</td>
+                                                        <td>  {{$consent->status}}</td>
+                                                        <td>  {{$consent->client_status}}</td>
+                                                        <td>  {{$consent->enrollment_date}}</td>
+                                                        <td>  {{$consent->art_date}}</td>
+                                                        <td>  {{$consent->created_at}}</td>
+                                                        <td>  {{$consent->updated_at}}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
 
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="lastName1">Last name</label>
-                                        <input type="text" class="form-control" id="lastName1" name="lname" placeholder="Enter your last name">
-                                    </div>
+                                    </table>
 
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" required="" name="e_mail" class=" input-rounded input-sm form-control e_mail" placeholder="Enter your Email" />
-                                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                                    </div>
+                                </div>
 
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="phone">Phone No</label>
-                                        <input type="text" required="" name="phone_no" pattern="^(([0-9]{1})*[- .(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4})+$" placeholder="Phone No should be 10 Digits " id="phone_no" class="input-rounded input-sm form-control phone_no" />
-                                    </div>
-
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="lastName1">Acess Level</label>
-                                        <select  class="form-control" data-width="100%" id="county" name="county_id">
-
-                                        </select>
-                                    </div>
-
-                                <button type="submit" class="btn btn-block btn-primary">Submit</button>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+                <!-- end of col -->
+
+@endsection
+
+@section('page-js')
+
+ <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+ <script type="text/javascript">
+   // multi column ordering
+   $('#multicolumn_ordering_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive":true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });</script>
+
 
 @endsection
