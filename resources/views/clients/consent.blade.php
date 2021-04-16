@@ -13,7 +13,7 @@
                         <div class="card-body">
                          <h4 class="card-title mb-3">{{count($consented_clients)}} Non Consented Clients </h4>
                          <div style="margin-bottom:10px; ">
-                                <a type="button" href="{{route('add-consent')}}" class="btn btn-primary btn-md pull-right">Consent Client</a>
+
                             </div>
                             <div class="col-md-12" style="margin-top:10px; ">
 
@@ -137,7 +137,7 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">Prefered Timer</label>
+                                        <label for="firstName1">Prefered Time</label>
                                         <input class="form-control" type="text" id="txt_time" name="txt_time" placeholder="HH:MM"/>
                                     </div>
 

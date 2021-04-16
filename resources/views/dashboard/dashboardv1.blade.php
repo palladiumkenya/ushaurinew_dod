@@ -113,49 +113,53 @@
 
      <script type="text/javascript">
 
-var RegisteredClients =  <?php echo json_encode($registered_clients) ?>;
-var ConsentedClients =  <?php echo json_encode($consented_clients) ?>;
+var RegisteredClients =  <?php echo json_encode($chart_registered) ?>;
+var ConsentedClients =  <?php echo json_encode($chart_consent) ?>;
 var Months =  <?php echo json_encode($month_count) ?>;
 
 console.log(ConsentedClients);
-        Highcharts.chart('container', {
-            chart: {
-            type: 'column'
-        },
+Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly Number Series'
+    },
+    xAxis: {
+        categories: Months,
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
         title: {
-            text: 'Monthly Number Series'
-        },
-        xAxis: {
-            type: 'date',
-            categories: Months
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Count'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: ( // theme
-                        Highcharts.defaultOptions.title.style &&
-                        Highcharts.defaultOptions.title.style.color
-                    ) || 'gray'
-                }
-            }
-        },
-        series: [{
-            name: 'Registered Clients',
-            data: RegisteredClients
-        }, {
-            name: 'Consented Clients',
-            data: RegisteredClients
-        }]
+            text: 'Count'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Registered Clients',
+        data: RegisteredClients
 
-    });
+    }, {
+        name: 'Consented Clients',
+        data: RegisteredClients
 
-    var colors = Highcharts.getOptions().colors;
+    }]
+});
+
 
 
         </script>

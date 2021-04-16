@@ -106,4 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/transfer', ['uses' => 'App\Http\Controllers\ReportController@transfer_out', 'as' => 'report-transfer']);
     Route::get('/report/today_appointments', ['uses' => 'App\Http\Controllers\ReportController@today_appointments', 'as' => 'report-today_appointments']);
     Route::get('/report/consented', ['uses' => 'App\Http\Controllers\ReportController@consented_report', 'as' => 'report-consented']);
+
+      //IL routes
+      Route::get('/report/IL/dashboard', ['uses' => 'App\Http\Controllers\ILUushauriController@il_dashboard', 'as' => 'report-IL-dashboard']);
 });

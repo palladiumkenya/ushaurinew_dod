@@ -101,9 +101,19 @@ class DashboardController extends Controller
         ->get()->toArray();
         $month_count = array_column($month_count, 'months');
 
-    //dd($registered_clients);
+        $chart_consent = array($month_count);
+        foreach ($month_count as $index => $month) {
+            $chart_consent[$month] = $consented_clients [$index];
+
+        }
+        $chart_registered = array($month_count);
+        foreach ($month_count as $index => $month) {
+            $chart_registered[$month] = $registered_clients [$index];
+        }
+
+   // dd($chart_consent);
        }
-        return view('dashboard.dashboardv1', compact('registered_clients', 'consented_clients', 'month_count', 'all_clients_number', 'all_target_clients',
+        return view('dashboard.dashboardv1', compact('chart_consent', 'chart_registered', 'month_count', 'all_clients_number', 'all_target_clients',
        'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count'));
 
     }

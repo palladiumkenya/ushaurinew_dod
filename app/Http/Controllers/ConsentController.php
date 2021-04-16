@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Consent;
+use Session;
 
 use Illuminate\Http\Request;
 use Auth;
@@ -75,15 +76,13 @@ class ConsentController extends Controller
 
                  ]);
                  if ($client) {
-
-                    return redirect()->route('consent-clients')->with('success', 'Client was successfully consented in the system!');
+                     Session::flash('statuscode', 'success');
+                    return redirect('consent/clients')->with('status', 'Client was successfully consented in the system!');
                 } else {
-
+                    Session::flash('statuscode', 'error');
                     return back()->with('error', 'Could not consent client please try again later.');
                 }
             } catch (Exception $e) {
-                toastr()->error('An error has occurred please try again later.');
-
                 return back();
             }
 

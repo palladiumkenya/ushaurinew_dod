@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
+use Session;
 use Auth;
 class LoginController extends Controller
 {
@@ -27,13 +28,17 @@ use AuthenticatesUsers;
 
    protected function authenticated(Request $request, $user) {
     if ($user->access_level == 'Facility') {
-        return redirect('/Reports/facility_home');
+        Session::flash('statuscode', 'success');
+        return redirect('/Reports/facility_home')->with('status', 'Login Success!', 'You will be redirected to your Home page in a few.');
     } else if ($user->access_level == 'Partner') {
-        return redirect('/Reports/dashboard');
+        Session::flash('statuscode', 'success');
+        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
     } else if ($user->access_level == 'Admin') {
-        return redirect('/Reports/dashboard');
+        Session::flash('statuscode', 'success');
+        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
     }else {
-        return redirect('/Reports/dashboard');
+        Session::flash('statuscode', 'success');
+        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
     }
 }
 /**

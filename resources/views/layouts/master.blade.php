@@ -109,7 +109,7 @@
 
 
 
-     
+
         <!-- ============ Search UI Start ============= -->
         {{-- @include('layouts.search') --}}
         <!-- ============ Search UI End ============= -->
@@ -152,13 +152,27 @@
 
         @endif
 
+        <script src="{{ asset('assets/js/alerts.js') }}"></script>
 
+        <script>
+        @if(session('status'))
+           // alert('{{session('status')}}')
+            swal({
+                title: '{{session('status')}}',
+                text: '{{session('texts')}}',
+                icon: '{{session('statuscode')}}',
+                button: "Ok",
+               });
+        @endif
+
+        </script>
 
         <script src="{{ asset('assets/js/customizer.script.js') }}"></script>
 
         {{-- laravel js --}}
         {{-- <script src="{{ mix('assets/js/laravel/app.js') }}"></script>
         --}}
+
 
         @yield('bottom-js')
     </body>

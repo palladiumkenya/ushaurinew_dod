@@ -60,9 +60,15 @@
                                 </a>
                             </li>
                             <li class="item-name">
-                                <a class="" href="dashboard.v4.html">
+                                <a class="" href="">
                                     <i class="i-Circular-Point  mr-2 text-muted"></i>
                                     <span class=" text-muted">Messages</span>
+                                </a>
+                            </li>
+                            <li class="item-name">
+                                <a class="" href="{{route('report-IL-dashboard')}}">
+                                    <i class="i-Circular-Point  mr-2 text-muted"></i>
+                                    <span class=" text-muted">IL Extract</span>
                                 </a>
                             </li>
 
@@ -82,12 +88,14 @@
                                     <span class="item-name">Client Profile</span>
                                 </a>
                             </li>
+                            @if (Auth::user()->access_level == 'Facility')
                             <li class="item-name">
                                 <a href="{{route('consent-clients')}}">
                                     <i class="nav-icon i-Bell1"></i>
                                     <span class="item-name">Client Consent</span>
                                 </a>
                             </li>
+                            @endif
                             <li class="item-name">
                             <li class="nav-item">
                             <a href={{route('report-clients-list')}}>
