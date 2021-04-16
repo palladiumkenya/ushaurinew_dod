@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Consent extends Model
 {
     use HasFactory;
+
     public $table = 'tbl_client';
     public $timestamps = false;
+    public $incrementing = false;
 
     protected $fillable = [
-
-        'clinic_number', 'consent_date', 'smsenable', 'language_id', 'motivational_enable', 'txt_time', 'phone_no'
+        'smsenable', 'consent_date', 'phone_no', 'txt_time',
     ];
-
 }

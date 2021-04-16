@@ -48,7 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::get('main_graph_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-main-dashboard']);
     // clients routes
     Route::get('/report/clients/list', ['uses' => 'App\Http\Controllers\ClientListController@get_client_list', 'as' => 'report-clients-list']);
-    Route::get('/report/clients/consent', ['uses' => 'App\Http\Controllers\ConsentController@client_consent', 'as' => 'report-clients-consent']);
+    Route::post('/report/clients/consent', ['uses' => 'App\Http\Controllers\ConsentController@consent_test', 'as' => 'report-clients-consent']);
+    Route::get('/consent/clients', ['uses' => 'App\Http\Controllers\ConsentController@index', 'as' => 'consent-clients']);
+    Route::get('/add/consent', ['uses' => 'App\Http\Controllers\ConsentController@addconsentform', 'as' => 'add-consent']);
 
     // DCM routes
     Route::get('/Reports/dsd', ['uses' => 'App\Http\Controllers\DcmReportController@dcm_report', 'as' => 'Reports-dsd']);
@@ -103,7 +105,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/deactivated_clients', ['uses' => 'App\Http\Controllers\ReportController@deactivated_clients', 'as' => 'report-deactivated_clients']);
     Route::get('/report/transfer', ['uses' => 'App\Http\Controllers\ReportController@transfer_out', 'as' => 'report-transfer']);
     Route::get('/report/today_appointments', ['uses' => 'App\Http\Controllers\ReportController@today_appointments', 'as' => 'report-today_appointments']);
-    Route::get('/consent/clients', ['uses' => 'App\Http\Controllers\ConsentController@index', 'as' => 'consent-clients']);
-    Route::get('/add/consent', ['uses' => 'App\Http\Controllers\ConsentController@addconsentform', 'as' => 'add-consent']);
-    Route::post('/report/consented', ['uses' => 'App\Http\Controllers\ConsentController@consented_report', 'as' => 'report-consented']);
+    Route::get('/report/consented', ['uses' => 'App\Http\Controllers\ReportController@consented_report', 'as' => 'report-consented']);
 });
