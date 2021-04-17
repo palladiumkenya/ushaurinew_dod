@@ -11,24 +11,25 @@
     </head>
 
     <body>
-        <div class="auth-layout-wrap" style="background-image: url({{asset('assets/images/photo-wide-4.jpg')}})">
+        <div class="auth-layout-wrap">
             <div class="auth-content">
                 <div class="card o-hidden">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="p-4">
                                 <div class="auth-logo text-center mb-4">
-                                    <img src="{{asset('assets/images/logo.png')}}" alt="">
+                                <img src="{{ asset('/assets/images/ushauri_logo.png') }}" style="margin-left: 50px;" width="51%" height="60%" >
+
+                                  <h4>Login</h4>
                                 </div>
-                                <h1 class="mb-3 text-18">Sign In</h1>
+
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email address</label>
-                                        <input id="email"
+                                        <label for="email">Phone Number/Email address</label>
+                                        <input id="email" type="text"
                                             class="form-control form-control-rounded @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email') }}" required autocomplete="email"
-                                            autofocus>
+                                            name="email" value="{{ old('email') }}" required autofocus>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -70,9 +71,16 @@
                                             Password?</u></a>
                                 </div>
                                 @endif
+                                <div class="center">
+                                <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40" style="margin-left: 20px;">
+                                <img class="pl-3" src="{{ asset('assets/images/login/CDC-LOGO.jpg') }}" alt="ushauri" height="40" style="margin-left: 95px;">
+                                <img class="pl-3" src="{{ asset('assets/images/login/logo_3.png') }}" alt="ushauri" width="31%" style="margin-left: 95px;">
+                                </div>
+                                <div class="register-link m-t-15 text-center">
+                                    <p>&copy;  mHealth Kenya &nbsp;2016 - <?php echo date('Y'); ?> <b> Powered by : <a href="https://mhealthkenya.org/" target="_blank"> mHealth  Kenya </a></b> </p>
+                                 </div>
                             </div>
                         </div>
-                       
                     </div>
                 </div>
             </div>
