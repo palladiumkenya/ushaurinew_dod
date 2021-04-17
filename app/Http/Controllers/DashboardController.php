@@ -64,7 +64,7 @@ class DashboardController extends Controller
 
 
         //return view('dashboard.dashboardv1', compact('data', 'registered_clients', 'consented_clients', 'month_count'));
-        dd($data);
+      //  dd($data);
 
         return $data;
     }

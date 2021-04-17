@@ -55,11 +55,6 @@
                                     <span class=" text-muted">Appointments</span>
                                 </a>
                             </li>
-                            <li class="item-name">
-                                <a class="" href="">
-                                    <span class=" text-muted">Messages</span>
-                                </a>
-                            </li>
                             @if (Auth::user()->access_level == 'Admin')
                             <li class="item-name">
                                 <a class="" href="{{route('report-IL-dashboard')}}">
@@ -239,22 +234,22 @@
                     <ul class="mm-collapse">
                     @if (Auth::user()->access_level == 'Admin')
                         <li class="item-name">
-                            <a class="" href="charts.echarts.html">
+                            <a class="" href="">
                                 <span class="item-name">Donor</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Partner</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Groups</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Facilities</span>
                             </a>
                         </li>
@@ -264,70 +259,70 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Content</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Module Mngr</span>
                             </a>
                         </li>
 
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Counties</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Sender</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Roles</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Language</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Notification Conf</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Role Modules</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">County Tier</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Broadcast</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Manual SMS</span>
                             </a>
                         </li>
                         @endif
                         @if (Auth::user()->access_level == 'Facility')
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Broadcast</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="charts.chartsjs.html">
+                            <a class="" href="">
                                 <span class="item-name">Manual SMS</span>
                             </a>
                         </li>
