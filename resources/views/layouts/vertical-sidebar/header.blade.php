@@ -1,8 +1,17 @@
 <!-- header start -->
 <header class=" main-header bg-white d-flex justify-content-between p-2">
-    <div class="header-toggle">
-        <div class="menu-toggle mobile-menu-icon">
+    <div class="header-part-left"">
+        <div>
+            <div><img class="pl-3" src="{{ asset('assets/images/moh.png') }}" alt="ushauri"></div>
             <div></div>
+            <div>
+            </div>
+        </div>
+
+    </div>
+    <div class="header-part-center"">
+        <div>
+            <div><img class="pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri"></div>
             <div></div>
             <div>
             </div>
@@ -23,7 +32,7 @@
                     <a href="#"><i class="i-Drop"></i> Wiki</a>
                     <a href="#"><i class="i-File-Clipboard-File--Text"></i> Apis</a>
                     <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Logout</a>
-                  
+
                 </div>
             </div>
         </div>
