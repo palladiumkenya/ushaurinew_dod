@@ -442,4 +442,15 @@ class DashboardController extends Controller
         'client_entry_point_il', 'client_entry_point_web', 'client_entry_point_mobile', 'client_type_transfer', 'client_type_new', 'marital_polygamous',
         'marital_notapplicable', 'marital_unavailable', 'marital_cohabating', 'marital_widowed', 'marital_divorced', 'marital_monogamous', 'marital_single'));
     }
+
+    public function active_facilities()
+    {
+        $all_active_facilities = ClientPerformance::join('tbl_county', 'tbl_county.id', '=', 'vw_client_performance_monitor.county_id')
+        ->join('tbl_sub_county', 'tbl_sub_county.id', '=', 'vw_client_performance_monitor.sub_county_id')
+        ->join('tbl_partner', 'tbl_partner.id', '=', 'vw_client_performance_monitor.partner_id')
+        ->select('vw_client_performance_monitor.facility', 'vw_client_performance_monitor.mfl_code', 'vw_client_performance_monitor.actual_clients', 'tbl_county.name as county', 'tbl_sub_county.name as sub_county', 'tbl_partner.name as partner')
+        ->get();
+
+        return view('facilities.active_facilities', compact('all_active_facilities'));
+    }
 }

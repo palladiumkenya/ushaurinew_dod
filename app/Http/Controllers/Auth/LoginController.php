@@ -28,17 +28,17 @@ use AuthenticatesUsers;
 
    protected function authenticated(Request $request, $user) {
     if ($user->access_level == 'Facility') {
-        Session::flash('statuscode', 'success');
-        return redirect('/Reports/facility_home')->with('status', 'Login Success!', 'You will be redirected to your Home page in a few.');
+        Session::flash('statuscode', 'Login Success!, You will be redirected to your Home page in a few.');
+        return redirect('/Reports/facility_home');
     } else if ($user->access_level == 'Partner') {
         Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
+        return redirect('/Reports/dashboard');
     } else if ($user->access_level == 'Admin') {
         Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
+        return redirect('/Reports/dashboard');
     }else {
         Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard')->with('status', 'Login Success!');
+        return redirect('/Reports/dashboard');
     }
 }
 /**

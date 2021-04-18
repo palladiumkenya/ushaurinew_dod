@@ -129,7 +129,9 @@
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <div class="content">
+                            <a class="has-arrow" href="{{route('Reports-active-facilities')}}">
                                 <p class="text-muted mt-2 mb-0">No. of Facilities</p>
+                                </a>
                                 <p class="text-primary text-20 line-height-1 mb-2"><?php echo $number_of_facilities; ?></p>
                             </div>
                         </div>
