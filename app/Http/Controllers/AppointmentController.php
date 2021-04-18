@@ -1226,21 +1226,14 @@ class AppointmentController extends Controller
 
     public function lab_investigation()
     {
-        $ranges = [ // the start of each age-range.
-            '1-9' => 9,
-            '10-14' => 14,
-            '20-24' => 24,
-            '25-29' => 29,
-            '30-34' => 34,
-            '35-39' => 39,
-            '40-49' => 49,
-            '50 +' => 50
-        ];
+        if (Auth::user()->access_level == 'Facility') {
         $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'age_group', \DB::raw('count(age_group) as total'))
         ->groupBy('age_group')
+        ->where('mfl_code', Auth::user()->facility_id)
         ->get();
+        }
 
-        dd($all_lab_app);
+        //dd($all_lab_app);
 
         return view('appointments.lab_investigation', compact('all_lab_app'));
     }

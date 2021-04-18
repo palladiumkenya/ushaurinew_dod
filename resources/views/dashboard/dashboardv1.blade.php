@@ -6,9 +6,66 @@
                 </ul>
             </div>
 
-            <div class="separator-breadcrumb border-top"></div>
+    <div class="separator-breadcrumb border-top"></div>
 
-    </form>
+    <div class="col-md-12">
+
+    <form class="form-inline">
+    <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                <select class="form-control filter_partner  input-rounded input-sm select2" name="filter_partner"
+                    id="">
+                    <option value="">Please select Partner</option>
+
+                    <option></option>
+                </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                <select class="form-control filter_county  input-rounded input-sm select2" name="filter_county"
+                    id="">
+                    <option value="">Please select County</option>
+
+                    <option></option>
+                </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
+                <select class="form-control filter_sub_county input-rounded input-sm select2" name="filter_sub_county"
+                    id="">
+                    <option value="">Please Select Sub County : </option>
+                </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
+
+                <select class="form-control filter_facility input-rounded input-sm select2" name="filter_facility"
+                    id="">
+                    <option value="">Please select Facility : </option>
+                </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+
+                <button class="btn btn-default filter_highcharts_dashboard btn-round  btn-small btn-primary  "
+                    type="button" name="filter_highcharts_dashboard" id="filter_highcharts_dashboard"> <i
+                        class="fa fa-filter"></i>
+                    Filter</button>
+                    </div>
+            </div>
+            </div>
+
+            </form>
+
+    </div>
     <div class="separator-breadcrumb border-top"></div>
 
             <div class="row">
