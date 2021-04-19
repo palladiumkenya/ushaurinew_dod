@@ -66,4 +66,33 @@ class ILUushauriController extends Controller
 
         return view('dashboard.il_dashboard', compact('il_appointments', 'il_future_apps', 'messages_count', 'il_facilities', 'il_partners', 'il_kenyaemr', 'il_adt'));
     }
+
+    public function facilities_il()
+    {
+      $il_facilities_list = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+        ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+        ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
+        ->select('tbl_master_facility.name as facility', 'tbl_master_facility.code', 'tbl_partner.name as partner')
+        ->groupBy('tbl_client.mfl_code')
+        ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
+        ->where('tbl_appointment.db_source', '=', 'KENYAEMR')
+        ->orwhere('tbl_appointment.db_source', '=', 'ADT')
+        ->get();
+
+        return view('facilities.facilities_il', compact('il_facilities_list'));
+    }
+
+    public function partners_il()
+    {
+      $il_partners = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+        ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
+        ->select('tbl_partner.name as partner')
+        ->groupBy('tbl_partner.name')
+        ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
+        ->where('tbl_appointment.db_source', '=', 'KENYAEMR')
+        ->orwhere('tbl_appointment.db_source', '=', 'ADT')
+        ->get();
+
+        return view('partners.partner_il', compact('il_partners'));
+    }
 }

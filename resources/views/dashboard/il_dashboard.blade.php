@@ -109,16 +109,20 @@
                         <div class="col-2">
                             <div class="card">
                                 <div class="card-body grey" id="missedApps">
+                                <a class="has-arrow" href="{{route('Reports-il-facilities')}}">
                                     <b>{{count($il_facilities)}}<br></b>
                                     Facilities
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="card">
                                 <div class="card-body grey" id="ltfuApps">
+                                <a class="has-arrow" href="{{route('Reports-il-partners')}}">
                                     <b>{{count($il_partners)}}<br></b>
                                     Partners
+                                    </a>
                                 </div>
                             </div>
                         </div>
