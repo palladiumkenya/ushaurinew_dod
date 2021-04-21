@@ -338,6 +338,12 @@
                     <ul class="mm-collapse">
 
                     <li class="item-name">
+                            <a class="" href="{{route('admin-tracer-clients')}}">
+                                <span class="item-name">Client Tracer</span>
+                            </a>
+                    </li>
+
+                    <li class="item-name">
                         <a class="has-arrow" href="#">
                         <span class="item-name  text-muted">DSD Reports</span>
                     </a>

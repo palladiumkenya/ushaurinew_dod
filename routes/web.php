@@ -39,9 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/admin/users', ['uses' => 'App\Http\Controllers\UserController@showUsers', 'as' => 'admin-users']);
     Route::get('/admin/users/form', ['uses' => 'App\Http\Controllers\UserController@adduserform', 'as' => 'admin-users-form']);
+    Route::post('/admin/users/roles', ['uses' => 'App\Http\Controllers\UserController@access_level_load', 'as' => 'admin-users-roles']);
+    Route::get('/admin/tracer/clients', ['uses' => 'App\Http\Controllers\TracerController@tracer_client', 'as' => 'admin-tracer-clients']);
 
     // Dashboard routes
     Route::get('/Reports/dashboard', ['uses'=>'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-dashboard']);
+    Route::post('/filter_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@filter_dashboard', 'as' => 'filter_dashboard']);
     //Route::get('get_client_data', ['uses' => 'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
     Route::get('/Reports/facility_home', ['uses' => 'App\Http\Controllers\DashboardController@facility_dashboard', 'as' => 'Reports-facility_home']);
     Route::get('/Reports/clients/distribution', ['uses' => 'App\Http\Controllers\DashboardController@client_distribution_graphs', 'as' => 'Reports-clients-distribution']);

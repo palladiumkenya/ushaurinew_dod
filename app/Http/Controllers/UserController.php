@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Clinic;
 use App\Models\User;
+use App\Models\Client;
 use App\Models\AccessLevel;
 use App\Models\Facility;
 use App\Models\Donor;
@@ -12,6 +13,7 @@ use App\Models\Partner;
 use App\Models\County;
 use App\Models\Role;
 use App\Models\SubCounty;
+use App\Models\PartnerFacility;
 use Auth;
 use DB;
 
@@ -29,14 +31,25 @@ class UserController extends Controller
         return view('users.users')->with($data);
     }
 
-    public function adduserform()
+    public function adduserform(Request $request)
     {
         $partners = Partner::all();
         $donors = Donor::all();
-        $facilities = Facility::all();
+        $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+        ->select('tbl_partner_facility.id', 'tbl_master_facility.name', 'tbl_partner_facility.mfl_code as code')
+        ->orderBy('tbl_master_facility.name', 'asc')
+       // ->where('tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+        ->get();
         $counties = County::all();
+        $clinics = Clinic::all();
+        $roles = Role::all()->where('status', '=', 'Active');
         $sub_counties = SubCounty::all();
         $access_level = AccessLevel::all()->where('status', '=', 'Active');
+        $clients = Client::select('tbl_client.ccc_number', 'tbl_clinic.name')
+        ->join('tbl_clinic', 'tbl_client.clinic_id', '=', 'tbl_clinic.id')
+        ->get();
+
+
 
 
         $data = array(
@@ -46,9 +59,31 @@ class UserController extends Controller
             'partners' => $partners,
             'sub_counties' => $sub_counties,
             'access_level' => $access_level,
+            'roles' => $roles,
+            'clinics' => $clinics,
         );
+
+       // dd($facilities);
 
         return view('users.adduser')->with($data);
 
     }
+
+    public function access_level_load(Request $request)
+{
+    $select = $request->get('select');
+    $value = $request->get('value');
+    $dependant = $dependant->get('value');
+
+    $level = Role::where($select, $value)
+    ->groupBy($dependant).'</option>'
+    ->get();
+
+    $ouput = '<option value="">Select '.ucfirst($dependant).'</option>';
+    foreach ($level as $row)
+    {
+        $ouput .= '<option value="'.$row->dependant.'">'.$row->dependant.'</option>';
+    }
+    echo $ouput;
+}
 }

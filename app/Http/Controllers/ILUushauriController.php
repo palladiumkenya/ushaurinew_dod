@@ -61,10 +61,14 @@ class ILUushauriController extends Controller
         ->where('db_source', '=', 'ADT')
         ->pluck('count');
 
+        $il_registration = Client::select(\DB::raw("COUNT(id) as count"))
+        ->where('entry_point', '=', 'IL')
+        ->pluck('count');
 
-      // dd($il_facilities);
 
-        return view('dashboard.il_dashboard', compact('il_appointments', 'il_future_apps', 'messages_count', 'il_facilities', 'il_partners', 'il_kenyaemr', 'il_adt'));
+       //dd($il_kenyaemr);
+
+        return view('dashboard.il_dashboard', compact('il_appointments', 'il_registration', 'il_future_apps', 'messages_count', 'il_facilities', 'il_partners', 'il_kenyaemr', 'il_adt'));
     }
 
     public function facilities_il()

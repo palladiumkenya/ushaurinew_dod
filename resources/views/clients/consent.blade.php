@@ -101,7 +101,7 @@
                                             <label for="firstName1">Consent Date</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" id="consent_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="consent_date" >
+                                                <input type="date" required="" id="consent_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="consent_date" >
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-secondary"  type="button">
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Smsenable</label>
-                                        <select id ="smsenable" name="smsenable" class="form-control">
+                                        <select id ="smsenable" name="smsenable" class="form-control" required="">
                                             <option >Select</option>
                                             <option value="1">Yes</option>
                                             <option value="2">No</option>
@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Language</label>
-                                        <select id ="language_id" name="language_id" class="form-control">
+                                        <select id ="language_id" name="language_id" class="form-control" required="">
                                             <option >Select Language</option>
                                             <option value="1">Swahili</option>
                                             <option value="2">English</option>
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Motivational Alerts</label>
-                                        <select id ="motivational_enable" name="motivational_enable" class="form-control">
+                                        <select id ="motivational_enable" name="motivational_enable" class="form-control" required="">
                                             <option >Enable Weekly motivational alerts</option>
                                             <option value="1">Yes</option>
                                             <option value="2">No</option>
@@ -138,12 +138,12 @@
 
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">Prefered Time</label>
-                                        <input class="form-control" type="text" id="txt_time" name="txt_time" placeholder="HH:MM"/>
+                                        <input class="form-control" required="" type="text" id="txt_time" name="txt_time" placeholder="HH:MM"/>
                                     </div>
 
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">Phone Number</label>
-                                        <input type="text" class="form-control" id="phone_no" name="phone_no" placeholder="Phone Number">
+                                        <input type="text" class="form-control" id="phone_no" name="phone_no" pattern="^(([0-9]{1})*[- .(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4})+$" placeholder="Phone Number">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-block btn-primary">Submit</button>

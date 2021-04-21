@@ -10,7 +10,7 @@
 
     <div class="col-md-12">
 
-    <form class="form-inline">
+    <form role="form" method="post" action="#" id="">
     <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -172,11 +172,45 @@
 
      <script type="text/javascript">
 
-var RegisteredClients =  <?php echo json_encode($chart_registered) ?>;
-var ConsentedClients =  <?php echo json_encode($chart_consent) ?>;
-var Months =  <?php echo json_encode($month_count) ?>;
+$.ajax({
+            type: 'GET',
+            url: "{{ route('Reports-dashboard') }}",
+            success: function(data) {
 
-console.log(ConsentedClients);
+                $('#partners').empty();
+                $('#counties').empty();
+                $.each(data.all_partners, function(number, partner) {
+                    $("#partners").append($('<option>').text(partner.name).attr('value',
+                        partner.id));
+                });
+                $.each(data.all_counties, function(number, county) {
+                    $("#counties").append($('<option>').text(county.name).attr('value',
+                        county.id));
+                });
+                $("#partners").selectpicker('refresh');
+                $("#counties").selectpicker('refresh');
+                $("#all_clients_number").html(data.all_clients_number);
+                $("#pec_client_count").html(data.pec_client_count);
+                $("#all_target_clients").html(data.all_target_clients);
+                $("#all_consented_clients").html(data.all_consented_clients);
+                $("#number_of_facilities").html(data.number_of_facilities);
+                let userlevel = '{!!Auth::user()->access_level!!}';
+                if (userlevel == 'Partner') {
+                    let partnerId = '{!!Auth::user()->partner_id!!}';
+                    $('#partners').attr("disabled", true);
+                    $('#partners').selectpicker('val', partnerId);
+                    $("#partners").selectpicker('refresh');
+                }
+            }
+        });
+
+var RegisteredClients =  <?php echo json_encode($registered_clients_count) ?>;
+var ConsentedClients =  <?php echo json_encode($consented_clients_count) ?>;
+var Months =  <?php echo json_encode($month_count) ?>;
+parseConsented = JSON.parse(ConsentedClients);
+parseRegistered = JSON.parse(RegisteredClients);
+
+console.log(parseConsented);
 Highcharts.chart('container', {
     chart: {
         type: 'column'
@@ -185,7 +219,7 @@ Highcharts.chart('container', {
         text: 'Monthly Number Series'
     },
     xAxis: {
-        categories: Months,
+        categories: ['Registered Clients', 'Consented Clients'],
         crosshair: true
     },
     yAxis: {
@@ -194,6 +228,13 @@ Highcharts.chart('container', {
             text: 'Count'
         }
     },
+    tooltip: {
+            formatter: function() {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total Clients: ' + this.point.stackTotal;
+            }
+        },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -209,12 +250,8 @@ Highcharts.chart('container', {
         }
     },
     series: [{
-        name: 'Registered Clients',
-        data: RegisteredClients
-
-    }, {
-        name: 'Consented Clients',
-        data: RegisteredClients
+        name: 'Clients Trends',
+        data: [parseRegistered, parseConsented]
 
     }]
 });

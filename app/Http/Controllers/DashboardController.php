@@ -71,12 +71,23 @@ class DashboardController extends Controller
 
     public function main_graph_dashboard()
     {
-        if (Auth::user()->access_level == 'Admin') {
+
+        $data                = [];
+
+        if (Auth::user()->access_level == 'Partner') { //user is partner
+            $selected_partners = [Auth::user()->partner_id];
+        }
+        if (Auth::user()->access_level == 'Facility') { //user is facility
+            $selected_facilities = [Auth::user()->facility_id];
+        }
+        if (Auth::user()->access_level == 'County') { // user is a county user
+            $selected_counties = [Auth::user()->county_id];
+        }
+
 
         $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
         $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
         $pec_client_count = ClientRegistration::select('total_percentage')->avg('total_percentage');
-       // $all_client_pec = $pec_client_sum / $pec_client_count * 1000;
         $all_target_clients = ClientPerformance::selectRaw('target_clients')->sum('target_clients');
         $all_consented_clients = ClientRegistration::select('consented')->sum('consented');
         $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())
@@ -111,11 +122,159 @@ class DashboardController extends Controller
             $chart_registered[$month] = $registered_clients [$index];
         }
 
-   // dd($chart_consent);
-       }
-        return view('dashboard.dashboardv1', compact('chart_consent', 'chart_registered', 'month_count', 'all_clients_number', 'all_target_clients',
-       'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count'));
+        $registered_clients_count = MainDashboardBar::select(\DB::raw("SUM(clients) as count"))
+        ->pluck('count');
+        $consented_clients_count = MainDashboardBar::select(\DB::raw("SUM(consented) as count"))
+        ->pluck('count');
 
+       // dd($registered_clients_count);
+
+        if (!empty($selected_partners)) {
+            $all_clients_number = $all_clients_number->whereIn('partner_id', $selected_partners);
+            $pec_client_count = $pec_client_count->whereIn('partner_id', $selected_partners);
+            $all_target_clients = $all_target_clients->whereIn('partner_id', $selected_partners);
+            $all_consented_clients = $all_consented_clients->whereIn('partner_id', $selected_partners);
+           // $all_future_appointments = $all_future_appointments->whereIn('partner_id', $selected_partners);
+            $number_of_facilities = $number_of_facilities->whereIn('partner_id', $selected_partners);
+
+        }
+
+        if (!empty($selected_counties)) {
+            $all_clients_number = $all_clients_number->whereIn('county_id', $selected_counties);
+            $pec_client_count = $pec_client_count->whereIn('county_id', $selected_counties);
+            $all_target_clients = $all_target_clients->whereIn('county_id', $selected_counties);
+            $all_consented_clients = $all_consented_clients->whereIn('county_id', $selected_counties);
+          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
+            $number_of_facilities = $number_of_facilities->whereIn('county_id', $selected_counties);
+        }
+
+        if (!empty($selected_facilities)) {
+            $all_clients_number = $all_clients_number->whereIn('mfl_code', $selected_facilities);
+            $pec_client_count = $pec_client_count->whereIn('mfl_code', $selected_facilities);
+            $all_target_clients = $all_target_clients->whereIn('mfl_code', $selected_facilities);
+            $all_consented_clients = $all_consented_clients->whereIn('mfl_code', $selected_facilities);
+          //  $all_future_appointments = $all_future_appointments->whereIn('mfl_code', $selected_facilities);
+            $number_of_facilities = $number_of_facilities->whereIn('mfl_code', $selected_facilities);
+
+        }
+
+        $data["all_clients_number"]        = $all_clients_number;
+        $data["pec_client_count"]        = $pec_client_count;
+        $data["all_target_clients"]         = $all_target_clients;
+        $data["all_consented_clients"]        = $all_consented_clients;
+        $data["all_future_appointments"]        = $all_future_appointments;
+        $data["all_target_clients"]         = $number_of_facilities;
+
+        //return view('dashboard.dashboardv1', compact('data'));
+
+       return view('dashboard.dashboardv1', compact('chart_consent', 'chart_registered', 'month_count', 'all_clients_number', 'all_target_clients',
+      'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count', 'registered_clients_count', 'consented_clients_count'));
+
+    }
+
+    public function filter_dashboard(Request $request){
+
+        $data                = [];
+
+        $selected_partners = $request->partners;
+        $selected_counties = $request->counties;
+        $selected_subcounties = $request->subcounties;
+        $selected_facilites = $request->facilities;
+
+        if (Auth::user()->access_level == 'Partner') { //user is partner
+            $selected_partners = [Auth::user()->partner_id];
+        }
+        if (Auth::user()->access_level == 'Facility') { //user is facility
+            $selected_facilities = [Auth::user()->facility_id];
+        }
+        if (Auth::user()->access_level == 'County') { // user is a county user
+            $selected_counties = [Auth::user()->county_id];
+        }
+
+
+        $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
+        $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
+        $pec_client_count = ClientRegistration::select('total_percentage')->avg('total_percentage');
+        $all_target_clients = ClientPerformance::selectRaw('target_clients')->sum('target_clients');
+        $all_consented_clients = ClientRegistration::select('consented')->sum('consented');
+        $all_future_appointments = Appointments::where('appntmnt_date', '>', Now())
+        ->whereNotNull('client_id')
+        ->count();
+        $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
+
+        $registered_clients = MainDashboardBar::select(\DB::raw("SUM(clients) as count"))
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $registered_clients = array_column($registered_clients, 'count');
+
+        $consented_clients = MainDashboardBar::select(\DB::raw("SUM(consented) as count"))
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $consented_clients = array_column($consented_clients, 'count');
+        $month_count = MainDashboardBar::select('MONTH as months')
+        ->groupBy('MONTH')
+        ->orderBy('MONTH', 'asc')
+        ->get()->toArray();
+        $month_count = array_column($month_count, 'months');
+
+        $chart_consent = array($month_count);
+        foreach ($month_count as $index => $month) {
+            $chart_consent[$month] = $consented_clients [$index];
+
+        }
+        $chart_registered = array($month_count);
+        foreach ($month_count as $index => $month) {
+            $chart_registered[$month] = $registered_clients [$index];
+        }
+
+        if (!empty($selected_partners)) {
+            $all_clients_number = $all_clients_number->whereIn('partner_id', $selected_partners);
+            $pec_client_count = $pec_client_count->whereIn('partner_id', $selected_partners);
+            $all_target_clients = $all_target_clients->whereIn('partner_id', $selected_partners);
+            $all_consented_clients = $all_consented_clients->whereIn('partner_id', $selected_partners);
+           // $all_future_appointments = $all_future_appointments->whereIn('partner_id', $selected_partners);
+            $number_of_facilities = $number_of_facilities->whereIn('partner_id', $selected_partners);
+
+        }
+
+        if (!empty($selected_counties)) {
+            $all_clients_number = $all_clients_number->whereIn('county_id', $selected_counties);
+            $pec_client_count = $pec_client_count->whereIn('county_id', $selected_counties);
+            $all_target_clients = $all_target_clients->whereIn('county_id', $selected_counties);
+            $all_consented_clients = $all_consented_clients->whereIn('county_id', $selected_counties);
+          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
+            $number_of_facilities = $number_of_facilities->whereIn('county_id', $selected_counties);
+        }
+
+        if (!empty($selected_subcounties)) {
+            $all_clients_number = $all_clients_number->whereIn('sub_county_id', $selected_subcounties);
+            $pec_client_count = $pec_client_count->whereIn('sub_county_id', $selected_subcounties);
+            $all_target_clients = $all_target_clients->whereIn('sub_county_id', $selected_subcounties);
+            $all_consented_clients = $all_consented_clients->whereIn('sub_county_id', $selected_subcounties);
+          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
+            $number_of_facilities = $number_of_facilities->whereIn('sub_county_id', $selected_subcounties);
+        }
+
+        if (!empty($selected_facilities)) {
+            $all_clients_number = $all_clients_number->whereIn('mfl_code', $selected_facilities);
+            $pec_client_count = $pec_client_count->whereIn('mfl_code', $selected_facilities);
+            $all_target_clients = $all_target_clients->whereIn('mfl_code', $selected_facilities);
+            $all_consented_clients = $all_consented_clients->whereIn('mfl_code', $selected_facilities);
+          //  $all_future_appointments = $all_future_appointments->whereIn('mfl_code', $selected_facilities);
+            $number_of_facilities = $number_of_facilities->whereIn('mfl_code', $selected_facilities);
+
+        }
+
+        $data["all_clients_number"]        = $all_clients_number;
+        $data["pec_client_count"]        = $pec_client_count;
+        $data["all_target_clients"]         = $all_target_clients;
+        $data["all_consented_clients"]        = $all_consented_clients;
+        $data["all_future_appointments"]        = $all_future_appointments;
+        $data["all_target_clients"]         = $number_of_facilities;
+
+        return $data;
     }
 
 

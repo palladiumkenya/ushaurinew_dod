@@ -150,6 +150,8 @@
 
 var Kenyaemr =  <?php echo json_encode($il_kenyaemr) ?>;
 var ADT =  <?php echo json_encode($il_adt) ?>;
+var Registration =  <?php echo json_encode($il_registration) ?>;
+console.log(Kenyaemr);
         Highcharts.chart('container', {
         chart: {
             type: 'column'
@@ -158,7 +160,7 @@ var ADT =  <?php echo json_encode($il_adt) ?>;
             text: 'IL Appointments by Source'
         },
         xAxis: {
-            categories: ['KENYAEMR', 'ADT']
+            categories: ['KENYAEMR Appointments', 'ADT Appointments', 'Client Registration']
         },
         yAxis: {
             min: 0,
@@ -190,7 +192,7 @@ var ADT =  <?php echo json_encode($il_adt) ?>;
         },
         series: [{
                 name: 'Appointments',
-                data: [Kenyaemr, ADT]
+                data: [Kenyaemr, ADT, Registration]
             }
         ],
 
