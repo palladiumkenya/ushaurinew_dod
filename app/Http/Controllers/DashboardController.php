@@ -15,8 +15,10 @@ use App\Models\Appointments;
 use App\Models\TodayAppointment;
 use App\Models\Message;
 use App\Models\County;
+use App\Models\SubCounty;
 use App\Models\MainDashboardBar;
 use App\Models\ClientRegistration;
+use App\Models\PartnerFacility;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -84,6 +86,14 @@ class DashboardController extends Controller
             $selected_counties = [Auth::user()->county_id];
         }
 
+        $partners_with_data = ClientRegistration::select('partner_id')->groupBy('partner_id');
+
+        $counties_with_data = ClientRegistration::select('county_id')->groupBy('county_id');
+
+
+        $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
+        $all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
+
 
         $all_clients_number = ClientPerformance::selectRaw('actual_clients')->sum('actual_clients');
         $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
@@ -122,41 +132,13 @@ class DashboardController extends Controller
             $chart_registered[$month] = $registered_clients [$index];
         }
 
-        $registered_clients_count = MainDashboardBar::select(\DB::raw("SUM(clients) as count"))
+        $registered_clients_count = ClientRegistration::select(\DB::raw("SUM(clients) as count"))
         ->pluck('count');
-        $consented_clients_count = MainDashboardBar::select(\DB::raw("SUM(consented) as count"))
+        $consented_clients_count = ClientRegistration::select(\DB::raw("SUM(consented) as count"))
         ->pluck('count');
 
        // dd($registered_clients_count);
 
-        if (!empty($selected_partners)) {
-            $all_clients_number = $all_clients_number->whereIn('partner_id', $selected_partners);
-            $pec_client_count = $pec_client_count->whereIn('partner_id', $selected_partners);
-            $all_target_clients = $all_target_clients->whereIn('partner_id', $selected_partners);
-            $all_consented_clients = $all_consented_clients->whereIn('partner_id', $selected_partners);
-           // $all_future_appointments = $all_future_appointments->whereIn('partner_id', $selected_partners);
-            $number_of_facilities = $number_of_facilities->whereIn('partner_id', $selected_partners);
-
-        }
-
-        if (!empty($selected_counties)) {
-            $all_clients_number = $all_clients_number->whereIn('county_id', $selected_counties);
-            $pec_client_count = $pec_client_count->whereIn('county_id', $selected_counties);
-            $all_target_clients = $all_target_clients->whereIn('county_id', $selected_counties);
-            $all_consented_clients = $all_consented_clients->whereIn('county_id', $selected_counties);
-          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
-            $number_of_facilities = $number_of_facilities->whereIn('county_id', $selected_counties);
-        }
-
-        if (!empty($selected_facilities)) {
-            $all_clients_number = $all_clients_number->whereIn('mfl_code', $selected_facilities);
-            $pec_client_count = $pec_client_count->whereIn('mfl_code', $selected_facilities);
-            $all_target_clients = $all_target_clients->whereIn('mfl_code', $selected_facilities);
-            $all_consented_clients = $all_consented_clients->whereIn('mfl_code', $selected_facilities);
-          //  $all_future_appointments = $all_future_appointments->whereIn('mfl_code', $selected_facilities);
-            $number_of_facilities = $number_of_facilities->whereIn('mfl_code', $selected_facilities);
-
-        }
 
         $data["all_clients_number"]        = $all_clients_number;
         $data["pec_client_count"]        = $pec_client_count;
@@ -164,11 +146,14 @@ class DashboardController extends Controller
         $data["all_consented_clients"]        = $all_consented_clients;
         $data["all_future_appointments"]        = $all_future_appointments;
         $data["all_target_clients"]         = $number_of_facilities;
+        $data["all_partners"]         = $all_partners;
+        $data["all_counties"]         = $all_counties;
 
         //return view('dashboard.dashboardv1', compact('data'));
 
-       return view('dashboard.dashboardv1', compact('chart_consent', 'chart_registered', 'month_count', 'all_clients_number', 'all_target_clients',
-      'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count', 'registered_clients_count', 'consented_clients_count'));
+       return view('dashboard.dashboardv1', compact('all_partners', 'all_counties', 'chart_consent', 'chart_registered', 'month_count', 'all_clients_number', 'all_target_clients',
+      'all_consented_clients', 'all_future_appointments', 'number_of_facilities', 'pec_client_count', 'registered_clients_count', 'consented_clients_count',
+    'registered_clients'));
 
     }
 
@@ -229,43 +214,6 @@ class DashboardController extends Controller
             $chart_registered[$month] = $registered_clients [$index];
         }
 
-        if (!empty($selected_partners)) {
-            $all_clients_number = $all_clients_number->whereIn('partner_id', $selected_partners);
-            $pec_client_count = $pec_client_count->whereIn('partner_id', $selected_partners);
-            $all_target_clients = $all_target_clients->whereIn('partner_id', $selected_partners);
-            $all_consented_clients = $all_consented_clients->whereIn('partner_id', $selected_partners);
-           // $all_future_appointments = $all_future_appointments->whereIn('partner_id', $selected_partners);
-            $number_of_facilities = $number_of_facilities->whereIn('partner_id', $selected_partners);
-
-        }
-
-        if (!empty($selected_counties)) {
-            $all_clients_number = $all_clients_number->whereIn('county_id', $selected_counties);
-            $pec_client_count = $pec_client_count->whereIn('county_id', $selected_counties);
-            $all_target_clients = $all_target_clients->whereIn('county_id', $selected_counties);
-            $all_consented_clients = $all_consented_clients->whereIn('county_id', $selected_counties);
-          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
-            $number_of_facilities = $number_of_facilities->whereIn('county_id', $selected_counties);
-        }
-
-        if (!empty($selected_subcounties)) {
-            $all_clients_number = $all_clients_number->whereIn('sub_county_id', $selected_subcounties);
-            $pec_client_count = $pec_client_count->whereIn('sub_county_id', $selected_subcounties);
-            $all_target_clients = $all_target_clients->whereIn('sub_county_id', $selected_subcounties);
-            $all_consented_clients = $all_consented_clients->whereIn('sub_county_id', $selected_subcounties);
-          //  $all_future_appointments = $all_future_appointments->whereIn('county_id', $selected_counties);
-            $number_of_facilities = $number_of_facilities->whereIn('sub_county_id', $selected_subcounties);
-        }
-
-        if (!empty($selected_facilities)) {
-            $all_clients_number = $all_clients_number->whereIn('mfl_code', $selected_facilities);
-            $pec_client_count = $pec_client_count->whereIn('mfl_code', $selected_facilities);
-            $all_target_clients = $all_target_clients->whereIn('mfl_code', $selected_facilities);
-            $all_consented_clients = $all_consented_clients->whereIn('mfl_code', $selected_facilities);
-          //  $all_future_appointments = $all_future_appointments->whereIn('mfl_code', $selected_facilities);
-            $number_of_facilities = $number_of_facilities->whereIn('mfl_code', $selected_facilities);
-
-        }
 
         $data["all_clients_number"]        = $all_clients_number;
         $data["pec_client_count"]        = $pec_client_count;
@@ -287,27 +235,61 @@ class DashboardController extends Controller
                 $partner_ids[] = (int) $each_id;
             }
         }
-        $counties_with_data = Dashboard::select('county_id')->distinct('county_id')->groupBy('county_id')->get();
+        $counties_with_data = ClientRegistration::select('county_id')->distinct('county_id')->groupBy('county_id')->get();
 
         if (!empty($partner_ids)) {
-            $all_counties = County::join('sub_county', 'county.id', '=', 'sub_county.county_id')
-                ->join('tbl_master_facility', 'sub_county.id', '=', 'tbl_master_facility.Sub_County_ID')
-                ->select('county.id as id', 'county.name as name')
-                ->distinct('county.id')
-                ->whereIn('health_facilities.partner_id', $partner_ids)
-                ->whereIn('county.id', $counties_with_data)
-                ->groupBy('county.id', 'county.name')
-                ->get('county.id');
+            $all_counties = County::join('tbl_sub_county', 'county.id', '=', 'tbl_sub_county.county_id')
+                ->join('tbl_partner_facility', 'tbl_sub_county.id', '=', 'tbl_partner_facility.sub_county_id')
+                ->select('tbl_county.id as id', 'tbl_county.name as name')
+                ->distinct('tbl_county.id')
+                ->whereIn('tbl_partner_facility.partner_id', $partner_ids)
+                ->whereIn('tbl_county.id', $counties_with_data)
+                ->groupBy('tbl_county.id', 'tbl_county.name')
+                ->get('tbl_county.id');
         } else {
-            $all_counties = County::join('sub_county', 'county.id', '=', 'sub_county.county_id')
-            ->join('tbl_master_facility', 'sub_county.id', '=', 'tbl_master_facility.Sub_County_ID')
-            ->select('county.id as id', 'county.name as name')
-            ->distinct('county.id')
-            ->whereIn('county.id', $counties_with_data)
-            ->groupBy('county.id', 'county.name')
+            $all_counties = County::join('tbl_sub_county', 'county.id', '=', 'tbl_sub_county.county_id')
+            ->join('tbl_partner_facility', 'tbl_sub_county.id', '=', 'tbl_partner_facility.sub_county_id')
+            ->select('tbl_county.id as id', 'tbl_county.name as name')
+            ->distinct('tbl_county.id')
+            ->whereIn('tbl_county.id', $counties_with_data)
+            ->groupBy('tbl_county.id', 'tbl_county.name')
             ->get();
         }
         return $all_counties;
+    }
+
+    public function get_counties($id)
+    {
+        $counties = PartnerFacility::join('tbl_county', 'tbl_partner_facility.county_id', '=', 'tbl_county.id')
+                    ->where("tbl_partner_facility.partner_id",$id)
+                    ->pluck("tbl_county.name","tbl_county.id");
+        return json_encode($counties);
+    }
+
+    public function get_dashboard_sub_counties($id)
+    {
+        $subcounties = PartnerFacility::join('tbl_sub_county', 'tbl_partner_facility.sub_county_id', '=', 'tbl_sub_county.id')
+                    ->where("tbl_partner_facility.county_id",$id)
+                    ->pluck("tbl_sub_county.name","tbl_sub_county.id");
+        return json_encode($subcounties);
+    }
+
+    public function get_dashboard_facilities(Request $request)
+    {
+        $sub_county_ids = array();
+        $strings_array = $request->sub_counties;
+        $partner_ids = $request->partners;
+        if (!empty($strings_array)) {
+            foreach ($strings_array as $each_id) {
+                $sub_county_ids[] = (int) $each_id;
+            }
+        }
+
+        $withResults = ClientRegistration::select('mfl_code')->groupBy('mfl_code')->get();
+
+        $all_facilities = Facility::select('code', 'name')->distinct('code')->wherein('Sub_County_ID', $sub_county_ids)->wherein('partner_id', $partner_ids)->wherein('code', $withResults)->groupBy('code', 'name')->get();
+
+        return $all_facilities;
     }
 
 

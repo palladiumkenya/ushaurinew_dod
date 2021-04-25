@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Missed Heis List</i>
+                      <i class="icon-table">Missed HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -24,7 +24,7 @@
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>
-                                                <th>Hei Number</th>
+                                                <th>HEI Number</th>
                                                 <th>Phone No</th>
                                                 <th>Appointment Status</th>
                                                 <th>Appointment Date</th>

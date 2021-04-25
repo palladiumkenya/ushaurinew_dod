@@ -7,6 +7,8 @@ use App\Models\Appointments;
 use App\Models\Message;
 use App\Models\Client;
 use App\Models\Facility;
+use App\Models\County;
+use App\Models\Partner;
 
 class ILUushauriController extends Controller
 {
@@ -65,10 +67,13 @@ class ILUushauriController extends Controller
         ->where('entry_point', '=', 'IL')
         ->pluck('count');
 
+        $all_partners = Partner::select('id', 'name')->get();
+        $all_counties = County::select('id', 'name')->get();
+
 
        //dd($il_kenyaemr);
 
-        return view('dashboard.il_dashboard', compact('il_appointments', 'il_registration', 'il_future_apps', 'messages_count', 'il_facilities', 'il_partners', 'il_kenyaemr', 'il_adt'));
+        return view('dashboard.il_dashboard', compact('all_partners', 'all_counties', 'il_appointments', 'il_registration', 'il_future_apps', 'messages_count', 'il_facilities', 'il_partners', 'il_kenyaemr', 'il_adt'));
     }
 
     public function facilities_il()
@@ -89,6 +94,7 @@ class ILUushauriController extends Controller
     public function partners_il()
     {
       $il_partners = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+
         ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
         ->select('tbl_partner.name as partner')
         ->groupBy('tbl_partner.name')

@@ -106,7 +106,7 @@
             type: 'column'
         },
         title: {
-            text: 'Hei Evaluation Report Summary'
+            text: 'HEI Evaluation Report Summary'
         },
         xAxis: {
             categories: ['Booked', 'Scheduled', 'Un-Scheduled', 'Missed', 'Defaulter', 'LTFU', 'Deceased', 'Transfer Out', 'Discharged']
@@ -114,7 +114,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Heis Count'
+                text: 'HEIs Count'
             },
             stackLabels: {
                 enabled: true,
@@ -288,7 +288,7 @@ chart: {
 },
 
 title: {
-    text: 'Hiv Infected Children Report Summary'
+    text: 'HIV Infected Children Report Summary'
 },
 
 xAxis: {

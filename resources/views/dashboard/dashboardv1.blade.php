@@ -15,9 +15,11 @@
             <div class="col">
                 <div class="form-group">
 
-                <select class="form-control filter_partner  input-rounded input-sm select2" name="filter_partner"
-                    id="">
+                <select class="form-control filter_partner  input-rounded input-sm select2" name="partner">
                     <option value="">Please select Partner</option>
+                    @foreach ($all_partners as $partner => $value)
+                            <option value="{{ $partner }}"> {{ $value }}</option>
+                        @endforeach
 
                     <option></option>
                 </select>
@@ -25,20 +27,16 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                <select class="form-control filter_county  input-rounded input-sm select2" name="filter_county"
-                    id="">
-                    <option value="">Please select County</option>
-
-                    <option></option>
+                <select class="form-control county  input-rounded input-sm select2" name="county">
+                    <option>Please select County:</option>
                 </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                 <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                <select class="form-control filter_sub_county input-rounded input-sm select2" name="filter_sub_county"
-                    id="">
-                    <option value="">Please Select Sub County : </option>
+                <select class="form-control subcounty input-rounded input-sm select2" name="subcounty">
+                    <option>Please Select Sub County : </option>
                 </select>
                 </div>
             </div>
@@ -172,6 +170,56 @@
 
      <script type="text/javascript">
 
+$(document).ready(function() {
+        $('select[name="partner"]').on('change', function() {
+            var partnerID = $(this).val();
+            if(partnerID) {
+                $.ajax({
+                    url: '/get_dashboard_counties/'+partnerID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+
+                        $('select[name="county"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="county"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+
+                    }
+                });
+            }else{
+                $('select[name="county"]').empty();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('select[name="county"]').on('change', function() {
+            var countyID = $(this).val();
+            if(countyID) {
+                $.ajax({
+                    url: '/get_dashboard_sub_counties/'+countyID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+
+                        $('select[name="subcounty"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="subcounty"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+
+                    }
+                });
+            }else{
+                $('select[name="subcounty"]').empty();
+            }
+        });
+    });
+
 $.ajax({
             type: 'GET',
             url: "{{ route('Reports-dashboard') }}",
@@ -206,55 +254,62 @@ $.ajax({
 
 var RegisteredClients =  <?php echo json_encode($registered_clients_count) ?>;
 var ConsentedClients =  <?php echo json_encode($consented_clients_count) ?>;
+var Test =  <?php echo json_encode($registered_clients) ?>;
 var Months =  <?php echo json_encode($month_count) ?>;
 parseConsented = JSON.parse(ConsentedClients);
 parseRegistered = JSON.parse(RegisteredClients);
+//Registered = JSON.parse(Months);
 
-console.log(parseConsented);
+
+
+console.log(Months);
 Highcharts.chart('container', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Number Series'
-    },
-    xAxis: {
-        categories: ['Registered Clients', 'Consented Clients'],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
+        chart: {
+            type: 'column'
+        },
         title: {
-            text: 'Count'
-        }
-    },
-    tooltip: {
+            text: 'Number Series'
+        },
+        xAxis: {
+            categories: ['Registered Clients', 'Consented Clients']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Count'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: ( // theme
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || 'gray'
+                }
+            }
+        },
+        tooltip: {
             formatter: function() {
                 return '<b>' + this.x + '</b><br/>' +
                     this.series.name + ': ' + this.y + '<br/>' +
                     'Total Clients: ' + this.point.stackTotal;
             }
         },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Clients Trends',
-        data: [parseRegistered, parseConsented]
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+            }
+        },
+        series: [{
+                name: 'Clients Trends',
+                data: [parseRegistered, parseConsented]
+            }
+        ],
 
-    }]
-});
+    });
+
+    var colors = Highcharts.getOptions().colors;
 
 
 

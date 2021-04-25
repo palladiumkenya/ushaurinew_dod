@@ -45,7 +45,7 @@ class UserController extends Controller
         $roles = Role::all()->where('status', '=', 'Active');
         $sub_counties = SubCounty::all();
         $access_level = AccessLevel::all()->where('status', '=', 'Active');
-        $clients = Client::select('tbl_client.ccc_number', 'tbl_clinic.name')
+        $clients = Client::select('tbl_client.clinic_number', 'tbl_clinic.name')
         ->join('tbl_clinic', 'tbl_client.clinic_id', '=', 'tbl_clinic.id')
         ->get();
 

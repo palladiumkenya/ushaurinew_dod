@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Heis Listing</h4>
+                        <! <h4 class="card-title mb-3">HEIs Listing</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -23,7 +23,7 @@
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>
-                                                <th>Hei Number</th>
+                                                <th>HEI Number</th>
                                                 <th>Phone No</th>
                                                 <th>Birth Date</th>
                                                 <th>Treatment</th>

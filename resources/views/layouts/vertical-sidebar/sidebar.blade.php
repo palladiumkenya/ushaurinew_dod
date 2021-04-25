@@ -72,7 +72,7 @@
                         </a>
                         <ul class="mm-collapse">
                             <li class="item-name">
-                                <a href="">
+                                <a href="{{route('clients-profile')}}">
                                     <span class="item-name">Client Profile</span>
                                 </a>
                             </li>
@@ -336,12 +336,14 @@
                         <span class="item-name  text-muted">Reports</span>
                     </a>
                     <ul class="mm-collapse">
+                    @if (Auth::user()->role_id == 12 || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Admin')
 
                     <li class="item-name">
                             <a class="" href="{{route('admin-tracer-clients')}}">
                                 <span class="item-name">Client Tracer</span>
                             </a>
                     </li>
+                    @endif
 
                     <li class="item-name">
                         <a class="has-arrow" href="#">
