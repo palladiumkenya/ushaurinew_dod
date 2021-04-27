@@ -28,7 +28,8 @@
             <div class="col">
                 <div class="form-group">
                 <select class="form-control county  input-rounded input-sm select2" name="county">
-                    <option>Please select County:</option>
+                    <option value="">Please select County:</option>
+                    <option></option>
                 </select>
                 </div>
             </div>
@@ -44,9 +45,8 @@
                 <div class="form-group">
                 <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
 
-                <select class="form-control filter_facility input-rounded input-sm select2" name="filter_facility"
-                    id="">
-                    <option value="">Please select Facility : </option>
+                <select class="form-control filter_facility input-rounded input-sm select2" name="facility">
+                    <option>Please select Facility : </option>
                 </select>
                 </div>
             </div>
@@ -219,6 +219,32 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).ready(function() {
+        $('select[name="subcounty"]').on('change', function() {
+            var subcountyID = $(this).val();
+            if(subcountyID) {
+                $.ajax({
+                    url: '/get_dashboard_facilities/'+subcountyID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+
+
+                        $('select[name="facility"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="facility"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+
+
+                    }
+                });
+            }else{
+                $('select[name="facility"]').empty();
+            }
+        });
+    });
+
 
 $.ajax({
             type: 'GET',

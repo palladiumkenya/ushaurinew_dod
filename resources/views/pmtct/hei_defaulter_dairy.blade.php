@@ -58,7 +58,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Defaulted Heis List</i>
+                         <i class="icon-table">Defaulted HEIs List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -106,7 +106,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Lost To Follow Up Heis List</i>
+                      <i class="icon-table">Lost To Follow Up HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">

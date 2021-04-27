@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Booked Heis List</i>
+                      <i class="icon-table">Booked HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -57,7 +57,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Scheduled Heis List</i>
+                         <i class="icon-table">Scheduled HEIs List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -105,7 +105,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">UnScheduled Heis List</i>
+                      <i class="icon-table">UnScheduled HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">

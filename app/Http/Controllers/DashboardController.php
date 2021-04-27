@@ -274,22 +274,13 @@ class DashboardController extends Controller
         return json_encode($subcounties);
     }
 
-    public function get_dashboard_facilities(Request $request)
+    public function get_dashboard_facilities($id)
     {
-        $sub_county_ids = array();
-        $strings_array = $request->sub_counties;
-        $partner_ids = $request->partners;
-        if (!empty($strings_array)) {
-            foreach ($strings_array as $each_id) {
-                $sub_county_ids[] = (int) $each_id;
-            }
-        }
+        $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+        ->where("tbl_partner_facility.sub_county_id",$id)
+        ->pluck("tbl_master_facility.name","tbl_master_facility.code");
 
-        $withResults = ClientRegistration::select('mfl_code')->groupBy('mfl_code')->get();
-
-        $all_facilities = Facility::select('code', 'name')->distinct('code')->wherein('Sub_County_ID', $sub_county_ids)->wherein('partner_id', $partner_ids)->wherein('code', $withResults)->groupBy('code', 'name')->get();
-
-        return $all_facilities;
+       return json_encode($facilities);
     }
 
 

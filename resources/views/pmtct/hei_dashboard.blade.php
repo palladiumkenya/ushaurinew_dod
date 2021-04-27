@@ -139,7 +139,7 @@
             }
         },
         series: [{
-                name: 'Total Hei',
+                name: 'Total HEI',
                 data: [Booked_count, Scheduled_count, Unscheduled_count, Missed_count, Defaulted_count, LTFU_count, Deceased_count, Transfer_count, Discharged_count]
             }
         ],
