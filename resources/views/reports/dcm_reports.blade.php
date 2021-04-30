@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Less Advanced Clients</i>
+                      <i class="icon-table">Advanced Diseased Clients</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -53,7 +53,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Less Well Clients</i>
+                         <i class="icon-table">Well Diseased Clients</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">

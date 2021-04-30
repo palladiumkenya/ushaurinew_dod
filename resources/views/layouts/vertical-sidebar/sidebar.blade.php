@@ -317,6 +317,11 @@
                         @endif
                         @if (Auth::user()->access_level == 'Facility')
                         <li class="item-name">
+                            <a class="" href="{{route('clients-booked')}}">
+                                <span class="item-name">Clients Tracing</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
                             <a class="" href="">
                                 <span class="item-name">Broadcast</span>
                             </a>
@@ -344,6 +349,7 @@
                             </a>
                     </li>
                     @endif
+
 
                     <li class="item-name">
                         <a class="has-arrow" href="#">
@@ -391,7 +397,7 @@
                         </li>
                         <li class="item-name">
                             <a href="{{route('report-all_heis')}}">
-                                <span class="item-name">Hei List</span>
+                                <span class="item-name">HEI List</span>
                             </a>
                         </li>
                         <li class="item-name">
@@ -411,6 +417,14 @@
                         </li>
                         </ul>
                         </li>
+                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Facility')
+                        <li class="item-name">
+                            <a class="" href="{{route('tracing-cost')}}">
+                                <span class="item-name">Tracing Cost</span>
+                            </a>
+                        </li>
+                        @endif
+
                         <li class="item-name">
                             <a href="{{route('report-lab_investigation')}}">
                                 <span class="item-name">Lab Investigation</span>
