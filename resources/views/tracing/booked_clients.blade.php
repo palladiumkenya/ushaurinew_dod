@@ -97,7 +97,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                                <button id="assign" type="submit" class="btn btn-block btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -139,6 +139,12 @@ function traceclient(booked){
 $('#client_id').val(booked.client_id);
 
 }
+
+$(document).ready(function() {
+    $(document).on('submit', 'form', function() {
+        $('button').attr('disabled', 'disabled');
+    });
+});
 
 
    // multi column ordering

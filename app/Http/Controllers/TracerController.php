@@ -52,6 +52,7 @@ class TracerController extends Controller
     $tracing_cost = Outcome::join('tbl_users', 'tbl_clnt_outcome.created_by', '=', 'tbl_users.id')
     ->join('tbl_client', 'tbl_clnt_outcome.client_id', '=', 'tbl_client.id')
     ->select('tbl_clnt_outcome.app_status', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_client.clinic_number', 'tbl_clnt_outcome.tracing_cost')
+    ->whereNotNull('tbl_clnt_outcome.tracing_cost')
     ->get();
     }
 
@@ -110,6 +111,7 @@ class TracerController extends Controller
 
       $tracer->updated_by = Auth::user()->id;
       $tracer->created_by = Auth::user()->id;
+
                if ($tracer->save()) {
                    Session::flash('statuscode', 'success');
                   return redirect('clients/booked')->with('status', 'Client was successfully Assigned to a Tracer!');
