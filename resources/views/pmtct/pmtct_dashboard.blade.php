@@ -8,6 +8,60 @@
 <div class="col-md-12 mb-4">
 <div class="row">
 
+<div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="card-title mb-3"></div>
+
+                            <h4></h4>
+                            <form role="form" method="get"action="">
+                            {{ csrf_field() }}
+                                <div class="row">
+
+                                    <div class='col-sm-6'>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                            <div class="col-md-4">
+                                            <label for="firstName1">From</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input type="date" id="picker3" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="from" >
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary"  type="button">
+                                                        <i class="icon-regular i-Calendar-4"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class='col-sm-6'>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                            <div class="col-md-4">
+                                            <label for="firstName1">To</label>
+                                            </div>
+                                            <div class="col-md-10">
+
+                                                <input type="date" id="picker2" class="form-control" placeholder="YYYY-mm-dd" name="to" >
+                                               </div>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary"  type="button">
+                                                        <i class="icon-regular i-Calendar-4"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
 
 
 <div id="highchart"></div>
@@ -266,7 +320,7 @@ chart: {
 },
 
 title: {
-    text: 'Evaluation of Retention/Attendance Summary'
+    text: 'PMTCT Evaluation of Attendance Summary'
 },
 
 xAxis: {
@@ -288,15 +342,12 @@ plotOptions: {
 },
 
 series: [{
-    name: 'Booked',
-    data: [ToFourteen_booked, ToNineteen_booked, ToTwentyFour_booked, ToTwentyNine_booked, ToThirtyFour_booked, ToThirtyNine_booked, ToFortyFour_booked, ToFortyNine_booked, ToFirtyPlus_booked, Total_booked]
+    name: 'Scheduled',
+    data: [ToFourteen_scheduled, ToNineteen_scheduled, ToTwentyFour_scheduled, ToTwentyNine_scheduled, ToThirtyFour_scheduled, ToThirtyNine_scheduled, ToFortyFour_scheduled, ToFortyNine_scheduled, ToFirtyPlus_scheduled, Total_Scheduled]
 },{
     name: 'App Honoured',
     data: [ToFourteen_honoured, ToNineteen_honoured, ToTwentyFour_honoured, ToTwentyNine_honoured, ToThirtyFour_honoured, ToThirtyNine_honoured, ToFortyFour_honoured, ToFortyNine_honoured, ToFirtyPlus_honoured, Total_honoured]
 },{
-    name: 'Scheduled',
-    data: [ToFourteen_scheduled, ToNineteen_scheduled, ToTwentyFour_scheduled, ToTwentyNine_scheduled, ToThirtyFour_scheduled, ToThirtyNine_scheduled, ToFortyFour_scheduled, ToFortyNine_scheduled, ToFirtyPlus_scheduled, Total_Scheduled]
-}, {
     name: 'Un-Scheduled',
     data: [ToFourteen_unscheduled, ToNineteen_unscheduled, ToTwentyFour_unscheduled, ToTwentyNine_unscheduled, ToThirtyFour_unscheduled, ToThirtyNine_unscheduled, ToFortyFour_unscheduled, ToFortyNine_unscheduled, ToFirtyPlus_unscheduled, Total_unscheduled]
 

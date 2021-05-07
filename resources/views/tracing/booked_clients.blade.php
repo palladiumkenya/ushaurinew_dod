@@ -28,6 +28,7 @@
                                                 <th>Appointment Date</th>
                                                 <th>Appointment Type</th>
 
+
                                                 <th>Action</th>
 
                                             </tr>
@@ -42,10 +43,15 @@
                                                         <td>  {{$booked->appntmnt_date}}</td>
                                                         <td>  {{$booked->app_type}}</td>
 
-                                                        <td>
-                                                            <button onclick="traceclient({{$booked}});"  data-toggle="modal" data-target="#traceclient" type="button" class="btn btn-primary btn-sm">Assign</button>
 
+                                                        @if(!empty($booked->is_assigned) && !empty($booked->app_id))
+                                                        <td>{{$booked->is_assigned}}</td>
+                                                        @else
+                                                        <td>
+                                                         <button onclick="traceclient({{$booked}});"  data-toggle="modal" data-target="#traceclient" type="button" class="btn btn-primary btn-sm">Assign</button>
                                                         </td>
+                                                        @endif
+
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -143,8 +149,28 @@ $('#client_id').val(booked.client_id);
 $(document).ready(function() {
     $(document).on('submit', 'form', function() {
         $('button').attr('disabled', 'disabled');
+        return true;
     });
 });
+
+$(".ajax").submit(function(event) { //listening on class name and for submit action
+        event.preventDefault();
+        var $confirmButton = $(this).find('.confirm'); // the confirm button of this form
+       $confirmButton.prop('disabled', true);
+        $.ajax({
+            type: "post",
+            url: $(this).attr('action'), //send to the correct url based on the markup
+            dataType: "json",
+            data: $(this).serialize(), //this refers to the submitted form
+            success: function(data){
+                  alert("Data Saved");
+            },
+            error: function(data){
+                 $confirmButton.prop('disabled', false);
+                 alert("Error")
+            }
+        });
+    });
 
 
    // multi column ordering

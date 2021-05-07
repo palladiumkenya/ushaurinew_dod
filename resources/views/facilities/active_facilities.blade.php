@@ -10,10 +10,10 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">List of Active Facilities</h4>
+                         <h4 class="card-title mb-3">List of Active Facilities</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
-                            </div>
+
                                 <div class="table-responsive">
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
                                         <thead>
@@ -47,7 +47,7 @@
                                     </table>
 
                                 </div>
-
+                                </div>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Booked PMTCT List</i>
+                      <i class="icon-table">Future Appointments </i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">

@@ -111,7 +111,7 @@ public function get_roles($id)
         return json_encode($subcounties);
     }
 
-    public function adduser()
+    public function adduser(Request $request)
 {
     try {
         $user = new User;

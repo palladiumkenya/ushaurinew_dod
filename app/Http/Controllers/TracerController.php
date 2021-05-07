@@ -61,6 +61,7 @@ class TracerController extends Controller
     ->join('tbl_client', 'tbl_clnt_outcome.client_id', '=', 'tbl_client.id')
     ->select('tbl_clnt_outcome.app_status', DB::raw("sum(`tbl_clnt_outcome`.`tracing_cost`) as total_cost"), DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_client.clinic_number', 'tbl_clnt_outcome.tracing_cost')
     ->where('tbl_client.partner_id', Auth::user()->partner_id)
+    ->whereNotNull('tbl_clnt_outcome.tracing_cost')
     ->get();
     }
     if (Auth::user()->access_level == 'Facility') {
@@ -68,6 +69,7 @@ class TracerController extends Controller
     ->join('tbl_client', 'tbl_clnt_outcome.client_id', '=', 'tbl_client.id')
     ->select('tbl_clnt_outcome.app_status', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_client.clinic_number', 'tbl_clnt_outcome.tracing_cost')
     ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+    ->whereNotNull('tbl_clnt_outcome.tracing_cost')
     ->get();
 
     $total_costing = Outcome::join('tbl_users', 'tbl_clnt_outcome.created_by', '=', 'tbl_users.id')
@@ -85,7 +87,8 @@ class TracerController extends Controller
     if (Auth::user()->access_level == 'Facility') {
     $all_booked = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
     ->join('tbl_appointment_types', 'tbl_appointment.app_type_1', '=', 'tbl_appointment_types.id')
-    ->select('tbl_client.id as client_id', 'tbl_client.clinic_number as clinic_number', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as client_name"), 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
+    ->leftjoin('tbl_tracer_client', 'tbl_client.id', '=', 'tbl_tracer_client.client_id')
+    ->select('tbl_appointment.id as app_id', 'tbl_client.id as client_id', 'tbl_tracer_client.is_assigned', 'tbl_client.clinic_number as clinic_number', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as client_name"), 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
     ->where('tbl_appointment.appntmnt_date', '>', Now())
     ->where('tbl_client.mfl_code', Auth::user()->facility_id)
     ->get();
@@ -102,10 +105,10 @@ class TracerController extends Controller
   public function assign_client(Request $request)
   {
     try {
-      $tracer = new Tracer();
+      $tracer = new Tracer;
       $tracer->client_id = $request->client_id;
       $tracer->tracer_id = $request->tracer_id;
-
+      $tracer->is_assigned = "Yes";
       $tracer->updated_at = date('Y-m-d H:i:s');
       $tracer->created_at = date('Y-m-d H:i:s');
 
