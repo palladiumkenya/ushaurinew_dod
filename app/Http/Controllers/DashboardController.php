@@ -214,6 +214,35 @@ class DashboardController extends Controller
             $chart_registered[$month] = $registered_clients [$index];
         }
 
+        if (!empty($selected_partners)) {
+            $all_clients_number = $all_clients_number->whereIn('partner_id', $selected_partners);
+            $pec_client_count = $pec_client_count->whereIn('partner_id', $selected_partners);
+            $all_target_clients = $all_target_clients->whereIn('partner_id', $selected_partners);
+            $all_consented_clients = $all_consented_clients->whereIn('partner_id', $selected_partners);
+            $number_of_facilities = $number_of_facilities->whereIn('partner_id', $selected_partners);
+        }
+        if (!empty($selected_counties)) {
+            $all_clients_number = $all_clients_number->whereIn('county_id', $selected_counties);
+            $pec_client_count = $pec_client_count->whereIn('county_id', $selected_counties);
+            $all_target_clients = $all_target_clients->whereIn('county_id', $selected_counties);
+            $all_consented_clients = $all_consented_clients->whereIn('county_id', $selected_counties);
+            $number_of_facilities = $number_of_facilities->whereIn('county_id', $selected_counties);
+        }
+        if (!empty($selected_subcounties)) {
+            $all_clients_number = $all_clients_number->whereIn('sub_county_id', $selected_subcounties);
+            $pec_client_count = $pec_client_count->whereIn('sub_county_id', $selected_subcounties);
+            $all_target_clients = $all_target_clients->whereIn('sub_county_id', $selected_subcounties);
+            $all_consented_clients = $all_consented_clients->whereIn('sub_county_id', $selected_subcounties);
+            $number_of_facilities = $number_of_facilities->whereIn('sub_county_id', $selected_subcounties);
+        }
+        if (!empty($selected_facilites)) {
+            $all_clients_number = $all_clients_number->whereIn('mfl_code', $selected_facilites);
+            $pec_client_count = $pec_client_count->whereIn('mfl_code', $selected_facilites);
+            $all_target_clients = $all_target_clients->whereIn('mfl_code', $selected_facilites);
+            $all_consented_clients = $all_consented_clients->whereIn('mfl_code', $selected_facilites);
+            $number_of_facilities = $number_of_facilities->whereIn('mfl_code', $selected_facilites);
+        }
+
 
         $data["all_clients_number"]        = $all_clients_number;
         $data["pec_client_count"]        = $pec_client_count;

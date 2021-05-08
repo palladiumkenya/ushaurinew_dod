@@ -10,12 +10,12 @@
 
     <div class="col-md-12">
 
-    <form role="form" method="post" action="#" id="">
+    <form role="form" method="post" action="#" id="dataFilter">
     <div class="row">
             <div class="col">
                 <div class="form-group">
 
-                <select class="form-control filter_partner  input-rounded input-sm select2" name="partner">
+                <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
                     <option value="">Please select Partner</option>
                     @foreach ($all_partners as $partner => $value)
                             <option value="{{ $partner }}"> {{ $value }}</option>
@@ -27,7 +27,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                <select class="form-control county  input-rounded input-sm select2" name="county">
+                <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
                     <option value="">Please select County:</option>
                     <option></option>
                 </select>
@@ -36,7 +36,7 @@
             <div class="col">
                 <div class="form-group">
                 <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                <select class="form-control subcounty input-rounded input-sm select2" name="subcounty">
+                <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
                     <option>Please Select Sub County : </option>
                 </select>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="form-group">
                 <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
 
-                <select class="form-control filter_facility input-rounded input-sm select2" name="facility">
+                <select class="form-control filter_facility input-rounded input-sm select2" id="facilities" name="facility">
                     <option>Please select Facility : </option>
                 </select>
                 </div>
@@ -53,8 +53,8 @@
             <div class="col">
                 <div class="form-group">
 
-                <button class="btn btn-default filter_highcharts_dashboard btn-round  btn-small btn-primary  "
-                    type="button" name="filter_highcharts_dashboard" id="filter_highcharts_dashboard"> <i
+                <button class="btn btn-default filter btn-round  btn-small btn-primary  "
+                    type="submit" name="filter" id="filter"> <i
                         class="fa fa-filter"></i>
                     Filter</button>
                     </div>
@@ -246,37 +246,38 @@ $(document).ready(function() {
     });
 
 
-$.ajax({
-            type: 'GET',
-            url: "{{ route('Reports-dashboard') }}",
-            success: function(data) {
+    $('#dataFilter').on('submit', function(e) {
+            e.preventDefault();
+            let partners = $('#partners').val();
+            let counties = $('#counties').val();
+            let subcounties = $('#subcounties').val();
+            let facilities = $('#facilities').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-                $('#partners').empty();
-                $('#counties').empty();
-                $.each(data.all_partners, function(number, partner) {
-                    $("#partners").append($('<option>').text(partner.name).attr('value',
-                        partner.id));
-                });
-                $.each(data.all_counties, function(number, county) {
-                    $("#counties").append($('<option>').text(county.name).attr('value',
-                        county.id));
-                });
-                $("#partners").selectpicker('refresh');
-                $("#counties").selectpicker('refresh');
+         $.ajax({
+                type: 'POST',
+                data: {
+                    "partners": partners,
+                    "counties": counties,
+                    "subcounties": subcounties,
+                    "facilities": facilities
+                },
+                url: "{{ route('filter_dashboard') }}",
+                success: function(data) {
+
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
                 $("#all_target_clients").html(data.all_target_clients);
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#number_of_facilities").html(data.number_of_facilities);
-                let userlevel = '{!!Auth::user()->access_level!!}';
-                if (userlevel == 'Partner') {
-                    let partnerId = '{!!Auth::user()->partner_id!!}';
-                    $('#partners').attr("disabled", true);
-                    $('#partners').selectpicker('val', partnerId);
-                    $("#partners").selectpicker('refresh');
                 }
-            }
+            });
         });
+
 
 var RegisteredClients =  <?php echo json_encode($registered_clients_count) ?>;
 var ConsentedClients =  <?php echo json_encode($consented_clients_count) ?>;
