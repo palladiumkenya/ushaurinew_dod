@@ -47,7 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Dashboard routes
     Route::get('/Reports/dashboard', ['uses'=>'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-dashboard']);
-    Route::post('/filter_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@filter_dashboard', 'as' => 'filter_dashboard']);
+    //Route::get('/get_client_data', ['uses'=>'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
+    Route::get('/filter_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@filter_dashboard', 'as' => 'filter_dashboard']);
     Route::get('/get_dashboard_counties/{id}', ['uses' => 'App\Http\Controllers\DashboardController@get_counties', 'as' => 'get_counties']);
     Route::get('/get_dashboard_sub_counties/{id}', ['uses' => 'App\Http\Controllers\DashboardController@get_dashboard_sub_counties', 'as' => 'get_dashboard_sub_counties']);
     Route::get('/get_dashboard_facilities/{id}', ['uses' => 'App\Http\Controllers\DashboardController@get_dashboard_facilities', 'as' => 'get_dashboard_facilities']);

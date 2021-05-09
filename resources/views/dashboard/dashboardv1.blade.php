@@ -11,6 +11,7 @@
     <div class="col-md-12">
 
     <form role="form" method="post" action="#" id="dataFilter">
+    {{ csrf_field() }}
     <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -74,7 +75,7 @@
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Target Active Clients</p>
 
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $all_target_clients; ?></p>
+                                <p id="all_target_clients" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">No. of Active Clients</p>
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $all_clients_number; ?></p>
+                                <p id="all_clients_number" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -96,7 +97,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">% No. of Active Clients</p>
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $pec_client_count; ?></p>
+                                <p id="pec_client_count" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -107,7 +108,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Consented Clients</p>
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $all_consented_clients; ?></p>
+                                <p id="all_consented_clients" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -117,7 +118,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Future Appointments</p>
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $all_future_appointments; ?></p>
+                                <p id="all_future_appointments" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +131,7 @@
                             <a class="has-arrow" href="{{route('Reports-active-facilities')}}">
                                 <p class="text-muted mt-2 mb-0">No. of Facilities</p>
                                 </a>
-                                <p class="text-primary text-20 line-height-1 mb-2"><?php echo $number_of_facilities; ?></p>
+                                <p id="number_of_facilities" class="text-primary text-20 line-height-1 mb-2"></p>
                             </div>
                         </div>
                     </div>
@@ -245,6 +246,21 @@ $(document).ready(function() {
         });
     });
 
+    $.ajax({
+            type: 'GET',
+            url: "{{ route('filter_dashboard') }}",
+            success: function(data) {
+
+                $("#all_clients_number").html(data.all_clients_number);
+                $("#pec_client_count").html(data.pec_client_count);
+                $("#all_target_clients").html(data.all_target_clients);
+                $("#all_consented_clients").html(data.all_consented_clients);
+                $("#all_future_appointments").html(data.all_future_appointments);
+                $("#number_of_facilities").html(data.number_of_facilities);
+
+            }
+        });
+
 
     $('#dataFilter').on('submit', function(e) {
             e.preventDefault();
@@ -259,7 +275,7 @@ $(document).ready(function() {
             });
 
          $.ajax({
-                type: 'POST',
+                type: 'GET',
                 data: {
                     "partners": partners,
                     "counties": counties,
@@ -273,6 +289,7 @@ $(document).ready(function() {
                 $("#pec_client_count").html(data.pec_client_count);
                 $("#all_target_clients").html(data.all_target_clients);
                 $("#all_consented_clients").html(data.all_consented_clients);
+                $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
                 }
             });
