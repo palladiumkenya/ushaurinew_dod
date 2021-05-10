@@ -7,6 +7,7 @@ use App\Models\Tracer;
 use App\Models\User;
 use App\Models\Outcome;
 use App\Models\Appointments;
+use App\Models\FutureApp;
 use Session;
 use Auth;
 use DB;
@@ -20,15 +21,20 @@ class TracerController extends Controller
         $tracer_client_list = Tracer::join('tbl_users', 'tbl_tracer_client.tracer_id', '=', 'tbl_users.id')
         ->join('tbl_client', 'tbl_tracer_client.client_id', '=', 'tbl_client.id')
         ->join('tbl_clinic', 'tbl_client.clinic_id', '=', 'tbl_clinic.id')
-        ->select('tbl_client.clinic_number', 'tbl_client.phone_no as client_contact', 'tbl_clinic.name as clinic', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_users.phone_no as tracer_contact')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment.app_type_1', '=', 'tbl_appointment_types.id')
+        ->select('tbl_appointment.app_status','tbl_client.clinic_number', 'tbl_client.phone_no as client_contact', 'tbl_clinic.name as clinic', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_users.phone_no as tracer_contact', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
         ->get();
       }
+     // && Auth::user()->role_id == 12
 
-      if (Auth::user()->access_level == 'Facility' && Auth::user()->role_id == 12) {
+      if (Auth::user()->access_level == 'Facility') {
         $tracer_client_list = Tracer::join('tbl_users', 'tbl_tracer_client.tracer_id', '=', 'tbl_users.id')
         ->join('tbl_client', 'tbl_tracer_client.client_id', '=', 'tbl_client.id')
         ->join('tbl_clinic', 'tbl_client.clinic_id', '=', 'tbl_clinic.id')
-        ->select('tbl_client.clinic_number', 'tbl_client.phone_no as client_contact', 'tbl_clinic.name as clinic', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_users.phone_no as tracer_contact')
+        ->leftjoin('tbl_appointment', 'tbl_tracer_client.app_id', '=', 'tbl_appointment.id')
+        ->join('tbl_appointment_types', 'tbl_appointment.app_type_1', '=', 'tbl_appointment_types.id')
+        ->select('tbl_appointment.app_status', 'tbl_client.clinic_number', 'tbl_client.phone_no as client_contact', 'tbl_clinic.name as clinic', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_users.phone_no as tracer_contact', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         //->where('tbl_tracer_client.tracer_id', Auth::user()->id)
         ->get();
@@ -108,6 +114,7 @@ class TracerController extends Controller
       $tracer = new Tracer;
       $tracer->client_id = $request->client_id;
       $tracer->tracer_id = $request->tracer_id;
+      $tracer->app_id = $request->app_id;
       $tracer->is_assigned = "Yes";
       $tracer->updated_at = date('Y-m-d H:i:s');
       $tracer->created_at = date('Y-m-d H:i:s');

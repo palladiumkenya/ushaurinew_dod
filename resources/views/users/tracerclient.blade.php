@@ -20,10 +20,12 @@
                                             <tr>
                                                 <th>No.</th>
                                                 <th>UPN</th>
+                                                <th>Appointment Date</th>
+                                                <th>Appointment Type</th>
+                                                <th>Appointment Status</th>
                                                 <th>Client Phone No</th>
                                                 <th>Clinic</th>
                                                 <th>Tracer Name</th>
-                                                <th>Tracer Phone No</th>
 
                                             </tr>
                                         </thead>
@@ -33,10 +35,12 @@
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$tracer->clinic_number}}</td>
+                                                        <td>  {{$tracer->appntmnt_date}}</td>
+                                                        <td>  {{$tracer->app_type}}</td>
+                                                        <td>  {{$tracer->app_status}}</td>
                                                         <td>  {{$tracer->client_contact}}</td>
                                                         <td>  {{$tracer->clinic}}</td>
                                                         <td>  {{$tracer->tracer_name}}</td>
-                                                        <td>  {{$tracer->tracer_contact}}</td>
 
                                                     </tr>
                                                 @endforeach

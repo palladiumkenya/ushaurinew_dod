@@ -228,6 +228,26 @@
 
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
+                        <i class="i-Computer-Secure text-20 mr-2 text-muted"></i>
+                        <span class="item-name  text-muted">Tracing</span>
+                    </a>
+                    <ul class="mm-collapse">
+                        <li class="item-name">
+                        <a href={{route('clients-booked')}}>
+                                <span class="item-name">Clients Tracing</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                        <a href={{route('admin-tracer-clients')}}>
+                                <span class="item-name">Tracing List</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="Ul_li--hover">
+                    <a class="has-arrow" href="#">
                         <i class="i-File-Clipboard-File--Text text-20 mr-2 text-muted"></i>
                         <span class="item-name  text-muted">Admin Tools</span>
                     </a>

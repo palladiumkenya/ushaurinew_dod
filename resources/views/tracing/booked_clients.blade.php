@@ -44,7 +44,7 @@
                                                         <td>  {{$booked->app_type}}</td>
 
 
-                                                        @if(!empty($booked->is_assigned) && !empty($booked->app_id))
+                                                        @if(!empty($booked->is_assigned))
                                                         <td>{{$booked->is_assigned}}</td>
                                                         @else
                                                         <td>
@@ -87,6 +87,10 @@
                                 <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">CCC Number</label>
                                         <input type="text" class="form-control" id="client_id" name="client_id" placeholder="CCC Number" readonly/>
+                                    </div>
+                                    <div class="col-md-6 form-group mb-3">
+                                        <label for="firstName1">App Number</label>
+                                        <input type="text" class="form-control" id="app_id" name="app_id" placeholder="App Number" readonly/>
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Tracer</label>
@@ -143,6 +147,7 @@ $(function () {
 function traceclient(booked){
 
 $('#client_id').val(booked.client_id);
+$('#app_id').val(booked.app_id);
 
 }
 
