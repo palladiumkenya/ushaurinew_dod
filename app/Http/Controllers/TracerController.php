@@ -105,6 +105,7 @@ class TracerController extends Controller
     ->get();
   }
 
+
     return view('tracing.booked_clients', compact('all_booked', 'get_tracers'));
   }
 

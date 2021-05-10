@@ -225,7 +225,7 @@
                         </li>
                     </ul>
                 </li>
-
+                @if (Auth::user()->access_level == 'Facility')
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
                         <i class="i-Computer-Secure text-20 mr-2 text-muted"></i>
@@ -245,6 +245,7 @@
 
                     </ul>
                 </li>
+                @endif
 
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
