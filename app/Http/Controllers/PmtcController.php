@@ -3051,7 +3051,7 @@ class PmtcController extends Controller
     'tonine_unscheduled_heis', 'tofourteen_unscheduled_heis', 'toone_missed_heis', 'tofour_missed_heis', 'tonine_missed_heis', 'tofourteen_missed_heis',
     'toone_defaulted_heis', 'tofour_defaulted_heis', 'tonine_defaulted_heis', 'tofourteen_defaulted_heis', 'toone_ltfu_heis', 'tofour_ltfu_heis', 'tonine_ltfu_heis', 'tofourteen_ltfu_heis',
     'tototal_booked_heis', 'tototal_scheduled_heis', 'tototal_unscheduled_heis', 'tototal_missed_heis', 'tototal_defaulted_heis', 'tototal_ltfu_heis', 'count_booked_heis', 'count_scheduled_heis',
-    'count_unscheduled_heis', 'count_deceased_heis', 'count_transfer_heis', 'count_discharged_heis', 'count_missed_heis', 'count_defaulted_heis', 'count_ltfu_heis'));
+    'count_unscheduled_heis', 'count_deceased_heis', 'count_transfer_heis', 'count_discharged_heis', 'count_missed_heis', 'count_defaulted_heis', 'count_ltfu_heis', 'count_pcr_heis'));
 
 }
 }
