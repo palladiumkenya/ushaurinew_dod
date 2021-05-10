@@ -9,51 +9,6 @@
 
 
             <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="card mb-4">
-                    <div class="panel-heading">
-                      <i class="icon-table">Booked HEIs List</i>
-                     </div>
-                        <div class="card-body">
-                        <div class="table-responsive">
-                                                <table id="hei_booked_table" class="display table table-striped table-bordered" style="width:50%">
-                                                <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Clinic Number</th>
-                                                <th>First Name</th>
-                                                <th>Middle Name</th>
-                                                <th>Last Name</th>
-                                                <th>Hei Number</th>
-                                                <th>Phone No</th>
-                                                <th>Appointment Date</th>
-                                                <th>Appoitment Type</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if (count($all_booked_heis) > 0)
-                                                @foreach($all_booked_heis as $result)
-                                                    <tr>
-                                                        <td> {{ $loop->iteration }}</td>
-                                                        <td>  {{$result->clinic_number}}</td>
-                                                        <td>  {{$result->f_name}}</td>
-                                                        <td>  {{$result->m_name}}</td>
-                                                        <td>  {{$result->l_name}}</td>
-                                                        <td>  {{$result->hei_no}}</td>
-                                                        <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>
-                                                        <td>  {{$result->app_type_1}}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-
-                                      </table>
-                                    </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
@@ -163,26 +118,7 @@
 
      <script type="text/javascript">
 
-$('#hei_booked_table').DataTable({
-        columnDefs: [{
-            targets: [0],
-            orderData: [0, 1]
-        }, {
-            targets: [1],
-            orderData: [1, 0]
-        }, {
-            targets: [4],
-            orderData: [4, 0]
-        }],
-        "paging": true,
-        "responsive":true,
-        "ordering": true,
-        "info": true,
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
+
     $('#hei_scheduled_table').DataTable({
         columnDefs: [{
             targets: [0],

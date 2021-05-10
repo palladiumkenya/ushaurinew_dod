@@ -97,6 +97,7 @@
     var Missed_count =  <?php echo json_encode($count_missed_heis) ?>;
     var Defaulted_count =  <?php echo json_encode($count_defaulted_heis) ?>;
     var LTFU_count =  <?php echo json_encode($count_ltfu_heis) ?>;
+    var PCR_count =  <?php echo json_encode($count_pcr_heis) ?>;
 
 
 
@@ -109,7 +110,7 @@
             text: 'HEI Evaluation Report Summary'
         },
         xAxis: {
-            categories: ['Booked', 'Scheduled', 'Un-Scheduled', 'Missed', 'Defaulter', 'LTFU', 'Deceased', 'Transfer Out', 'Discharged']
+            categories: ['Scheduled', 'Un-Scheduled', 'Missed', 'Defaulter', 'LTFU', 'Deceased', 'Transfer Out', 'Discharged', 'PCR Positive']
         },
         yAxis: {
             min: 0,
@@ -140,7 +141,7 @@
         },
         series: [{
                 name: 'Total HEI',
-                data: [Booked_count, Scheduled_count, Unscheduled_count, Missed_count, Defaulted_count, LTFU_count, Deceased_count, Transfer_count, Discharged_count]
+                data: [Scheduled_count, Unscheduled_count, Missed_count, Defaulted_count, LTFU_count, Deceased_count, Transfer_count, Discharged_count, PCR_count]
             }
         ],
 
@@ -310,9 +311,6 @@ plotOptions: {
 },
 
 series: [{
-    name: 'Booked',
-    data: [Toone_booked, ToFour_booked, ToNine_booked, ToFourteen_booked, ToTotal_booked]
-},{
     name: 'Scheduled',
     data: [Toone_scheduled, ToFour_scheduled, ToNine_scheduled, ToFourteen_scheduled, ToTotal_scheduled]
 }, {
