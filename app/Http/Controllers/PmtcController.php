@@ -358,70 +358,61 @@ class PmtcController extends Controller
     public function hei_final_outcome()
     {
         if (Auth::user()->access_level == 'Admin') {
-        $all_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_client.status', '=', 'Deceased')
-        ->whereNotNull('tbl_client.hei_no')
+        $all_deceased_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+        ->where('status', '=', 'Deceased')
+        ->whereNotNull('hei_no')
         ->get();
 
-        $all_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_client.status', '=', 'Transfer Out')
-        ->whereNotNull('tbl_client.hei_no')
+        $all_transfer_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+        ->where('status', '=', 'Transfer Out')
+        ->whereNotNull('hei_no')
         ->get();
 
-        $all_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-        ->where('tbl_client.status', '=', 'Discharged')
-        ->whereNotNull('tbl_client.hei_no')
+        $all_discharged_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+        ->where('status', '=', 'Disabled')
+        ->whereNotNull('hei_no')
         ->get();
 
         }
 
         if (Auth::user()->access_level == 'Facility') {
-            $all_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Deceased')
-            ->where('tbl_client.mfl_code', Auth::user()->facility_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_deceased_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Deceased')
+            ->where('mfl_code', Auth::user()->facility_id)
+            ->whereNotNull('hei_no')
             ->get();
 
-            $all_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Transfer Out')
-            ->where('tbl_client.mfl_code', Auth::user()->facility_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_transfer_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Transfer Out')
+            ->where('mfl_code', Auth::user()->facility_id)
+            ->whereNotNull('hei_no')
             ->get();
 
-            $all_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Discharged')
-            ->where('tbl_client.mfl_code', Auth::user()->facility_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_discharged_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Disabled')
+            ->where('mfl_code', Auth::user()->facility_id)
+            ->whereNotNull('hei_no')
             ->get();
 
         }
 
         if (Auth::user()->access_level == 'Partner') {
-            $all_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Deceased')
-            ->where('tbl_client.partner_id', Auth::user()->partner_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_deceased_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Deceased')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->whereNotNull('hei_no')
             ->get();
 
-            $all_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Transfer Out')
-            ->where('tbl_client.partner_id', Auth::user()->partner_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_transfer_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Transfer Out')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->whereNotNull('hei_no')
             ->get();
 
-            $all_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_status')
-            ->where('tbl_client.status', '=', 'Discharged')
-            ->where('tbl_client.partner_id', Auth::user()->partner_id)
-            ->whereNotNull('tbl_client.hei_no')
+            $all_discharged_heis = Client::selectRaw('clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.hei_no, tbl_client.phone_no')
+            ->where('status', '=', 'Disabled')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->whereNotNull('hei_no')
             ->get();
 
         }

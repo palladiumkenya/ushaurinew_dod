@@ -26,9 +26,7 @@
                                                 <th>Last Name</th>
                                                 <th>Hei Number</th>
                                                 <th>Phone No</th>
-                                                <th>Appointment Status</th>
-                                                <th>Appointment Date</th>
-                                                <th>Appoitment Type</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -42,9 +40,7 @@
                                                         <td>  {{$result->l_name}}</td>
                                                         <td>  {{$result->hei_no}}</td>
                                                         <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->app_status}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>
-                                                        <td>  {{$result->app_type_1}}</td>
+
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -72,9 +68,7 @@
                                                 <th>Last Name</th>
                                                 <th>Hei Number</th>
                                                 <th>Phone No</th>
-                                                <th>Appointment Status</th>
-                                                <th>Appointment Date</th>
-                                                <th>Appoitment Type</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -88,9 +82,7 @@
                                                         <td>  {{$result->l_name}}</td>
                                                         <td>  {{$result->hei_no}}</td>
                                                         <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->app_status}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>
-                                                        <td>  {{$result->app_type_1}}</td>
+
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -120,9 +112,7 @@
                                                 <th>Last Name</th>
                                                 <th>Hei Number</th>
                                                 <th>Phone No</th>
-                                                <th>Appointment Status</th>
-                                                <th>Appointment Date</th>
-                                                <th>Appoitment Type</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -136,9 +126,7 @@
                                                         <td>  {{$result->l_name}}</td>
                                                         <td>  {{$result->hei_no}}</td>
                                                         <td>  {{$result->phone_no}}</td>
-                                                        <td>  {{$result->app_status}}</td>
-                                                        <td>  {{$result->appntmnt_date}}</td>
-                                                        <td>  {{$result->app_type_1}}</td>
+
                                                     </tr>
                                                 @endforeach
                                             @endif
