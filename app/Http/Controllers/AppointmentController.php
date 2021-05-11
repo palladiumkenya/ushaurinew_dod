@@ -67,7 +67,7 @@ class AppointmentController extends Controller
         $all_missed_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1, tbl_appointment.app_msg, tbl_appointment.no_calls, tbl_appointment.no_msgs, tbl_appointment.home_visits')
         ->where('tbl_appointment.app_status', '=', 'Missed')
-        ->where('tbl_client.mfl_code', Auth::user()->facility_id;
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id);
         }
 
         if (Auth::user()->access_level == 'Partner') {
