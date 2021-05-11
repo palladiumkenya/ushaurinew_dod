@@ -300,7 +300,6 @@ class AppointmentController extends Controller
         $data = [];
 
         $all_app_honourned = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->where('tbl_client.mfl_code', '=', 12345)
          ->where('tbl_appointment.active_app', '=', 0)
          ->where('tbl_appointment.appointment_kept', '=', 'Yes')
          ->where('tbl_appointment.appntmnt_date', '<', Now());
@@ -327,7 +326,7 @@ class AppointmentController extends Controller
         $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
         ->whereBetween('tbl_client.dob', [now()->subYears(10), now()->subYears(14)])
-        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU')
         ->pluck('count');
@@ -336,14 +335,14 @@ class AppointmentController extends Controller
         ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
         ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU')
-        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->where('tbl_client.dob', '<=',  now()->subYears(9))
         ->pluck('count');
 
         $all_ltfu_app_15_19 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
         ->whereBetween('tbl_client.dob', [now()->subYears(15), now()->subYears(19)])
-        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('tbl_client.mfl_code',  Auth::user()->facility_id)
         ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU')
         ->pluck('count');
@@ -362,7 +361,7 @@ class AppointmentController extends Controller
 
         $all_ltfu_app_25 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
-        ->where('tbl_client.mfl_code', '=', 12345)
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->where('active_app', '=', 1)
         ->where('app_status', '=', 'LTFU')
         ->where('tbl_client.dob', '>=',   Carbon::now()->subYears(25))

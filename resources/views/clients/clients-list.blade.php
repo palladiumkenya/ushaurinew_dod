@@ -41,7 +41,7 @@
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
-                                                        <td>  {{$result->serial_no}}</td>
+                                                        <td>  {{$result->file_no}}</td>
                                                         <td>  {{$result->client_name}}</td>
                                                         <td>  {{$result->phone_no}}</td>
                                                         <td>  {{$result->dob}}</td>
