@@ -9,6 +9,13 @@ use Auth;
 
 class GroupController extends Controller
 {
+
+    public function index()
+    {
+        $all_groups = Group::all();
+
+        return view('group.group')->with('all_groups', $all_groups);
+    }
     public function get_pmtct_clients()
     {
         $all_pmtct_clients = Client::join('tbl_groups', 'tbl_groups.id', '=', 'tbl_client.group_id')
