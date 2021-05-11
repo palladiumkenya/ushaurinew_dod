@@ -2664,7 +2664,7 @@ class PmtcController extends Controller
 
         $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("COUNT(tbl_client.id) as count"))
-        ->where('tbl_client.status', '=', 'Discharged')
+        ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no')
         ->pluck('count');
 
@@ -3012,7 +3012,7 @@ class PmtcController extends Controller
 
         $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("COUNT(tbl_client.id) as count"))
-        ->where('tbl_client.status', '=', 'Discharged')
+        ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
