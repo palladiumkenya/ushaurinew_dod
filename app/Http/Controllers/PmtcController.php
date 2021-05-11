@@ -39,16 +39,20 @@ class PmtcController extends Controller
 
        $all_schedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
         ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->where('tbl_appointment.appntmnt_date', '<', Now())
         ->whereNull('tbl_client.hei_no')
         ->get();
 
         $all_unschedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
         ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
-        ->whereNull('tbl_client.hei_no')
+        ->where('tbl_appointment.appntmnt_date', '<', Now())
+       // ->whereNull('tbl_client.hei_no')
         ->get();
         }
 
@@ -57,24 +61,28 @@ class PmtcController extends Controller
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
             ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
            ->where('tbl_appointment.app_status', '=', 'Booked')
-           ->whereNull('tbl_client.hei_no')
+          // ->whereNull('tbl_client.hei_no')
            ->where('tbl_appointment.appntmnt_date', '>=', Now())
            ->where('tbl_client.mfl_code', Auth::user()->facility_id)
            ->get();
 
            $all_schedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+            ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+            ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
             ->where('tbl_appointment.visit_type', '=', 'Scheduled')
-            ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appntmnt_date', '<', Now())
+           // ->whereNull('tbl_client.hei_no')
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->get();
 
             $all_unschedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-            ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+            ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+            ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
             ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
            // ->whereNull('tbl_client.hei_no')
+            ->where('tbl_appointment.appntmnt_date', '<', Now())
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->get();
             }
@@ -90,15 +98,19 @@ class PmtcController extends Controller
 
                $all_schedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
                 ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-                ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+                ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+                ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
                 ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+                ->where('tbl_appointment.appntmnt_date', '<', Now())
                 ->where('tbl_client.partner_id', Auth::user()->partner_id)
                 ->get();
 
                 $all_unschedule_appointment_clients = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
                 ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-                ->selectRaw('tbl_client.clinic_number, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
+                ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+                ->selectRaw('tbl_client.clinic_number, tbl_appointment_types.name as app_type, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_appointment.appntmnt_date')
                 ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+                ->where('tbl_appointment.appntmnt_date', '<', Now())
                 ->where('tbl_client.partner_id', Auth::user()->partner_id)
                 ->get();
                 }

@@ -11,6 +11,7 @@ use App\Models\Appointments;
 use App\Models\Marital;
 use App\Models\Lab;
 use App\Models\AppointmentType;
+use App\Models\FutureApp;
 use Redirect,Response;
 use Auth;
 use Carbon\Carbon;
@@ -19,20 +20,34 @@ class AppointmentController extends Controller
 {
     public function get_future_appointments()
     {
+        if (Auth::user()->access_level == 'Admin') {
         $all_future_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
         ->where('tbl_appointment.appntmnt_date', '>', Now());
+        }
 
         if (Auth::user()->access_level == 'Facility') {
-            $all_future_appointments->where('facility_id', Auth::user()->facility_id);
+        $all_future_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+        ->where('tbl_appointment.appntmnt_date', '>', Now());
+
         }
 
         if (Auth::user()->access_level == 'Partner') {
-            $all_future_appointments->where('partner_id', Auth::user()->partner_id);
+            $all_future_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->where('tbl_appointment.appntmnt_date', '>', Now());
+
         }
 
         if (Auth::user()->access_level == 'Donor') {
-            $all_future_appointments->where('donor_id', Auth::user()->donor_id);
+            $all_future_appointments = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->selectRaw('tbl_client.clinic_number, tbl_client.file_no, tbl_client.f_name, tbl_client.m_name, tbl_client.l_name, tbl_client.phone_no, tbl_appointment.appntmnt_date, tbl_appointment.app_type_1')
+        ->where('donor_id', Auth::user()->donor_id)
+        ->where('tbl_appointment.appntmnt_date', '>', Now());
+
         }
 
         return view('appointments.future_appointments')->with('all_future_appointments', $all_future_appointments->get());
