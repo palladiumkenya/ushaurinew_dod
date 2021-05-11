@@ -17,7 +17,7 @@ class ConsentController extends Controller
             if (Auth::user()->access_level == 'Facility') {
                 $consented_clients = Client::join('tbl_groups', 'tbl_groups.id', 'tbl_client.group_id')
                 ->select('tbl_client.clinic_number', 'tbl_client.file_no', DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as full_name"),'tbl_client.phone_no', 'tbl_client.dob', 'tbl_client.client_status', 'tbl_groups.name', 'tbl_client.created_at', 'tbl_client.smsenable', 'tbl_client.enrollment_date', 'tbl_client.art_date', 'tbl_client.updated_at', 'tbl_client.status', 'tbl_client.consent_date', 'tbl_client.txt_time')
-                ->where('tbl_client.consent_date', '=', '')
+                ->whereNull('tbl_client.consent_date')
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->get();
             }
