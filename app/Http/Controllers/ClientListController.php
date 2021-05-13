@@ -40,6 +40,11 @@ class ClientListController extends Controller
         return view('clients.clients-list')->with('all_clients', $all_clients->get());
     }
 
+    public function profile_index()
+{
+    return view('clients.client_profile');
+}
+
     public function get_client_profile(Request $request)
 {
     $upn_search = $request->input('upn_search');
@@ -55,6 +60,11 @@ class ClientListController extends Controller
 
     return view('clients.client_profile')->with('client_profile', $client_profile);
 
+}
+
+public function client_extract()
+{
+    
 }
 
 

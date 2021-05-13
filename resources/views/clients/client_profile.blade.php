@@ -297,7 +297,7 @@ $(".search_upn_btn").click(function () {
             if (isempty) {
                 swal("Sorry", "Clininc number : " + upn + " was not found in the  system  ", "info");
             } else {
-
+                console.log(data);
 
                 $.each(data, function (i, value) {
                     $(".client_name").append("Client Name : " + value.f_name + " " + value.m_name + " " + value.l_name);
@@ -319,9 +319,9 @@ $(".search_upn_btn").click(function () {
 
 
 
-        }, error: function (jqXHR) {
-            swal("Error", "Clininc number already exists and is registered under : " + upn + " ", "warning");
-        }
+        }//, error: function (jqXHR) {
+         //   swal("Error", "Clininc number already exists and is registered under : " + upn + " ", "warning");
+        //}
     });
 
 

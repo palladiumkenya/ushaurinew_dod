@@ -71,12 +71,13 @@
                             <span class="item-name  text-muted">Clients</span>
                         </a>
                         <ul class="mm-collapse">
+                          @if (Auth::user()->access_level == 'Facility')
                             <li class="item-name">
-                                <a href="{{route('clients-profile')}}">
+                                <a href="{{route('profile')}}">
                                     <span class="item-name">Client Profile</span>
                                 </a>
                             </li>
-                            @if (Auth::user()->access_level == 'Facility')
+
                             <li class="item-name">
                                 <a href="{{route('consent-clients')}}">
                                     <span class="item-name">Client Consent</span>
@@ -158,11 +159,6 @@
                         <li class="item-name">
                         <a href="{{route('report-appointments')}}">
                                 <span class="item-name">Appointments</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                        <a href=>
-                                <span class="item-name">Appointment Diary</span>
                             </a>
                         </li>
                         <li class="item-name">
@@ -255,7 +251,7 @@
                     <ul class="mm-collapse">
                     @if (Auth::user()->access_level == 'Admin')
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('admin-donors')}}">
                                 <span class="item-name">Donor</span>
                             </a>
                         </li>

@@ -30,6 +30,14 @@ class ConsentController extends Controller
     }
     public function client_consent(Request $request)
     {
+        $this->validate($request, [
+            'consent_date' => 'required',
+            'smsenable' => 'required',
+            'language_id' => 'required',
+            'motivational_enable' => 'required',
+            'txt_time' => 'required',
+            'phone_no' => 'required|regex:/(01)[0-9]{9}/',
+        ]);
 
         try {
             $client = Client::find($request->cid);
