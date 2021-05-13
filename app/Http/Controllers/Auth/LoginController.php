@@ -37,8 +37,7 @@ use AuthenticatesUsers;
         Session::flash('statuscode', 'success');
         return redirect('/Reports/dashboard');
     }else {
-        Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard');
+        return redirect('/');
     }
 }
 /**

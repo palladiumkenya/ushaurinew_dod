@@ -12,12 +12,49 @@ use App\Models\Marital;
 use App\Models\Lab;
 use App\Models\AppointmentType;
 use App\Models\FutureApp;
+use Session;
 use Redirect,Response;
 use Auth;
 use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
+    public function index()
+    {
+        if (Auth::user()->access_level == 'Facility') {
+        $all_future_apps = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+        ->select('tbl_client.clinic_number', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
+        ->where('tbl_appointment.appntmnt_date', '>', Now())
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+        ->get();
+
+        $all_app_types = AppointmentType::all();
+        }
+        return view('appointments.future_apps_edit')->with('all_future_apps', 'all_app_types', $all_app_types, $all_future_apps);
+    }
+    public function editappointment(Request $request)
+    {
+        $appointment = Appointment::find($request->aid);
+
+        $appointment->appntmnt_date = $request->appntmnt_date;
+        $appointment->app_type_1 = $request->app_type;
+        $appointment->reason = $request->reason;
+
+        $appointment->update_at = date('Y-m-d H:i:s');
+
+        if($appointment->save())
+        {
+            Session::flash('statuscode', 'success');
+
+            return redirect('report/future/appointments')->with('status', 'Appointment was updated successfully!');
+        }else{
+
+            Session::flash('statuscode', 'error');
+            return back()->with('error', 'An error has occurred please try again later.');
+        }
+
+    }
     public function get_future_appointments()
     {
         if (Auth::user()->access_level == 'Admin') {

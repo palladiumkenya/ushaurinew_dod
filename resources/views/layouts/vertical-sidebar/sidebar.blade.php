@@ -152,7 +152,7 @@
                             </ul>
                         </li>
                         <li class="item-name">
-                            <a href="">
+                            <a href="{{route('future-apps')}}">
                                 <span class="item-name">Edit Appointment</span>
                             </a>
                         </li>
