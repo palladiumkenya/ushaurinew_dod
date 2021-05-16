@@ -14,7 +14,7 @@
                             <div class="card-title mb-3"></div>
 
                             <h4></h4>
-                            <form role="form" method="get"action="">
+                            <form role="form" method="get"action="{{route('report-pmtct-summary')}}">
                             {{ csrf_field() }}
                                 <div class="row">
 
@@ -25,7 +25,7 @@
                                             <label for="firstName1">From</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="date" id="picker3" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="from" >
+                                                <input type="date" id="from" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="from" >
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-secondary"  type="button">
@@ -44,7 +44,7 @@
                                             </div>
                                             <div class="col-md-10">
 
-                                                <input type="date" id="picker2" class="form-control" placeholder="YYYY-mm-dd" name="to" >
+                                                <input type="date" id="to" class="form-control" placeholder="YYYY-mm-dd" name="to" >
                                                </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-secondary"  type="button">
