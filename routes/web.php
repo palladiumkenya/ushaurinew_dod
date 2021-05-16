@@ -60,6 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/clients/profile', ['uses' => 'App\Http\Controllers\ClientListController@profile_index', 'as' => 'profile']);
     Route::get('/report/clients/search', ['uses' => 'App\Http\Controllers\ClientListController@get_client_profile', 'as' => 'clients-profile']);
     Route::get('/report/clients/list', ['uses' => 'App\Http\Controllers\ClientListController@get_client_list', 'as' => 'report-clients-list']);
+    Route::get('/report/clients/extract', ['uses' => 'App\Http\Controllers\ClientListController@client_extract', 'as' => 'clients-extract']);
+    Route::get('/get/clients/extract', ['uses' => 'App\Http\Controllers\ClientListController@filter_client_extract', 'as' => 'filter-clients-extract']);
     Route::post('/report/clients/consent', ['uses' => 'App\Http\Controllers\ConsentController@consent_test', 'as' => 'report-clients-consent']);
     Route::get('/consent/clients', ['uses' => 'App\Http\Controllers\ConsentController@index', 'as' => 'consent-clients']);
     Route::get('/add/consent', ['uses' => 'App\Http\Controllers\ConsentController@addconsentform', 'as' => 'add-consent']);
@@ -78,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Appointments routes
     Route::get('report/future/appointments', ['uses'=>'App\Http\Controllers\AppointmentController@index', 'as' => 'future-apps']);
+    Route::post('edit/appointments', ['uses'=>'App\Http\Controllers\AppointmentController@editappointment', 'as' => 'editappointment']);
     Route::get('report/appointment/dashboard', ['uses'=>'App\Http\Controllers\AppointmentController@appointment_dashboard', 'as' => 'report-appointment-dashboard']);
     Route::get('report/active/missed', ['uses'=>'App\Http\Controllers\AppointmentController@get_active_missed', 'as' => 'report-active-missed']);
     Route::get('report/active/defaulted', ['uses'=>'App\Http\Controllers\AppointmentController@get_active_defaulted', 'as' => 'report-active-defaulted']);

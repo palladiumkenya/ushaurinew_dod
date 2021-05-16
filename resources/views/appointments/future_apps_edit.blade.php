@@ -66,10 +66,10 @@
                         <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form role="form" method="post" action="">
+                            <form role="form" method="post" action="{{route('editappointment')}}">
                             {{ csrf_field() }}
                                 <div class="row">
-                                <input type="hidden" name="aid" id="aid">
+                                <input type="hidden" name="id" id="id">
                                 <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">CCC Number</label>
                                         <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="CCC Number" readonly/>
@@ -81,7 +81,7 @@
                                             <label for="firstName1">Appointment Date</label>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="appntmnt_date" required="" id="appntmnt_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="appntmnt_date" >
+                                                <input type="date" required="" id="appntmnt_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="appntmnt_date" >
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-secondary"  type="button">
@@ -128,13 +128,13 @@
 @section('page-js')
 
  <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
  <script type="text/javascript">
 
 function editApp(appointment){
 
 $('#clinic_number').val(appointment.clinic_number);
 $('#appntmnt_date').val(appointment.appntmnt_date);
+$('#app_type').val(appointment.app_type);
 
 }
    // multi column ordering

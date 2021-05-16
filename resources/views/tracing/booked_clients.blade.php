@@ -84,14 +84,14 @@
                             {{ csrf_field() }}
                                 <div class="row">
                                 <input type="hidden" name="id" id="id">
-                                <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">CCC Number</label>
-                                        <input type="text" class="form-control" id="client_id" name="client_id" placeholder="CCC Number" readonly/>
-                                    </div>
+                                        <input type="hidden" class="form-control" id="client_id" name="client_id" placeholder="CCC Number" readonly/>
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">App Number</label>
-                                        <input type="text" class="form-control" id="app_id" name="app_id" placeholder="App Number" readonly/>
+                                        <label for="firstName1">CCC Number</label>
+                                        <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="CCC Number" readonly/>
                                     </div>
+
+                                        <input type="hidden" class="form-control" id="app_id" name="app_id" placeholder="App Number" readonly/>
+
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Tracer</label>
                                         <select id ="tracer_id" name="tracer_id" class="form-control" required="">
@@ -148,6 +148,7 @@ function traceclient(booked){
 
 $('#client_id').val(booked.client_id);
 $('#app_id').val(booked.app_id);
+$('#clinic_number').val(booked.clinic_number);
 
 }
 

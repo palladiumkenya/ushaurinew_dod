@@ -12,6 +12,7 @@ use App\Models\Group;
 use App\Models\Clinic;
 use App\Models\Client;
 use App\Models\Facility;
+use App\Models\ClientReport;
 use Auth;
 use DB;
 
@@ -58,13 +59,95 @@ class ClientListController extends Controller
     ->get();
 
 
+
     return view('clients.client_profile')->with('client_profile', $client_profile);
 
 }
 
 public function client_extract()
 {
-    
+
+
+    if (Auth::user()->access_level == 'Facility') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->where('client_report.mfl_code', Auth::user()->facility_id)
+        ->get();
+
+    }
+
+    if (Auth::user()->access_level == 'Partner') {
+     $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+    ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+    'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+    ->where('client_report.partner_id', Auth::user()->partner_id)
+    ->get();
+    }
+
+    if (Auth::user()->access_level == 'Donor') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->get(); $client_extract;
+    }
+
+    if (Auth::user()->access_level == 'Admin') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+       ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+       'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+       ->get();
+    }
+
+    return view('clients.client_extract')->with('client_extract', $client_extract);
+}
+
+public function filter_client_extract(Request $request)
+{
+
+
+    if (Auth::user()->access_level == 'Facility') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->where('client_report.mfl_code', Auth::user()->facility_id)
+        ->whereDate('client_report.created_at', '>=', date($request->from))
+        ->whereDate('client_report.created_at', '<=', date($request->to))
+        ->get();
+
+    }
+
+    if (Auth::user()->access_level == 'Partner') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->whereDate('client_report.created_at', '>=', date($request->from))
+        ->whereDate('client_report.created_at', '<=', date($request->to))
+        ->where('client_report.partner_id', Auth::user()->partner_id)
+        ->get();
+
+    }
+
+    if (Auth::user()->access_level == 'Donor') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->whereDate('client_report.created_at', '>=', date($request->from))
+        ->whereDate('client_report.created_at', '<=', date($request->to))
+        ->get();
+    }
+
+    if (Auth::user()->access_level == 'Admin') {
+        $client_extract = ClientReport::join('tbl_client', 'client_report.id', '=', 'tbl_client.id')
+        ->select('tbl_client.enrollment_date', 'tbl_client.art_date', 'client_report.clinic_number', 'client_report.gender', 'client_report.group_name', 'client_report.marital', 'client_report.created_at', 'client_report.month_year',
+        'client_report.LANGUAGE', 'client_report.txt_time', 'client_report.partner_name', 'client_report.county', 'client_report.sub_county', 'client_report.mfl_code', 'client_report.facility_name', 'client_report.consented', 'tbl_client.wellness_enable')
+        ->whereDate('client_report.created_at', '>=', date($request->from))
+        ->whereDate('client_report.created_at', '<=', date($request->to))
+        ->get();
+    }
+
+    return view('clients.client_extract')->with('client_extract', $client_extract);
+
 }
 
 

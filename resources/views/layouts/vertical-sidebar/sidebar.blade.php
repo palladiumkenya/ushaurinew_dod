@@ -92,7 +92,7 @@
                             </li>
                     </li>
                     <li class="item-name">
-                        <a href="">
+                        <a href="{{route('clients-extract')}}">
                             <span class="item-name">Client Extract</span>
                         </a>
                     </li>

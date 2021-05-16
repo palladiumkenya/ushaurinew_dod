@@ -471,7 +471,7 @@ class PmtcController extends Controller
              ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
             ->whereNull('tbl_client.hei_no')
             ->where('tbl_appointment.appntmnt_date', '<', Now())
-           // ->whereDate('tbl_appointment.appntmnt_date', '>=', $startdate)->whereDate('tbl_appointment.appntmnt_date', '<=', $enddate)
+            ->whereDate('tbl_appointment.appntmnt_date', '>=', date($request->from))->whereDate('tbl_appointment.appntmnt_date', '<=', date($request->to))
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
 
@@ -480,7 +480,7 @@ class PmtcController extends Controller
              ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
             ->whereNull('tbl_client.hei_no')
             ->where('tbl_appointment.appntmnt_date', '<', Now())
-           // ->whereDate('tbl_appointment.appntmnt_date', '>=', $startdate)->whereDate('tbl_appointment.appntmnt_date', '<=', $enddate)
+            ->whereDate('tbl_appointment.appntmnt_date', '>=', date($request->from))->whereDate('tbl_appointment.appntmnt_date', '<=', date($request->to))
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
 
@@ -489,7 +489,7 @@ class PmtcController extends Controller
              ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
             ->whereNull('tbl_client.hei_no')
             ->where('tbl_appointment.appntmnt_date', '<', Now())
-           // ->whereDate('tbl_appointment.appntmnt_date', '>=', $startdate)->whereDate('tbl_appointment.appntmnt_date', '<=', $enddate)
+            ->whereDate('tbl_appointment.appntmnt_date', '>=', date($request->from))->whereDate('tbl_appointment.appntmnt_date', '<=', date($request->to))
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
 
@@ -498,7 +498,7 @@ class PmtcController extends Controller
             ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 29)) then `tbl_client`.`id` end)) AS count"))
             ->whereNull('tbl_client.hei_no')
             ->where('tbl_appointment.appntmnt_date', '<', Now())
-           // ->whereDate('tbl_appointment.appntmnt_date', '>=', $startdate)->whereDate('tbl_appointment.appntmnt_date', '<=', $enddate)
+            ->whereDate('tbl_appointment.appntmnt_date', '>=', date($request->from))->whereDate('tbl_appointment.appntmnt_date', '<=', date($request->to))
             ->where('tbl_client.mfl_code', Auth::user()->facility_id)
             ->pluck('count');
 

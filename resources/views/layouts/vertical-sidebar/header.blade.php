@@ -1,21 +1,20 @@
 <!-- header start -->
 <header class=" main-header bg-white d-flex justify-content-between p-2">
-    <div class="header-part-left"">
-        <div>
-            <div><img class="pl-3" src="{{ asset('assets/images/moh.png') }}" alt="ushauri"></div>
+    <div class="header-toggle">
+        <div class="menu-toggle mobile-menu-icon">
             <div></div>
-            <div>
-            </div>
+            <div></div>
+            <div></div>
+        </div>
+        <div>
+            <img class="pl-3" src="{{ asset('assets/images/moh.png') }}" alt="ushauri">
+
         </div>
 
     </div>
     <div class="header-part-center"">
-        <div>
-            <div><img class="pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri"></div>
-            <div></div>
-            <div>
-            </div>
-        </div>
+
+          <img class="pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri">
 
     </div>
     <div class="header-part-right">

@@ -24,35 +24,39 @@ class AppointmentController extends Controller
         if (Auth::user()->access_level == 'Facility') {
         $all_future_apps = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
-        ->select('tbl_client.clinic_number', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
+        ->select('tbl_appointment.client_id', 'tbl_client.clinic_number', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type')
         ->where('tbl_appointment.appntmnt_date', '>', Now())
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->get();
 
         $all_app_types = AppointmentType::all();
         }
-        return view('appointments.future_apps_edit')->with('all_future_apps', 'all_app_types', $all_app_types, $all_future_apps);
+        return view('appointments.future_apps_edit', compact('all_future_apps', 'all_app_types'));
     }
     public function editappointment(Request $request)
     {
-        $appointment = Appointment::find($request->aid);
 
-        $appointment->appntmnt_date = $request->appntmnt_date;
-        $appointment->app_type_1 = $request->app_type;
-        $appointment->reason = $request->reason;
+        try {
+            $appointment = Appointments::where('client_id', $request->id)->first();
 
-        $appointment->update_at = date('Y-m-d H:i:s');
+            $appointment->appntmnt_date = date("Y-m-d", strtotime($request->appntmnt_date));
+            $appointment->app_type_1 = $request->app_type;
+            $appointment->reason = $request->reason;
+                        // 'update_at' => date('Y-m-d H:i:s'),
 
-        if($appointment->save())
-        {
-            Session::flash('statuscode', 'success');
+                     if($appointment->save())
+                     {
+                       Session::flash('statuscode', 'success');
 
-            return redirect('report/future/appointments')->with('status', 'Appointment was updated successfully!');
-        }else{
+                        return redirect('report/future/appointments')->with('status', 'Appointment was updated successfully!');
+                    }else{
 
-            Session::flash('statuscode', 'error');
-            return back()->with('error', 'An error has occurred please try again later.');
-        }
+                       Session::flash('statuscode', 'error');
+                       return back()->with('error', 'An error has occurred please try again later.');
+                     }
+                } catch (Exception $e) {
+                    return back();
+                }
 
     }
     public function get_future_appointments()
