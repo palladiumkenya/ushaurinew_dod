@@ -118,6 +118,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/pmtct/defaulter/dairy', ['uses' => 'App\Http\Controllers\PmtcController@pmtct_defaulter_dairy', 'as' => 'report-pmtct-defaulter-dairy']);
     Route::get('/report/pmtct/appointment/dairy', ['uses' => 'App\Http\Controllers\PmtcController@pmtct_appointment_dairy', 'as' => 'report-pmtct-appointment-dairy']);
     Route::get('/report/pmtct/summary', ['uses' => 'App\Http\Controllers\PmtcController@pmtct_dashboard', 'as' => 'report-pmtct-summary']);
+    Route::get('/pmtct/summary', ['uses' => 'App\Http\Controllers\FilterController@filter_pmtct_dashboard', 'as' => 'filter-pmtct-summary']);
     Route::get('/report/hei/summary', ['uses' => 'App\Http\Controllers\PmtcController@hei_dashboard', 'as' => 'report-hei-summary']);
 
     Route::get('/report/all_heis', ['uses' => 'App\Http\Controllers\PmtcController@get_all_hei', 'as' => 'report-all_heis']);

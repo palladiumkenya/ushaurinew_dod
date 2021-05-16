@@ -14,7 +14,7 @@
                             <div class="card-title mb-3"></div>
 
                             <h4></h4>
-                            <form role="form" method="get"action="{{route('report-pmtct-summary')}}">
+                            <form role="form" method="get"action="{{route('filter-pmtct-summary')}}">
                             {{ csrf_field() }}
                                 <div class="row">
 
