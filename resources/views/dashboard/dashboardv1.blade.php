@@ -144,7 +144,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
 
-                        <div id="container" class="col" style="height: 450px;margin-top:40px;"></div> <br />
+                        <div id="mainGraph" class="col" style="height: 450px;margin-top:40px;"></div> <br />
 
                         </div>
                     </div>
@@ -250,7 +250,7 @@ $(document).ready(function() {
             type: 'GET',
             url: "{{ route('filter_dashboard') }}",
             success: function(data) {
-                container(data.registered_clients_count, data.consented_clients_count);
+
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
@@ -258,6 +258,8 @@ $(document).ready(function() {
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
+                $("#consented_clients_count").html(data.consented_clients_count);
+                $("#registered_clients_count").html(data.registered_clients_count);
 
 
             }
@@ -286,7 +288,7 @@ $(document).ready(function() {
                 },
                 url: "{{ route('filter_dashboard') }}",
                 success: function(data) {
-                    container(data.registered_clients_count, data.consented_clients_count);
+
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
@@ -294,6 +296,8 @@ $(document).ready(function() {
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
+                $("#consented_clients_count").html(data.consented_clients_count);
+                $("#registered_clients_count").html(data.registered_clients_count);
                 }
             });
         });
@@ -309,8 +313,9 @@ parseRegistered = JSON.parse(RegisteredClients);
 
 
 
-console.log(Months);
-Highcharts.chart('container', {
+//console.log(Months);
+
+    Highcharts.chart('mainGraph', {
         chart: {
             type: 'column'
         },
@@ -357,6 +362,7 @@ Highcharts.chart('container', {
     });
 
     var colors = Highcharts.getOptions().colors;
+
 
 
 
