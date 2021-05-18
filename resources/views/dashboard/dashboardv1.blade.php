@@ -250,6 +250,7 @@ $(document).ready(function() {
             type: 'GET',
             url: "{{ route('filter_dashboard') }}",
             success: function(data) {
+                container(data.registered_clients_count, data.consented_clients_count);
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
@@ -285,6 +286,7 @@ $(document).ready(function() {
                 },
                 url: "{{ route('filter_dashboard') }}",
                 success: function(data) {
+                    container(data.registered_clients_count, data.consented_clients_count);
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
