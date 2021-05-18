@@ -75,7 +75,7 @@
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Target Active Clients</p>
 
-                                <p id="all_target_clients" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="all_target_clients" class="text-primary text-20 line-height-1 mb-2">{{$all_target_clients}}</p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">No. of Active Clients</p>
-                                <p id="all_clients_number" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="all_clients_number" class="text-primary text-20 line-height-1 mb-2">{{$all_clients_number}}</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">% No. of Active Clients</p>
-                                <p id="pec_client_count" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="pec_client_count" class="text-primary text-20 line-height-1 mb-2">{{$pec_client_count}}</p>
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Consented Clients</p>
-                                <p id="all_consented_clients" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="all_consented_clients" class="text-primary text-20 line-height-1 mb-2">{{$all_consented_clients}}</p>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         <div class="card-body text-center">
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">Future Appointments</p>
-                                <p id="all_future_appointments" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="all_future_appointments" class="text-primary text-20 line-height-1 mb-2">{{$all_future_appointments}}</p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             <a class="has-arrow" href="{{route('Reports-active-facilities')}}">
                                 <p class="text-muted mt-2 mb-0">No. of Facilities</p>
                                 </a>
-                                <p id="number_of_facilities" class="text-primary text-20 line-height-1 mb-2"></p>
+                                <p id="number_of_facilities" class="text-primary text-20 line-height-1 mb-2">{{$number_of_facilities}}</p>
                             </div>
                         </div>
                     </div>
@@ -257,6 +257,7 @@ $(document).ready(function() {
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
+
 
             }
         });

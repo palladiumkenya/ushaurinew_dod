@@ -31,6 +31,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => 'admin'], function () {
+  Route::get('/Reports/dashboard', ['uses'=>'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-dashboard']);
+});
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -46,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/tracer/clients', ['uses' => 'App\Http\Controllers\TracerController@tracer_client', 'as' => 'admin-tracer-clients']);
 
     // Dashboard routes
-    Route::get('/Reports/dashboard', ['uses'=>'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-dashboard']);
+    Route::get('/main_graph_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'main_graph_dashboard']);
     //Route::get('/get_client_data', ['uses'=>'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
     Route::get('/filter_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@filter_dashboard', 'as' => 'filter_dashboard']);
     Route::get('/get_dashboard_counties/{id}', ['uses' => 'App\Http\Controllers\DashboardController@get_counties', 'as' => 'get_counties']);

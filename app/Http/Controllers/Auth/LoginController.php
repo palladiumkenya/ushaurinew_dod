@@ -26,18 +26,18 @@ use AuthenticatesUsers;
      */
    // protected $redirectTo = '/Reports/dashboard';
 
-   protected function authenticated(Request $request, $user) {
-    if ($user->access_level == 'Facility') {
+   protected function redirectTo() {
+    if (Auth::user()->access_level == 'Facility') {
         Session::flash('statuscode', 'Login Success!, You will be redirected to your Home page in a few.');
-        return redirect('/Reports/facility_home');
-    } else if ($user->access_level == 'Partner') {
+        return '/Reports/facility_home';
+    } else if (Auth::user()->access_level == 'Partner') {
         Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard');
-    } else if ($user->access_level == 'Admin') {
+        return '/Reports/dashboard';
+    } else if (Auth::user()->access_level == 'Admin') {
         Session::flash('statuscode', 'success');
-        return redirect('/Reports/dashboard');
+        return '/Reports/dashboard';
     }else {
-        return redirect('/');
+        return '/';
     }
 }
 /**

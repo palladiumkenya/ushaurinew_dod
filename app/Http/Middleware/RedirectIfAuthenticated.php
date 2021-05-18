@@ -17,24 +17,19 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$guards)
+    public function handle($request, Closure $next, $guard = null)
     {
-        $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if ($request->access_level == 'Facility') {
-                    return redirect('/Reports/facility_home');
-                } else if ($request->access_level == 'Partner') {
-                    return redirect('/Reports/dashboard');
-                } else if ($request->access_level == 'Admin') {
-                    return redirect('/Reports/dashboard');
-                }else {
+                if(Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+                {
                     return redirect('/Reports/dashboard');
                 }
+                if(Auth::user()->access_level == 'Facility')
+                {
+                    return redirect('/Reports/facility_home');
+                }
             }
-        }
-
         return $next($request);
     }
 }
