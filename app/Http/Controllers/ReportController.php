@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+ini_set('max_execution_time', 0);
+ini_set('memory_limit', '1024M');
+
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Appointments;
@@ -9,6 +12,7 @@ use App\Models\TodayAppointment;
 use App\Models\OutcomeReport;
 use App\Models\MessageExtract;
 use App\Models\UserReport;
+use App\Models\Summary;
 use DB;
 use Auth;
 
@@ -249,9 +253,29 @@ class ReportController extends Controller
         return view('reports.message_extract', compact('message_extract'));
     }
 
-    public function access_report(){
+    public function access_report()
+    {
         $access_report = UserReport::all();
 
         return view('reports.user_access', compact('access_report'));
+    }
+
+    public function client_report()
+    {
+        if (Auth::user()->access_level == 'Admin') {
+            $client_summary = Summary::all();
+        }
+
+        if (Auth::user()->access_level == 'Facility') {
+            $client_summary = Summary::all()
+                ->where('mfl_code', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $client_summary = Summary::all()
+                ->where('partner_id', Auth::user()->partner_id);
+        }
+
+        return view('reports.client_summary', compact('client_summary'));
     }
 }

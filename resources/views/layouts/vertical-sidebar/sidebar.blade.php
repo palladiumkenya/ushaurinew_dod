@@ -496,6 +496,11 @@
                             </a>
                         </li>
                         <li class="item-name">
+                            <a href="{{route('client-summary-report')}}">
+                                <span class="item-name">Summary Report</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
                             <a href="{{route('tracing-outcome-report')}}">
                                 <span class="item-name">Tracing OutCome</span>
                             </a>
