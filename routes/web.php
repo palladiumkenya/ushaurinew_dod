@@ -137,6 +137,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/consented', ['uses' => 'App\Http\Controllers\ReportController@consented_report', 'as' => 'report-consented']);
     Route::get('/report/tracing/cost', ['uses' => 'App\Http\Controllers\TracerController@tracing_cost', 'as' => 'tracing-cost']);
     Route::get('/report/TracingOutcome', ['uses' => 'App\Http\Controllers\ReportController@tracing_outcome', 'as' => 'tracing-outcome-report']);
+    Route::get('/report/MessageExtract', ['uses' => 'App\Http\Controllers\ReportController@messages_extract_report', 'as' => 'message-extract-report']);
 
 
       //IL routes

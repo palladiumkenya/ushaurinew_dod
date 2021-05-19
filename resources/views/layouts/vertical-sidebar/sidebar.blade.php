@@ -467,15 +467,15 @@
                                 <span class="item-name">Deactivated</span>
                             </a>
                         </li>
-                        <li class="item-name">
-                            <a href="form.validation.html">
-                                <span class="item-name">Messages Extract</span>
-                            </a>
-                        </li>
-
+            
                         <li class="item-name">
                             <a href="{{route('report-transfer')}}">
                                 <span class="item-name">Transfers</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a href="{{route('message-extract-report')}}">
+                                <span class="item-name">Messages Extract</span>
                             </a>
                         </li>
                         <li class="item-name">

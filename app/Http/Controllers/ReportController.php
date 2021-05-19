@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Appointments;
 use App\Models\TodayAppointment;
 use App\Models\OutcomeReport;
+use App\Models\MessageExtract;
 use DB;
 use Auth;
 
@@ -178,10 +179,72 @@ class ReportController extends Controller
                 ->get();
         }
 
+
         return view('reports.outcome', compact('outcome_report'));
     }
 
     public function messages_extract_report()
     {
+        if (Auth::user()->access_level == 'Admin') {
+            $message_extract = MessageExtract::select(
+                'clinic_number',
+                'gender',
+                'group_name',
+                'marital',
+                'preferred_time',
+                'language',
+                'message_type',
+                'month_year',
+                'msg',
+                'partner_name',
+                'county',
+                'sub_county',
+                'mfl_code',
+                'facility_name'
+            )
+                ->get();
+        }
+        if (Auth::user()->access_level == 'Facility') {
+            $message_extract = MessageExtract::select(
+                'clinic_number',
+                'gender',
+                'group_name',
+                'marital',
+                'preferred_time',
+                'language',
+                'message_type',
+                'month_year',
+                'msg',
+                'partner_name',
+                'county',
+                'sub_county',
+                'mfl_code',
+                'facility_name'
+            )
+                ->where('mfl_code', Auth::user()->facility_id)
+                ->get();
+        }
+        if (Auth::user()->access_level == 'Partner') {
+            $message_extract = MessageExtract::select(
+                'clinic_number',
+                'gender',
+                'group_name',
+                'marital',
+                'preferred_time',
+                'language',
+                'message_type',
+                'month_year',
+                'msg',
+                'partner_name',
+                'county',
+                'sub_county',
+                'mfl_code',
+                'facility_name'
+            )
+                ->where('partner_id', Auth::user()->partner_id)
+                ->get();
+        }
+
+        return view('reports.message_extract', compact('message_extract'));
     }
 }
