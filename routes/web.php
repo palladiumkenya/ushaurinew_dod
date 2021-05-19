@@ -140,6 +140,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/MessageExtract', ['uses' => 'App\Http\Controllers\ReportController@messages_extract_report', 'as' => 'message-extract-report']);
     Route::get('/report/Users_report', ['uses' => 'App\Http\Controllers\ReportController@access_report', 'as' => 'access-report']);
     Route::get('/report/Client/Summary', ['uses' => 'App\Http\Controllers\ReportController@client_report', 'as' => 'client-summary-report']);
+    Route::get('/report/Monthly/Appointment/Summary', ['uses' => 'App\Http\Controllers\ReportController@monthly_appointments', 'as' => 'monthly-appointment-summary']);
 
 
       //IL routes

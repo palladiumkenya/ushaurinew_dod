@@ -13,6 +13,8 @@ use App\Models\OutcomeReport;
 use App\Models\MessageExtract;
 use App\Models\UserReport;
 use App\Models\Summary;
+use App\Models\MonthlyApp;
+use App\Models\Partner;
 use DB;
 use Auth;
 
@@ -277,5 +279,26 @@ class ReportController extends Controller
         }
 
         return view('reports.client_summary', compact('client_summary'));
+    }
+
+    public function monthly_appointments()
+    {
+        if (Auth::user()->access_level == 'Admin') {
+            $monthly_app_summary = MonthlyApp::all();
+        }
+
+        if (Auth::user()->access_level == 'Facility') {
+            $monthly_app_summary = MonthlyApp::all()
+                ->where('mfl_code', Auth::user()->facility_id);
+        }
+
+        if (Auth::user()->access_level == 'Partner') {
+            $monthly_app_summary = MonthlyApp::all()
+                ->where('partner_id', Auth::user()->partner_id);
+        }
+
+        $all_partners = Partner::all();
+
+        return view('reports.monthly_appointment', compact('monthly_app_summary', 'all_partners'));
     }
 }

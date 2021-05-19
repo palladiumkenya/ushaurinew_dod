@@ -496,6 +496,11 @@
                             </a>
                         </li>
                         <li class="item-name">
+                            <a href="{{route('monthly-appointment-summary')}}">
+                                <span class="item-name">Monthly Appointment</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
                             <a href="{{route('client-summary-report')}}">
                                 <span class="item-name">Summary Report</span>
                             </a>
