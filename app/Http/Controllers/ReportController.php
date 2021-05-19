@@ -8,6 +8,7 @@ use App\Models\Appointments;
 use App\Models\TodayAppointment;
 use App\Models\OutcomeReport;
 use App\Models\MessageExtract;
+use App\Models\UserReport;
 use DB;
 use Auth;
 
@@ -246,5 +247,11 @@ class ReportController extends Controller
         }
 
         return view('reports.message_extract', compact('message_extract'));
+    }
+
+    public function access_report(){
+        $access_report = UserReport::all();
+
+        return view('reports.user_access', compact('access_report'));
     }
 }

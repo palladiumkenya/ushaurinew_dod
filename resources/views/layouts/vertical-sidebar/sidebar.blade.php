@@ -467,7 +467,7 @@
                                 <span class="item-name">Deactivated</span>
                             </a>
                         </li>
-            
+
                         <li class="item-name">
                             <a href="{{route('report-transfer')}}">
                                 <span class="item-name">Transfers</span>
@@ -478,6 +478,13 @@
                                 <span class="item-name">Messages Extract</span>
                             </a>
                         </li>
+                        @if (Auth::user()->access_level == 'Admin')
+                        <li class="item-name">
+                            <a href="{{route('access-report')}}">
+                                <span class="item-name">User Report</span>
+                            </a>
+                        </li>
+                        @endif
                         <li class="item-name">
                             <a href="{{route('report-consented')}}">
                                 <span class="item-name">Consented Reports</span>
