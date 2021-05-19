@@ -136,10 +136,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/today_appointments', ['uses' => 'App\Http\Controllers\ReportController@today_appointments', 'as' => 'report-today_appointments']);
     Route::get('/report/consented', ['uses' => 'App\Http\Controllers\ReportController@consented_report', 'as' => 'report-consented']);
     Route::get('/report/tracing/cost', ['uses' => 'App\Http\Controllers\TracerController@tracing_cost', 'as' => 'tracing-cost']);
+    Route::get('/report/TracingOutcome', ['uses' => 'App\Http\Controllers\ReportController@tracing_outcome', 'as' => 'tracing-outcome-report']);
 
 
       //IL routes
       Route::get('/report/IL/dashboard', ['uses' => 'App\Http\Controllers\ILUushauriController@il_dashboard', 'as' => 'report-IL-dashboard']);
+      Route::get('/filter_ildashboard', ['uses' => 'App\Http\Controllers\ILUushauriController@filter_ildashboard', 'as' => 'filter_ildashboard']);
 
       // Donors routes
       Route::get('/admin/donors', ['uses' => 'App\Http\Controllers\DonorController@index', 'as' => 'admin-donors']);

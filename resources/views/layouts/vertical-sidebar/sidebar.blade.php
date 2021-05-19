@@ -34,7 +34,7 @@
                         </a>
                         <ul class="mm-collapse">
                             <li class="item-name">
-                              @if (Auth::user()->access_level == 'Facility')
+                                @if (Auth::user()->access_level == 'Facility')
                                 <a class="" href="{{route('Reports-facility_home')}}">
                                     <span class=" text-muted">Summary</span>
                                 </a>
@@ -51,7 +51,7 @@
                                 @endif
                             </li>
                             <li class="item-name">
-                            <a class="" href="{{route('report-appointment-dashboard')}}">
+                                <a class="" href="{{route('report-appointment-dashboard')}}">
                                     <span class=" text-muted">Appointments</span>
                                 </a>
                             </li>
@@ -71,7 +71,7 @@
                             <span class="item-name  text-muted">Clients</span>
                         </a>
                         <ul class="mm-collapse">
-                          @if (Auth::user()->access_level == 'Facility')
+                            @if (Auth::user()->access_level == 'Facility')
                             <li class="item-name">
                                 <a href="{{route('profile')}}">
                                     <span class="item-name">Client Profile</span>
@@ -86,7 +86,7 @@
                             @endif
                             <li class="item-name">
                             <li class="nav-item">
-                            <a href={{route('report-clients-list')}}>
+                                <a href={{route('report-clients-list')}}>
                                     <span class="item-name">Clients</span>
                                 </a>
                             </li>
@@ -111,14 +111,14 @@
                         <span class="item-name  text-muted">Appointments</span>
                     </a>
                     <ul class="mm-collapse">
-                    <li class="item-name">
+                        <li class="item-name">
                             <a class="has-arrow cursor-pointer">
                                 <span class="item-name">App Diary </span>
 
                             </a>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                <a href="{{route('get_future_appointments')}}">
+                                    <a href="{{route('get_future_appointments')}}">
                                         <span class="item-name">Future</span>
                                     </a>
                                 </li>
@@ -131,21 +131,21 @@
                             </a>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                <a href={{route('report-appointments-missed')}}>
+                                    <a href={{route('report-appointments-missed')}}>
                                         <span class="item-name">Missed</span>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                <a href={{route('report-appointments-defaulted')}}>
+                                    <a href={{route('report-appointments-defaulted')}}>
                                         <span class="item-name">Defaulted</span>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="mm-collapse">
                                 <li class="item-name">
-                                <a href={{route('report-appointments-ltfu_clients')}}>
+                                    <a href={{route('report-appointments-ltfu_clients')}}>
                                         <span class="item-name">Lost To Follow Up</span>
                                     </a>
                                 </li>
@@ -157,12 +157,12 @@
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href="{{route('report-appointments')}}">
+                            <a href="{{route('report-appointments')}}">
                                 <span class="item-name">Appointments</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-appointments-calender')}}>
+                            <a href={{route('report-appointments-calender')}}>
                                 <span class="item-name">Calender</span>
                             </a>
                         </li>
@@ -175,17 +175,17 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                        <a href={{route('report-ok_clients')}}>
+                            <a href={{route('report-ok_clients')}}>
                                 <span class="item-name">Ok</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-not_ok_clients')}}>
+                            <a href={{route('report-not_ok_clients')}}>
                                 <span class="item-name">Not Ok</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-unrecognised_response')}}>
+                            <a href={{route('report-unrecognised_response')}}>
                                 <span class="item-name">Unrecognised</span>
                             </a>
                         </li>
@@ -200,22 +200,22 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                        <a href={{route('report-adolescent_clients')}}>
+                            <a href={{route('report-adolescent_clients')}}>
                                 <span class="item-name">Adolescent</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-pmtct_clients')}}>
+                            <a href={{route('report-pmtct_clients')}}>
                                 <span class="item-name">PMTCT</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-adults_clients')}}>
+                            <a href={{route('report-adults_clients')}}>
                                 <span class="item-name">Adult</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('report-paeds_clients')}}>
+                            <a href={{route('report-paeds_clients')}}>
                                 <span class="item-name">Paeds </span>
                             </a>
                         </li>
@@ -229,12 +229,12 @@
                     </a>
                     <ul class="mm-collapse">
                         <li class="item-name">
-                        <a href={{route('clients-booked')}}>
+                            <a href={{route('clients-booked')}}>
                                 <span class="item-name">Clients Tracing</span>
                             </a>
                         </li>
                         <li class="item-name">
-                        <a href={{route('admin-tracer-clients')}}>
+                            <a href={{route('admin-tracer-clients')}}>
                                 <span class="item-name">Tracing List</span>
                             </a>
                         </li>
@@ -249,7 +249,7 @@
                         <span class="item-name  text-muted">Admin Tools</span>
                     </a>
                     <ul class="mm-collapse">
-                    @if (Auth::user()->access_level == 'Admin')
+                        @if (Auth::user()->access_level == 'Admin')
                         <li class="item-name">
                             <a class="" href="{{route('admin-donors')}}">
                                 <span class="item-name">Donor</span>
@@ -358,81 +358,81 @@
                         <span class="item-name  text-muted">Reports</span>
                     </a>
                     <ul class="mm-collapse">
-                    @if (Auth::user()->role_id == 12 || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Admin')
+                        @if (Auth::user()->role_id == 12 || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Admin')
 
-                    <li class="item-name">
+                        <li class="item-name">
                             <a class="" href="{{route('admin-tracer-clients')}}">
                                 <span class="item-name">Client Tracer</span>
                             </a>
-                    </li>
-                    @endif
+                        </li>
+                        @endif
 
 
-                    <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <span class="item-name  text-muted">DSD Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
                         <li class="item-name">
-                            <a class="" href="{{route('Reports-dsd')}}">
-                                <span class="item-name">DSD Dairy</span>
+                            <a class="has-arrow" href="#">
+                                <span class="item-name  text-muted">DSD Reports</span>
                             </a>
-                        </li>
-                        </ul>
+                            <ul class="mm-collapse">
+                                <li class="item-name">
+                                    <a class="" href="{{route('Reports-dsd')}}">
+                                        <span class="item-name">DSD Dairy</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <span class="item-name  text-muted">PMTCT Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
-                    <li class="item-name">
-                            <a href="{{route('report-pmtct-summary')}}">
-                                <span class="item-name">Summary</span>
+                            <a class="has-arrow" href="#">
+                                <span class="item-name  text-muted">PMTCT Reports</span>
                             </a>
+                            <ul class="mm-collapse">
+                                <li class="item-name">
+                                    <a href="{{route('report-pmtct-summary')}}">
+                                        <span class="item-name">Summary</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a href="{{route('report-pmtct-appointment-dairy')}}">
+                                        <span class="item-name">App Diary</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a href="{{route('report-pmtct-defaulter-dairy')}}">
+                                        <span class="item-name">Defaulter Diary</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="item-name">
-                            <a href="{{route('report-pmtct-appointment-dairy')}}">
-                                <span class="item-name">App Diary</span>
+                            <a class="has-arrow" href="#">
+                                <span class="item-name  text-muted">Hei Reports</span>
                             </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-pmtct-defaulter-dairy')}}">
-                                <span class="item-name">Defaulter Diary</span>
-                            </a>
-                        </li>
-                        </ul>
-                        </li>
-                        <li class="item-name">
-                        <a class="has-arrow" href="#">
-                        <span class="item-name  text-muted">Hei Reports</span>
-                    </a>
-                    <ul class="mm-collapse">
-                        <li class="item-name">
-                            <a href="{{route('report-hei-summary')}}">
-                                <span class="item-name">Summary</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-all_heis')}}">
-                                <span class="item-name">HEI List</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="{{route('report-hei-appointment-dairy')}}">
-                                <span class="item-name">App Diary</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-hei-defaulter-dairy')}}">
-                                <span class="item-name">Defaulter Diary</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="{{route('report-hei-final-outcome')}}">
-                                <span class="item-name">Final Outcome</span>
-                            </a>
-                        </li>
-                        </ul>
+                            <ul class="mm-collapse">
+                                <li class="item-name">
+                                    <a href="{{route('report-hei-summary')}}">
+                                        <span class="item-name">Summary</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a href="{{route('report-all_heis')}}">
+                                        <span class="item-name">HEI List</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a class="" href="{{route('report-hei-appointment-dairy')}}">
+                                        <span class="item-name">App Diary</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a href="{{route('report-hei-defaulter-dairy')}}">
+                                        <span class="item-name">Defaulter Diary</span>
+                                    </a>
+                                </li>
+                                <li class="item-name">
+                                    <a href="{{route('report-hei-final-outcome')}}">
+                                        <span class="item-name">Final Outcome</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Facility')
                         <li class="item-name">
@@ -488,10 +488,15 @@
                                 <span class="item-name">Todays Appointment</span>
                             </a>
                         </li>
+                        <li class="item-name">
+                            <a href="{{route('tracing-outcome-report')}}">
+                                <span class="item-name">Tracing OutCome</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="Ul_li--hover">
-                <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Log out</a>
+                    <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Log out</a>
                 </li>
 
                 </ul>
