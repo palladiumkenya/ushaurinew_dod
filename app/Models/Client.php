@@ -15,5 +15,6 @@ class Client extends Model
 
         'clinic_number', 'consent_date', 'smsenable', 'language_id', 'motivational_enable', 'txt_time', 'phone_no'
     ];
+    
 
 }

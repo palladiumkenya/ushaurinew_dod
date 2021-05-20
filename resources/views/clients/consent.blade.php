@@ -55,7 +55,7 @@
                             <td> {{$consent->status}}</td>
 
                             <td>
-                                <button onclick="consentclient({ $consent });" data-toggle="modal" data-target="#consentclient" type="button" class="btn btn-primary btn-sm">Consent</button>
+                                <button onclick="consentclient({{ $consent }});" data-toggle="modal" data-target="#consentclient" type="button" class="btn btn-primary btn-sm">Consent</button>
 
                             </td>
                         </tr>

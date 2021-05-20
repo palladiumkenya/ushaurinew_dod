@@ -2689,8 +2689,6 @@ class PmtcController extends Controller
         $count_pcr_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_pmtct', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->select(\DB::raw("COUNT(tbl_client.id) as count"))
-        ->where('tbl_appointment.app_status', '=', 'LTFU')
-        ->whereNotNull('tbl_client.hei_no')
         ->whereNotNull('tbl_pmtct.date_confirmed_positive')
         ->pluck('count');
 
@@ -3041,10 +3039,359 @@ class PmtcController extends Controller
         $count_pcr_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_pmtct', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+        ->pluck('count');
+
+    }
+
+    if (Auth::user()->access_level == 'Partner') {
+        $toone_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $toone_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+
+        $toone_unscheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_unscheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_unscheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_unscheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_unscheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $toone_missed_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_missed_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_missed_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_missed_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_missed_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $toone_defaulted_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_defaulted_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_defaulted_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_defaulted_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_defaulted_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $toone_ltfu_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))
         ->where('tbl_appointment.app_status', '=', 'LTFU')
         ->whereNotNull('tbl_client.hei_no')
         ->whereNotNull('tbl_pmtct.date_confirmed_positive')
-        ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofour_ltfu_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tonine_ltfu_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 5) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 9)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tofourteen_ltfu_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 10) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $tototal_ltfu_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 14)) then `tbl_pmtct`.`id` end)) AS count"))
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no')
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        // non-positive hei
+        $count_booked_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_appointment.app_status', '=', 'Booked')
+        ->where('tbl_appointment.active_app', '=', 1)
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->whereNotNull('tbl_client.hei_no')
+        ->pluck('count');
+
+        $count_scheduled_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_appointment.visit_type', '=', 'Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_unscheduled_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
+        ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_client.status', '=', 'Deceased')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_client.status', '=', 'Transfer Out')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_client.status', '=', 'Disabled')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_missed_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_appointment.app_status', '=', 'Missed')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_defaulted_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_appointment.app_status', '=', 'Defaulted')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_ltfu_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->where('tbl_appointment.app_status', '=', 'LTFU')
+        ->whereNotNull('tbl_client.hei_no')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
+        ->pluck('count');
+
+        $count_pcr_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+        ->join('tbl_pmtct', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
+        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->whereNotNull('tbl_pmtct.date_confirmed_positive')
+        ->where('tbl_client.partner_id', Auth::user()->partner_id)
         ->pluck('count');
 
     }

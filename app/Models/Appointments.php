@@ -11,8 +11,13 @@ class Appointments extends Model
     public $table = 'tbl_appointment';
     public $timestamps = false;
     public $incrementing = false;
-    
+
     protected $fillable = [
-        
+        'app_type_1', 'reason', 'appntmnt_date'
+
     ];
+
+    public function client(){
+        return $this->belongsTo('App\Models\Client','client_id','id');
+    }
 }

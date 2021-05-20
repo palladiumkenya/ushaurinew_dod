@@ -37,12 +37,16 @@ class AppointmentController extends Controller
     {
 
         try {
-            $appointment = Appointments::where('client_id', $request->id)->first();
-
-            $appointment->appntmnt_date = date("Y-m-d", strtotime($request->appntmnt_date));
-            $appointment->app_type_1 = $request->app_type;
-            $appointment->reason = $request->reason;
-            // 'update_at' => date('Y-m-d H:i:s'),
+            $appointment = Appointments::find($request->id);
+            if (!empty($request->app_type_1)) {
+                $appointment->app_type_1 = $request->app_type;
+            }
+            if (empty($request->reason)) {
+                $appointment->reason = $request->reason;
+            }
+            if (empty($request->appntmnt_date)) {
+                $appointment->appntmnt_date = date("Y-m-d", strtotime($request->appntmnt_date));
+            }
 
             if ($appointment->save()) {
                 Session::flash('statuscode', 'success');
