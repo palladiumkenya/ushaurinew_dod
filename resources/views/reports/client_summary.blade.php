@@ -28,8 +28,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (count($client_report) > 0)
-                                                @foreach($client_report as $summary)
+                                            @if (count($client_summary) > 0)
+                                                @foreach($client_summary as $summary)
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$summary->county}}</td>

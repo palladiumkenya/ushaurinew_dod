@@ -1341,21 +1341,21 @@ class AppointmentController extends Controller
     public function lab_investigation()
     {
         if (Auth::user()->access_level == 'Facility') {
-            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'age_group', \DB::raw('count(age_group) as total'))
-                ->groupBy('age_group')
+            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'gender', 'age_group', \DB::raw('count(age_group) as total'))
+                ->groupBy('clinic_number')
                 ->where('mfl_code', Auth::user()->facility_id)
                 ->get();
         }
 
         if (Auth::user()->access_level == 'Admin') {
-            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'age_group', \DB::raw('count(age_group) as total'))
-                ->groupBy('age_group')
+            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'gender', 'age_group', \DB::raw('count(age_group) as total'))
+                ->groupBy('clinic_number')
                 ->get();
         }
 
         if (Auth::user()->access_level == 'Partner') {
-            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'age_group', \DB::raw('count(age_group) as total'))
-                ->groupBy('age_group')
+            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'gender', 'age_group', \DB::raw('count(age_group) as total'))
+                ->groupBy('clinic_number')
                 ->where('partner_id', Auth::user()->partner_id)
                 ->get();
         }
