@@ -6,15 +6,15 @@
             <div></div>
             <div></div>
         </div>
-        <div>
-            <img class="pl-3" src="{{ asset('assets/images/moh.png') }}" alt="ushauri">
 
-        </div>
+        <img class="pl-3" src="{{ asset('assets/images/moh.png') }}" alt="ushauri">
+
+
 
     </div>
     <div class="header-part-center"">
 
-          <img class="pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri">
+          <img class=" pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri">
 
     </div>
     <div class="header-part-right">
@@ -22,18 +22,16 @@
         <i class="i-Full-Screen header-icon d-none d-sm-inline-block" data-fullscreen=""></i>
         <!-- Grid menu Dropdown -->
         <div class="dropdown dropleft">
-            <i class="i-Safe-Box text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"></i>
+            <i class="i-Safe-Box text-muted header-icon" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <div class="menu-icon-grid">
                     <a href="#"><i class="i-Shop-4"></i> Profile</a>
                     <a href="#"><i class="i-Library"></i> Documentation</a>
-                    <a href="#"><i class="i-Drop"></i> Wiki</a>
-                    <a href="#"><i class="i-File-Clipboard-File--Text"></i> Apis</a>
                     <a class="dropdown-item" href="{{route('logout')}}"><i class="nav-icon i-Power-3"></i>Logout</a>
 
                 </div>
             </div>
         </div>
+    </div>
 </header>
 <!-- header close -->
