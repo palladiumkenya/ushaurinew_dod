@@ -1,5 +1,5 @@
 <!-- start sidebar -->
-<div class="sidebar-panel">
+<div class="sidebar-panel sidebar-switch-open">
     <div class="gull-brand pr-3 text-center mt-4 mb-2 d-flex justify-content-center align-items-center">
         <img class="pl-3" src="{{ asset('assets/images/ushauri.jpeg') }}" alt="ushauri">
         <!-- <span class=" item-name text-20 text-primary font-weight-700">GULL</span> -->
@@ -288,11 +288,6 @@
 
                         <li class="item-name">
                             <a class="" href="">
-                                <span class="item-name">Counties</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="">
                                 <span class="item-name">Sender</span>
                             </a>
                         </li>
@@ -316,21 +311,13 @@
                                 <span class="item-name">Role Modules</span>
                             </a>
                         </li>
-                        <li class="item-name">
-                            <a class="" href="">
-                                <span class="item-name">County Tier</span>
-                            </a>
-                        </li>
+
                         <li class="item-name">
                             <a class="" href="">
                                 <span class="item-name">Broadcast</span>
                             </a>
                         </li>
-                        <li class="item-name">
-                            <a class="" href="">
-                                <span class="item-name">Manual SMS</span>
-                            </a>
-                        </li>
+
                         @endif
                         @if (Auth::user()->access_level == 'Facility')
                         <li class="item-name">
@@ -434,7 +421,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Facility')
+                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
                         <li class="item-name">
                             <a class="" href="{{route('tracing-cost')}}">
                                 <span class="item-name">Tracing Cost</span>
@@ -448,17 +435,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="basic-action-bar.html">
-                                <span class="item-name">Appointment Report</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a href="form.layouts.html">
-                                <span class="item-name">Broadcast Report</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
-                            <a class="" href="multi-column-forms.html">
+                            <a class="" href="">
                                 <span class="item-name">My Facilities</span>
                             </a>
                         </li>

@@ -29,8 +29,8 @@
             <div class="col">
                 <div class="form-group">
                     <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
-                        <option value="">Please select County:</option>
-                        <option></option>
+                        <option>Please select County:</option>
+                        <option value=""></option>
                     </select>
                 </div>
             </div>
@@ -39,6 +39,7 @@
                     <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
                     <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
                         <option>Please Select Sub County : </option>
+                        <option value=""></option>
                     </select>
                 </div>
             </div>
@@ -48,6 +49,7 @@
 
                     <select class="form-control filter_facility input-rounded input-sm select2" id="facilities" name="facility">
                         <option>Please select Facility : </option>
+                        <option value=""></option>
                     </select>
                 </div>
             </div>
