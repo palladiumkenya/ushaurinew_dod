@@ -37,24 +37,24 @@ class AppointmentController extends Controller
     {
         try {
             $appointment = Appointments::where('id', $request->id)
-                     ->update([
-                         'app_type_1' => $request->app_type,
-                         'reason' => $request->reason,
-                         'appntmnt_date' => date("Y-m-d", strtotime($request->appntmnt_date)),
-                         'reason' => $request->reason,
+                ->update([
+                    'app_type_1' => $request->app_type,
+                    'reason' => $request->reason,
+                    'appntmnt_date' => date("Y-m-d", strtotime($request->appntmnt_date)),
+                    'reason' => $request->reason,
+                    'expln_app' => "EDITED",
 
-                     ]);
-                     if ($appointment) {
-                         Session::flash('statuscode', 'success');
-                         return redirect('report/future/appointments')->with('status', 'Appointment was updated successfully!');
-                    } else {
-                        Session::flash('statuscode', 'error');
-                        return back()->with('error', 'Could not consent client please try again later.');
-                    }
-                } catch (Exception $e) {
-                    return back();
-                }
-
+                ]);
+            if ($appointment) {
+                Session::flash('statuscode', 'success');
+                return redirect('report/future/appointments')->with('status', 'Appointment was updated successfully!');
+            } else {
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'Could not consent client please try again later.');
+            }
+        } catch (Exception $e) {
+            return back();
+        }
     }
     public function get_future_appointments()
     {
