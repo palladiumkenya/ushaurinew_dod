@@ -313,7 +313,7 @@
                         </li>
 
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('broadcast')}}">
                                 <span class="item-name">Broadcast</span>
                             </a>
                         </li>

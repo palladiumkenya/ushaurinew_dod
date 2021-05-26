@@ -151,4 +151,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/admin/donors', ['uses' => 'App\Http\Controllers\DonorController@index', 'as' => 'admin-donors']);
   Route::get('/admin/donors/form', ['uses' => 'App\Http\Controllers\DonorController@adddonorform', 'as' => 'admin-donors-form']);
   Route::post('/add/donors', ['uses' => 'App\Http\Controllers\DonorController@adddonor', 'as' => 'adddonor']);
+
+  //Broadcast routes
+  Route::get('/broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@broadcast_form', 'as' => 'broadcast']);
+  Route::post('/send-broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@sendSMS', 'as' => 'send-broadcast']);
+
 });
