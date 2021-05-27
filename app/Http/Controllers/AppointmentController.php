@@ -237,14 +237,6 @@ class AppointmentController extends Controller
             $all_count_appointment->where('tbl_client.mfl_code', Auth::user()->facility_id);
         }
 
-        if (Auth::user()->access_level == 'Partner') {
-            $all_count_appointment->where('partner_id', Auth::user()->partner_id);
-        }
-
-        if (Auth::user()->access_level == 'Donor') {
-            $all_count_appointment->where('donor_id', Auth::user()->donor_id);
-        }
-
         return view('appointments.appointment_calender')->with('all_count_appointment', $all_count_appointment->count());
     }
     public function get_created_appointments()

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '1024M');
 
+use App\Models\Appointments;
 use Illuminate\Http\Request;
 use App\Models\ClientList;
 use App\Models\Group;
@@ -46,13 +47,14 @@ class ClientListController extends Controller
         return view('clients.client_profile');
     }
 
-    public function get_client_profile(Request $request)
+    public function get_client_profile()
     {
         if (Auth::user()->access_level == 'Facility') {
-            $upn_search = $request->input('upn_search');
+            // $upn_search = $request->input('upn_search');
 
             $client_profile = Client::join('tbl_gender', 'tbl_client.gender', '=', 'tbl_gender.id')
                 ->join('tbl_language', 'tbl_client.language_id', '=', 'tbl_language.id')
+                ->join('tbl_groups', 'tbl_client.group_id', '=', 'tbl_groups.id')
                 ->join('tbl_marital_status', 'tbl_client.marital', '=', 'tbl_marital_status.id')
                 ->select(
                     DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as client_name"),
@@ -67,17 +69,21 @@ class ClientListController extends Controller
                     'tbl_client.smsenable',
                     'tbl_client.consent_date',
                     'tbl_gender.name as gender',
+                    'tbl_groups.name as group_name',
                     'tbl_language.name as language',
                     'tbl_marital_status.marital'
                 )
-                ->where('tbl_client.clinic_number', 'LIKE', "%{$upn_search}%")
+                // ->where('tbl_client.clinic_number', 'LIKE', "%{$upn_search}%")
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->get();
+
+                $profile_appointments = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id');
+
         }
 
 
 
-        return view('clients.client_profile')->with('client_profile', $client_profile);
+        return view('clients.client_profile', compact('client_profile'));
     }
 
     public function client_extract()
