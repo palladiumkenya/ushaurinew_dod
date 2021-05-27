@@ -38,25 +38,37 @@ class BroadcastController extends Controller
     {
 
         $request->validate([
-            'mfl_code' => 'required|exsists:facilities,id',
-            'group' => 'required',
-            'gender' => 'required',
+            'mfl_code' => 'required|exists:tbl_master_facility,code',
+            'groups' => 'required',
+            'genders' => 'required',
             'message' => 'required'
         ],[
-            'facility_id.exsists' => 'Invalid facility ID',
+            'mfl_code.exists' => 'Invalid facility ID',
         ]);
 
-        foreach($request['group'] as $group_id) {
+        //$groups = $request->groups;
 
-            $group = Group::find($group_id);
+        //foreach($groups as $group_id) {
 
-            if (is_null($group))
-                continue;
+            $group_id = Group::find($request->groups);
 
-            $clients = Client::where('mfl_code', $request->$facility_id)->where('group_id', $group_id)->where('gender_id', $gender_id)->get();    
+            $gender_id = Gender::find($request->genders);
 
-            if ($clients->count() == 0)
-                continue;
+            //return $gender_id->id;
+
+            // if (is_null($group))
+            //     continue;
+
+            $clients = Client::where('mfl_code', $request->mfl_code)
+                            ->where(function($query) use ($gender_id,$group_id) {
+                                    $query->where('gender', '=', $gender_id->id)
+                                    ->orWhere('group_id', '=', $group_id->id);
+                            })->get(); 
+            
+            // if ($clients->count() == 0)
+            //     continue;
+
+            //return $clients;
 
             foreach ($clients as $client) {
 
@@ -70,7 +82,7 @@ class BroadcastController extends Controller
  
             }    
   
-        }
+        //}
 
         return ["Sent"];
 

@@ -157,3 +157,5 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/send-broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@sendSMS', 'as' => 'send-broadcast']);
 
 });
+
+

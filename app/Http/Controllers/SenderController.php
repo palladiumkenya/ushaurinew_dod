@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AfricasTalking\SDK\AfricasTalking;
-use App\Sender;
+use App\Models\Sender;
 use Redirect;
-
 class SenderController extends Controller
 {
     public function send($to, $message)
     {
-        $username = "mhealthkenya";
+        $username = "mhealthuser";
         $apiKey = "1f6943f6c8f0d5d6b0dd54cd940935bdec8f7454c4e7863672048dae496ae355";
         $AT       = new AfricasTalking($username, $apiKey);
 
