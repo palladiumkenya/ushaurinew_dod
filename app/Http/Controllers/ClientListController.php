@@ -53,9 +53,9 @@ class ClientListController extends Controller
             // $upn_search = $request->input('upn_search');
 
             $client_profile = Client::join('tbl_gender', 'tbl_client.gender', '=', 'tbl_gender.id')
-                ->join('tbl_language', 'tbl_client.language_id', '=', 'tbl_language.id')
-                ->join('tbl_groups', 'tbl_client.group_id', '=', 'tbl_groups.id')
-                ->join('tbl_marital_status', 'tbl_client.marital', '=', 'tbl_marital_status.id')
+                ->leftjoin('tbl_language', 'tbl_client.language_id', '=', 'tbl_language.id')
+                ->leftjoin('tbl_groups', 'tbl_client.group_id', '=', 'tbl_groups.id')
+                ->leftjoin('tbl_marital_status', 'tbl_client.marital', '=', 'tbl_marital_status.id')
                 ->select(
                     DB::raw("CONCAT(`tbl_client`.`f_name`, ' ', `tbl_client`.`m_name`, ' ', `tbl_client`.`l_name`) as client_name"),
                     'tbl_client.phone_no',
@@ -77,14 +77,73 @@ class ClientListController extends Controller
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->get();
 
-                $profile_appointments = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id');
+            $data = [];
 
+            $total_appointments = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $future_appointment = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.appntmnt_date', '>=', Now())
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $kept_appointment = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.appointment_kept', '=', 'Yes')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $missed_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_status', '=', 'Missed')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $defaulted_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_status', '=', 'Defaulted')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $ltfu_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_status', '=', 'LTFU')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $refill_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '1')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $clinical_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '2')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $adherence_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '3')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $lab_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '4')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $viral_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '5')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
+            $other_app = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+                ->select('tbl_appointment.id')
+                ->where('tbl_appointment.app_type_1', '=', '6')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->count();
         }
-
-
-
-        return view('clients.client_profile', compact('client_profile'));
+        //dd($data);
+        return view('clients.client_profile', compact('client_profile', 'total_appointments', 'future_appointment', 'kept_appointment', 'missed_app', 'defaulted_app', 'ltfu_app', 'refill_app', 'clinical_app', 'adherence_app', 'lab_app', 'viral_app', 'other_app'));
     }
+
+
 
     public function client_extract()
     {

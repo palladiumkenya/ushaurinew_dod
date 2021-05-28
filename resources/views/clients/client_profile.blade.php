@@ -134,28 +134,28 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Total Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Total Appointments : {{ $total_appointments }} </strong>
                                                 <br>
                                                 <p class="text-muted all_appointments"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>Future Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r "> <strong>Future Appointments : {{ $future_appointment }}</strong>
                                                 <br>
                                                 <p class="text-muted current_appointments"></p>
                                             </div>
 
-                                            <div class="col-md-3 col-xs-6"> <strong>Kept Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6"> <strong>Kept Appointments : {{ $kept_appointment }}</strong>
                                                 <br>
                                                 <p class="text-muted kept_appointments "></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Missed Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6"> <strong>Missed Appointments : {{ $missed_app }}</strong>
                                                 <br>
                                                 <p class="text-muted missed_appointments "></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Defaulted Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Defaulted Appointments : {{ $defaulted_app }}</strong>
                                                 <br>
                                                 <p class="text-muted defaulted_appointments"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>LTFU Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r "> <strong>LTFU Appointments : {{ $ltfu_app }}</strong>
                                                 <br>
                                                 <p class="text-muted LTFU_appointments"></p>
                                             </div>
@@ -163,8 +163,13 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>No of Appointments by Type: </strong>
-                                                <ul class=" text-muted client_appointment_types"></ul>
+                                            <div class="col-md-6 col-xs-6 b-r "> <strong>No of Appointments by Type: </strong>
+                                                <ul class=" text-muted client_appointment_types">Re-Fill: {{ $refill_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Clinical Review: {{ $clinical_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Enhanced Adherence: {{ $adherence_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Lab Investigation: {{ $lab_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Viral Load: {{ $viral_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Other: {{ $other_app }}</ul>
                                             </div>
                                         </div>
 
