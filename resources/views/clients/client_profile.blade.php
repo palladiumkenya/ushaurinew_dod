@@ -183,7 +183,41 @@
                                 <div class="tab-pane" id="outgoing" role="tabpanel">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="outgoing_messages_logs_div col-xs-6 col-md-6" id="outgoing_messages_logs_div"></div>
+                                            <div class="table-responsive">
+                                                <table id="outgoing_message_table" class="display table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Clinic Number</th>
+                                                            <th>Phone Number</th>
+                                                            <th>Message Type</th>
+                                                            <th>Message</th>
+                                                            <th>Sent On</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @if (count($outgoing_msg) > 0)
+                                                        @foreach($outgoing_msg as $result)
+                                                        <tr>
+                                                            <td> {{$loop->iteration }}</td>
+                                                            <td> {{$result->clinic_number}}</td>
+                                                            <td> {{$result->destination}}</td>
+                                                            <td> {{$result->message_type}}</td>
+                                                            <td> {{$result->msg}}</td>
+                                                            <td> {{$result->created_at}}</td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
 
                                         </div>
 
@@ -250,6 +284,27 @@
 
 <script type="text/javascript">
     $('#multicolumn_ordering_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+    $('#outgoing_message_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]

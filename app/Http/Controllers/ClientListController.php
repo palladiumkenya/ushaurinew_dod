@@ -12,6 +12,7 @@ use App\Models\ClientList;
 use App\Models\Group;
 use App\Models\Clinic;
 use App\Models\Client;
+use App\Models\Message;
 use App\Models\Facility;
 use App\Models\ClientReport;
 use Auth;
@@ -138,9 +139,14 @@ class ClientListController extends Controller
                 ->where('tbl_appointment.app_type_1', '=', '6')
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->count();
+            $outgoing_msg = Message::join('tbl_client', 'tbl_clnt_outgoing.clnt_usr_id', '=', 'tbl_client.id')
+                ->join('tbl_message_types', 'tbl_clnt_outgoing.message_type_id', '=', 'tbl_message_types.id')
+                ->select('tbl_client.clinic_number', 'tbl_message_types.name as message_type', 'tbl_clnt_outgoing.destination', 'tbl_clnt_outgoing.created_at', 'tbl_clnt_outgoing.msg')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->get();
         }
         //dd($data);
-        return view('clients.client_profile', compact('client_profile', 'total_appointments', 'future_appointment', 'kept_appointment', 'missed_app', 'defaulted_app', 'ltfu_app', 'refill_app', 'clinical_app', 'adherence_app', 'lab_app', 'viral_app', 'other_app'));
+        return view('clients.client_profile', compact('client_profile', 'total_appointments', 'future_appointment', 'kept_appointment', 'missed_app', 'defaulted_app', 'ltfu_app', 'refill_app', 'clinical_app', 'adherence_app', 'lab_app', 'viral_app', 'other_app', 'outgoing_msg'));
     }
 
 
