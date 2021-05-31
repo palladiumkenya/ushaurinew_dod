@@ -12,6 +12,7 @@ use App\Models\ClientList;
 use App\Models\Group;
 use App\Models\Clinic;
 use App\Models\Client;
+use App\Models\Outcome;
 use App\Models\Message;
 use App\Models\Facility;
 use App\Models\ClientReport;
@@ -144,9 +145,17 @@ class ClientListController extends Controller
                 ->select('tbl_client.clinic_number', 'tbl_message_types.name as message_type', 'tbl_clnt_outgoing.destination', 'tbl_clnt_outgoing.created_at', 'tbl_clnt_outgoing.msg')
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->get();
+            $appointment_outcome = Outcome::join('tbl_client', 'tbl_clnt_outcome.client_id', '=', 'tbl_client.id')
+                ->join('tbl_appointment', 'tbl_clnt_outcome.appointment_id', '=', 'tbl_appointment.id')
+                ->join('tbl_appointment_types', 'tbl_appointment.app_type_1', '=', 'tbl_appointment_types.id')
+                ->join('tbl_final_outcome', 'tbl_clnt_outcome.fnl_outcome', '=', 'tbl_final_outcome.id')
+                ->join('tbl_outcome', 'tbl_clnt_outcome.outcome', '=', 'tbl_outcome.id')
+                ->select('tbl_client.clinic_number', 'tbl_client.file_no', 'tbl_appointment.appntmnt_date', 'tbl_appointment_types.name as app_type', 'tbl_clnt_outcome.tracer_name', 'tbl_final_outcome.name as final_outcome', 'tbl_outcome.name as outcome')
+                ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+                ->get();
         }
         //dd($data);
-        return view('clients.client_profile', compact('client_profile', 'total_appointments', 'future_appointment', 'kept_appointment', 'missed_app', 'defaulted_app', 'ltfu_app', 'refill_app', 'clinical_app', 'adherence_app', 'lab_app', 'viral_app', 'other_app', 'outgoing_msg'));
+        return view('clients.client_profile', compact('client_profile', 'total_appointments', 'future_appointment', 'kept_appointment', 'missed_app', 'defaulted_app', 'ltfu_app', 'refill_app', 'clinical_app', 'adherence_app', 'lab_app', 'viral_app', 'other_app', 'outgoing_msg', 'appointment_outcome'));
     }
 
 

@@ -252,7 +252,45 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="appointment_outcomes_log_div" id="appointment_outcomes_log_div"></div>
+                                            <div class="table-responsive">
+                                                <table id="appointment_outcome_table" class="display table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Clinic Number</th>
+                                                            <th>File No</th>
+                                                            <th>Appointment Date</th>
+                                                            <th>Appointment Type</th>
+                                                            <th>Tracer Name</th>
+                                                            <th>Outcome</th>
+                                                            <th>Final Outcome</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @if (count($appointment_outcome) > 0)
+                                                        @foreach($appointment_outcome as $result)
+                                                        <tr>
+                                                            <td> {{$loop->iteration }}</td>
+                                                            <td> {{$result->clinic_number}}</td>
+                                                            <td> {{$result->file_no}}</td>
+                                                            <td> {{$result->appntmnt_date}}</td>
+                                                            <td> {{$result->app_type}}</td>
+                                                            <td> {{$result->tracer_name}}</td>
+                                                            <td> {{$result->outcome}}</td>
+                                                            <td> {{$result->final_outcome}}</td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
 
                                         </div>
 
@@ -305,6 +343,27 @@
     });
 
     $('#outgoing_message_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+    $('#appointment_outcome_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]
