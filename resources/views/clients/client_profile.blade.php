@@ -28,25 +28,28 @@
                                 <h4 class="modal-title">Search Client</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
+                            <form role="form" method="get" action="{{route('profile_search')}}">
+                                {{ csrf_field() }}
 
-                            <!-- Modal body -->
-                            <div class="modal-body">
+                                <!-- Modal body -->
+                                <div class="modal-body">
 
-                                <div class="search_field">
-                                    <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter UPN No : " />
+                                    <div class="search_field">
+                                        <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter UPN No : " />
+                                    </div>
+
+                                    <div class="loading_div" style="display: none;">
+                                        <span>Loading ....Please wait .....</span>
+                                    </div>
+
                                 </div>
 
-                                <div class="loading_div" style="display: none;">
-                                    <span>Loading ....Please wait .....</span>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
+                                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal"><i class="fa fa-stop-circle-o"></i>Close</button>
                                 </div>
-
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
-                                <button type="button" class="btn btn-danger pull-right" data-dismiss="modal"><i class="fa fa-stop-circle-o"></i>Close</button>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
