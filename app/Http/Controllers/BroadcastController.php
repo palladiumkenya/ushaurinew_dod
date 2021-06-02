@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\Gender;
 use App\Models\Facility;
 use Carbon\Carbon;
+use Auth;
 
 
 class BroadcastController extends Controller
@@ -30,61 +31,114 @@ class BroadcastController extends Controller
             'genders' => $genders
         );
 
-        return view('broadcast.broadcast')->with($data);
+        if (Auth::user()->access_level == 'Facility') {
+
+            return view('broadcast.facility_broadcast')->with($data); 
+
+        } else if(Auth::user()->access_level == 'Partner') {
+
+            return view('broadcast.broadcast')->with($data); 
+
+        } else if(Auth::user()->access_level == 'Admin') {
+
+            return view('broadcast.broadcast')->with($data); 
+
+        }
 
     }
 
     public function sendSMS(Request $request)
     {
 
-        $request->validate([
-            'mfl_code' => 'required|exists:tbl_master_facility,code',
-            'groups' => 'required',
-            'genders' => 'required',
-            'message' => 'required'
-        ],[
-            'mfl_code.exists' => 'Invalid facility ID',
-        ]);
+        if (Auth::user()->access_level == 'Facility') {
 
-        //$groups = $request->groups;
+            $request->validate([
+                'mfl_code' => 'required|exists:tbl_master_facility,code',
+                'groups' => 'required',
+                'genders' => 'required',
+                'message' => 'required'
+            ],[
+                'mfl_code.exists' => 'Invalid facility ID',
+            ]);
+    
+            //$groups = $request->groups;
+    
+            //foreach($groups as $group_id) {
+    
+                $group_id = Group::find($request->groups);
+    
+                $gender_id = Gender::find($request->genders);
+    
+                //return $gender_id->id;
+    
+                // if (is_null($group))
+                //     continue;
+    
+                $clients = Client::where('mfl_code', $request->mfl_code)
+                                ->where(function($query) use ($gender_id,$group_id) {
+                                        $query->where('gender', '=', $gender_id->id)
+                                        ->orWhere('group_id', '=', $group_id->id);
+                                })->get(); 
+                
+                // if ($clients->count() == 0)
+                //     continue;
+    
+                //return $clients;
+    
+                foreach ($clients as $client) {
+    
+                    $dest = $client->phone_no;
+    
+                    $msg = $request->message;
+    
+                    $sender = new SenderController;
+    
+                    $sender->send($dest, $msg);
+     
+                }    
+      
+            //}
+    
+            return ["Sent"];
 
-        //foreach($groups as $group_id) {
 
-            $group_id = Group::find($request->groups);
+        } else if(Auth::user()->access_level == 'Admin') {
 
-            $gender_id = Gender::find($request->genders);
+            $request->validate([
+                'groups' => 'required',
+                'genders' => 'required',
+                'message' => 'required'
+            ]);
+        
+            foreach($request['groups'] as $group_id) {
 
-            //return $gender_id->id;
-
-            // if (is_null($group))
-            //     continue;
-
-            $clients = Client::where('mfl_code', $request->mfl_code)
-                            ->where(function($query) use ($gender_id,$group_id) {
-                                    $query->where('gender', '=', $gender_id->id)
-                                    ->orWhere('group_id', '=', $group_id->id);
-                            })->get(); 
+                $group = Group::find($group_id);
+        
+                if (is_null($group))
+                    continue;
+    
+                $clients = Client::where('group_id', '=', $group_id)->where('gender', $request->gender_id)->get(); 
+                
+                if ($clients->count() == 0)
+                    continue;
+        
+                foreach ($clients as $client) {
+    
+                    $dest = $client->phone_no;
+    
+                    $msg = $request->message;
+    
+                    $sender = new SenderController;
+    
+                    $sender->send($dest, $msg);
+     
+                }    
+      
+    
+            return ["Sent"];
             
-            // if ($clients->count() == 0)
-            //     continue;
-
-            //return $clients;
-
-            foreach ($clients as $client) {
-
-                $dest = $client->phone_no;
-
-                $msg = $request->message;
-
-                $sender = new SenderController;
-
-                $sender->send($dest, $msg);
- 
-            }    
-  
-        //}
-
-        return ["Sent"];
+            }
+        }    
 
     }
 
