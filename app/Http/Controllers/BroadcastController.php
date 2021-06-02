@@ -24,7 +24,14 @@ class BroadcastController extends Controller
 
         $u_facilities = Facility::where('code', Auth::user()->facility_id)->get();
 
-        $p_facilities = PartnerFacility::where('partner_id', Auth::user()->partner_id);
+        $p_facilities = Facility::join('tbl_partner_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+            ->select(
+                'tbl_partner_facility.mfl_code',
+                'tbl_partner_facility.partner_id',
+                'tbl_master_facility.name'
+            )
+            ->where('partner_id', Auth::user()->partner_id)
+            ->get();
 
         $groups = Group::all();
 
@@ -54,7 +61,7 @@ class BroadcastController extends Controller
 
         } else if(Auth::user()->access_level == 'Partner') {
 
-            return view('broadcast.broadcast')->with($p_data); 
+            return view('broadcast.partner_broadcast')->with($p_data); 
 
         } else if(Auth::user()->access_level == 'Admin') {
 
@@ -92,9 +99,7 @@ class BroadcastController extends Controller
                 
                     if ($clients->count() == 0)
                         continue;
-    
-                    return $clients;
-        
+            
                     foreach ($clients as $client) {
         
                         $dest = $client->phone_no;
@@ -116,13 +121,13 @@ class BroadcastController extends Controller
         } else if (Auth::user()->access_level == 'Partner') {
 
             $request->validate([
-                'mfl_code' => 'required|exists:tbl_partner_facility,code',
+                'mfl_code' => 'required',
                 'groups' => 'required',
                 'genders' => 'required',
                 'message' => 'required'
-            ],[
-                'mfl_code.exists' => 'Invalid facility ID',
             ]);
+
+            return $request->mfl_code;
         
             foreach($request['groups'] as $group_id) {
     
@@ -130,35 +135,32 @@ class BroadcastController extends Controller
             
                 if (is_null($group))
                     continue;
-    
-                $clients = Client::where('mfl_code', $request->mfl_code)
-                                ->where(function($query) use ($gender_id,$group_id) {
-                                        $query->where('gender', '=', $gender_id->id)
-                                        ->orWhere('group_id', '=', $group_id->id);
-                                })->get(); 
-                
-                // if ($clients->count() == 0)
-                //     continue;
-    
-                //return $clients;
-    
-                foreach ($clients as $client) {
-    
-                    $dest = $client->phone_no;
-    
-                    $msg = $request->message;
-    
-                    $sender = new SenderController;
-    
-                    $sender->send($dest, $msg);
-     
+
+                foreach($request['genders'] as $gender_id) { 
+
+                    $gender = Gender::find($gender_id);
+                    
+                    $clients = Client::where('mfl_code', $request->mfl_code)->where('group_id', '=', $group->id)->where('gender', $gender->id)->get();     
+                    
+                    if ($clients->count() == 0)
+                        continue;
+            
+                    foreach ($clients as $client) {
+        
+                        $dest = $client->phone_no;
+        
+                        $msg = $request->message;
+        
+                        $sender = new SenderController;
+        
+                        $sender->send($dest, $msg);
+        
+                    }    
+        
                 }    
-      
-            }
     
-            return back();
-
-
+            }    
+      
         } else if(Auth::user()->access_level == 'Admin') {
 
             $request->validate([

@@ -423,6 +423,11 @@
                         </li>
                         @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
                         <li class="item-name">
+                            <a class="" href="{{route('broadcast')}}">
+                                <span class="item-name">Broadcast</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
                             <a class="" href="{{route('tracing-cost')}}">
                                 <span class="item-name">Tracing Cost</span>
                             </a>
