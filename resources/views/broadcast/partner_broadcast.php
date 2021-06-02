@@ -15,20 +15,25 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="card-title mb-3 text-center">New Facility Broadcast</div>
+                            <div class="card-title mb-3 text-center">New Broadcast</div>
                             <form role="form" method="post"action="{{route('send-broadcast')}}">
                                 {{ csrf_field() }}
                                 <div class="row">
 
                                     <div class="col-md-12 form-group mb-3">
-                                        <select class="form-control" data-width="100%" disabled id="mfl_code" name="mfl_code" data-actions-box="true">
-                                            <option value="{{Auth::user()->facility_id}}" selected>{{$facilities->first()->name }}</option>
+                                        <select class="form-control" data-width="100%" id="mfl_code" name="mfl_code" data-actions-box="true">
+                                            <option value="">Select Facility</option>
+                                                @if (count($facilities) > 0)
+                                                    @foreach($facilities as $facility)
+                                                    <option value="{{$facility->code }}">{{ ucwords($facility->name) }}</option>
+                                                        @endforeach
+                                                @endif
                                         </select>
                                     </div>
 
                                     <div class="col-md-12 form-group mb-3">
                                         <label>Select Group</label>
-                                        <select class="selectpicker form-control" data-width="100%" id="groups" name="groups[]" multiple data-actions-box="true">
+                                        <select class="form-control" data-width="100%" id="groups" name="groups" data-actions-box="true">
                                             <option value="">Select Group</option>
                                                 @if (count($groups) > 0)
                                                     @foreach($groups as $group)
@@ -40,7 +45,7 @@
 
                                     <div class="col-md-12 form-group mb-3">
                                         <label>Select Gender</label>
-                                        <select class="selectpicker form-control" data-width="100%" id="genders" name="genders[]" multiple data-actions-box="true">
+                                        <select class="form-control" data-width="100%" id="genders" name="genders" data-actions-box="true">
                                             <option value="">Select Gender</option>
                                                 @if (count($genders) > 0)
                                                     @foreach($genders as $gender)
