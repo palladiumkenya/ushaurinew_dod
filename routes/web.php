@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Partner routes
   Route::get('/Reports/il/partners', ['uses' => 'App\Http\Controllers\ILUushauriController@partners_il', 'as' => 'Reports-il-partners']);
+  Route::get('/admin/partners', ['uses' => 'App\Http\Controllers\PartnerController@index', 'as' => 'admin-partners']);
 
   // Appointments routes
   Route::get('report/future/appointments', ['uses' => 'App\Http\Controllers\AppointmentController@index', 'as' => 'future-apps']);
@@ -110,6 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report/pmtct_clients', ['uses' => 'App\Http\Controllers\GroupController@get_pmtct_clients', 'as' => 'report-pmtct_clients']);
   Route::get('report/adults_clients', ['uses' => 'App\Http\Controllers\GroupController@get_psc_clients', 'as' => 'report-adults_clients']);
   Route::get('report/paeds_clients', ['uses' => 'App\Http\Controllers\GroupController@get_paeds_clients', 'as' => 'report-paeds_clients']);
+  Route::get('admin/groups', ['uses' => 'App\Http\Controllers\GroupController@index', 'as' => 'admin-groups']);
 
   //routes for bulk clients upload
   Route::get('/upload/clients/form', ['uses' => 'App\Http\Controllers\BulkUploadController@uploadClientForm', 'as' => 'upload-clients-form']);

@@ -256,12 +256,12 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('admin-partners')}}">
                                 <span class="item-name">Partner</span>
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('admin-groups')}}">
                                 <span class="item-name">Groups</span>
                             </a>
                         </li>
