@@ -18,25 +18,25 @@
                                 <div class="row">
 
                                     <div class="col-md-12 form-group mb-3">
-                                        <select class="selectpicker form-control" data-width="100%" id="groups" name="groups" multiple data-actions-box="true">
-                                            <option value="">Select Group</option>
-                                                @if (count($groups) > 0)
-                                                    @foreach($groups as $group)
-                                                    <option value="{{$group->id }}">{{ ucwords($group->name) }}</option>
-                                                        @endforeach
-                                                @endif
+                                        <label>Select Group</label>
+                                        <select class="selectpicker form-control" data-width="100%" id="groups" name="groups[]" multiple data-actions-box="true">
+                                            @if (count($groups) > 0)
+                                                @foreach($groups as $group)
+                                                <option value="{{$group->id }}">{{ ucwords($group->name) }}</option>
+                                                    @endforeach
+                                            @endif
                                         </select>
                                     </div>
 
                                     <div class="col-md-12 form-group mb-3">
-                                        <select class="selectpicker form-control" data-width="100%" id="genders" name="genders" multiple data-actions-box="true">
-                                            <option value="" >Select Gender</option>
-                                                @if (count($genders) > 0)
-                                                    @foreach($genders as $gender)
-                                                    <option value="{{$gender->id }}">{{ ucwords($gender->name) }}</option>
-                                                        @endforeach
-                                                @endif
-                                        </select>
+                                        <label>Select Gender</label>
+                                        <select class="selectpicker form-control" data-width="100%" id="genders" name="genders[]" multiple data-actions-box="true">
+                                            @if (count($genders) > 0)
+                                                @foreach($genders as $gender)
+                                                <option value="{{$gender->id }}">{{ ucwords($gender->name) }}</option>
+                                                    @endforeach
+                                            @endif
+                                    </select>
                                     </div>
 
                                     <div class="col-md-12 form-group mb-3">

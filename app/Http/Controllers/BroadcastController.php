@@ -116,28 +116,34 @@ class BroadcastController extends Controller
         
                 if (is_null($group))
                     continue;
-    
-                $clients = Client::where('group_id', '=', $group_id)->where('gender', $request->gender_id)->get(); 
+
+                foreach($request['genders'] as $gender_id) { 
+
+                    $gender = Gender::find($gender_id);
+                    
+                    $clients = Client::where('group_id', '=', $group->id)->where('gender', $gender->id)->get(); 
                 
-                if ($clients->count() == 0)
-                    continue;
-        
-                foreach ($clients as $client) {
-    
-                    $dest = $client->phone_no;
-    
-                    $msg = $request->message;
-    
-                    $sender = new SenderController;
-    
-                    $sender->send($dest, $msg);
-     
-                }    
-      
-    
-            return ["Sent"];
+                    if ($clients->count() == 0)
+                        continue;
             
+                    foreach ($clients as $client) {
+        
+                        $dest = $client->phone_no;
+        
+                        $msg = $request->message;
+        
+                        $sender = new SenderController;
+        
+                        $sender->send($dest, $msg);
+        
+                    }   
+
+                }   
+                  
             }
+
+            return ["Sent"];
+
         }    
 
     }
