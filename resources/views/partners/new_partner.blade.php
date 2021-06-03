@@ -12,7 +12,7 @@
                         <div class="card-body">
                          <h4 class="card-title mb-3">A list of Partners in the system</h4>
                             <div class="col-md-12" style="margin-bottom:20px;">
-                            <a type="button" href="" class="btn btn-primary btn-md pull-right">Add Donor</a>
+                            <a type="button" href="" class="btn btn-primary btn-md pull-right">Add Partner</a>
 
                             </div>
                                 <div class="table-responsive">
