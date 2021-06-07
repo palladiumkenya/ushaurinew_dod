@@ -135,7 +135,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this Delete?</p>
+                <p>Are you sure you want to delete this Donor?</p>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
                 <button id="delete" type="button" class="btn btn-danger">Delete</button>
             </div>

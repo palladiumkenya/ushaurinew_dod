@@ -82,6 +82,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Partner routes
   Route::get('/Reports/il/partners', ['uses' => 'App\Http\Controllers\ILUushauriController@partners_il', 'as' => 'Reports-il-partners']);
   Route::get('/admin/partners', ['uses' => 'App\Http\Controllers\PartnerController@index', 'as' => 'admin-partners']);
+  Route::get('/admin/partners/form', ['uses' => 'App\Http\Controllers\PartnerController@addpartnerform', 'as' => 'admin-partners-form']);
+  Route::post('/add/partners', ['uses' => 'App\Http\Controllers\PartnerController@addpartner', 'as' => 'addpartner']);
+  Route::post('/edit/partner', ['uses' => 'App\Http\Controllers\PartnerController@editpartner', 'as' => 'editpartner']);
+  Route::post('/delete/partner', ['uses' => 'App\Http\Controllers\PartnerController@deletepartner', 'as' => 'deletepartner']);
 
   // Appointments routes
   Route::get('report/future/appointments', ['uses' => 'App\Http\Controllers\AppointmentController@index', 'as' => 'future-apps']);

@@ -84,7 +84,7 @@ class DonorController extends Controller
     public function deletedonor(Request $request)
     {
         try {
-            $donor = Donor::find($request->did);
+            $donor = Donor::find($request->id);
             // $donor->update_at = date('Y-m-d H:i:s');
             if ($donor->save()) {
 
