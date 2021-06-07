@@ -14,7 +14,7 @@ class GroupController extends Controller
     {
         $all_groups = Group::all();
 
-        return view('group.group')->with('all_groups', $all_groups);
+        return view('groups.new_group')->with('all_groups', $all_groups);
     }
     public function get_pmtct_clients()
     {

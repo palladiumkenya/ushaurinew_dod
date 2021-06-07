@@ -61,8 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/Reports/clients/distribution', ['uses' => 'App\Http\Controllers\DashboardController@client_distribution_graphs', 'as' => 'Reports-clients-distribution']);
   //Route::get('main_graph_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-main-dashboard']);
   // clients routes
-  Route::get('/report/clients/profile', ['uses' => 'App\Http\Controllers\ClientListController@profile_index', 'as' => 'profile']);
-  Route::get('/report/clients/search', ['uses' => 'App\Http\Controllers\ClientListController@get_client_profile', 'as' => 'clients-profile']);
+  Route::get('/report/clients/profile', ['uses' => 'App\Http\Controllers\ClientListController@get_client_profile', 'as' => 'profile']);
+  Route::get('/profile_search', ['uses' => 'App\Http\Controllers\ClientListController@profile_search', 'as' => 'profile_search']);
   Route::get('/report/clients/list', ['uses' => 'App\Http\Controllers\ClientListController@get_client_list', 'as' => 'report-clients-list']);
   Route::get('/report/clients/extract', ['uses' => 'App\Http\Controllers\ClientListController@client_extract', 'as' => 'clients-extract']);
   Route::get('/get/clients/extract', ['uses' => 'App\Http\Controllers\ClientListController@filter_client_extract', 'as' => 'filter-clients-extract']);
@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Partner routes
   Route::get('/Reports/il/partners', ['uses' => 'App\Http\Controllers\ILUushauriController@partners_il', 'as' => 'Reports-il-partners']);
+  Route::get('/admin/partners', ['uses' => 'App\Http\Controllers\PartnerController@index', 'as' => 'admin-partners']);
 
   // Appointments routes
   Route::get('report/future/appointments', ['uses' => 'App\Http\Controllers\AppointmentController@index', 'as' => 'future-apps']);
@@ -110,6 +111,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report/pmtct_clients', ['uses' => 'App\Http\Controllers\GroupController@get_pmtct_clients', 'as' => 'report-pmtct_clients']);
   Route::get('report/adults_clients', ['uses' => 'App\Http\Controllers\GroupController@get_psc_clients', 'as' => 'report-adults_clients']);
   Route::get('report/paeds_clients', ['uses' => 'App\Http\Controllers\GroupController@get_paeds_clients', 'as' => 'report-paeds_clients']);
+  Route::get('admin/groups', ['uses' => 'App\Http\Controllers\GroupController@index', 'as' => 'admin-groups']);
 
   //routes for bulk clients upload
   Route::get('/upload/clients/form', ['uses' => 'App\Http\Controllers\BulkUploadController@uploadClientForm', 'as' => 'upload-clients-form']);
@@ -151,11 +153,12 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/admin/donors', ['uses' => 'App\Http\Controllers\DonorController@index', 'as' => 'admin-donors']);
   Route::get('/admin/donors/form', ['uses' => 'App\Http\Controllers\DonorController@adddonorform', 'as' => 'admin-donors-form']);
   Route::post('/add/donors', ['uses' => 'App\Http\Controllers\DonorController@adddonor', 'as' => 'adddonor']);
+  Route::post('/edit/donor', ['uses' => 'App\Http\Controllers\DonorController@editdonor', 'as' => 'editdonor']);
+  Route::post('/delete/donor', ['uses' => 'App\Http\Controllers\DonorController@deletedonor', 'as' => 'deletedonor']);
 
   //Broadcast routes
   Route::get('/broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@broadcast_form', 'as' => 'broadcast']);
   Route::post('/send-broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@sendSMS', 'as' => 'send-broadcast']);
-
 });
 
 

@@ -28,25 +28,28 @@
                                 <h4 class="modal-title">Search Client</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
+                            <form role="form" method="get" action="{{route('profile_search')}}">
+                                {{ csrf_field() }}
 
-                            <!-- Modal body -->
-                            <div class="modal-body">
+                                <!-- Modal body -->
+                                <div class="modal-body">
 
-                                <div class="search_field">
-                                    <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter UPN No : " />
+                                    <div class="search_field">
+                                        <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter UPN No : " />
+                                    </div>
+
+                                    <div class="loading_div" style="display: none;">
+                                        <span>Loading ....Please wait .....</span>
+                                    </div>
+
                                 </div>
 
-                                <div class="loading_div" style="display: none;">
-                                    <span>Loading ....Please wait .....</span>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
+                                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal"><i class="fa fa-stop-circle-o"></i>Close</button>
                                 </div>
-
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
-                                <button type="button" class="btn btn-danger pull-right" data-dismiss="modal"><i class="fa fa-stop-circle-o"></i>Close</button>
-                            </div>
+                            </form>
 
                         </div>
                     </div>
@@ -74,65 +77,56 @@
                                 <div class="tab-pane active " id="profile" role="tabpanel">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
-                                                <br>
-                                                <p class="text-muted client_name"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>Mobile</strong>
-                                                <br>
-                                                <p class="text-muted phone_no"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Marital Status</strong>
-                                                <br>
-                                                <p class="text-muted marital"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Language </strong>
-                                                <br>
-                                                <p class="text-muted language "></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Client Condition</strong>
-                                                <br>
-                                                <p class="text-muted client_status"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>Date of Birth </strong>
-                                                <br>
-                                                <p class="text-muted dob"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Enrollment Date </strong>
-                                                <br>
-                                                <p class="text-muted enrollment_date"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>ART Date </strong>
-                                                <br>
-                                                <p class="text-muted art_date"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>Group </strong>
-                                                <br>
-                                                <p class="text-muted group"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Status </strong>
-                                                <br>
-                                                <p class="text-muted status"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>CCC Number </strong>
-                                                <br>
-                                                <p class="text-muted clinic_number"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>File Number </strong>
-                                                <br>
-                                                <p class="text-muted file_no"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Gender </strong>
-                                                <br>
-                                                <p class="text-muted gender_name"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Sms Enable </strong>
-                                                <br>
-                                                <p class="text-muted gender_name"></p>
-                                            </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Consent Date </strong>
-                                                <br>
-                                                <p class="text-muted gender_name"></p>
+                                            <div class="table-responsive">
+                                                <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Full Name</th>
+                                                            <th>Mobile</th>
+                                                            <th>Marital Status</th>
+                                                            <th>Language</th>
+                                                            <th>Client Condition</th>
+                                                            <th>Date of Birth</th>
+                                                            <th>Enrollment Date</th>
+                                                            <th>ART Date</th>
+                                                            <th>Group</th>
+                                                            <th>Status</th>
+                                                            <th>CCC Number</th>
+                                                            <th>File Number</th>
+                                                            <th>Gender</th>
+                                                            <th>Sms Enable</th>
+                                                            <th>Consent Date</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @if (count($client_profile) > 0)
+                                                        @foreach($client_profile as $result)
+                                                        <tr>
+                                                            <td> {{$result->client_name }}</td>
+                                                            <td> {{$result->phone_no}}</td>
+                                                            <td> {{$result->marital}}</td>
+                                                            <td> {{$result->language}}</td>
+                                                            <td> {{$result->client_status}}</td>
+                                                            <td> {{$result->dob}}</td>
+                                                            <td> {{$result->enrollment_date}}</td>
+                                                            <td> {{$result->art_date}}</td>
+                                                            <td> {{$result->group_name}}</td>
+                                                            <td> {{$result->status}}</td>
+                                                            <td> {{$result->clinic_number}}</td>
+                                                            <td> {{$result->file_no}}</td>
+                                                            <td> {{$result->gender}}</td>
+                                                            <td> {{$result->smsenable}}</td>
+                                                            <td> {{$result->consent_date}}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+
+                                                    </tbody>
+
+                                                </table>
+
                                             </div>
                                         </div>
 
@@ -143,28 +137,28 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Total Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Total Appointments : {{ $total_appointments }} </strong>
                                                 <br>
                                                 <p class="text-muted all_appointments"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>Future Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r "> <strong>Future Appointments : {{ $future_appointment }}</strong>
                                                 <br>
                                                 <p class="text-muted current_appointments"></p>
                                             </div>
 
-                                            <div class="col-md-3 col-xs-6"> <strong>Kept Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6"> <strong>Kept Appointments : {{ $kept_appointment }}</strong>
                                                 <br>
                                                 <p class="text-muted kept_appointments "></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6"> <strong>Missed Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6"> <strong>Missed Appointments : {{ $missed_app }}</strong>
                                                 <br>
                                                 <p class="text-muted missed_appointments "></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Defaulted Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r"> <strong>Defaulted Appointments : {{ $defaulted_app }}</strong>
                                                 <br>
                                                 <p class="text-muted defaulted_appointments"></p>
                                             </div>
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>LTFU Appointments : </strong>
+                                            <div class="col-md-4 col-xs-6 b-r "> <strong>LTFU Appointments : {{ $ltfu_app }}</strong>
                                                 <br>
                                                 <p class="text-muted LTFU_appointments"></p>
                                             </div>
@@ -172,8 +166,13 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-3 col-xs-6 b-r "> <strong>No of Appointments by Type: </strong>
-                                                <ul class=" text-muted client_appointment_types"></ul>
+                                            <div class="col-md-6 col-xs-6 b-r "> <strong>No of Appointments by Type: </strong>
+                                                <ul class=" text-muted client_appointment_types">Re-Fill: {{ $refill_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Clinical Review: {{ $clinical_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Enhanced Adherence: {{ $adherence_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Lab Investigation: {{ $lab_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Viral Load: {{ $viral_app }}</ul>
+                                                <ul class=" text-muted client_appointment_types">Other: {{ $other_app }}</ul>
                                             </div>
                                         </div>
 
@@ -187,7 +186,41 @@
                                 <div class="tab-pane" id="outgoing" role="tabpanel">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="outgoing_messages_logs_div col-xs-6 col-md-6" id="outgoing_messages_logs_div"></div>
+                                            <div class="table-responsive">
+                                                <table id="outgoing_message_table" class="display table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Clinic Number</th>
+                                                            <th>Phone Number</th>
+                                                            <th>Message Type</th>
+                                                            <th>Message</th>
+                                                            <th>Sent On</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @if (count($outgoing_msg) > 0)
+                                                        @foreach($outgoing_msg as $result)
+                                                        <tr>
+                                                            <td> {{$loop->iteration }}</td>
+                                                            <td> {{$result->clinic_number}}</td>
+                                                            <td> {{$result->destination}}</td>
+                                                            <td> {{$result->message_type}}</td>
+                                                            <td> {{$result->msg}}</td>
+                                                            <td> {{$result->created_at}}</td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
 
                                         </div>
 
@@ -222,7 +255,45 @@
                                     <div class="card-body">
 
                                         <div class="row">
-                                            <div class="appointment_outcomes_log_div" id="appointment_outcomes_log_div"></div>
+                                            <div class="table-responsive">
+                                                <table id="appointment_outcome_table" class="display table table-striped table-bordered" style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Clinic Number</th>
+                                                            <th>File No</th>
+                                                            <th>Appointment Date</th>
+                                                            <th>Appointment Type</th>
+                                                            <th>Tracer Name</th>
+                                                            <th>Outcome</th>
+                                                            <th>Final Outcome</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @if (count($appointment_outcome) > 0)
+                                                        @foreach($appointment_outcome as $result)
+                                                        <tr>
+                                                            <td> {{$loop->iteration }}</td>
+                                                            <td> {{$result->clinic_number}}</td>
+                                                            <td> {{$result->file_no}}</td>
+                                                            <td> {{$result->appntmnt_date}}</td>
+                                                            <td> {{$result->app_type}}</td>
+                                                            <td> {{$result->tracer_name}}</td>
+                                                            <td> {{$result->outcome}}</td>
+                                                            <td> {{$result->final_outcome}}</td>
+
+                                                        </tr>
+                                                        @endforeach
+                                                        @endif
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
 
                                         </div>
 
@@ -251,94 +322,69 @@
 @section('page-js')
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script type="text/javascript">
-    var tb = jQuery.noConflict();
-    $(document).ready(function() {
-        $('#myModal').modal('show');
+    $('#multicolumn_ordering_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     });
-    tb(document).ready(function() {
 
+    $('#outgoing_message_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
 
-
-        function commaSeparateNumber(val) {
-            while (/(\d+)(\d{3})/.test(val.toString())) {
-                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-            }
-            return val;
-        }
-
-
-
-        $(".search_upn_btn").click(function() {
-
-            tb(".loading_div").show();
-            tb(".search_field").hide();
-            tb(".generated_profile_div").show();
-            var tokenizer = tb(".tokenizer").val();
-            var upn = tb(".upn_search").val();
-            // Does some stuff and logs the event to the console
-            tb(".loader").show();
-
-
-            $.ajax({
-                url: "{{ route('clients-profile') }}",
-                type: 'POST',
-                dataType: 'JSON',
-                data: {upn: upn, tokenizer: tokenizer},
-                success: function(data) {
-                    console.log(data);
-                    $(".client_name").empty();
-                    $(".client_status").empty();
-                    $(".dob").empty();
-                    $(".enrollment_date").empty();
-                    $(".art_date").empty();
-                    $(".group").empty();
-                    $(".gender").empty();
-                    $(".language").empty();
-                    $(".marital").empty();
-                    $(".phone_no").empty();
-                    $(".status").empty();
-                    $(".clinic_number").empty();
-                    var isempty = jQuery.isEmptyObject(data);
-                    if (isempty) {
-                        swal("Sorry", "Clininc number : " + upn + " was not found in the  system  ", "info");
-                    } else {
-                        console.log(data);
-
-                        $.each(data, function(i, value) {
-                            $(".client_name").append("Client Name : " + value.f_name + " " + value.m_name + " " + value.l_name);
-                            $(".client_status").append("Client Status" + value.client_status);
-                            $(".dob").append("Date of Birth " + value.dob);
-                            $(".enrollment_date").append("Enrollment Date : " + value.enrollment_date);
-                            $(".art_date").append("ART Start Date : " + value.art_date);
-                            $(".group").append("Groupi : " + value.group_name);
-                            $(".gender").append("Language  : " + value.gender_name);
-                            $(".language").append("Language  : " + value.language_name);
-                            $(".marital").append("Marital Status : " + value.marital);
-                            $(".phone_no").append("Phone No : " + value.phone_no);
-                            $(".status").append("Status : " + value.status);
-                            $(".clinic_number").append("Clinic Number : " + value.clinic_number);
-                        });
-
-
-                    }
-
-
-
-                } , error: function (jqXHR) {
-                  swal("Error", "Clininc number already exists and is registered under : " + upn + " ", "warning");
-                }
-            });
-
-
-
-
-
-
-        });
-
-
+    $('#appointment_outcome_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
     });
 </script>
 

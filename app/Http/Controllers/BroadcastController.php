@@ -127,7 +127,6 @@ class BroadcastController extends Controller
                 'message' => 'required'
             ]);
 
-            return $request->mfl_code;
         
             foreach($request['groups'] as $group_id) {
     
@@ -160,6 +159,8 @@ class BroadcastController extends Controller
                 }    
     
             }    
+
+            return back();
       
         } else if(Auth::user()->access_level == 'Admin') {
 
