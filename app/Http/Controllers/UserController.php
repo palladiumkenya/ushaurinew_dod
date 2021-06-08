@@ -16,6 +16,7 @@ use App\Models\SubCounty;
 use App\Models\PartnerFacility;
 use Auth;
 use DB;
+use Session;
 
 class UserController extends Controller
 {
@@ -114,6 +115,15 @@ class UserController extends Controller
         try {
             $user = new User;
 
+            $validate = User::where('phone_no', $request->phone)
+                ->first();
+
+            if ($validate) {
+                Session::flash('statuscode', 'error');
+
+                return redirect('admin/users/form')->with('status', 'Phone Number is already used in the system!');
+            }
+
             $user->f_name = $request->fname;
             $user->l_name = $request->mname;
             $user->l_name = $request->lname;
@@ -159,14 +169,12 @@ class UserController extends Controller
 
 
             if ($user->save()) {
+                Session::flash('statuscode', 'success');
 
-                toastr()->success('User has been saved successfully!');
-
-                return redirect()->route('admin-users');
+                return redirect('admin/users')->with('status', 'User has been saved successfully!');
             } else {
-                toastr()->error('An error has occurred please try again later.');
-
-                return back();
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'An error has occurred please try again later.');
             }
         } catch (Exception $e) {
             toastr()->error('An error has occurred please try again later.');

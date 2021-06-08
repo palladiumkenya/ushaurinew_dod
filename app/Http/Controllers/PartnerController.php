@@ -54,6 +54,7 @@ class PartnerController extends Controller
                 return back()->with('error', 'An error has occurred please try again later.');
             }
         } catch (Exception $e) {
+            return back();
         }
     }
     public function editpartner(Request $request)

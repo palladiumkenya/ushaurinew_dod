@@ -46,7 +46,7 @@
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
+                                    <button type="submit" class="search_upn_btn btn btn-default pull-left"><i class=" fa fa-search"></i>Search</button>
                                     <button type="button" class="btn btn-danger pull-right" data-dismiss="modal"><i class="fa fa-stop-circle-o"></i>Close</button>
                                 </div>
                             </form>
