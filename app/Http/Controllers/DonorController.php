@@ -87,10 +87,11 @@ class DonorController extends Controller
             $donor = Donor::find($request->id);
             // $donor->update_at = date('Y-m-d H:i:s');
             if ($donor->save()) {
-
-                return response(['status' => 'success', 'details' => 'Donor has been deleted successfully']);
+                Session::flash('statuscode', 'success');
+                return redirect('admin/donors')->with('status', 'Donor has been deleted successfully');
             } else {
-                return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'An error has occurred please try again later.');
             }
         } catch (Exception $e) {
         }

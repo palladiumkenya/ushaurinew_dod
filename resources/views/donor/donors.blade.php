@@ -46,7 +46,7 @@
 
                             <td>
                                 <button onclick="editdonor({{ $donor }});" data-toggle="modal" data-target="#editdonor" type="button" class="btn btn-primary btn-sm">Edit</button>
-                                <button onclick="deleteDonor({{ $donor->id }});" type="button" data-target="#deletedonor" class="btn btn-danger btn-sm">Delete</button>
+                                <button onclick="deletedonor({{ $donor->id }});" type="button" class="btn btn-danger btn-sm">Delete</button>
 
 
                             </td>
@@ -124,15 +124,14 @@
     </div>
 </div>
 
-<div id="deletedonor" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
+<div id="deletedonor" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-
-                <div class="card-title mb-3">Delete Donor</div>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title">Delete Donor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete this Donor?</p>
@@ -144,7 +143,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -186,9 +184,9 @@
         $('#id').val(donor.id);
     }
 
-    function deleteDonor(id) {
+    function deletedonor(id) {
         $('#deletedonor').modal('show');
-        console.log(uid);
+        console.log(id);
         $(document).off("click", "#delete").on("click", "#delete", function(event) {
             $.ajax({
                 type: "POST",
