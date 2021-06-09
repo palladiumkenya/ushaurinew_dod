@@ -266,7 +266,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('admin_facilities')}}">
                                 <span class="item-name">Facilities</span>
                             </a>
                         </li>
@@ -435,7 +435,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a class="" href="">
+                            <a class="" href="{{route('my_facilities')}}">
                                 <span class="item-name">My Facilities</span>
                             </a>
                         </li>
