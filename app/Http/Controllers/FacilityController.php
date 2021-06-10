@@ -107,7 +107,7 @@ class FacilityController extends Controller
                     'tbl_partner_facility.is_approved',
                     'tbl_partner_facility.id'
                 )
-                ->where('tbl_partner_facility.mfl_code', Auth::user()->facility_id);
+                ->where('tbl_partner_facility.mfl_code', Auth::user()->facility_id)
                 ->get();
             }
             if (Auth::user()->access_level == 'Partner') {
@@ -127,7 +127,7 @@ class FacilityController extends Controller
                         'tbl_partner_facility.is_approved',
                         'tbl_partner_facility.id'
                     )
-                    ->where('tbl_partner_facility.partner_id', Auth::user()->partner_id);
+                    ->where('tbl_partner_facility.partner_id', Auth::user()->partner_id)
                     ->get();
             }
         return view('facilities.my_facilities', compact('facilities'));

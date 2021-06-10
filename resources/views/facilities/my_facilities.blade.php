@@ -10,7 +10,12 @@
     <div class="card text-left">
 
         <div class="card-body">
-            <h4 class="card-title mb-3">Facilities Lists</h4>
+        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+            <h4 class="card-title mb-3">My Facilities Lists</h4>
+            @endif
+            @if (Auth::user()->access_level == 'Facility')
+            <h4 class="card-title mb-3">My Facility</h4>
+            @endif
             <div class="col-md-12" style="margin-top:10px; ">
 
 
@@ -50,10 +55,12 @@
                                     <button onclick="approvefacility({{$result}});" data-toggle="modal" data-target="#approvefacility" type="button" class="btn btn-primary btn-sm">Approve</button>
                                 </td>
                                 @endif
+                                @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
                                 <td>
                                     <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Edit</button>
                                     <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Delete</button>
                                 </td>
+                                @endif
 
                             </tr>
                             @endforeach
