@@ -71,10 +71,12 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form role="form" method="post" action="{{route('report-clients-consent')}}">
+                            <form role="form" method="post" action="{{route('add_facility')}}">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <input type="hidden" name="id" id="id">
+                                    <input type="hidden" name="county" id="county">
+                                    <input type="hidden" name="sub_county" id="sub_county">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">Facility Name</label>
                                         <input type="text" class="form-control" id="facility_name" name="facility_name" placeholder="Facility Name" readonly />
@@ -98,14 +100,14 @@
 
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="picker1">Partner Name</label>
-                                        <select id ="partner" name="partner" class="form-control" required="">
-                                            <option >Select Partner</option>
+                                        <select id="partner" name="partner" class="form-control" required="">
+                                            <option>Select Partner</option>
 
-                                              @if (count($all_partners) > 0)
-                                                        @foreach($all_partners as $partner)
-                                                        <option value="{{$partner->id }}">{{ ucwords($partner->name) }}</option>
-                                                         @endforeach
-                                              @endif
+                                            @if (count($all_partners) > 0)
+                                            @foreach($all_partners as $partner)
+                                            <option value="{{$partner->id }}">{{ ucwords($partner->name) }}</option>
+                                            @endforeach
+                                            @endif
 
                                             <option></option>
                                         </select>
@@ -144,16 +146,18 @@
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
 <script type="text/javascript">
+    function addfacility(result) {
 
-function addfacility(result){
+        $('#facility_name').val(result.facility_name);
+        $('#facility_type').val(result.facility_type);
+        $('#mfl_code').val(result.code);
+        $('#owner').val(result.owner);
+        $('#level').val(result.level);
+        $('#county').val(result.county_id);
+        $('#sub_county').val(result.sub_county_id);
+        $('#id').val(result.id);
 
-$('#facility_name').val(result.facility_name);
-$('#facility_type').val(result.facility_type);
-$('#mfl_code').val(result.code);
-$('#owner').val(result.owner);
-$('#level').val(result.level);
-
-}
+    }
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({
         columnDefs: [{

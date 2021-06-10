@@ -43,9 +43,13 @@
                                 <td> {{$result->sub_county_name}}</td>
                                 <td> {{$result->consituency_name}}</td>
                                 <td> {{$result->owner}}</td>
+                                @if($result->is_approved == 'Yes')
+                                <td>{{$result->is_approved}}</td>
+                                @else
                                 <td>
-                                    <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Approve</button>
+                                    <button onclick="approvefacility({{$result}});" data-toggle="modal" data-target="#approvefacility" type="button" class="btn btn-primary btn-sm">Approve</button>
                                 </td>
+                                @endif
                                 <td>
                                     <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Edit</button>
                                     <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Delete</button>
@@ -65,6 +69,32 @@
 </div>
 <!-- end of col -->
 
+<div id="approvefacility" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Approve Facility?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Facility Name: <b>{{$result->facility_name}}</b> MFL Code: <b>{{$result->code}}</b></p>
+            </div>
+            <div class="modal-footer">
+                <form role="form" method="post" action="{{route('approve-facility')}}">
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="mfl_code" id="mfl_code">
+                    <button type="submit" class="btn btn-primary">Yes, Approve it!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -72,8 +102,9 @@
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
 <script type="text/javascript">
-
-
+    function approvefacility(result) {
+        $('#mfl_code').val(result.code);
+    }
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({
         columnDefs: [{
