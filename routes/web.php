@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/admin/my_facilities', ['uses' => 'App\Http\Controllers\FacilityController@my_facility', 'as' => 'my_facilities']);
   Route::post('/approve_facility', ['uses' => 'App\Http\Controllers\FacilityController@approve_facility', 'as' => 'approve-facility']);
   Route::post('/add_facility', ['uses' => 'App\Http\Controllers\FacilityController@add_facility', 'as' => 'add_facility']);
+  Route::post('/edit_facility', ['uses' => 'App\Http\Controllers\FacilityController@edit_facility', 'as' => 'edit_facility']);
 
   // Partner routes
   Route::get('/Reports/il/partners', ['uses' => 'App\Http\Controllers\ILUushauriController@partners_il', 'as' => 'Reports-il-partners']);

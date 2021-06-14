@@ -57,7 +57,7 @@
                                 @endif
                                 @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
                                 <td>
-                                    <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Edit</button>
+                                    <button onclick="editfacility({{$result}});" data-toggle="modal" data-target="#editfacility" type="button" class="btn btn-primary btn-sm">Edit</button>
                                     <button onclick="" data-toggle="modal" data-target="#" type="button" class="btn btn-primary btn-sm">Delete</button>
                                 </td>
                                 @endif
@@ -92,13 +92,74 @@
                 <form role="form" method="post" action="{{route('approve-facility')}}">
                     {{ csrf_field() }}
 
-                    <input type="hidden" name="mfl_code" id="mfl_code">
+                    <input type="text" name="mfl_code" id="mfl_code">
                     <button type="submit" class="btn btn-primary">Yes, Approve it!</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="editfacility" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="card-title mb-3">Edit Facility</div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                        <form role="form" method="post" action="{{route('edit_facility')}}">
+                                {{ csrf_field() }}
+
+                                <input type="hidden" name="mflcode" id="mflcode">
+                                <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                        <label for="firstName1">Facility Name</label>
+                                        <input type="text" class="form-control" id="facility_name" name="facility_name" placeholder="Facility Name" readonly />
+
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                        <label for="firstName1">MFL Code</label>
+                                        <input type="text" class="form-control" id="code" name="code" placeholder="MFL Code" readonly />
+
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                        <label for="firstName1">No of Clients on ART</label>
+                                        <input type="text" class="form-control" id="average_clients" name="average_clients" placeholder="No of Clients on ART" />
+                                    </div>
+                                    <div class="col-md-6 form-group mb-3">
+                                        <label for="picker1">Partner Name</label>
+                                        <select id="partner" name="partner" class="form-control" required="">
+                                            <option>Select Partner</option>
+                                            @if (count($all_partners) > 0)
+                                            @foreach($all_partners as $partner)
+                                            <option value="{{$partner->id }}">{{ ucwords($partner->name) }}</option>
+                                            @endforeach
+                                            @endif
+
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary">Update Facility</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -111,6 +172,12 @@
 <script type="text/javascript">
     function approvefacility(result) {
         $('#mfl_code').val(result.code);
+    }
+    function editfacility(result) {
+        $('#code').val(result.code);
+        $('#facility_name').val(result.facility_name);
+        $('#average_clients').val(result.average_clients);
+        $('#partner').val(result.partner_name);
     }
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({
