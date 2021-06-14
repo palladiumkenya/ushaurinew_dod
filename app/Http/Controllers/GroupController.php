@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Group;
+use Session;
 use Auth;
 
 class GroupController extends Controller
@@ -15,6 +16,31 @@ class GroupController extends Controller
         $all_groups = Group::all();
 
         return view('groups.new_group')->with('all_groups', $all_groups);
+    }
+    public function addgroup(Request $request)
+    {
+        try{
+            $group = new Group;
+            $group->name = $request->name;
+            $group->description = $request->description;
+            $group->status = $request->status;
+            $group->group_type = $request->group_type;
+
+
+            // $donor->created_by = Auth::;
+            if ($group->save()) {
+                Session::flash('statuscode', 'success');
+
+                return redirect('admin/groups')->with('status', 'Group has been saved successfully!');
+            } else {
+
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'An error has occurred please try again later.');
+            }
+        }catch(Exception $e)
+        {
+            return back();
+        }
     }
     public function get_pmtct_clients()
     {

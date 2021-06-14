@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/admin/users/form', ['uses' => 'App\Http\Controllers\UserController@adduserform', 'as' => 'admin-users-form']);
   Route::post('/admin/users/roles', ['uses' => 'App\Http\Controllers\UserController@access_level_load', 'as' => 'admin-users-roles']);
   Route::post('/add/users', ['uses' => 'App\Http\Controllers\UserController@adduser', 'as' => 'adduser']);
+  Route::post('/edit/user', ['uses' => 'App\Http\Controllers\UserController@edituser', 'as' => 'edituser']);
+  Route::post('/reset/user', ['uses' => 'App\Http\Controllers\UserController@resetuser', 'as' => 'resetuser']);
   Route::get('/get_roles/{id}', ['uses' => 'App\Http\Controllers\UserController@get_roles', 'as' => 'get_roles']);
   Route::get('/get_sub_counties/{id}', ['uses' => 'App\Http\Controllers\UserController@get_sub_counties', 'as' => 'get_sub_counties']);
   Route::get('/admin/tracer/clients', ['uses' => 'App\Http\Controllers\TracerController@tracer_client', 'as' => 'admin-tracer-clients']);
@@ -78,10 +80,18 @@ Route::group(['middleware' => 'auth'], function () {
   // Facilities routes
   Route::get('/Reports/active/facilities', ['uses' => 'App\Http\Controllers\DashboardController@active_facilities', 'as' => 'Reports-active-facilities']);
   Route::get('/Reports/il/facilities', ['uses' => 'App\Http\Controllers\ILUushauriController@facilities_il', 'as' => 'Reports-il-facilities']);
+  Route::get('/admin/facilities', ['uses' => 'App\Http\Controllers\FacilityController@admin_facilities', 'as' => 'admin_facilities']);
+  Route::get('/admin/my_facilities', ['uses' => 'App\Http\Controllers\FacilityController@my_facility', 'as' => 'my_facilities']);
+  Route::post('/approve_facility', ['uses' => 'App\Http\Controllers\FacilityController@approve_facility', 'as' => 'approve-facility']);
+  Route::post('/add_facility', ['uses' => 'App\Http\Controllers\FacilityController@add_facility', 'as' => 'add_facility']);
 
   // Partner routes
   Route::get('/Reports/il/partners', ['uses' => 'App\Http\Controllers\ILUushauriController@partners_il', 'as' => 'Reports-il-partners']);
   Route::get('/admin/partners', ['uses' => 'App\Http\Controllers\PartnerController@index', 'as' => 'admin-partners']);
+  Route::get('/admin/partners/form', ['uses' => 'App\Http\Controllers\PartnerController@addpartnerform', 'as' => 'admin-partners-form']);
+  Route::post('/add/partners', ['uses' => 'App\Http\Controllers\PartnerController@addpartner', 'as' => 'addpartner']);
+  Route::post('/edit/partner', ['uses' => 'App\Http\Controllers\PartnerController@editpartner', 'as' => 'editpartner']);
+  Route::post('/delete/partner', ['uses' => 'App\Http\Controllers\PartnerController@deletepartner', 'as' => 'deletepartner']);
 
   // Appointments routes
   Route::get('report/future/appointments', ['uses' => 'App\Http\Controllers\AppointmentController@index', 'as' => 'future-apps']);
