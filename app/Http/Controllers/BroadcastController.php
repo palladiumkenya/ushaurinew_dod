@@ -5,7 +5,8 @@ date_default_timezone_set('Africa/Nairobi');
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '1024M');
 use Illuminate\Http\Request;
-use App\Http\Controllers\SenderController;
+use App\Jobs\SendSMS;
+use App\Models\Sender;
 use App\Models\Client;
 use App\Models\Group;
 use App\Models\Gender;
@@ -105,10 +106,12 @@ class BroadcastController extends Controller
                         $dest = $client->phone_no;
         
                         $msg = $request->message;
+
+                        SendSMS::dispatch($dest, $msg);
         
-                        $sender = new SenderController;
+                        // $sender = new SenderController;
         
-                        $sender->send($dest, $msg);
+                        // $sender->send($dest, $msg);
         
                     }    
         
@@ -150,9 +153,7 @@ class BroadcastController extends Controller
         
                         $msg = $request->message;
         
-                        $sender = new SenderController;
-        
-                        $sender->send($dest, $msg);
+                        SendSMS::dispatch($dest, $msg);
         
                     }    
         
@@ -192,9 +193,7 @@ class BroadcastController extends Controller
         
                         $msg = $request->message;
         
-                        $sender = new SenderController;
-        
-                        $sender->send($dest, $msg);
+                        SendSMS::dispatch($dest, $msg);
         
                     }   
 
