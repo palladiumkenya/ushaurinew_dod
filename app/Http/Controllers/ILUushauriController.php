@@ -36,7 +36,6 @@ class ILUushauriController extends Controller
       ->pluck('count');
     $il_facilities = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
       ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
-      // ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
       ->select(\DB::raw("COUNT(tbl_master_facility.name) as count"))
       // ->select('tbl_master_facility.name as facility', 'tbl_master_facility.code', 'tbl_partner.name as partner')
       ->groupBy('tbl_client.mfl_code')
@@ -81,7 +80,9 @@ class ILUushauriController extends Controller
     $il_facilities_list = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
       ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
       ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
-      ->select('tbl_master_facility.name as facility', 'tbl_master_facility.code', 'tbl_partner.name as partner')
+      ->join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
+      ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
+      ->select('tbl_master_facility.name as facility', 'tbl_county.name as county', 'tbl_sub_county.name as subcounty', 'tbl_master_facility.code', 'tbl_partner.name as partner')
       ->groupBy('tbl_client.mfl_code')
       ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
       ->where('tbl_appointment.db_source', '=', 'KENYAEMR')

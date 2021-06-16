@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 //use GuzzleHttp\Client;
 
-ini_set('max_execution_time', 0);
-ini_set('memory_limit', '1024M');
 
 use App\Models\Appointments;
 use Illuminate\Http\Request;

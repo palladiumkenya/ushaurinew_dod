@@ -22,6 +22,8 @@
                                                 <th>Facility Name</th>
                                                 <th>Mfl Code</th>
                                                 <th>Partner</th>
+                                                <th>County</th>
+                                                <th>Sub County</th>
 
                                             </tr>
                                         </thead>
@@ -33,6 +35,8 @@
                                                         <td>  {{$result->facility}}</td>
                                                         <td>  {{$result->code}}</td>
                                                         <td>  {{$result->partner}}</td>
+                                                        <td>  {{$result->county}}</td>
+                                                        <td>  {{$result->subcounty}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif

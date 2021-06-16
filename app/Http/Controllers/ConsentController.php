@@ -73,6 +73,14 @@ class ConsentController extends Controller
     public function consent_test(Request $request)
     {
         try {
+            $request->validate([
+            'consent_date' => 'required',
+            'smsenable' => 'required',
+            'language_id' => 'required',
+            'motivational_enable' => 'required',
+            'txt_time' => 'required',
+            'phone_no' => 'required|regex:/(01)[0-9]{9}/'
+            ]);
         $client = Client::where('clinic_number', $request->clinic_number)
                  ->update([
                      'consent_date' => date("Y-m-d", strtotime($request->consent_date)),

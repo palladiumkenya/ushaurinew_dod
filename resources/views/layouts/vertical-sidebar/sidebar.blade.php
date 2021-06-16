@@ -83,20 +83,27 @@
                                     <span class="item-name">Client Consent</span>
                                 </a>
                             </li>
-                            @endif
+
                             <li class="item-name">
                             <li class="nav-item">
                                 <a href={{route('report-clients-list')}}>
                                     <span class="item-name">Clients</span>
                                 </a>
                             </li>
+
                     </li>
                     <li class="item-name">
                         <a href="{{route('clients-extract')}}">
                             <span class="item-name">Client Extract</span>
                         </a>
                     </li>
+                    @endif
                     @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
+                    <li class="item-name">
+                                <a href="{{route('Reports-clients_dashboard')}}">
+                                    <span class="item-name">Clients</span>
+                                </a>
+                            </li>
                     <li class="item-name">
                         <a href={{route('upload-clients-form')}}>
                             <span class="item-name">Upload Clients</span>

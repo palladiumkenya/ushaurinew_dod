@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
   //Route::get('get_client_data', ['uses' => 'App\Http\Controllers\DashboardController@get_client_data', 'as' => 'get_client_data']);
   Route::get('/Reports/facility_home', ['uses' => 'App\Http\Controllers\DashboardController@facility_dashboard', 'as' => 'Reports-facility_home']);
   Route::get('/Reports/clients/distribution', ['uses' => 'App\Http\Controllers\DashboardController@client_distribution_graphs', 'as' => 'Reports-clients-distribution']);
-  //Route::get('main_graph_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'Reports-main-dashboard']);
+  Route::get('/Reports/clients_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@client_dashboard', 'as' => 'Reports-clients_dashboard']);
   // clients routes
   Route::get('/report/clients/profile', ['uses' => 'App\Http\Controllers\ClientListController@get_client_profile', 'as' => 'profile']);
   Route::get('/profile_search', ['uses' => 'App\Http\Controllers\ClientListController@profile_search', 'as' => 'profile_search']);

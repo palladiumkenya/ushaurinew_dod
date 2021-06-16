@@ -65,10 +65,6 @@
 </div>
 @endif
 
-<div class="col-md-12 mb-4">
-<div class="row">
-
-
 
 <div id="highchart"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -85,19 +81,17 @@
                     <div class="card-body row">
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
 
                             <div class="card-body row">
-                                <div id="hei_graph" class="col" style="height:  400px;margin-top:20px;width: 900px"></div> <br />
+                                <div id="container" class="col" style="height:  600px;margin-top:20px;width: 900px"></div> <br />
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
 
                             <div class="card-body row">
-                                <div id="container" class="col" style="height:  350px;margin-top:20px;width: 900px"></div> <br />
+                                <div id="marital" class="col" style="height:  600px;margin-top:20px;width: 900px"></div> <br />
                             </div>
 
                         </div>
@@ -109,105 +103,37 @@
     </div>
 
     <script type="text/javascript">
-    var Toone_scheduled =  <?php echo json_encode($toone_scheduled_heis) ?>;
-    var ToFour_scheduled =  <?php echo json_encode($tofour_scheduled_heis) ?>;
-    var ToNine_scheduled =  <?php echo json_encode($tonine_scheduled_heis) ?>;
-    var ToFourteen_scheduled =  <?php echo json_encode($tofourteen_scheduled_heis) ?>;
-    var ToTotal_scheduled =  <?php echo json_encode($tototal_scheduled_heis) ?>;
+    var ToNine_consented =  <?php echo json_encode($consented_nine) ?>;
+    var ToFourteen_consented =  <?php echo json_encode($consented_forteen) ?>;
+    var ToNineteen_consented =  <?php echo json_encode($consented_nineteen) ?>;
+    var ToTwentyFour_consented =  <?php echo json_encode($consented_twenty_four) ?>;
+    var ToTwentyFive_consented =  <?php echo json_encode($consented_over_twenty_five) ?>;
+
+    var ToNine_registered =  <?php echo json_encode($registered_nine) ?>;
+    var ToFourteen_registered =  <?php echo json_encode($registered_forteen) ?>;
+    var ToNineteen_registered =  <?php echo json_encode($registered_nineteen) ?>;
+    var ToTwentyFour_registered =  <?php echo json_encode($registered_twenty_four) ?>;
+    var ToTwentyFive_registered =  <?php echo json_encode($registered_over_twenty_five) ?>;
+
+    var Single_consented =  <?php echo json_encode($single_consented) ?>;
+    var Mono_consented =  <?php echo json_encode($monogamous_consented) ?>;
+    var Divorced_consented =  <?php echo json_encode($divorced_consented) ?>;
+    var Widowed_consented =  <?php echo json_encode($widowed_consented) ?>;
+    var Cohabating_consented =  <?php echo json_encode($cohabating_consented) ?>;
+    var Unavailable_consented =  <?php echo json_encode($unavailable_consented) ?>;
+    var Notapplicable_consented =  <?php echo json_encode($notapplicable_consented) ?>;
+    var Poly_consented =  <?php echo json_encode($polygamous_consented) ?>;
+
+    var Single_registered =  <?php echo json_encode($single_registered) ?>;
+    var Mono_registered =  <?php echo json_encode($monogamous_registered) ?>;
+    var Divorced_registered =  <?php echo json_encode($divorced_registered) ?>;
+    var Widowed_registered =  <?php echo json_encode($widowed_registered) ?>;
+    var Cohabating_registered =  <?php echo json_encode($cohabating_registered) ?>;
+    var Unavailable_registered =  <?php echo json_encode($unavailable_registered) ?>;
+    var Notapplicable_registered =  <?php echo json_encode($notapplicable_registered) ?>;
+    var Poly_registered =  <?php echo json_encode($polygamous_registered) ?>;
 
 
-    var Toone_unscheduled =  <?php echo json_encode($toone_unscheduled_heis) ?>;
-    var ToFour_unscheduled =  <?php echo json_encode($tofour_unscheduled_heis) ?>;
-    var ToNine_unscheduled =  <?php echo json_encode($tonine_unscheduled_heis) ?>;
-    var ToFourteen_unscheduled =  <?php echo json_encode($tofourteen_unscheduled_heis) ?>;
-    var ToTotal_unscheduled =  <?php echo json_encode($tototal_unscheduled_heis) ?>;
-
-    var Toone_booked =  <?php echo json_encode($toone_booked_heis) ?>;
-    var ToFour_booked =  <?php echo json_encode($tofour_booked_heis) ?>;
-    var ToNine_booked =  <?php echo json_encode($tonine_booked_heis) ?>;
-    var ToFourteen_booked =  <?php echo json_encode($tofourteen_booked_heis) ?>;
-    var ToTotal_booked =  <?php echo json_encode($tototal_booked_heis) ?>;
-
-    var Toone_defaulted =  <?php echo json_encode($toone_defaulted_heis) ?>;
-    var ToFour_defaulted =  <?php echo json_encode($tofour_defaulted_heis) ?>;
-    var ToNine_defaulted =  <?php echo json_encode($tonine_defaulted_heis) ?>;
-    var ToFourteen_defaulted =  <?php echo json_encode($tofourteen_defaulted_heis) ?>;
-    var ToTotal_defaulted =  <?php echo json_encode($tototal_defaulted_heis) ?>;
-
-
-    var Toone_missed =  <?php echo json_encode($toone_missed_heis) ?>;
-    var ToFour_missed =  <?php echo json_encode($tofour_missed_heis) ?>;
-    var ToNine_missed =  <?php echo json_encode($tonine_missed_heis) ?>;
-    var ToFourteen_missed =  <?php echo json_encode($tofourteen_missed_heis) ?>;
-    var ToTotal_missed =  <?php echo json_encode($tototal_missed_heis) ?>;
-
-
-    var Toone_ltfu =  <?php echo json_encode($toone_ltfu_heis) ?>;
-    var ToFour_ltfu =  <?php echo json_encode($tofour_ltfu_heis) ?>;
-    var ToNine_ltfu =  <?php echo json_encode($tonine_ltfu_heis) ?>;
-    var ToFourteen_ltfu =  <?php echo json_encode($tofourteen_ltfu_heis) ?>;
-    var ToTotal_ltfu =  <?php echo json_encode($tototal_ltfu_heis) ?>;
-
-    var Booked_count =  <?php echo json_encode($count_booked_heis) ?>;
-    var Scheduled_count =  <?php echo json_encode($count_scheduled_heis) ?>;
-    var Unscheduled_count =  <?php echo json_encode($count_unscheduled_heis) ?>;
-    var Deceased_count =  <?php echo json_encode($count_deceased_heis) ?>;
-    var Transfer_count =  <?php echo json_encode($count_transfer_heis) ?>;
-    var Discharged_count =  <?php echo json_encode($count_discharged_heis) ?>;
-    var Missed_count =  <?php echo json_encode($count_missed_heis) ?>;
-    var Defaulted_count =  <?php echo json_encode($count_defaulted_heis) ?>;
-    var LTFU_count =  <?php echo json_encode($count_ltfu_heis) ?>;
-    var PCR_count =  <?php echo json_encode($count_pcr_heis) ?>;
-
-
-
-
-    Highcharts.chart('hei_graph', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'HEI Evaluation Report Summary'
-        },
-        xAxis: {
-            categories: ['Scheduled', 'Un-Scheduled', 'Missed', 'Defaulter', 'LTFU', 'Deceased', 'Transfer Out', 'Discharged', 'PCR Positive']
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'HEIs Count'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: ( // theme
-                        Highcharts.defaultOptions.title.style &&
-                        Highcharts.defaultOptions.title.style.color
-                    ) || 'gray'
-                }
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>';
-            }
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-            }
-        },
-        series: [{
-                name: 'Total HEI',
-                data: [Scheduled_count, Unscheduled_count, Missed_count, Defaulted_count, LTFU_count, Deceased_count, Transfer_count, Discharged_count, PCR_count]
-            }
-        ],
-
-    });
-
-    var colors = Highcharts.getOptions().colors;
 
   Highcharts.drawTable = function() {
 
@@ -215,7 +141,7 @@
 // user options
 var tableTop = 55,
     colWidth = 95,
-    tableLeft = 100,
+    tableLeft = 60,
     rowHeight = 40,
     cellPadding = 6,
     valueDecimals = 0;
@@ -349,12 +275,12 @@ chart: {
 },
 
 title: {
-    text: 'HIV Infected Children Report Summary'
+    text: 'Client Registration by Age Group'
 },
 
 xAxis: {
     visible: false,
-    categories: ['less 1', '1-4', '5-9', '10-14', 'Total']
+    categories: ['10-14', '15-19', '20-24', '25+']
 },
 
 yAxis: {
@@ -371,23 +297,53 @@ plotOptions: {
 },
 
 series: [{
-    name: 'Scheduled',
-    data: [Toone_scheduled, ToFour_scheduled, ToNine_scheduled, ToFourteen_scheduled, ToTotal_scheduled]
+    name: 'Registered',
+    data: [ToNine_registered, ToFourteen_registered, ToNineteen_registered, ToTwentyFour_registered, ToTwentyFive_registered]
 }, {
-    name: 'Un-Scheduled',
-    data: [Toone_unscheduled, ToFour_unscheduled, ToNine_unscheduled, ToFourteen_unscheduled, ToTotal_unscheduled]
+    name: 'Consented',
+    data: [ToNine_consented, ToFourteen_consented, ToNineteen_consented, ToTwentyFour_consented, ToTwentyFive_consented]
 
-}, {
-    name: 'Defaulter',
-    data: [Toone_defaulted, ToFour_defaulted, ToNine_defaulted, ToFourteen_defaulted, ToTotal_defaulted]
+}]
+});
 
-}, {
-    name: 'Missed',
-    data: [Toone_missed, ToFour_missed, ToNine_missed, ToFourteen_missed, ToTotal_missed]
+window.chart = new Highcharts.Chart({
 
+chart: {
+    renderTo: 'marital',
+    events: {
+        load: Highcharts.drawTable
+    },
+    borderWidth: 2
+},
+
+title: {
+    text: 'Client Registration by Marital Status'
+},
+
+xAxis: {
+    visible: false,
+    categories: ['Single', 'Married Monogamous', 'Divorced', 'Widowed', 'Cohabating', 'Married Polygamous', 'Not Applicable', 'Unavailable']
+},
+
+yAxis: {
+    visible: false
+},
+
+legend: {
+    enabled: false
+},
+plotOptions: {
+    series: {
+        visible: false
+    }
+},
+
+series: [{
+    name: 'Registered',
+    data: [Single_registered, Mono_registered, Divorced_registered, Widowed_registered, Cohabating_registered, Poly_registered, Notapplicable_registered, Unavailable_registered]
 }, {
-    name: 'LTFU',
-    data: [Toone_ltfu, ToFour_ltfu, ToNine_ltfu, ToFourteen_ltfu, ToTotal_ltfu]
+    name: 'Consented',
+    data: [Single_consented, Mono_consented, Divorced_consented, Widowed_consented, Cohabating_consented, Poly_consented, Notapplicable_consented, Unavailable_consented]
 
 }]
 });
