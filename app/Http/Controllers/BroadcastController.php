@@ -5,6 +5,7 @@ date_default_timezone_set('Africa/Nairobi');
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '1024M');
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Jobs\SendSMS;
 use App\Models\Sender;
 use App\Models\Client;
@@ -192,9 +193,13 @@ class BroadcastController extends Controller
                         $dest = $client->phone_no;
         
                         $msg = $request->message;
-        
-                        SendSMS::dispatch($dest, $msg);
-        
+                        
+                        if(Str::length($dest) >= 10) {
+
+                            SendSMS::dispatch($dest, $msg);
+
+                        }
+                
                     }   
 
                 }   
