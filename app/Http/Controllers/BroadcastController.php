@@ -193,7 +193,11 @@ class BroadcastController extends Controller
         
                         $msg = $request->message;
         
-                        SendSMS::dispatch($dest, $msg);
+                        if(Str::length($dest) >= 10) {
+
+                           SendSMS::dispatch($dest, $msg);
+
+                        }
         
                     }   
 
