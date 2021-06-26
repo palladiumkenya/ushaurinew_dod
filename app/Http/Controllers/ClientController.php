@@ -60,7 +60,6 @@ class ClientController extends Controller
             return back()->with('error', 'An error has occurred please try again later.');
         }
     } catch (Exception $e) {
-        toastr()->error('An error has occurred please try again later.');
 
         return back();
     }

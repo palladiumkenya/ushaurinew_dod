@@ -6,6 +6,9 @@
 @section('main-content')
 
     <div class="separator-breadcrumb border-top"></div>
+    <div style="margin-bottom:10px; ">
+                <a type="button" href="{{route('add_client')}}" class="btn btn-primary btn-md pull-right">Add Client</a>
+            </div>
 
             <div class="row">
                 <!-- ICON BG -->
