@@ -112,6 +112,7 @@
                     @endif
                 </ul>
                 </li>
+                @if (Auth::user()->access_level == 'Facility')
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
                         <i class="i-Suitcase text-20 mr-2 text-muted"></i>
@@ -175,6 +176,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
                         <i class="i-Computer-Secure text-20 mr-2 text-muted"></i>
@@ -228,6 +230,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 @if (Auth::user()->access_level == 'Facility')
                 <li class="Ul_li--hover">
                     <a class="has-arrow" href="#">
@@ -337,9 +340,43 @@
                                 <span class="item-name">Broadcast</span>
                             </a>
                         </li>
+                        @endif
+                        @if (Auth::user()->access_level == 'Partner')
                         <li class="item-name">
-                            <a class="" href="">
-                                <span class="item-name">Manual SMS</span>
+                            <a class="" href="{{route('admin_facilities')}}">
+                                <span class="item-name">Facilities</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href={{route('admin-users')}}>
+                                <span class="item-name">Users</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('broadcast')}}">
+                                <span class="item-name">Broadcast</span>
+                            </a>
+                        </li>
+                        @endif
+                        @if (Auth::user()->access_level == 'Donor')
+                        <li class="item-name">
+                            <a class="" href="{{route('admin-partners')}}">
+                                <span class="item-name">Partner</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('admin_facilities')}}">
+                                <span class="item-name">Facilities</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href={{route('admin-users')}}>
+                                <span class="item-name">Users</span>
+                            </a>
+                        </li>
+                        <li class="item-name">
+                            <a class="" href="{{route('broadcast')}}">
+                                <span class="item-name">Broadcast</span>
                             </a>
                         </li>
                         @endif

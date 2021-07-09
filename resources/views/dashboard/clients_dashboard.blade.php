@@ -298,10 +298,10 @@ plotOptions: {
 
 series: [{
     name: 'Registered',
-    data: [ToNine_registered, ToFourteen_registered, ToNineteen_registered, ToTwentyFour_registered, ToTwentyFive_registered]
+    data: [ToFourteen_registered, ToNineteen_registered, ToTwentyFour_registered, ToTwentyFive_registered]
 }, {
     name: 'Consented',
-    data: [ToNine_consented, ToFourteen_consented, ToNineteen_consented, ToTwentyFour_consented, ToTwentyFive_consented]
+    data: [ToFourteen_consented, ToNineteen_consented, ToTwentyFour_consented, ToTwentyFive_consented]
 
 }]
 });
