@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Group;
 use App\Models\Clinic;
 use App\Models\Language;
+use App\Models\Condition;
 use App\Models\Gender;
 use App\Models\Marital;
 use Session;
@@ -16,15 +17,37 @@ class ClientController extends Controller
 {
     public function index()
     {
-        return view('clients.new_client');
+        $gender = Gender::all();
+        $marital = Marital::all();
+        $treatment = Condition::all();
+        $grouping = Group::all();
+        $language = Language::all()->where('status', '=', 'Active');
+        return view('clients.new_client', compact('gender', 'marital', 'treatment', 'language', 'grouping'));
     }
     public function add_client(Request $request)
     {
         try
         {
+            $request->validate([
+                'clinic_number' => 'required|numeric|digits:10',
+                'f_name' => 'required',
+                'l_name' => 'required',
+                'dob' => 'required',
+                'gender' => 'required',
+                'marital' => 'required',
+                'client_status' => 'required',
+                'enrollment_date' => 'required',
+                'art_date' => 'required',
+                'language_id' => 'required',
+                'smsenable' => 'required',
+                'motivational_enable' => 'required',
+                'txt_time' => 'required',
+                'status' => 'required',
+                'group_id' => 'required',
+            ]);
         $new_client = new Client;
 
-        $validate_client = Client::where('clinic_number', $request->clinic_number)
+       // $validate_client = Client::where('clinic_number', $request->clinic_number)
         $new_client->clinic_number = $request->clinic_number;
         $new_client->f_name = $request->first_name;
         $new_client->m_name = $request->middle_name;
