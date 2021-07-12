@@ -19,7 +19,6 @@
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
                         <option value="">Please select Partner</option>
 
-
                         <option></option>
                     </select>
                 </div>
@@ -347,6 +346,81 @@ series: [{
 
 }]
 });
+
+$(document).ready(function() {
+            $('select[name="partner"]').on('change', function() {
+                var partnerID = $(this).val();
+                if (partnerID) {
+                    $.ajax({
+                        url: '/get_dashboard_counties/' + partnerID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="county"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="county"]').empty();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('select[name="county"]').on('change', function() {
+                var countyID = $(this).val();
+                if (countyID) {
+                    $.ajax({
+                        url: '/get_dashboard_sub_counties/' + countyID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="subcounty"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="subcounty"]').empty();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('select[name="subcounty"]').on('change', function() {
+                var subcountyID = $(this).val();
+                if (subcountyID) {
+                    $.ajax({
+                        url: '/get_dashboard_facilities/' + subcountyID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="facility"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="facility"]').empty();
+                }
+            });
+        });
     </script>
 
 
