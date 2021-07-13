@@ -171,6 +171,17 @@
                                 @endif
                             </select>
                         </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="add_partner_type">Clinic</label>
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="clinic" name="clinic">
+                                <option value="">Please select </option>
+                                @if (count($clinics) > 0)
+                                @foreach($clinics as $clinic)
+                                <option value="{{$clinic->id }}">{{ ucwords($clinic->name) }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
 
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">Submit</button>

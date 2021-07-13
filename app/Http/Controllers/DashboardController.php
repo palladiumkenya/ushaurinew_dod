@@ -148,8 +148,11 @@ class DashboardController extends Controller
 
         $counties_with_data = ClientRegistration::select('county_id')->groupBy('county_id');
 
-
-        $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
+        if (Auth::user()->access_level == 'County') {
+        $all_partners = Partner::where('status', '=', 'Active')
+        ->where('id', Auth::user()->partner_id);
+        ->pluck('name', 'id');
+        }
         $all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
 
 
@@ -345,6 +348,7 @@ class DashboardController extends Controller
 
     public function get_counties($id)
     {
+
         $counties = PartnerFacility::join('tbl_county', 'tbl_partner_facility.county_id', '=', 'tbl_county.id')
             ->where("tbl_partner_facility.partner_id", $id)
             ->pluck("tbl_county.name", "tbl_county.id");

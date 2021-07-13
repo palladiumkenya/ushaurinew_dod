@@ -257,8 +257,8 @@
             $("#all_consented_clients").html(data.all_consented_clients);
             $("#all_future_appointments").html(data.all_future_appointments);
             $("#number_of_facilities").html(data.number_of_facilities);
-            $("#consented_clients_count").html(data.consented_clients_count);
-            $("#registered_clients_count").html(data.registered_clients_count);
+            $("#mainGraph").html(data.consented_clients_count);
+            $("#mainGraph").html(data.registered_clients_count);
 
 
         }
@@ -295,8 +295,8 @@
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
-                $("#consented_clients_count").html(data.consented_clients_count);
-                $("#registered_clients_count").html(data.registered_clients_count);
+                $("#mainGraph").html(data.consented_clients_count);
+                $("#mainGraph").html(data.registered_clients_count);
             }
         });
     });

@@ -10,6 +10,7 @@ use App\Models\Language;
 use App\Models\Condition;
 use App\Models\Gender;
 use App\Models\Marital;
+use App\Models\Clinic;
 use Session;
 use Auth;
 
@@ -21,8 +22,9 @@ class ClientController extends Controller
         $marital = Marital::all();
         $treatment = Condition::all();
         $grouping = Group::all();
+        $clinics = Clinic::all();
         $language = Language::all()->where('status', '=', 'Active');
-        return view('clients.new_client', compact('gender', 'marital', 'treatment', 'language', 'grouping'));
+        return view('clients.new_client', compact('gender', 'marital', 'clinics', 'treatment', 'language', 'grouping'));
     }
     public function add_client(Request $request)
     {
@@ -65,6 +67,7 @@ class ClientController extends Controller
         $new_client->txt_time = date("H", strtotime($request->txt_time));
         $new_client->status = $request->status;
         $new_client->group_id = $request->group;
+        $new_client->clinic_id = $request->clinic;
 
         $validate_ccc = Client::where('clinic_number', $request->clinic_number)
         ->first();
