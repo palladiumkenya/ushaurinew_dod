@@ -150,7 +150,7 @@ class DashboardController extends Controller
 
         if (Auth::user()->access_level == 'County') {
         $all_partners = Partner::where('status', '=', 'Active')
-        ->where('id', Auth::user()->partner_id);
+        ->where('id', Auth::user()->partner_id)
         ->pluck('name', 'id');
         }
         $all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
