@@ -131,29 +131,15 @@ class DashboardController extends Controller
 
     public function main_graph_dashboard()
     {
-
         $data                = [];
 
-        if (Auth::user()->access_level == 'Partner') { //user is partner
-            $selected_partners = [Auth::user()->partner_id];
-        }
-        if (Auth::user()->access_level == 'Facility') { //user is facility
-            $selected_facilities = [Auth::user()->facility_id];
-        }
-        if (Auth::user()->access_level == 'County') { // user is a county user
-            $selected_counties = [Auth::user()->county_id];
-        }
+        if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Donor') {
 
-        $partners_with_data = ClientRegistration::select('partner_id')->groupBy('partner_id');
-
-        $counties_with_data = ClientRegistration::select('county_id')->groupBy('county_id');
-
-        if (Auth::user()->access_level == 'County') {
         $all_partners = Partner::where('status', '=', 'Active')
-        ->where('id', Auth::user()->partner_id)
+        //->where('id', Auth::user()->partner_id)
         ->pluck('name', 'id');
-        }
-        $all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
+
+        //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
 
 
         $all_clients_number = ClientPerformance::whereNotNull('actual_clients')->sum('actual_clients');
@@ -164,36 +150,48 @@ class DashboardController extends Controller
         $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')->count();
         $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
 
-        $registered_clients = MainDashboardBar::select(\DB::raw("SUM(clients) as count"))
-            ->groupBy('MONTH')
-            ->orderBy('MONTH', 'asc')
-            ->get()->toArray();
-        $registered_clients = array_column($registered_clients, 'count');
-
-        $consented_clients = MainDashboardBar::select(\DB::raw("SUM(consented) as count"))
-            ->groupBy('MONTH')
-            ->orderBy('MONTH', 'asc')
-            ->get()->toArray();
-        $consented_clients = array_column($consented_clients, 'count');
-        $month_count = MainDashboardBar::select('MONTH as months')
-            ->groupBy('MONTH')
-            ->orderBy('MONTH', 'asc')
-            ->get()->toArray();
-        $month_count = array_column($month_count, 'months');
-
-        $chart_consent = array($month_count);
-        foreach ($month_count as $index => $month) {
-            $chart_consent[$month] = $consented_clients[$index];
-        }
-        $chart_registered = array($month_count);
-        foreach ($month_count as $index => $month) {
-            $chart_registered[$month] = $registered_clients[$index];
-        }
 
         $registered_clients_count = ClientRegistration::select('clients')->sum('clients');
         $consented_clients_count = ClientRegistration::select('consented')->sum('consented');
+        }
 
-        // dd($all_target_clients);
+        if (Auth::user()->access_level == 'Partner'){
+
+            $all_partners = Partner::where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id)
+            ->pluck('name', 'id');
+
+            //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
+
+
+            $all_clients_number = ClientPerformance::whereNotNull('actual_clients')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->sum('actual_clients');
+            $pec_client_sum = ClientRegistration::select('total_percentage')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->sum('total_percentage');
+            $pec_client_count = ClientRegistration::whereNotNull('total_percentage')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->avg('total_percentage');
+            $all_target_clients = ClientPerformance::whereNotNull('target_clients')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->sum('target_clients');
+            $all_consented_clients = ClientRegistration::whereNotNull('consented')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->sum('consented');
+            $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+            ->where('tbl_partner_facility.partner_id', Auth::user()->partner_id)
+            ->count();
+            $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')
+            ->where('partner_id', Auth::user()->partner_id)
+            ->count();
+
+
+            $registered_clients_count = ClientRegistration::select('clients')
+            ->where('partner_id', Auth::user()->partner_id)->sum('clients');
+            $consented_clients_count = ClientRegistration::select('consented')
+            ->where('partner_id', Auth::user()->partner_id)->sum('consented');
+            }
 
 
         $data["all_clients_number"]        = $all_clients_number;
@@ -203,18 +201,15 @@ class DashboardController extends Controller
         $data["all_future_appointments"]        = $all_future_appointments;
         $data["number_of_facilities"]         = $number_of_facilities;
         $data["all_partners"]         = $all_partners;
-        $data["all_counties"]         = $all_counties;
+      //  $data["all_counties"]         = $all_counties;
         $data["registered_clients_count"]         = $registered_clients_count;
         $data["consented_clients_count"]         = $consented_clients_count;
 
-        //return view('dashboard.dashboardv1', compact('data'));
+
+
 
         return view('dashboard.dashboardv1', compact(
             'all_partners',
-            'all_counties',
-            'chart_consent',
-            'chart_registered',
-            'month_count',
             'all_clients_number',
             'all_target_clients',
             'all_consented_clients',
@@ -222,8 +217,7 @@ class DashboardController extends Controller
             'number_of_facilities',
             'pec_client_count',
             'registered_clients_count',
-            'consented_clients_count',
-            'registered_clients'
+            'consented_clients_count'
         ));
     }
 
@@ -307,7 +301,7 @@ class DashboardController extends Controller
         $data["all_consented_clients"]        = $all_consented_clients->sum('consented');
         $data["all_future_appointments"]        = $all_future_appointments->count();
         $data["number_of_facilities"]         = $number_of_facilities->count();
-        $data["registered_clients_count"]        = $registered_clients_count->sum('clients');
+        $data["registered_clients_count"]       = $registered_clients_count->sum('clients');
         $data["consented_clients_count"]        = $consented_clients_count->sum('consented');
 
         return $data;

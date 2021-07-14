@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TodayAppointment extends Model
 {
     use HasFactory;
-    public $table = 'todays_appointments';
+    public $table = 'tbl_todays_appointment';
     public $timestamps = false;
     public $incrementing = false;
 

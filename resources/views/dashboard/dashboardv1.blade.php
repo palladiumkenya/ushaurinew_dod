@@ -304,8 +304,7 @@
 
     var RegisteredClients = <?php echo json_encode($registered_clients_count) ?>;
     var ConsentedClients = <?php echo json_encode($consented_clients_count) ?>;
-    var Test = <?php echo json_encode($registered_clients) ?>;
-    var Months = <?php echo json_encode($month_count) ?>;
+
     parseConsented = JSON.parse(ConsentedClients);
     parseRegistered = JSON.parse(RegisteredClients);
     //Registered = JSON.parse(Months);

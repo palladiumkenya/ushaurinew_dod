@@ -343,11 +343,6 @@
                         @endif
                         @if (Auth::user()->access_level == 'Partner')
                         <li class="item-name">
-                            <a class="" href="{{route('admin_facilities')}}">
-                                <span class="item-name">Facilities</span>
-                            </a>
-                        </li>
-                        <li class="item-name">
                             <a class="" href={{route('admin-users')}}>
                                 <span class="item-name">Users</span>
                             </a>
