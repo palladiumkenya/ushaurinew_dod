@@ -17,8 +17,9 @@
 
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
                         <option value="">Please select Partner</option>
-                     
-
+                        @foreach ($all_partners as $partner => $value)
+                        <option value="{{ $partner }}"> {{ $value }}</option>
+                        @endforeach
                         <option></option>
                     </select>
                 </div>
@@ -142,6 +143,136 @@
         </div>
 
     <script type="text/javascript">
+
+$(document).ready(function() {
+            $('select[name="partner"]').on('change', function() {
+                var partnerID = $(this).val();
+                if (partnerID) {
+                    $.ajax({
+                        url: '/get_dashboard_counties/' + partnerID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="county"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="county"]').empty();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('select[name="county"]').on('change', function() {
+                var countyID = $(this).val();
+                if (countyID) {
+                    $.ajax({
+                        url: '/get_dashboard_sub_counties/' + countyID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="subcounty"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="subcounty"]').empty();
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('select[name="subcounty"]').on('change', function() {
+                var subcountyID = $(this).val();
+                if (subcountyID) {
+                    $.ajax({
+                        url: '/get_dashboard_facilities/' + subcountyID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+
+                            $('select[name="facility"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+
+
+                        }
+                    });
+                } else {
+                    $('select[name="facility"]').empty();
+                }
+            });
+        });
+
+        $('#dataFilter').on('submit', function(e) {
+        e.preventDefault();
+        let partners = $('#partners').val();
+        let counties = $('#counties').val();
+        let subcounties = $('#subcounties').val();
+        let facilities = $('#facilities').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            data: {
+                "partners": partners,
+                "counties": counties,
+                "subcounties": subcounties,
+                "facilities": facilities
+            },
+            url: "{{ route('filter_appointment_dashboard') }}",
+            success: function(data) {
+
+                $("#container").html(data.all_appointment_by_marital_single_missed);
+                $("#container").html(data.all_appointment_by_marital_single_defaulted);
+                $("#container").html(data.all_appointment_by_marital_single_ltfu);
+                $("#container").html(data.all_appointment_by_marital_monogomous_missed);
+                $("#container").html(data.all_appointment_by_marital_monogomous_defaulted);
+                $("#container").html(data.all_appointment_by_marital_monogomous_lftu);
+                $("#container").html(data.all_appointment_by_marital_divorced_missed);
+                $("#container").html(data.all_appointment_by_marital_divorced_defaulted);
+                $("#container").html(data.all_appointment_by_marital_divorced_lftu);
+                $("#container").html(data.all_appointment_by_marital_widowed_missed);
+                $("#container").html(data.all_appointment_by_marital_widowed_defaulted);
+
+                $("#container").html(data.all_appointment_by_marital_widowed_lftu);
+                $("#container").html(data.all_appointment_by_marital_cohabiting_missed);
+                $("#container").html(data.all_appointment_by_marital_cohabiting_defaulted);
+                $("#container").html(data.all_appointment_by_marital_cohabiting_lftu);
+                $("#container").html(data.all_appointment_by_marital_unavailable_missed);
+                $("#container").html(data.all_appointment_by_marital_unavailable_defaulted);
+                $("#container").html(data.all_appointment_by_marital_unavailable_lftu);
+                $("#container").html(data.all_appointment_by_marital_polygamous_missed);
+                $("#container").html(data.all_appointment_by_marital_polygamous_defaulted);
+                $("#container").html(data.all_appointment_by_marital_polygamous_lftu);
+                $("#container").html(data.all_appointment_by_marital_notapplicable_missed);
+                $("#container").html(data.all_appointment_by_marital_notapplicable_defaulted);
+                $("#container").html(data.all_appointment_by_marital_notapplicable_lftu);
+
+
+
+            }
+        });
+    });
         var singleMissed =  <?php echo json_encode($all_appointment_by_marital_single_missed) ?>;
         var singleDefaulted =  <?php echo json_encode($all_appointment_by_marital_single_defaulted) ?>;
         var singleLTFU =  <?php echo json_encode($all_appointment_by_marital_single_ltfu) ?>;
