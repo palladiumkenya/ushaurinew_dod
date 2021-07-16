@@ -18,6 +18,9 @@
 
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
                         <option value="">Please select Partner</option>
+                        @foreach ($all_partners as $partner => $value)
+                        <option value="{{ $partner }}"> {{ $value }}</option>
+                        @endforeach
 
                         <option></option>
                     </select>
@@ -421,6 +424,63 @@ $(document).ready(function() {
                 }
             });
         });
+
+        $('#dataFilter').on('submit', function(e) {
+        e.preventDefault();
+        let partners = $('#partners').val();
+        let counties = $('#counties').val();
+        let subcounties = $('#subcounties').val();
+        let facilities = $('#facilities').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            data: {
+                "partners": partners,
+                "counties": counties,
+                "subcounties": subcounties,
+                "facilities": facilities
+            },
+            url: "{{ route('filter_client_dashboard') }}",
+            success: function(data) {
+
+                $("#container").html(data.consented_nine);
+                $("#container").html(data.consented_forteen);
+                $("#container").html(data.consented_nineteen);
+                $("#container").html(data.consented_twenty_four);
+                $("#container").html(data.consented_over_twenty_five);
+                $("#container").html(data.registered_nine);
+                $("#container").html(data.registered_forteen);
+                $("#container").html(data.registered_nineteen);
+                $("#container").html(data.registered_twenty_four);
+                $("#container").html(data.registered_over_twenty_five);
+                $("#container").html(data.registered_over_twenty_five);
+
+                $("#marital").html(data.single_consented);
+                $("#marital").html(data.monogamous_consented);
+                $("#marital").html(data.divorced_consented);
+                $("#marital").html(data.widowed_consented);
+                $("#marital").html(data.cohabating_consented);
+                $("#marital").html(data.unavailable_consented);
+                $("#marital").html(data.notapplicable_consented);
+                $("#marital").html(data.polygamous_consented);
+                $("#marital").html(data.single_registered);
+                $("#marital").html(data.monogamous_registered);
+                $("#marital").html(data.divorced_registered);
+                $("#marital").html(data.widowed_registered);
+                $("#marital").html(data.cohabating_registered);
+                $("#marital").html(data.unavailable_registered);
+                $("#marital").html(data.notapplicable_registered);
+                $("#marital").html(data.polygamous_registered);
+
+
+            }
+        });
+    });
     </script>
 
 
