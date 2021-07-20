@@ -245,25 +245,6 @@
         });
     });
 
-    $.ajax({
-        type: 'GET',
-        url: "{{ route('filter_dashboard') }}",
-        success: function(data) {
-
-
-            $("#all_clients_number").html(data.all_clients_number);
-            $("#pec_client_count").html(data.pec_client_count);
-            $("#all_target_clients").html(data.all_target_clients);
-            $("#all_consented_clients").html(data.all_consented_clients);
-            $("#all_future_appointments").html(data.all_future_appointments);
-            $("#number_of_facilities").html(data.number_of_facilities);
-            $("#mainGraph").html(data.consented_clients_count);
-            $("#mainGraph").html(data.registered_clients_count);
-
-
-        }
-    });
-
 
     $('#dataFilter').on('submit', function(e) {
         e.preventDefault();
@@ -297,9 +278,12 @@
                 $("#number_of_facilities").html(data.number_of_facilities);
                 $("#mainGraph").html(data.consented_clients_count);
                 $("#mainGraph").html(data.registered_clients_count);
+                //data.registered_clients_count;
+                data.consented_clients_count;
             }
         });
     });
+
 
 
     var RegisteredClients = <?php echo json_encode($registered_clients_count) ?>;
@@ -308,8 +292,6 @@
     parseConsented = JSON.parse(ConsentedClients);
     parseRegistered = JSON.parse(RegisteredClients);
     //Registered = JSON.parse(Months);
-
-
 
     //console.log(Months);
 
@@ -357,6 +339,7 @@
         }],
 
     });
+
 
     var colors = Highcharts.getOptions().colors;
 </script>

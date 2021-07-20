@@ -976,6 +976,7 @@ class DashboardController extends Controller
         ->where('tbl_client.smsenable', '=', 'Yes');
 
         $consented_nineteen = Client::select(\DB::raw("case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end"))
+        ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
         ->where('tbl_client.smsenable', '=', 'Yes');
 
         $consented_twenty_four = Client::select(\DB::raw("case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end"))
