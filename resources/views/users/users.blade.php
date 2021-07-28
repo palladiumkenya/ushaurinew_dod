@@ -302,11 +302,11 @@
 </div>
 
 
-<div id="resetuser" class="modal" tabindex="-1" role="dialog">
+<div id="resetModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Rest User</h5>
+                <h5 class="modal-title">Reset User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -314,7 +314,7 @@
             <div class="modal-body">
                 <p>Are you sure you want to reset this user's password?.</p>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                <button id="delete" type="button" class="btn btn-danger">Reset</button>
+                <button id="reset" type="button" class="btn btn-success" data-person_id="">Reset</button>
             </div>
             <div class="modal-footer">
 
@@ -380,7 +380,8 @@
     }
 
     function resetuser(id) {
-        $('#resetuser').modal('show');
+        $('#resetModal').modal('show');
+        console.log(id);
         $(document).off("click", "#reset").on("click", "#reset", function(event) {
             $.ajax({
                 type: "POST",
@@ -392,7 +393,7 @@
                 dataType: "json",
                 success: function(data) {
                     toastr.success(data.details);
-                    $('#resetuser').modal('hide');
+                    $('#resetModal').modal('hide');
                 }
             })
         });

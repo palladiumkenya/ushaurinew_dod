@@ -128,6 +128,8 @@ class BulkUploadController extends Controller
                 if($existing){
                     echo ('Client' . $clinic_number  . ' already exists in the system <br>');
 
+                }else($clinic_number.length < 10 || $clinic_number.length > 10){
+                    echo ('Client' . $clinic_number  . ' has less or more than 10 digit ccc number <br>');
                 }else{
 
                     if ($client->save()) {
