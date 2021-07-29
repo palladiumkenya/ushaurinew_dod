@@ -53,7 +53,7 @@ use AuthenticatesUsers;
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/');
-      }
+    }
 
 /**
      * Get the needed authorization credentials from the request.

@@ -23,7 +23,7 @@
                                   <h4>Login</h4>
                                 </div>
 
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" id="login_form" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
                                         <label for="email">Phone Number/Email address</label>
@@ -90,6 +90,35 @@
         <script src="{{asset('assets/js/common-bundle-script.js')}}"></script>
 
         <script src="{{asset('assets/js/script.js')}}"></script>
+
+        <!-- Sweet alert -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <script>
+            var loginForm = $("#login_form");
+            loginForm.submit(function (e) {
+                e.preventDefault();
+                var thisForm = $(this);
+                var endPoint = thisForm.attr("action") || window.location.href;
+                var method = thisForm.attr("method");
+                var formData = thisForm.serialize();
+
+                console.log(endPoint);
+                console.log(method);
+                Swal.fire({
+                    title: "Please wait, Logging In!",
+                    imageUrl: "/images/Ripple.gif",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+
+                this.submit();
+
+            });
+        </script>
+
     </body>
 
 </html>
