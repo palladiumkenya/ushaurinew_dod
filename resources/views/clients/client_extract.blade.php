@@ -145,7 +145,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Clients Extract',
+            filename: 'Clients Extract'
+            },
+            {
+            extend: 'excel',
+            title: 'Clients Extract',
+            filename: 'Clients Extract'
+            },
+            {
+            extend: 'pdf',
+            title: 'Clients Extract',
+            filename: 'Clients Extract'
+            },
+            {
+            extend: 'print',
+            title: 'Clients Extract',
+            filename: 'Clients Extract'
+            }
         ]
     });</script>
 

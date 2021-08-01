@@ -176,7 +176,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List Of Non Ushauri Facilities',
+            filename: 'List Of Non Ushauri Facilities'
+            },
+            {
+            extend: 'csv',
+            title: 'List Of Non Ushauri Facilities',
+            filename: 'List Of Non Ushauri Facilities'
+            },
+            {
+            extend: 'excel',
+            title: 'List Of Non Ushauri Facilities',
+            filename: 'List Of Non Ushauri Facilities'
+            },
+            {
+            extend: 'pdf',
+            title: 'List Of Non Ushauri Facilities',
+            filename: 'List Of Non Ushauri Facilities'
+            },
+            {
+            extend: 'print',
+            title: 'List Of Non Ushauri Facilities',
+            filename: 'List Of Non Ushauri Facilities'
+            }
         ]
     });
 </script>

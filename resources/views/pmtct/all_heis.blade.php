@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'HEIs List',
+            filename: 'HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'HEIs List',
+            filename: 'HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'HEIs List',
+            filename: 'HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'HEIs List',
+            filename: 'HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'HEIs List',
+            filename: 'HEIs List'
+            }
         ]
     });</script>
 

@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'PAEDS Clients List',
+            filename: 'PAEDS Clients List'
+            },
+            {
+            extend: 'csv',
+            title: 'PAEDS Clients List',
+            filename: 'PAEDS Clients List'
+            },
+            {
+            extend: 'excel',
+            title: 'PAEDS Clients List',
+            filename: 'PAEDS Clients List'
+            },
+            {
+            extend: 'pdf',
+            title: 'PAEDS Clients List',
+            filename: 'PAEDS Clients List'
+            },
+            {
+            extend: 'print',
+            title: 'PAEDS Clients List',
+            filename: 'PAEDS Clients List'
+            }
         ]
     });</script>
 

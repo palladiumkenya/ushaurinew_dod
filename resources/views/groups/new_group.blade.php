@@ -87,7 +87,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List Of Groups',
+            filename: 'List Of Groups'
+            },
+            {
+            extend: 'csv',
+            title: 'List Of Groups',
+            filename: 'List Of Groups'
+            },
+            {
+            extend: 'excel',
+            title: 'List Of Groups',
+            filename: 'List Of Groups'
+            },
+            {
+            extend: 'pdf',
+            title: 'List Of Groups',
+            filename: 'List Of Groups'
+            },
+            {
+            extend: 'print',
+            title: 'List Of Groups',
+            filename: 'List Of Groups'
+            }
         ]
     });</script>
 

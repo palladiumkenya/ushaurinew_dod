@@ -221,7 +221,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List Of Partners',
+            filename: 'List Of Partners'
+            },
+            {
+            extend: 'csv',
+            title: 'List Of Partners',
+            filename: 'List Of Partners'
+            },
+            {
+            extend: 'excel',
+            title: 'List Of Partners',
+            filename: 'List Of Partners'
+            },
+            {
+            extend: 'pdf',
+            title: 'List Of Partners',
+            filename: 'List Of Partners'
+            },
+            {
+            extend: 'print',
+            title: 'List Of Partners',
+            filename: 'List Of Partners'
+            }
         ]
     });
 </script>

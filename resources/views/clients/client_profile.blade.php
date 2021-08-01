@@ -341,7 +341,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Clients Profile Registration Details',
+            filename: 'Clients Details'
+            },
+            {
+            extend: 'csv',
+            title: 'Clients Profile Registration Details',
+            filename: 'Clients Details'
+            },
+            {
+            extend: 'excel',
+            title: 'Clients Profile Registration Details',
+            filename: 'Clients Details'
+            },
+            {
+            extend: 'pdf',
+            title: 'Clients Profile Registration Details',
+            filename: 'Clients Details'
+            },
+            {
+            extend: 'print',
+            title: 'Clients Profile Registration Details',
+            filename: 'Clients Details'
+            }
         ]
     });
 
@@ -362,7 +386,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Clients Profile Outgoing Messages',
+            filename: 'Clients Outgoing Messages'
+            },
+            {
+            extend: 'csv',
+            title: 'Clients Profile Outgoing Messages',
+            filename: 'Clients Outgoing Messages'
+            },
+            {
+            extend: 'excel',
+            title: 'Clients Profile Outgoing Messages',
+            filename: 'Clients Outgoing Messages'
+            },
+            {
+            extend: 'pdf',
+            title: 'Clients Profile Outgoing Messages',
+            filename: 'Clients Outgoing Messages'
+            },
+            {
+            extend: 'print',
+            title: 'Clients Profile Outgoing Messages',
+            filename: 'Clients Outgoing Messages'
+            }
         ]
     });
 
@@ -383,7 +431,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Clients Profile Appointment Outcome',
+            filename: 'Clients Appointment Outcome'
+            },
+            {
+            extend: 'csv',
+            title: 'Clients Profile Appointment Outcome',
+            filename: 'Clients Appointment Outcome'
+            },
+            {
+            extend: 'excel',
+            title: 'Clients Profile Appointment Outcome',
+            filename: 'Clients Appointment Outcome'
+            },
+            {
+            extend: 'pdf',
+            title: 'Clients Profile Appointment Outcome',
+            filename: 'Clients Appointment Outcome'
+            },
+            {
+            extend: 'print',
+            title: 'Clients Profile Appointment Outcome',
+            filename: 'Clients Appointment Outcome'
+            }
         ]
     });
 </script>

@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">List of Active Facilities</h4>
+                        <! <h4 class="card-title mb-3">List of Active IL Facilities</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -66,7 +66,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List Of IL Facilities',
+            filename: 'List Of IL Facilities'
+            },
+            {
+            extend: 'csv',
+            title: 'List Of IL Facilities',
+            filename: 'List Of IL Facilities'
+            },
+            {
+            extend: 'excel',
+            title: 'List Of IL Facilities',
+            filename: 'List Of IL Facilities'
+            },
+            {
+            extend: 'pdf',
+            title: 'List Of IL Facilities',
+            filename: 'List Of IL Facilities'
+            },
+            {
+            extend: 'print',
+            title: 'List Of IL Facilities',
+            filename: 'List Of IL Facilities'
+            }
         ]
     });</script>
 

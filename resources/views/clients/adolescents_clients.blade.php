@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'ADOLESCENT CLIENTS',
+            filename: 'ADOLESCENT'
+            },
+            {
+            extend: 'excel',
+            title: 'ADOLESCENT CLIENTS',
+            filename: 'ADOLESCENT'
+            },
+            {
+            extend: 'pdf',
+            title: 'ADOLESCENT CLIENTS',
+            filename: 'ADOLESCENT'
+            },
+            {
+            extend: 'print',
+            title: 'ADOLESCENT CLIENTS',
+            filename: 'ADOLESCENT'
+            }
         ]
     });</script>
 

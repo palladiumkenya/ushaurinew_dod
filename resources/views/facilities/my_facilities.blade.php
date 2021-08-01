@@ -197,7 +197,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Approved and Unapproved Facilities',
+            filename: 'Approved and Unapproved Facilities'
+            },
+            {
+            extend: 'csv',
+            title: 'Approved and Unapproved Facilities',
+            filename: 'Approved and Unapproved Facilities'
+            },
+            {
+            extend: 'excel',
+            title: 'Approved and Unapproved Facilities',
+            filename: 'Approved and Unapproved Facilities'
+            },
+            {
+            extend: 'pdf',
+            title: 'Approved and Unapproved Facilities',
+            filename: 'Approved and Unapproved Facilities'
+            },
+            {
+            extend: 'print',
+            title: 'Approved and Unapproved Facilities',
+            filename: 'Approved and Unapproved Facilities'
+            }
         ]
     });
 </script>

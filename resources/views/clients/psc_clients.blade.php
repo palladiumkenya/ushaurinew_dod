@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Adults Clients List',
+            filename: 'Adults List'
+            },
+            {
+            extend: 'csv',
+            title: 'Adults Clients List',
+            filename: 'Adults List'
+            },
+            {
+            extend: 'excel',
+            title: 'Adults Clients List',
+            filename: 'Adults List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Adults Clients List',
+            filename: 'Adults List'
+            },
+            {
+            extend: 'print',
+            title: 'Adults Clients List',
+            filename: 'Adults List'
+            }
         ]
     });</script>
 

@@ -64,7 +64,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table"></i>Today Appointments
+                      <i class="icon-table"></i>{{count($today_appointment)}} Today Appointments
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -105,7 +105,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table"></i>Missed Appointments
+                         <i class="icon-table"></i> {{count($missed_appoitment)}} Missed Appointments
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -150,7 +150,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table"></i>Defaulted Appointments
+                      <i class="icon-table"></i> {{count($defaulted_appoitment)}} Defaulted Appointments
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -192,7 +192,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table"></i>LTFU Appointments
+                         <i class="icon-table"></i>{{count($ltfu_appoitment)}} LTFU Appointments
                          </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -262,7 +262,32 @@ $('#today_appointment_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Todays Appointments',
+            filename: 'Todays Appointment'
+            },
+            {
+            extend: 'csv',
+            title: 'Todays Appointments',
+            filename: 'Todays Appointment'
+            },
+            {
+            extend: 'excel',
+            title: 'Todays Appointments',
+            filename: 'Todays Appointment'
+            },
+            {
+            extend: 'pdf',
+            title: 'Todays Appointments',
+            filename: 'Todays Appointment'
+            },
+            {
+            extend: 'print',
+            title: 'Todays Appointments',
+            filename: 'Todays Appointment'
+            }
+
         ]
     });
     $('#missed_table').DataTable({
@@ -282,7 +307,31 @@ $('#today_appointment_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active Missed Appointments',
+            filename: 'Active Missed Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Active Missed Appointments',
+            filename: 'Active Missed Appointments'
+            },
+            {
+            extend: 'excel',
+            title: 'Active Missed Appointments',
+            filename: 'Active Missed Appointments'
+            },
+            {
+            extend: 'pdf',
+            title: 'Active Missed Appointments',
+            filename: 'Active Missed Appointments'
+            },
+            {
+            extend: 'print',
+            title: 'Active Missed Appointments',
+            filename: 'Active Missed Appointments'
+            }
         ]
     });
     $('#defaulted_table').DataTable({
@@ -302,7 +351,31 @@ $('#today_appointment_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active Defaulted Appointments',
+            filename: 'Active Defaulted Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Active Defaulted Appointments',
+            filename: 'Active Defaulted Appointments'
+            },
+            {
+            extend: 'excel',
+            title: 'Active Defaulted Appointments',
+            filename: 'Active Defaulted Appointments'
+            },
+            {
+            extend: 'pdf',
+            title: 'Active Defaulted Appointments',
+            filename: 'Active Defaulted Appointments'
+            },
+            {
+            extend: 'print',
+            title: 'Active Defaulted Appointments',
+            filename: 'Active Defaulted Appointments'
+            }
         ]
     });
      // multi column ordering
@@ -323,7 +396,31 @@ $('#today_appointment_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'excel',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'pdf',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            },
+            {
+            extend: 'print',
+            title: 'Active LTFU Appointments',
+            filename: 'Active LTFU Appointments'
+            }
         ]
     });
         </script>

@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'PMTCT Clients List',
+            filename: 'PMTCTClients List'
+            },
+            {
+            extend: 'csv',
+            title: 'PMTCT Clients List',
+            filename: 'PMTCTClients List'
+            },
+            {
+            extend: 'excel',
+            title: 'PMTCT Clients List',
+            filename: 'PMTCTClients List'
+            },
+            {
+            extend: 'pdf',
+            title: 'PMTCT Clients List',
+            filename: 'PMTCTClients List'
+            },
+            {
+            extend: 'print',
+            title: 'PMTCT Clients List',
+            filename: 'PMTCTClients List'
+            }
         ]
     });</script>
 

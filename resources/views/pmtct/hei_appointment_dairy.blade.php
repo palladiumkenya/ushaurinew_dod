@@ -136,7 +136,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Scheduled HEIs List',
+            filename: 'Scheduled HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Scheduled HEIs List',
+            filename: 'Scheduled HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Scheduled HEIs List',
+            filename: 'Scheduled HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Scheduled HEIs List',
+            filename: 'Scheduled HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Scheduled HEIs List',
+            filename: 'Scheduled HEIs List'
+            }
         ]
     });
     $('#hei_unscheduled_table').DataTable({
@@ -156,7 +180,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Un-Scheduled HEIs List',
+            filename: 'Un-Scheduled HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Un-Scheduled HEIs List',
+            filename: 'Un-Scheduled HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Un-Scheduled HEIs List',
+            filename: 'Un-Scheduled HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Un-Scheduled HEIs List',
+            filename: 'Un-Scheduled HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Un-Scheduled HEIs List',
+            filename: 'Un-Scheduled HEIs List'
+            }
         ]
     });
      // multi column ordering

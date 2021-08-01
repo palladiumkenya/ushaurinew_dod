@@ -208,7 +208,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Non Consented Clients List',
+            filename: 'Non Consented Clients List'
+            },
+            {
+            extend: 'csv',
+            title: 'Non Consented Clients List',
+            filename: 'Non Consented Clients List'
+            },
+            {
+            extend: 'excel',
+            title: 'Non Consented Clients List',
+            filename: 'Non Consented Clients List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Non Consented Clients List',
+            filename: 'Non Consented Clients List'
+            },
+            {
+            extend: 'print',
+            title: 'Non Consented Clients List',
+            filename: 'Non Consented Clients List'
+            }
         ]
     });
 </script>

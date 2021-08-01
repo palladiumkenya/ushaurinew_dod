@@ -77,7 +77,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Active Facilities',
+            filename: 'Active Facilities'
+            },
+            {
+            extend: 'csv',
+            title: 'Active Facilities',
+            filename: 'Active Facilities'
+            },
+            {
+            extend: 'excel',
+            title: 'Active Facilities',
+            filename: 'Active Facilities'
+            },
+            {
+            extend: 'pdf',
+            title: 'Active Facilities',
+            filename: 'Active Facilities'
+            },
+            {
+            extend: 'print',
+            title: 'Active Facilities',
+            filename: 'Active Facilities'
+            }
         ]
     });</script>
 

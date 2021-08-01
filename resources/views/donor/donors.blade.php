@@ -170,7 +170,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Donors List',
+            filename: 'Donors'
+            },
+            {
+            extend: 'csv',
+            title: 'Donors List',
+            filename: 'Donors'
+            },
+            {
+            extend: 'excel',
+            title: 'Donors List',
+            filename: 'Donors'
+            },
+            {
+            extend: 'pdf',
+            title: 'Donors List',
+            filename: 'Donors'
+            },
+            {
+            extend: 'print',
+            title: 'Donors List',
+            filename: 'Donors'
+            }
         ]
     });
 

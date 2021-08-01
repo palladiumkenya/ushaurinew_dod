@@ -115,17 +115,22 @@ class ILUushauriController extends Controller
     $selected_subcounties = $request->subcounties;
     $selected_facilites = $request->facilities;
 
-    $il_appointments = Appointments::select('client_id')
-      ->where('db_source', '=', 'KENYAEMR')
-      ->orwhere('db_source', '=', 'ADT');
+    $il_appointments = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+    ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+    ->select('tbl_appointment.client_id')
+      ->where('tbl_appointment.db_source', '=', 'KENYAEMR')
+      ->orwhere('tbl_appointment.db_source', '=', 'ADT');
 
-    $il_future_apps = Appointments::select('client_id')
-      ->where('appntmnt_date', '>', Now())
-      ->where('db_source', '=', 'KENYAEMR')
-      ->orwhere('db_source', '=', 'ADT');
+    $il_future_apps = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+    ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+    ->select('tbl_appointment.client_id')
+      ->where('tbl_appointment.appntmnt_date', '>', Now())
+      ->where('tbl_appointment.db_source', '=', 'KENYAEMR')
+      ->orwhere('tbl_appointment.db_source', '=', 'ADT');
 
     $messages_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
       ->join('tbl_clnt_outgoing', 'tbl_clnt_outgoing.clnt_usr_id', '=', 'tbl_client.id')
+      ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
       ->select('tbl_clnt_outgoing.id')
       ->where('tbl_clnt_outgoing.recepient_type', '=', 'Client')
       ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
@@ -134,6 +139,7 @@ class ILUushauriController extends Controller
 
     $il_facilities = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
       ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+      ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
       ->select('tbl_master_facility.name')
       ->groupBy('tbl_client.mfl_code')
       ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
@@ -142,60 +148,67 @@ class ILUushauriController extends Controller
 
     $il_partners = Client::join('tbl_appointment', 'tbl_appointment.client_id', '=', 'tbl_client.id')
       ->join('tbl_partner', 'tbl_partner.id', '=', 'tbl_client.partner_id')
+      ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
       ->select('tbl_partner.name')
       ->groupBy('tbl_partner.name')
       ->where('tbl_appointment.client_id', '=', 'tbl_client.id')
       ->where('tbl_appointment.db_source', '=', 'KENYAEMR')
       ->orwhere('tbl_appointment.db_source', '=', 'ADT');
 
-    $il_kenyaemr = Appointments::select('client_id')->where('db_source', '=', 'KENYAEMR');
+    $il_kenyaemr = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+    ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+    ->select('tbl_appointment.client_id')
+    ->where('tbl_appointment.db_source', '=', 'KENYAEMR');
 
-    $il_adt = Appointments::select('client_id')->where('db_source', '=', 'ADT');
+    $il_adt = Appointments::join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')
+    ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+    ->select('tbl_appointment.client_id')->where('tbl_appointment.db_source', '=', 'ADT');
 
-    $il_registration = Client::select('id')->where('entry_point', '=', 'IL');
+    $il_registration = Client::join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+    ->select('tbl_client.id')->where('tbl_client.entry_point', '=', 'IL');
 
     if (!empty($selected_partners)) {
-      $il_appointments = $il_appointments->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.partner_id', $selected_partners);
-      $il_future_apps = $il_future_apps->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.partner_id', $selected_partners);
+      $il_appointments = $il_appointments->where('tbl_client.partner_id', $selected_partners);
+      $il_future_apps = $il_future_apps->where('tbl_client.partner_id', $selected_partners);
       $messages_count = $messages_count->where('tbl_client.partner_id', $selected_partners);
       $il_facilities = $il_facilities->where('tbl_client.partner_id', $selected_partners);
       $il_partners = $il_partners->where('tbl_client.partner_id', $selected_partners);
-      $il_kenyaemr = $il_kenyaemr->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.partner_id', $selected_partners);
-      $il_adt = $il_adt->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.partner_id', $selected_partners);
-      $il_registration = $il_registration->where('partner_id', $selected_partners);
+      $il_kenyaemr = $il_kenyaemr->where('tbl_client.partner_id', $selected_partners);
+      $il_adt = $il_adt->where('tbl_client.partner_id', $selected_partners);
+      $il_registration = $il_registration->where('tbl_client.partner_id', $selected_partners);
     }
 
     if (!empty($selected_facilites)) {
-      $il_appointments = $il_appointments->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.mfl_code', $selected_facilites);
-      $il_future_apps = $il_future_apps->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.mfl_code', $selected_facilites);
+      $il_appointments = $il_appointments->where('tbl_client.mfl_code', $selected_facilites);
+      $il_future_apps = $il_future_apps->where('tbl_client.mfl_code', $selected_facilites);
       $messages_count = $messages_count->where('tbl_client.mfl_code', $selected_facilites);
       $il_facilities = $il_facilities->where('tbl_client.mfl_code', $selected_facilites);
       $il_partners = $il_partners->where('tbl_client.mfl_code', $selected_facilites);
-      $il_kenyaemr = $il_kenyaemr->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.mfl_code', $selected_facilites);
-      $il_adt = $il_adt->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->where('tbl_client.mfl_code', $selected_facilites);
-      $il_registration = $il_registration->where('mfl_code', $selected_facilites);
+      $il_kenyaemr = $il_kenyaemr->where('tbl_client.mfl_code', $selected_facilites);
+      $il_adt = $il_adt->where('tbl_client.mfl_code', $selected_facilites);
+      $il_registration = $il_registration->where('tbl_client.mfl_code', $selected_facilites);
     }
 
     if (!empty($selected_subcounties)) {
-      $il_appointments = $il_appointments->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_future_apps = $il_future_apps->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $messages_count = $messages_count->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_facilities = $il_facilities->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_partners = $il_partners->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_kenyaemr = $il_kenyaemr->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_adt = $il_adt->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-      $il_registration = $il_registration->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_appointments = $il_appointments->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_future_apps = $il_future_apps->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $messages_count = $messages_count->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_facilities = $il_facilities->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_partners = $il_partners->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_kenyaemr = $il_kenyaemr->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_adt = $il_adt->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+      $il_registration = $il_registration->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
     }
 
     if (!empty($selected_counties)) {
-      $il_appointments = $il_appointments->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_future_apps = $il_future_apps->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $messages_count = $messages_count->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_facilities = $il_facilities->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_partners = $il_partners->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_kenyaemr = $il_kenyaemr->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_adt = $il_adt->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
-      $il_registration = $il_registration->join('tbl_client', 'tbl_appointment.client_id', '=', 'tbl_client.id')->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_appointments = $il_appointments->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_future_apps = $il_future_apps->where('tbl_partner_facility.county_id', $selected_counties);
+      $messages_count = $messages_count->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_facilities = $il_facilities->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_partners = $il_partners->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_kenyaemr = $il_kenyaemr->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_adt = $il_adt->where('tbl_partner_facility.county_id', $selected_counties);
+      $il_registration = $il_registration->where('tbl_partner_facility.county_id', $selected_counties);
     }
 
     $data["il_appointments"]        = $il_appointments->count();

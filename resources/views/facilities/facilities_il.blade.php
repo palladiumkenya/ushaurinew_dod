@@ -75,7 +75,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'IL Facilities',
+            filename: 'IL Facilities'
+            },
+            {
+            extend: 'csv',
+            title: 'IL Facilities',
+            filename: 'IL Facilities'
+            },
+            {
+            extend: 'excel',
+            title: 'IL Facilities',
+            filename: 'IL Facilities'
+            },
+            {
+            extend: 'pdf',
+            title: 'IL Facilities',
+            filename: 'IL Facilities'
+            },
+            {
+            extend: 'print',
+            title: 'IL Facilities',
+            filename: 'IL Facilities'
+            }
         ]
     });</script>
 

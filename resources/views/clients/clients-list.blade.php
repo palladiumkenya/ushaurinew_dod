@@ -11,7 +11,7 @@
 
         <div class="card-body">
             <! <h4 class="card-title mb-3">Clients List</h4>
-                <p>List of Clients</p>
+                <p>{{count($all_clients)}} List of Clients</p>
                 <div class="col-md-12" style="margin-top:10px; ">
 
                 </div>
@@ -90,7 +90,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Clients List',
+            filename: 'Clients List'
+            },
+            {
+            extend: 'csv',
+            title: 'Clients List',
+            filename: 'Clients List'
+            },
+            {
+            extend: 'excel',
+            title: 'Clients List',
+            filename: 'Clients List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Clients List',
+            filename: 'Clients List'
+            },
+            {
+            extend: 'print',
+            title: 'Clients List',
+            filename: 'Clients List'
+            }
         ]
     });
 </script>
