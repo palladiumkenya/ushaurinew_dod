@@ -231,7 +231,31 @@ $(document).ready(function() {
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Monthly Appointment Summary Report',
+            filename: 'Monthly Appointment Summary Report'
+            },
+            {
+            extend: 'csv',
+            title: 'Monthly Appointment Summary Report',
+            filename: 'Monthly Appointment Summary Report'
+            },
+            {
+            extend: 'excel',
+            title: 'Monthly Appointment Summary Report',
+            filename: 'Monthly Appointment Summary Report'
+            },
+            {
+            extend: 'pdf',
+            title: 'Monthly Appointment Summary Report',
+            filename: 'Monthly Appointment Summary Report'
+            },
+            {
+            extend: 'print',
+            title: 'Monthly Appointment Summary Report',
+            filename: 'Monthly Appointment Summary Report'
+            }
         ]
     });
 </script>

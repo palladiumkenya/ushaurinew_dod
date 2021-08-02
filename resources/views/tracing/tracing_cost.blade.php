@@ -73,7 +73,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Tracing Cost',
+            filename: 'Tracing Cost'
+            },
+            {
+            extend: 'csv',
+            title: 'Tracing Cost',
+            filename: 'Tracing Cost'
+            },
+            {
+            extend: 'excel',
+            title: 'Tracing Cost',
+            filename: 'Tracing Cost'
+            },
+            {
+            extend: 'pdf',
+            title: 'Tracing Cost',
+            filename: 'Tracing Cost'
+            },
+            {
+            extend: 'print',
+            title: 'Tracing Cost',
+            filename: 'Tracing Cost'
+            }
         ]
     });</script>
 

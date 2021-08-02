@@ -12,7 +12,7 @@
                 <div class="col-lg-12 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Scheduled HEIs List</i>
+                         <i class="icon-table">{{count($all_scheduled_heis)}} Scheduled HEIs List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -60,7 +60,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">UnScheduled HEIs List</i>
+                      <i class="icon-table"> {{count($all_unscheduled_heis)}} UnScheduled HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">

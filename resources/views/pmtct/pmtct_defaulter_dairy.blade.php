@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Missed PMTC Mothers List</i>
+                      <i class="icon-table">{{count($all_missed_appointment_clients)}} Missed PMTC Mothers List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -50,7 +50,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Defaulted PMTCT Mothers List</i>
+                         <i class="icon-table">{{count($all_defaulted_appointment_clients)}} Defaulted PMTCT Mothers List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -91,7 +91,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Lost To Follow Up PMTCT Mothers List</i>
+                      <i class="icon-table">{{count($all_ltfu_pmtct_clients)}} Lost To Follow Up PMTCT Mothers List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -158,7 +158,31 @@ $('#pmtct_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Missed PMTCT List',
+            filename: 'Missed PMTCT List'
+            },
+            {
+            extend: 'csv',
+            title: 'Missed PMTCT List',
+            filename: 'Missed PMTCT List'
+            },
+            {
+            extend: 'excel',
+            title: 'Missed PMTCT List',
+            filename: 'Missed PMTCT List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Missed PMTCT List',
+            filename: 'Missed PMTCT List'
+            },
+            {
+            extend: 'print',
+            title: 'Missed PMTCT List',
+            filename: 'Missed PMTCT List'
+            }
         ]
     });
     $('#pmtct_defaulted_table').DataTable({
@@ -178,7 +202,31 @@ $('#pmtct_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Defaulted PMTCT List',
+            filename: 'Defaulted PMTCT List'
+            },
+            {
+            extend: 'csv',
+            title: 'Defaulted PMTCT List',
+            filename: 'Defaulted PMTCT List'
+            },
+            {
+            extend: 'excel',
+            title: 'Defaulted PMTCT List',
+            filename: 'Defaulted PMTCT List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Defaulted PMTCT List',
+            filename: 'Defaulted PMTCT List'
+            },
+            {
+            extend: 'print',
+            title: 'Defaulted PMTCT List',
+            filename: 'Defaulted PMTCT List'
+            }
         ]
     });
     $('#pmtct_ltfu_table').DataTable({
@@ -198,7 +246,31 @@ $('#pmtct_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'LTFU PMTCT List',
+            filename: 'LTFU PMTCT List'
+            },
+            {
+            extend: 'csv',
+            title: 'LTFU PMTCT List',
+            filename: 'LTFU PMTCT List'
+            },
+            {
+            extend: 'excel',
+            title: 'LTFU PMTCT List',
+            filename: 'LTFU PMTCT List'
+            },
+            {
+            extend: 'pdf',
+            title: 'LTFU PMTCT List',
+            filename: 'LTFU PMTCT List'
+            },
+            {
+            extend: 'print',
+            title: 'LTFU PMTCT List',
+            filename: 'LTFU PMTCT List'
+            }
         ]
     });
      // multi column ordering

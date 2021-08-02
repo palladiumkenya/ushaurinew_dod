@@ -264,7 +264,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Transfer Out Client List',
+            filename: 'Transfer Out Client List'
+            },
+            {
+            extend: 'csv',
+            title: 'Transfer Out Client List',
+            filename: 'Transfer Out Client List'
+            },
+            {
+            extend: 'excel',
+            title: 'Transfer Out Client List',
+            filename: 'Transfer Out Client List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Transfer Out Client List',
+            filename: 'Transfer Out Client List'
+            },
+            {
+            extend: 'print',
+            title: 'Transfer Out Client List',
+            filename: 'Transfer Out Client List'
+            }
         ]
     });
     $('#transfer_in_table').DataTable({
@@ -284,7 +308,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Transfer In Client List',
+            filename: 'Transfer In Client List'
+            },
+            {
+            extend: 'csv',
+            title: 'Transfer In Client List',
+            filename: 'Transfer In Client List'
+            },
+            {
+            extend: 'excel',
+            title: 'Transfer In Client List',
+            filename: 'Transfer In Client List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Transfer In Client List',
+            filename: 'Transfer In Client List'
+            },
+            {
+            extend: 'print',
+            title: 'Transfer In Client List',
+            filename: 'Transfer In Client List'
+            }
         ]
     });
     </script>

@@ -226,7 +226,31 @@ $(document).ready(function() {
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Outcome Report',
+            filename: 'Outcome Report'
+            },
+            {
+            extend: 'csv',
+            title: 'Outcome Report',
+            filename: 'Outcome Report'
+            },
+            {
+            extend: 'excel',
+            title: 'Outcome Report',
+            filename: 'Outcome Report'
+            },
+            {
+            extend: 'pdf',
+            title: 'Outcome Report',
+            filename: 'Outcome Report'
+            },
+            {
+            extend: 'print',
+            title: 'Outcome Report',
+            filename: 'Outcome Report'
+            }
         ]
     });</script>
 

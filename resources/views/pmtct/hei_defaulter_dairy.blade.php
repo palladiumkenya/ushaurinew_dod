@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Missed HEIs List</i>
+                      <i class="icon-table"> {{count($all_missed_heis)}} Missed HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -58,7 +58,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Defaulted HEIs List</i>
+                         <i class="icon-table"> {{count($all_defaulted_heis)}} Defaulted HEIs List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -106,7 +106,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Lost To Follow Up HEIs List</i>
+                      <i class="icon-table"> {{count($all_ltfu_heis)}} Lost To Follow Up HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -181,7 +181,31 @@ $('#hei_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Missed HEIs List',
+            filename: 'Missed HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Missed HEIs List',
+            filename: 'Missed HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Missed HEIs List',
+            filename: 'Missed HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Missed HEIs List',
+            filename: 'Missed HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Missed HEIs List',
+            filename: 'Missed HEIs List'
+            }
         ]
     });
     $('#hei_defaulted_table').DataTable({
@@ -201,7 +225,31 @@ $('#hei_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Defaulted HEIs List',
+            filename: 'Defaulted HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Defaulted HEIs List',
+            filename: 'Defaulted HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Defaulted HEIs List',
+            filename: 'Defaulted HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Defaulted HEIs List',
+            filename: 'Defaulted HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Defaulted HEIs List',
+            filename: 'Defaulted HEIs List'
+            }
         ]
     });
     $('#hei_ltfu_table').DataTable({
@@ -221,7 +269,31 @@ $('#hei_missed_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'LTFU HEIs List',
+            filename: 'LTFU HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'LTFU HEIs List',
+            filename: 'LTFU HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'LTFU HEIs List',
+            filename: 'LTFU HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'LTFU HEIs List',
+            filename: 'LTFU HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'LTFU HEIs List',
+            filename: 'LTFU HEIs List'
+            }
         ]
     });
      // multi column ordering

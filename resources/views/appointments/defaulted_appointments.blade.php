@@ -10,11 +10,11 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                           <! <h4 class="card-title mb-3">Missed Appointments List</h4>
+                           <! <h4 class="card-title mb-3">{{count($all_defaulted_appointments)}} Defaulted Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
-                                                           
+
                             </div>
-                                <div class="table-responsive">                                    
+                                <div class="table-responsive">
                                     <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
@@ -31,13 +31,13 @@
                                                 <th>No of Msgs</th>
                                                 <th>No of Visits</th>
                                                 <th>Outgoing Msgs</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if (count($all_defaulted_appointments) > 0)
                                                 @foreach($all_defaulted_appointments as $result)
-                                                    <tr> 
+                                                    <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$result->clinic_number}}</td>
                                                         <td>  {{$result->file_no}}</td>
@@ -50,14 +50,14 @@
                                                         <td>  {{$result->no_calls}}</td>
                                                         <td>  {{$result->no_msgs}}</td>
                                                         <td>  {{$result->home_visits}}</td>
-                                                        <td>  {{$result->app_msg}}</td>                                                        
+                                                        <td>  {{$result->app_msg}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
                                         </tbody>
-                                     
+
                                     </table>
-                                    
+
                                 </div>
 
                         </div>
@@ -89,7 +89,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Defaulted Appointments',
+            filename: 'Defaulted Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Defaulted Appointments',
+            filename: 'Defaulted Appointments'
+            },
+            {
+            extend: 'excel',
+            title: 'Defaulted Appointments',
+            filename: 'Defaulted Appointments'
+            },
+            {
+            extend: 'pdf',
+            title: 'Defaulted Appointments',
+            filename: 'Defaulted Appointments'
+            },
+            {
+            extend: 'print',
+            title: 'Defaulted Appointments',
+            filename: 'Defaulted Appointments'
+            }
         ]
     });</script>
 

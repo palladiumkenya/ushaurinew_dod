@@ -154,7 +154,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Future Appointments Edit List',
+            filename: 'Future Appointments Edit List'
+            },
+            {
+            extend: 'excel',
+            title: 'Future Appointments Edit List',
+            filename: 'Future Appointments Edit List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Future Appointments Edit List',
+            filename: 'Future Appointments Edit List'
+            },
+            {
+            extend: 'print',
+            title: 'Future Appointments Edit List',
+            filename: 'Future Appointments Edit List'
+            }
         ]
     });
 </script>

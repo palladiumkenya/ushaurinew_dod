@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Deceased HEIs List</i>
+                      <i class="icon-table">{{count($all_deceased_heis)}} Deceased HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -54,7 +54,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Transfer Out HEIs List</i>
+                         <i class="icon-table">{{count($all_transfer_heis)}} Transfer Out HEIs List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -98,7 +98,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Discharged HEIs List</i>
+                      <i class="icon-table">{{count($all_discharged_heis)}} Discharged HEIs List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -169,7 +169,31 @@ $('#hei_discharged_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Discharged HEIs List',
+            filename: 'Discharged HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Discharged HEIs List',
+            filename: 'Discharged HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Discharged HEIs List',
+            filename: 'Discharged HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Discharged HEIs List',
+            filename: 'Discharged HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Discharged HEIs List',
+            filename: 'Discharged HEIs List'
+            }
         ]
     });
     $('#hei_deceased_table').DataTable({
@@ -189,7 +213,31 @@ $('#hei_discharged_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Deceased HEIs List',
+            filename: 'Deceased HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Deceased HEIs List',
+            filename: 'Deceased HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Deceased HEIs List',
+            filename: 'Deceased HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Deceased HEIs List',
+            filename: 'Deceased HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Deceased HEIs List',
+            filename: 'Deceased HEIs List'
+            }
         ]
     });
     $('#hei_transfer_table').DataTable({
@@ -209,7 +257,31 @@ $('#hei_discharged_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Transfer Out HEIs List',
+            filename: 'Transfer Out HEIs List'
+            },
+            {
+            extend: 'csv',
+            title: 'Transfer Out HEIs List',
+            filename: 'Transfer Out HEIs List'
+            },
+            {
+            extend: 'excel',
+            title: 'Transfer Out HEIs List',
+            filename: 'Transfer Out HEIs List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Transfer Out HEIs List',
+            filename: 'Transfer Out HEIs List'
+            },
+            {
+            extend: 'print',
+            title: 'Transfer Out HEIs List',
+            filename: 'Transfer Out HEIs List'
+            }
         ]
     });
      // multi column ordering

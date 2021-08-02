@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Advanced Clients</i>
+                      <i class="icon-table">{{count($all_clients_duration_less_advanced)}} Advanced Clients</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -53,7 +53,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Well Clients</i>
+                         <i class="icon-table">{{count($all_clients_duration_less_well)}} Well Clients</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -96,7 +96,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">Stable Clients</i>
+                      <i class="icon-table">{{count($all_clients_duration_more_stable)}} Stable Clients</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -144,7 +144,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Unstable Clients</i>
+                         <i class="icon-table">{{count($all_clients_duration_more_unstable)}} Unstable Clients</i>
                          </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -214,7 +214,31 @@ $('#less_advanced_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Advanced Clients',
+            filename: 'Advanced Clients'
+            },
+            {
+            extend: 'csv',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'excel',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'print',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            }
         ]
     });
     $('#less_well_table').DataTable({
@@ -234,7 +258,31 @@ $('#less_advanced_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Well Clients',
+            filename: 'Well Clients'
+            },
+            {
+            extend: 'csv',
+            title: 'Well Clients',
+            filename: 'Well Clients'
+            },
+            {
+            extend: 'excel',
+            title: 'Well Clients',
+            filename: 'Well Clients'
+            },
+            {
+            extend: 'pdf',
+            title: 'Well Clients',
+            filename: 'Well Clients'
+            },
+            {
+            extend: 'print',
+            title: 'Well Clients',
+            filename: 'Well Clients'
+            }
         ]
     });
     $('#more_unstable_table').DataTable({
@@ -254,7 +302,31 @@ $('#less_advanced_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Unstable Clients',
+            filename: 'Unstable Clients'
+            },
+            {
+            extend: 'csv',
+            title: 'Unstable Clients',
+            filename: 'Unstable Clients'
+            },
+            {
+            extend: 'excel',
+            title: 'Unstable Clients',
+            filename: 'Unstable Clients'
+            },
+            {
+            extend: 'pdf',
+            title: 'Unstable Clients',
+            filename: 'Unstable Clients'
+            },
+            {
+            extend: 'print',
+            title: 'Unstable Clients',
+            filename: 'Unstable Clients'
+            }
         ]
     });
      // multi column ordering
@@ -275,7 +347,31 @@ $('#less_advanced_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Stable Clients',
+            filename: 'Stable Clients'
+            },
+            {
+            extend: 'csv',
+            title: 'Stable Clients',
+            filename: 'Stable Clients'
+            },
+            {
+            extend: 'excel',
+            title: 'Stable Clients',
+            filename: 'Stable Clients'
+            },
+            {
+            extend: 'pdf',
+            title: 'Stable Clients',
+            filename: 'Stable Clients'
+            },
+            {
+            extend: 'print',
+            title: 'Stable Clients',
+            filename: 'Stable Clients'
+            }
         ]
     });
 

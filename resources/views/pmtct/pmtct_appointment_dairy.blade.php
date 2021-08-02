@@ -12,7 +12,7 @@
                 <div class="col-lg-12 col-sm-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                         <i class="icon-table">Scheduled PMTCT List</i>
+                         <i class="icon-table">{{count($all_schedule_appointment_clients)}} Scheduled PMTCT List</i>
                           </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -55,7 +55,7 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="card mb-4">
                     <div class="panel-heading">
-                      <i class="icon-table">UnScheduled PMTCT List</i>
+                      <i class="icon-table">{{count($all_unschedule_appointment_clients)}} UnScheduled PMTCT List</i>
                      </div>
                         <div class="card-body">
                         <div class="table-responsive">
@@ -143,7 +143,31 @@ $('#pmtct_booked_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            },
+            {
+            extend: 'csv',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            },
+            {
+            extend: 'excel',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            },
+            {
+            extend: 'print',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            }
         ]
     });
     $('#pmtct_unscheduled_table').DataTable({
@@ -163,7 +187,31 @@ $('#pmtct_booked_table').DataTable({
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Scheduled PMTCT List',
+            filename: 'Scheduled PMTCT List'
+            },
+            {
+            extend: 'csv',
+            title: 'UnScheduled PMTCT List',
+            filename: 'UnScheduled PMTCT List'
+            },
+            {
+            extend: 'excel',
+            title: 'UnScheduled PMTCT List',
+            filename: 'UnScheduled PMTCT List'
+            },
+            {
+            extend: 'pdf',
+            title: 'UnScheduled PMTCT List',
+            filename: 'UnScheduled PMTCT List'
+            },
+            {
+            extend: 'print',
+            title: 'UnScheduled PMTCT List',
+            filename: 'UnScheduled PMTCT List'
+            }
         ]
     });
      // multi column ordering

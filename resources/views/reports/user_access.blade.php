@@ -75,7 +75,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Users List',
+            filename: 'Users List'
+            },
+            {
+            extend: 'csv',
+            title: 'Users List',
+            filename: 'Users List'
+            },
+            {
+            extend: 'excel',
+            title: 'Users List',
+            filename: 'Users List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Users List',
+            filename: 'Users List'
+            },
+            {
+            extend: 'print',
+            title: 'Users List',
+            filename: 'Users List'
+            }
         ]
     });</script>
 

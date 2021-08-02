@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                           <! <h4 class="card-title mb-3">Missed Appointments List</h4>
+                           <! <h4 class="card-title mb-3"> {{count($all_missed_appointments)}} Missed Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -89,7 +89,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Missed Appointments List',
+            filename: 'Missed Appointments List'
+            },
+            {
+            extend: 'csv',
+            title: 'Missed Appointments List',
+            filename: 'Missed Appointments List'
+            },
+            {
+            extend: 'excel',
+            title: 'Missed Appointments List',
+            filename: 'Missed Appointments List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Missed Appointments List',
+            filename: 'Missed Appointments List'
+            },
+            {
+            extend: 'print',
+            title: 'Missed Appointments List',
+            filename: 'Missed Appointments List'
+            }
         ]
     });</script>
 

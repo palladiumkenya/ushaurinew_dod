@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Deactivated clients</h4>
+                        <! <h4 class="card-title mb-3">{{count($all_deactivated_clients)}} Deactivated clients</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -80,7 +80,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Deactivated clients',
+            filename: 'Deactivated clients'
+            },
+            {
+            extend: 'csv',
+            title: 'Deactivated clients',
+            filename: 'Deactivated clients'
+            },
+            {
+            extend: 'excel',
+            title: 'Deactivated clients',
+            filename: 'Deactivated clients'
+            },
+            {
+            extend: 'pdf',
+            title: 'Deactivated clients',
+            filename: 'Deactivated clients'
+            },
+            {
+            extend: 'print',
+            title: 'Deactivated clients',
+            filename: 'Deactivated clients'
+            }
         ]
     });</script>
 

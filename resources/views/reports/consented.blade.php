@@ -92,7 +92,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'csv',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'excel',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            },
+            {
+            extend: 'print',
+            title: 'Client Consent List',
+            filename: 'Client Consent List'
+            }
         ]
     });</script>
 

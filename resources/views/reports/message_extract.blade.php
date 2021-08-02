@@ -72,7 +72,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Messages Extract List</h4>
+                        <! <h4 class="card-title mb-3">{{count($message_extract)}} Messages Extract List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -231,7 +231,31 @@ $(document).ready(function() {
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Messages Extract List',
+            filename: 'Messages Extract List'
+            },
+            {
+            extend: 'csv',
+            title: 'Messages Extract List',
+            filename: 'Messages Extract List'
+            },
+            {
+            extend: 'excel',
+            title: 'Messages Extract List',
+            filename: 'Messages Extract List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Messages Extract List',
+            filename: 'Messages Extract List'
+            },
+            {
+            extend: 'print',
+            title: 'Messages Extract List',
+            filename: 'Messages Extract List'
+            }
         ]
     });</script>
 

@@ -213,7 +213,31 @@ $(document).ready(function() {
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Summary Report',
+            filename: 'Summary Report'
+            },
+            {
+            extend: 'csv',
+            title: 'Summary Report',
+            filename: 'Summary Report'
+            },
+            {
+            extend: 'excel',
+            title: 'Summary Report',
+            filename: 'Summary Report'
+            },
+            {
+            extend: 'pdf',
+            title: 'Summary Report',
+            filename: 'Summary Report'
+            },
+            {
+            extend: 'print',
+            title: 'Summary Report',
+            filename: 'Summary Report'
+            }
         ]
     });</script>
 

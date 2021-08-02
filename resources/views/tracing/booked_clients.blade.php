@@ -197,7 +197,31 @@ $(".ajax").submit(function(event) { //listening on class name and for submit act
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Booked Clients To Assign To Tracer',
+            filename: 'Booked Clients To Assign To Tracer'
+            },
+            {
+            extend: 'csv',
+            title: 'Booked Clients To Assign To Tracer',
+            filename: 'Booked Clients To Assign To Tracer'
+            },
+            {
+            extend: 'excel',
+            title: 'Booked Clients To Assign To Tracer',
+            filename: 'Booked Clients To Assign To Tracer'
+            },
+            {
+            extend: 'pdf',
+            title: 'Booked Clients To Assign To Tracer',
+            filename: 'Booked Clients To Assign To Tracer'
+            },
+            {
+            extend: 'print',
+            title: 'Booked Clients To Assign To Tracer',
+            filename: 'Booked Clients To Assign To Tracer'
+            }
         ]
     });</script>
 

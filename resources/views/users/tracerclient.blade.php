@@ -80,7 +80,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List of Clients Assigned To Tracers',
+            filename: 'List of Clients Assigned To Tracers'
+            },
+            {
+            extend: 'csv',
+            title: 'List of Clients Assigned To Tracers',
+            filename: 'List of Clients Assigned To Tracers'
+            },
+            {
+            extend: 'excel',
+            title: 'List of Clients Assigned To Tracers',
+            filename: 'List of Clients Assigned To Tracers'
+            },
+            {
+            extend: 'pdf',
+            title: 'List of Clients Assigned To Tracers',
+            filename: 'List of Clients Assigned To Tracers'
+            },
+            {
+            extend: 'print',
+            title: 'List of Clients Assigned To Tracers',
+            filename: 'List of Clients Assigned To Tracers'
+            }
         ]
     });</script>
 

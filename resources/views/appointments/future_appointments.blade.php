@@ -10,7 +10,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                           <! <h4 class="card-title mb-3">Future Appointments List</h4>
+                           <! <h4 class="card-title mb-3">{{count($all_future_appointments)}} Future Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -81,7 +81,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            },
+            {
+            extend: 'csv',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            },
+            {
+            extend: 'excel',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            },
+            {
+            extend: 'pdf',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            },
+            {
+            extend: 'print',
+            title: 'Future Appointments',
+            filename: 'Future Appointments'
+            }
         ]
     });</script>
 

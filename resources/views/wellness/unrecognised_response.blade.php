@@ -11,7 +11,7 @@
 
                         <div class="card-body">
                         <! <h4 class="card-title mb-3">Check-ins List</h4>
-                           <p>List of Clients Check-Ins</p>
+                           <p>List of Clients Unrecognised Check-Ins</p>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -84,7 +84,31 @@
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'List of Clients Unrecognised Check-Ins',
+            filename: 'List of Clients Unrecognised Check-Ins'
+            },
+            {
+            extend: 'csv',
+            title: 'List of Clients Unrecognised Check-Ins',
+            filename: 'List of Clients Unrecognised Check-Ins'
+            },
+            {
+            extend: 'excel',
+            title: 'List of Clients Unrecognised Check-Ins',
+            filename: 'List of Clients Unrecognised Check-Ins'
+            },
+            {
+            extend: 'pdf',
+            title: 'List of Clients Unrecognised Check-Ins',
+            filename: 'List of Clients Unrecognised Check-Ins'
+            },
+            {
+            extend: 'print',
+            title: 'List of Clients Unrecognised Check-Ins',
+            filename: 'List of Clients Unrecognised Check-Ins'
+            }
         ]
     });</script>
 

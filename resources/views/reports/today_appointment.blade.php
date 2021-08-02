@@ -212,7 +212,31 @@ $(document).ready(function() {
         "info": true,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+            extend: 'copy',
+            title: 'Today's Appointments List',
+            filename: 'Today's Appointments List'
+            },
+            {
+            extend: 'csv',
+            title: 'Today's Appointments List',
+            filename: 'Today's Appointments List'
+            },
+            {
+            extend: 'excel',
+            title: 'Today's Appointments List',
+            filename: 'Today's Appointments List'
+            },
+            {
+            extend: 'pdf',
+            title: 'Today's Appointments List',
+            filename: 'Today's Appointments List'
+            },
+            {
+            extend: 'print',
+            title: 'Today's Appointments List',
+            filename: 'Today's Appointments List'
+            }
         ]
     });</script>
 
