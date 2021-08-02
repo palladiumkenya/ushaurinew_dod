@@ -12,7 +12,7 @@ class DonorController extends Controller
 {
     public function index()
     {
-        $all_donor = Donor::all();
+        $all_donor = Donor::all()->where('status', '=', 'Active');
 
         return view('donor.donors')->with('all_donor', $all_donor);
     }

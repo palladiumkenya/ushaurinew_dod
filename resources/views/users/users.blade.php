@@ -48,7 +48,7 @@
                             <td>
                                 <button onclick="edituser({{$user}});" data-toggle="modal" data-target="#edituser" type="button" class="btn btn-primary btn-sm">Edit</button>
                                 <button onclick="deleteUser({{$user->id}});" type="button" class="btn btn-danger btn-sm">Delete</button>
-                                <button onclick="resetuser({{$user->id}});" type="button" class="btn btn-success btn-sm">Reset User</button>
+                                <button onclick="resetUser({{$user->id}});" type="button" class="btn btn-success btn-sm">Reset</button>
 
 
                             </td>
@@ -82,7 +82,7 @@
                             <form role="form" method="post" action="{{route('edituser')}}">
                                 {{ csrf_field() }}
                                 <div class="row">
-                                    <input type="hidden" name="id" id="id">
+                                    <input type="hidden" name="id" id="uid">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">First name</label>
                                         <input type="text" required="" class="form-control" id="fname" name="fname" placeholder="Enter your first name">
@@ -302,7 +302,7 @@
 </div>
 
 
-<div id="resetModal" class="modal" tabindex="-1" role="dialog">
+<div id="ResetModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -312,6 +312,7 @@
                 </button>
             </div>
             <div class="modal-body">
+            <input type="hidden" name="id" id="uid">
                 <p>Are you sure you want to reset this user's password?.</p>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
                 <button id="reset" type="button" class="btn btn-success" data-person_id="">Reset</button>
@@ -376,24 +377,24 @@
         $('#month6_report').val(user.month6_report);
         $('#yearly_report').val(user.yearly_report);
         $('#status').val(user.status);
-        $('#id').val(user.id);
+        $('#uid').val(user.id);
     }
 
-    function resetuser(id) {
-        $('#resetModal').modal('show');
-        console.log(id);
+    function resetUser(uid) {
+        $('#ResetModal').modal('show');
+        console.log(uid);
         $(document).off("click", "#reset").on("click", "#reset", function(event) {
             $.ajax({
                 type: "POST",
                 url: '/reset/user',
                 data: {
-                    "id": id,
+                    "uid": uid,
                     "_token": "{{ csrf_token()}}"
                 },
                 dataType: "json",
                 success: function(data) {
                     toastr.success(data.details);
-                    $('#resetModal').modal('hide');
+                    $('#ResetModal').modal('hide');
                 }
             })
         });

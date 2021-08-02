@@ -27,7 +27,10 @@ use AuthenticatesUsers;
    // protected $redirectTo = '/Reports/dashboard';
 
    protected function redirectTo() {
-    if (Auth::user()->access_level == 'Facility') {
+    if (Auth::user()->first_access == 'Yes') {
+        return '/user/passwordreset';
+    }
+    else if (Auth::user()->access_level == 'Facility') {
         Session::flash('statuscode', 'Login Success!, You will be redirected to your Home page in a few.');
         return '/Reports/facility_home';
     } else if (Auth::user()->access_level == 'Partner') {
@@ -102,6 +105,7 @@ use AuthenticatesUsers;
         if ($user->status == 'Deleted') {
             return $this->sendFailedLoginResponse($request, 'User not Found.');
         }
+
 
         return $this->sendFailedLoginResponse($request);
     }

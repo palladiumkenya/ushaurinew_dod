@@ -261,7 +261,7 @@ class UserController extends Controller
     public function resetuser(Request $request)
     {
         try {
-            $user = User::find($request->id);
+            $user = User::find($request->uid);
             $user->password = bcrypt($user->phone_no);
             $user->first_access = 'Yes';
             $user->updated_at = date('Y-m-d H:i:s');
@@ -270,6 +270,7 @@ class UserController extends Controller
             if ($user->save()) {
                 Session::flash('statuscode', 'success');
                 return response(['status' => 'success', 'details' => 'User has been reset successfully']);
+
             } else {
                 Session::flash('statuscode', 'error');
                 return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
@@ -278,6 +279,11 @@ class UserController extends Controller
             Session::flash('statuscode', 'error');
             return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
         }
+    }
+
+    public function resetshow()
+    {
+        return view('users.passreset');
     }
 
     public function changepass(Request $request)
@@ -290,11 +296,11 @@ class UserController extends Controller
 
             if ($user->save()) {
                 Session::flash('statuscode', 'success');
-                return response(['status' => 'success', 'details' => 'Password has been changed successfully!']);
+                return redirect('/')->with('status', 'Password has been changed successfully!');
             } else {
 
                 Session::flash('statuscode', 'error');
-                return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
+                return back()->with('error', 'An error has occurred please try again later.');
             }
         } catch (Exception $e) {
 
