@@ -360,6 +360,8 @@ class AppointmentController extends Controller
     }
     public function appointment_dashboard()
     {
+        $all_partners = Partner::where('status', '=', 'Active')
+        ->pluck('name', 'id');
         if (Auth::user()->access_level == 'Facility') {
 
             $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
@@ -681,9 +683,6 @@ class AppointmentController extends Controller
         }
 
         if (Auth::user()->access_level == 'Admin') {
-
-            $all_partners = Partner::where('status', '=', 'Active')
-            ->pluck('name', 'id');
 
             $all_ltfu_app_10_14 = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
