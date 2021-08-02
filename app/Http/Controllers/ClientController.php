@@ -10,7 +10,6 @@ use App\Models\Language;
 use App\Models\Condition;
 use App\Models\Gender;
 use App\Models\Marital;
-use App\Models\Clinic;
 use Session;
 use Auth;
 

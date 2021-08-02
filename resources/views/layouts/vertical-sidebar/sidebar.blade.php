@@ -170,7 +170,7 @@
                             </a>
                         </li>
                         <li class="item-name">
-                            <a href={{route('report-appointments-calender')}}>
+                            <a href="#">
                                 <span class="item-name">Calender</span>
                             </a>
                         </li>
