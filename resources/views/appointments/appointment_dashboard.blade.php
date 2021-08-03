@@ -255,37 +255,21 @@ $(document).ready(function() {
             },
             url: "{{ route('filter_appointment_dashboard') }}",
             success: function(data) {
+                console.log(data);
                 $("#allApps").html(data.created_appointmnent_count);
                 $("#keptApps").html(data.kept_appointmnent_count);
                 $("#defaultedApps").html(data.defaulted_appointmnent_count);
                 $("#missedApps").html(data.missed_appointmnent_count);
                 $("#ltfuApps").html(data.ltfu_appointmnent_count);
 
-                $("#container").html(data.all_appointment_by_marital_single_missed);
-                $("#container").html(data.all_appointment_by_marital_single_defaulted);
-                $("#container").html(data.all_appointment_by_marital_single_ltfu);
-                $("#container").html(data.all_appointment_by_marital_monogomous_missed);
-                $("#container").html(data.all_appointment_by_marital_monogomous_defaulted);
-                $("#container").html(data.all_appointment_by_marital_monogomous_lftu);
-                $("#container").html(data.all_appointment_by_marital_divorced_missed);
-                $("#container").html(data.all_appointment_by_marital_divorced_defaulted);
-                $("#container").html(data.all_appointment_by_marital_divorced_lftu);
-                $("#container").html(data.all_appointment_by_marital_widowed_missed);
-                $("#container").html(data.all_appointment_by_marital_widowed_defaulted);
+                appChart.series[0].setData([data.all_appointment_by_marital_single_defaulted, data.all_appointment_by_marital_monogomous_defaulted, data.all_appointment_by_marital_divorced_defaulted, data.all_appointment_by_marital_widowed_defaulted,
+                data.all_appointment_by_marital_cohabiting_defaulted, data.all_appointment_by_marital_unavailable_defaulted, data.all_appointment_by_marital_polygamous_defaulted, data.all_appointment_by_marital_notapplicable_defaulted]);
 
-                $("#container").html(data.all_appointment_by_marital_widowed_lftu);
-                $("#container").html(data.all_appointment_by_marital_cohabiting_missed);
-                $("#container").html(data.all_appointment_by_marital_cohabiting_defaulted);
-                $("#container").html(data.all_appointment_by_marital_cohabiting_lftu);
-                $("#container").html(data.all_appointment_by_marital_unavailable_missed);
-                $("#container").html(data.all_appointment_by_marital_unavailable_defaulted);
-                $("#container").html(data.all_appointment_by_marital_unavailable_lftu);
-                $("#container").html(data.all_appointment_by_marital_polygamous_missed);
-                $("#container").html(data.all_appointment_by_marital_polygamous_defaulted);
-                $("#container").html(data.all_appointment_by_marital_polygamous_lftu);
-                $("#container").html(data.all_appointment_by_marital_notapplicable_missed);
-                $("#container").html(data.all_appointment_by_marital_notapplicable_defaulted);
-                $("#container").html(data.all_appointment_by_marital_notapplicable_lftu);
+                appChart.series[1].setData([data.all_appointment_by_marital_single_missed, data.all_appointment_by_marital_monogomous_missed, data.all_appointment_by_marital_divorced_missed, data.all_appointment_by_marital_widowed_missed,
+                data.all_appointment_by_marital_cohabiting_missed, data.all_appointment_by_marital_unavailable_missed, data.all_appointment_by_marital_polygamous_missed, data.all_appointment_by_marital_notapplicable_missed]);
+
+                appChart.series[2].setData([data.all_appointment_by_marital_single_ltfu, data.all_appointment_by_marital_monogomous_lftu, data.all_appointment_by_marital_divorced_lftu, data.all_appointment_by_marital_widowed_lftu,
+                data.all_appointment_by_marital_cohabiting_lftu, data.all_appointment_by_marital_unavailable_lftu, data.all_appointment_by_marital_polygamous_lftu, data.all_appointment_by_marital_notapplicable_lftu]);
 
 
 
@@ -324,7 +308,7 @@ $(document).ready(function() {
         var notapplicableDefaulted =  <?php echo json_encode($all_appointment_by_marital_notapplicable_defaulted) ?>;
         var notapplicableLTFU =  <?php echo json_encode($all_appointment_by_marital_notapplicable_lftu) ?>;
 
-        Highcharts.chart('container', {
+       var appChart = Highcharts.chart('container', {
         chart: {
             type: 'column'
         },
@@ -363,9 +347,6 @@ $(document).ready(function() {
             }
         },
         series: [{
-                name: 'Honoured Appointments',
-                data: singleMissed
-            }, {
                 name: 'Active Defaulters',
                 data: [singleDefaulted, monogamousDefaulted, divorcedDefaulted, widowedDefaulted, cohabitingDefaulted, unavailableDefaulted, polygamousDefaulted, notapplicableDefaulted]
             }, {

@@ -252,6 +252,8 @@
         let counties = $('#counties').val();
         let subcounties = $('#subcounties').val();
         let facilities = $('#facilities').val();
+
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -269,6 +271,9 @@
             url: "{{ route('filter_dashboard') }}",
             success: function(data) {
 
+                    Registered = parseInt(data.registered_clients_count)
+                    Consented = parseInt(data.consented_clients_count)
+
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
@@ -276,11 +281,15 @@
                 $("#all_consented_clients").html(data.all_consented_clients);
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
-                chartData(data.consented_clients_count);
-                chartData(data.registered_clients_count);
-                //data.consented_clients_count;
-                //data.registered_clients_count;chartData
-            }
+
+
+                mainChart.series[0].setData([Registered, Consented]);
+
+                //mainChart.redraw();
+
+               console.log(data.consented_clients_count);
+
+           }
         });
     });
 
@@ -295,7 +304,7 @@
 
     //console.log(Months);
 
-    Highcharts.chart('mainGraph', {
+    var mainChart = Highcharts.chart('mainGraph', {
         chart: {
             type: 'column'
         },
@@ -334,13 +343,12 @@
             }
         },
         series: [{
+
             name: 'Clients Trends',
             data: [parseRegistered, parseConsented]
         }],
 
     });
-
-
 
     var colors = Highcharts.getOptions().colors;
 </script>

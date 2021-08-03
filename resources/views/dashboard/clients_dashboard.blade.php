@@ -266,7 +266,7 @@ renderer.path(['M', x1, y1, 'L', x2, y2])
     })
     .add();
 }
-window.chart = new Highcharts.Chart({
+var ageChart = window.chart = new Highcharts.Chart({
 
 chart: {
     renderTo: 'container',
@@ -308,7 +308,7 @@ series: [{
 }]
 });
 
-window.chart = new Highcharts.Chart({
+var maritalChart = window.chart = new Highcharts.Chart({
 
 chart: {
     renderTo: 'marital',
@@ -447,36 +447,12 @@ $(document).ready(function() {
             },
             url: "{{ route('filter_client_dashboard') }}",
             success: function(data) {
+              console.log(data);
+                ageChart.series[0].setData([data.registered_forteen, data.registered_nineteen, data.registered_twenty_four, data.registered_over_twenty_five]);
+                ageChart.series[1].setData([data.consented_forteen, data.consented_nineteen, data.consented_twenty_four, data.consented_over_twenty_five]);
 
-                $("#container").html(data.consented_nine);
-                $("#container").html(data.consented_forteen);
-                $("#container").html(data.consented_nineteen);
-                $("#container").html(data.consented_twenty_four);
-                $("#container").html(data.consented_over_twenty_five);
-                $("#container").html(data.registered_nine);
-                $("#container").html(data.registered_forteen);
-                $("#container").html(data.registered_nineteen);
-                $("#container").html(data.registered_twenty_four);
-                $("#container").html(data.registered_over_twenty_five);
-                $("#container").html(data.registered_over_twenty_five);
-
-                $("#marital").html(data.single_consented);
-                $("#marital").html(data.monogamous_consented);
-                $("#marital").html(data.divorced_consented);
-                $("#marital").html(data.widowed_consented);
-                $("#marital").html(data.cohabating_consented);
-                $("#marital").html(data.unavailable_consented);
-                $("#marital").html(data.notapplicable_consented);
-                $("#marital").html(data.polygamous_consented);
-                $("#marital").html(data.single_registered);
-                $("#marital").html(data.monogamous_registered);
-                $("#marital").html(data.divorced_registered);
-                $("#marital").html(data.widowed_registered);
-                $("#marital").html(data.cohabating_registered);
-                $("#marital").html(data.unavailable_registered);
-                $("#marital").html(data.notapplicable_registered);
-                $("#marital").html(data.polygamous_registered);
-
+                maritalChart.series[0].setData([data.single_registered, data.monogamous_registered, data.divorced_registered, data.widowed_registered, data.cohabating_registered, data.polygamous_registered, data.notapplicable_registered, data.unavailable_registered]);
+                maritalChart.series[1].setData([data.single_consented, data.monogamous_consented, data.divorced_consented, data.widowed_consented, data.cohabating_consented, data.polygamous_consented, data.notapplicable_registered, data.unavailable_registered]);
 
             }
         });

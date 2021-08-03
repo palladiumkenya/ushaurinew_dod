@@ -17,6 +17,8 @@ use App\Models\SubCounty;
 use App\Models\MainDashboardBar;
 use App\Models\ClientRegistration;
 use App\Models\PartnerFacility;
+use App\Models\BarClient;
+use App\Models\BarAppointment;
 use App\Models\FutureApp;
 use Carbon\Carbon;
 use DB;
@@ -149,6 +151,9 @@ class DashboardController extends Controller
         $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')->count();
         $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
 
+        $bar_appointments_data = BarAppointment::all();
+        $bar_clients_data = BarClient::all();
+
 
         $registered_clients_count = ClientRegistration::select('clients')->sum('clients');
         $consented_clients_count = ClientRegistration::select('consented')->sum('consented');
@@ -190,6 +195,8 @@ class DashboardController extends Controller
             ->where('partner_id', Auth::user()->partner_id)->sum('clients');
             $consented_clients_count = ClientRegistration::select('consented')
             ->where('partner_id', Auth::user()->partner_id)->sum('consented');
+            $bar_appointments_data = BarAppointment::all()->where('partner_id', Auth::user()->partner_id);
+            $bar_clients_data = BarClient::all()->where('partner_id', Auth::user()->partner_id);
             }
 
 
@@ -200,7 +207,8 @@ class DashboardController extends Controller
         $data["all_future_appointments"]        = $all_future_appointments;
         $data["number_of_facilities"]         = $number_of_facilities;
         $data["all_partners"]         = $all_partners;
-      //  $data["all_counties"]         = $all_counties;
+        $data["bar_appointments_data"]         = $bar_appointments_data;
+        $data["bar_clients_data"]         = $bar_clients_data;
         $data["registered_clients_count"]         = $registered_clients_count;
         $data["consented_clients_count"]         = $consented_clients_count;
 
@@ -216,6 +224,8 @@ class DashboardController extends Controller
             'number_of_facilities',
             'pec_client_count',
             'registered_clients_count',
+            'bar_clients_data',
+            'bar_appointments_data',
             'consented_clients_count'
         ));
     }
