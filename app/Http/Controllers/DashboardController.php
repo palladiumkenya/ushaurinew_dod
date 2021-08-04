@@ -363,6 +363,13 @@ class DashboardController extends Controller
         $subcounties = PartnerFacility::join('tbl_sub_county', 'tbl_partner_facility.sub_county_id', '=', 'tbl_sub_county.id')
             ->where("tbl_partner_facility.county_id", $id)
             ->pluck("tbl_sub_county.name", "tbl_sub_county.id");
+
+            if (Auth::user()->access_level == 'Partner'){
+                $subcounties = PartnerFacility::join('tbl_sub_county', 'tbl_partner_facility.sub_county_id', '=', 'tbl_sub_county.id')
+            ->where("tbl_partner_facility.county_id", $id)
+            ->where("tbl_partner_facility.partner_id", '=', Auth::user()->partner_id)
+            ->pluck("tbl_sub_county.name", "tbl_sub_county.id");
+            }
         return json_encode($subcounties);
     }
 
@@ -371,6 +378,13 @@ class DashboardController extends Controller
         $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
             ->where("tbl_partner_facility.sub_county_id", $id)
             ->pluck("tbl_master_facility.name", "tbl_master_facility.code");
+
+            if (Auth::user()->access_level == 'Partner'){
+                $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+            ->where("tbl_partner_facility.sub_county_id", $id)
+            ->where("tbl_partner_facility.partner_id", '=', Auth::user()->partner_id)
+            ->pluck("tbl_master_facility.name", "tbl_master_facility.code");
+            }
 
         return json_encode($facilities);
     }

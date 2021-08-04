@@ -66,11 +66,24 @@ class UserController extends Controller
             ->orderBy('tbl_master_facility.name', 'asc')
             // ->where('tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
             ->get();
+            if (Auth::user()->access_level == 'Partner'){
+                $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
+                ->select('tbl_partner_facility.id', 'tbl_master_facility.name', 'tbl_partner_facility.mfl_code as code')
+                ->orderBy('tbl_master_facility.name', 'asc')
+                 ->where('tbl_partner_facility.partner_id', '=', Auth::user()->partner_id)
+                ->get();
+            }
         $counties = County::all();
         $clinics = Clinic::all();
         $roles = Role::all()->where('status', '=', 'Active');
         $sub_counties = SubCounty::all();
         $access_level = AccessLevel::all()->where('status', '=', 'Active');
+        if (Auth::user()->access_level == 'Partner'){
+            $access_level = AccessLevel::all()->where('status', '=', 'Active')
+           // ->where('name', '=', 'Partner')
+            ->where('name', '=', 'Facility');
+        }
+
         $clients = Client::select('tbl_client.clinic_number', 'tbl_clinic.name')
             ->join('tbl_clinic', 'tbl_client.clinic_id', '=', 'tbl_clinic.id')
             ->get();

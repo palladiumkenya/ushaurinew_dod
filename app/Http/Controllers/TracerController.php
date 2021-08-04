@@ -69,7 +69,7 @@ class TracerController extends Controller
     if (Auth::user()->access_level == 'Partner') {
       $tracing_cost = Outcome::join('tbl_users', 'tbl_clnt_outcome.created_by', '=', 'tbl_users.id')
         ->join('tbl_client', 'tbl_clnt_outcome.client_id', '=', 'tbl_client.id')
-        ->select('tbl_clnt_outcome.app_status', DB::raw("sum(`tbl_clnt_outcome`.`tracing_cost`) as total_cost"), DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_client.clinic_number', 'tbl_clnt_outcome.tracing_cost')
+        ->select('tbl_clnt_outcome.app_status', DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as tracer_name"), 'tbl_client.clinic_number', 'tbl_clnt_outcome.tracing_cost')
         ->where('tbl_client.partner_id', Auth::user()->partner_id)
         ->whereNotNull('tbl_clnt_outcome.tracing_cost')
         ->get();

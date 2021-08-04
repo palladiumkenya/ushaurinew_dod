@@ -16,7 +16,7 @@
             <div class="col">
                 <div class="form-group">
 
-                    <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
+                    <select class="form-control filter_partner  input-rounded input-sm select2 step2-select" id="partners" name="partner">
                         <option value="">Please select Partner</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
+                    <select class="form-control county  input-rounded input-sm select2 step2-select" id="counties" name="county">
                         <option value="">Please select County:</option>
                         <option value=""></option>
                     </select>

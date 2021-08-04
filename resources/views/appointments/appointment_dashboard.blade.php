@@ -15,7 +15,7 @@
             <div class="col">
                 <div class="form-group">
 
-                    <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
+                    <select class="form-control select2" id="partners" name="partner" multiple="multiple">
                         <option value="">Please select Partner</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
+                    <select class="form-control county  input-rounded input-sm select2" id="counties" name="county" multiple="multiple">
                         <option value="">Please select County:</option>
                         <option value=""></option>
                     </select>
@@ -71,6 +71,7 @@
 
 <div id="highchart"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -157,6 +158,10 @@
 
 
     <script type="text/javascript">
+
+$(document).ready(function() {
+    $('.filter_partner').select2();
+});
 
 $(document).ready(function() {
             $('select[name="partner"]').on('change', function() {
