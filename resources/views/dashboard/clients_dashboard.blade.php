@@ -362,6 +362,7 @@ $(document).ready(function() {
 
 
                             $('select[name="county"]').empty();
+                            $('select[name="county"]').append('<option value="">Please Select County</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
                             });
@@ -387,6 +388,7 @@ $(document).ready(function() {
 
 
                             $('select[name="subcounty"]').empty();
+                            $('select[name="subcounty"]').append('<option value="">Please Select SubCounty</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
                             });
@@ -412,6 +414,7 @@ $(document).ready(function() {
 
 
                             $('select[name="facility"]').empty();
+                            $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
                             });

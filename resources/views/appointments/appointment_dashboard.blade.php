@@ -15,7 +15,7 @@
             <div class="col">
                 <div class="form-group">
 
-                    <select class="form-control select2" id="partners" name="partner" multiple="multiple">
+                    <select class="form-control select2" id="partners" name="partner">
                         <option value="">Please select Partner</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <select class="form-control county  input-rounded input-sm select2" id="counties" name="county" multiple="multiple">
+                    <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
                         <option value="">Please select County:</option>
                         <option value=""></option>
                     </select>
@@ -70,8 +70,9 @@
 
 
 <div id="highchart"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -159,9 +160,12 @@
 
     <script type="text/javascript">
 
-$(document).ready(function() {
-    $('.filter_partner').select2();
-});
+
+    $('.partners').select2();
+    $('.counties').select2();
+    $('.subcounties').select2();
+
+
 
 $(document).ready(function() {
             $('select[name="partner"]').on('change', function() {
@@ -175,7 +179,9 @@ $(document).ready(function() {
 
 
                             $('select[name="county"]').empty();
+                            $('select[name="county"]').append('<option value="">Please Select County</option>');
                             $.each(data, function(key, value) {
+
                                 $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
                             });
 
@@ -200,6 +206,7 @@ $(document).ready(function() {
 
 
                             $('select[name="subcounty"]').empty();
+                            $('select[name="subcounty"]').append('<option value="">Please Select Sub County</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
                             });
@@ -225,6 +232,7 @@ $(document).ready(function() {
 
 
                             $('select[name="facility"]').empty();
+                            $('select[name="facility"]').append('<option value="">Please select Facility</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
                             });
