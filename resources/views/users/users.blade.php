@@ -48,8 +48,7 @@
                             <td>
                                 <button onclick="edituser({{$user}});" data-toggle="modal" data-target="#edituser" type="button" class="btn btn-primary btn-sm">Edit</button>
                                 <button onclick="deleteUser({{$user->id}});" type="button" class="btn btn-danger btn-sm">Delete</button>
-                                <button onclick="resetUser({{$user->id}});" type="button" class="btn btn-success btn-sm">Reset</button>
-
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetModal">Reset</button>
 
                             </td>
                         </tr>
@@ -289,7 +288,7 @@
                                     <button type="submit" class="btn btn-block btn-primary">Submit</button>
                             </form>
 
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -302,11 +301,12 @@
 </div>
 
 
-<div id="ResetModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reset User</h5>
+<div id="resetUser" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+<!-- Modal content-->
+<div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title">Reset User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -321,8 +321,30 @@
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
+
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="resetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reset User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="reset" type="button" class="btn btn-primary">Reset</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -353,6 +375,7 @@
 @section('page-js')
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     function edituser(user) {
 
@@ -381,7 +404,7 @@
     }
 
     function resetUser(uid) {
-        $('#ResetModal').modal('show');
+        $('#resetUser').modal('show');
         console.log(uid);
         $(document).off("click", "#reset").on("click", "#reset", function(event) {
             $.ajax({
@@ -394,7 +417,7 @@
                 dataType: "json",
                 success: function(data) {
                     toastr.success(data.details);
-                    $('#ResetModal').modal('hide');
+                    $('#resetUser').modal('hide');
                 }
             })
         });

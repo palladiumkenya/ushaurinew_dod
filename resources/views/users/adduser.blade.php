@@ -264,6 +264,7 @@
 
 
                         $('select[name="sub_county"]').empty();
+                        $('select[name="sub_county"]').append('<option value="">Please Select SubCounty</option>');
                         $.each(data, function(key, value) {
                             $('select[name="sub_county"]').append('<option value="' + key + '">' + value + '</option>');
                         });

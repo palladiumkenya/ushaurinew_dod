@@ -1773,11 +1773,12 @@ class PmtcController extends Controller
             }
 
             // Administrator
+            $all_partners = Partner::where('status', '=', 'Active')
+            ->pluck('name', 'id');
 
         if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Donor') {
 
-            $all_partners = Partner::where('status', '=', 'Active')
-            ->pluck('name', 'id');
+
             $tonine_scheduled = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
             ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
              ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) > 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
@@ -3958,5 +3959,5 @@ class PmtcController extends Controller
         return $data;
 
 }
-    
+
 }
