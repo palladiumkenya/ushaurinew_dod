@@ -1773,6 +1773,7 @@ class PmtcController extends Controller
             }
 
             // Administrator
+
             $all_partners = Partner::where('status', '=', 'Active')
             ->pluck('name', 'id');
 
