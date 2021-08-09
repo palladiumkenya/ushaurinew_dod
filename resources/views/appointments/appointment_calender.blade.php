@@ -1,5 +1,13 @@
 @extends('layouts.master')
 @section('page-css')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
 @endsection
 
@@ -10,14 +18,8 @@
 
 
 
-        <div id='calendar' class="calendar"></div>
+        <div id='calendar'></div>
 
-
-
-        <div id="eventContent" title="Event Details" style="display:none;">
-        {!! $calendar->calendar() !!}
-    {!! $calendar->script() !!}
-        </div>
 
 
     </div>
@@ -28,11 +30,19 @@
 
 @section('page-js')
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.0/main.css"/>
+
 <script type="text/javascript">
+
+$(document).ready(function () {
+
+
+   $.ajaxSetup({
+       headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+   });
+   var calendar = $('#calendar').fullCalendar();
+});
 
 </script>
 

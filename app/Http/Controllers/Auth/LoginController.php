@@ -99,7 +99,7 @@ use AuthenticatesUsers;
         }
 
         // Customization: If status status is inactive (0) return failed_status error.
-        if ($user->status == 'Inactive') {
+        if ($user->status == 'Disabled') {
             return $this->sendFailedLoginResponse($request, 'Your account is not active. Kindly contact system admin.');
         }
         if ($user->status == 'Deleted') {
