@@ -55,7 +55,7 @@
                             <td> {{$consent->status}}</td>
 
                             <td>
-                                <button onclick="consentclient({{ $consent }});" data-toggle="modal" data-target="#consentclient" type="button" class="btn btn-primary btn-sm">Consent</button>
+                                <button onclick="consentclient({{$consent}});" data-toggle="modal" data-target="#consentModal" type="button" class="btn btn-primary btn-sm">Consent</button>
 
                             </td>
                         </tr>
@@ -72,7 +72,7 @@
 </div>
 <!-- end of col -->
 
-<div id="consentclient" class="modal fade" role="dialog">
+<div id="consentModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
@@ -186,7 +186,7 @@
 
         $('#clinic_number').val(consent.clinic_number);
         $('#phone_no').val(consent.phone_no);
-        $('#id').val(consent.id);
+       // $('#id').val(consent.id);
 
     }
 
