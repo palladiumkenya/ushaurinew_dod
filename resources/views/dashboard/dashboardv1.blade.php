@@ -208,7 +208,7 @@
 
 
                         $('select[name="subcounty"]').empty();
-                        $('select[name="county"]').append('<option value="">Please Select County</option>');
+                        $('select[name="subcounty"]').append('<option value="">Please Select Sub County</option>');
                         $.each(data, function(key, value) {
                             $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
                         });
@@ -234,7 +234,7 @@
 
 
                         $('select[name="facility"]').empty();
-                        $('select[name="county"]').append('<option value="">Please Select Facility</option>');
+                        $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
                         $.each(data, function(key, value) {
                             $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
                         });
