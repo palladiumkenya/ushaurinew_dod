@@ -29,7 +29,7 @@
                                 <input type="hidden" name="id" value="{{Auth::user()->id}}">
 
                                 <div class="form-group col-md-12">
-                                    <label for="new_password" class="col-sm-2 control-label ">New Password </label>
+                                    <label for="new_password" class="col-sm-2 control-label "><b>New Password </b></label>
                                     <div class="col-sm-10">
                                         <input type="password" pattern=".{6,20}" required
                                             title="password requires more than 6 characters"
@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a type="button" class="btn btn-info pull-right" href="{{route('logout')}}">Login</a>
                 </div>
                                 <div class="center">
                                 <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40" style="margin-left: 20px;">

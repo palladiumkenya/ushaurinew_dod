@@ -132,7 +132,7 @@
 
         $('#clinic_number').val(appointment.clinic_number);
         $('#appntmnt_date').val(appointment.appntmnt_date);
-       // $('#app_type').val(appointment.app_type);
+        $('#app_type').val(appointment.app_type);
         $('#id').val(appointment.id);
 
     }

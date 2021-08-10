@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/add/users', ['uses' => 'App\Http\Controllers\UserController@adduser', 'as' => 'adduser']);
   Route::post('/edit/user', ['uses' => 'App\Http\Controllers\UserController@edituser', 'as' => 'edituser']);
   Route::post('/reset/user', ['uses' => 'App\Http\Controllers\UserController@resetuser', 'as' => 'resetuser']);
+  Route::get('/admin/reset', ['uses' => 'App\Http\Controllers\UserController@reset', 'as' => 'reset']);
   Route::get('/user/passwordreset', ['uses' => 'App\Http\Controllers\UserController@resetshow', 'as' => 'resetshow']);
   Route::post('/changepass', ['uses' => 'App\Http\Controllers\UserController@changepass', 'as' => 'changepass']);
   Route::get('/get_roles/{id}', ['uses' => 'App\Http\Controllers\UserController@get_roles', 'as' => 'get_roles']);

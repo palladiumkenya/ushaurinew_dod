@@ -27,7 +27,7 @@ class UserController extends Controller
         $all_users = User::join('tbl_clinic', 'tbl_clinic.id', '=', 'tbl_users.clinic_id')
             ->select(DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as user_name"), 'tbl_users.f_name', 'tbl_users.m_name', 'tbl_users.l_name', 'tbl_users.dob', 'tbl_users.phone_no', 'tbl_users.e_mail', 'tbl_users.access_level', 'tbl_users.status',
             'tbl_users.created_at', 'tbl_users.updated_at', 'tbl_clinic.name AS clinic_name', 'tbl_users.view_client', 'tbl_users.rcv_app_list', 'tbl_users.daily_report', 'tbl_users.monthly_report', 'tbl_users.month3_report', 'tbl_users.month6_report', 'tbl_users.yearly_report', 'tbl_users.status',
-            'tbl_users.id')
+            'tbl_users.id as id')
             ->where('tbl_users.status', '=', 'Active')
             ->where('tbl_users.partner_id', Auth::user()->partner_id)
             ->get();
@@ -37,7 +37,7 @@ class UserController extends Controller
         $all_users = User::join('tbl_clinic', 'tbl_clinic.id', '=', 'tbl_users.clinic_id')
             ->select(DB::raw("CONCAT(`tbl_users`.`f_name`, ' ', `tbl_users`.`m_name`, ' ', `tbl_users`.`l_name`) as user_name"), 'tbl_users.f_name', 'tbl_users.m_name', 'tbl_users.l_name', 'tbl_users.dob', 'tbl_users.phone_no', 'tbl_users.e_mail', 'tbl_users.access_level', 'tbl_users.status',
             'tbl_users.created_at', 'tbl_users.updated_at', 'tbl_clinic.name AS clinic_name', 'tbl_users.view_client', 'tbl_users.rcv_app_list', 'tbl_users.daily_report', 'tbl_users.monthly_report', 'tbl_users.month3_report', 'tbl_users.month6_report', 'tbl_users.yearly_report', 'tbl_users.status',
-            'tbl_users.id')
+            'tbl_users.id as id')
             ->where('tbl_users.status', '=', 'Active')
             ->get();
      }
@@ -274,7 +274,7 @@ class UserController extends Controller
     public function resetuser(Request $request)
     {
         try {
-            $user = User::find($request->uid);
+            $user = User::find($request->id);
             $user->password = bcrypt($user->phone_no);
             $user->first_access = 'Yes';
             $user->updated_at = date('Y-m-d H:i:s');
@@ -282,21 +282,25 @@ class UserController extends Controller
 
             if ($user->save()) {
                 Session::flash('statuscode', 'success');
-                return response(['status' => 'success', 'details' => 'User has been reset successfully']);
+                return redirect('admin/users')->with('status', 'User has been reset successfull');
 
             } else {
                 Session::flash('statuscode', 'error');
-                return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
+                return redirect('admin/users')->with('status', 'An error has occurred please try again later');
             }
         } catch (Exception $e) {
             Session::flash('statuscode', 'error');
-            return response(['status' => 'error', 'details' => 'An error has occurred please try again later.']);
+            return redirect('admin/users')->with('status', 'An error has occurred please try again later');
         }
     }
 
     public function resetshow()
     {
         return view('users.passreset');
+    }
+    public function reset()
+    {
+        return view('users.reset');
     }
 
     public function changepass(Request $request)

@@ -2,6 +2,7 @@
 @section('page-css')
 
 <link rel="stylesheet" href="{{asset('assets/styles/vendor/datatables.min.css')}}">
+
 @endsection
 
 @section('main-content')
@@ -14,6 +15,7 @@
             <div style="margin-bottom:10px; ">
                 <a type="button" href="{{route('admin-users-form')}}" class="btn btn-primary btn-md pull-right">Add User</a>
             </div>
+
             <div class="table-responsive">
                 <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
                     <thead>
@@ -46,9 +48,8 @@
                             <td> {{$user->created_at}}</td>
                             <td> {{$user->updated_at}}</td>
                             <td>
+                            <button onclick="resetUser({{$user->id}});" type="button" class="btn btn-success btn-sm">Reset</button>
                                 <button onclick="edituser({{$user}});" data-toggle="modal" data-target="#edituser" type="button" class="btn btn-primary btn-sm">Edit</button>
-                                <button onclick="deleteUser({{$user->id}});" type="button" class="btn btn-danger btn-sm">Delete</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resetModal">Reset</button>
 
                             </td>
                         </tr>
@@ -63,6 +64,32 @@
     </div>
 </div>
 <!-- end of col -->
+
+<!-- Reset Modal -->
+<div class="modal fade" id="ResetModal" tabindex="-1" role="dialog" aria-labelledby="ResetTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div  class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ResetTitle">Reset User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to reset this user's password?.</p>
+
+            </div>
+            <form id="reset_form">
+                                {{ csrf_field() }}
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="reset" type="submit" class="btn btn-primary">Reset</button>
+
+            </div>
+</form>
+        </div>
+    </div>
+</div>
 <!-- edit goes here -->
 <div id="edituser" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -81,7 +108,7 @@
                             <form role="form" method="post" action="{{route('edituser')}}">
                                 {{ csrf_field() }}
                                 <div class="row">
-                                    <input type="hidden" name="id" id="uid">
+                                    <input type="hidden" name="id" id="id">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">First name</label>
                                         <input type="text" required="" class="form-control" id="fname" name="fname" placeholder="Enter your first name">
@@ -288,7 +315,7 @@
                                     <button type="submit" class="btn btn-block btn-primary">Submit</button>
                             </form>
 
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -298,53 +325,6 @@
         </div>
 
     </div>
-</div>
-
-
-<div id="resetUser" class="modal fade" role="dialog">
-<div class="modal-dialog modal-lg">
-<!-- Modal content-->
-<div class="modal-content">
-    <div class="modal-header">
-    <h5 class="modal-title">Reset User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <input type="hidden" name="id" id="uid">
-                <p>Are you sure you want to reset this user's password?.</p>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                <button id="reset" type="button" class="btn btn-success" data-person_id="">Reset</button>
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="resetModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Reset User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="reset" type="button" class="btn btn-primary">Reset</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 
@@ -375,8 +355,33 @@
 @section('page-js')
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
+
+
+$('#multicolumn_ordering_table').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1]
+        }, {
+            targets: [1],
+            orderData: [1, 0]
+        }, {
+            targets: [4],
+            orderData: [4, 0]
+        }],
+        "paging": true,
+        "responsive": true,
+        "ordering": true,
+        "info": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
     function edituser(user) {
 
         $('#fname').val(user.f_name);
@@ -400,49 +405,77 @@
         $('#month6_report').val(user.month6_report);
         $('#yearly_report').val(user.yearly_report);
         $('#status').val(user.status);
-        $('#uid').val(user.id);
+        $('#id').val(user.id);
     }
 
-    function resetUser(uid) {
-        $('#resetUser').modal('show');
-        console.log(uid);
-        $(document).off("click", "#reset").on("click", "#reset", function(event) {
+    function resetuser(user) {
+
+    }
+
+    function deleteUser(id) {
+        $('#DeleteModal').modal('show');
+        console.log(id);
+        $(document).off("click", "#delete").on("click", "#delete", function(event) {
             $.ajax({
                 type: "POST",
-                url: '/reset/user',
+                url: '/delete/user',
                 data: {
-                    "uid": uid,
+                    "id": id,
                     "_token": "{{ csrf_token()}}"
                 },
                 dataType: "json",
                 success: function(data) {
                     toastr.success(data.details);
-                    $('#resetUser').modal('hide');
+                    $('#DeleteModal').modal('hide');
                 }
             })
         });
     }
 
-    $('#multicolumn_ordering_table').DataTable({
-        columnDefs: [{
-            targets: [0],
-            orderData: [0, 1]
-        }, {
-            targets: [1],
-            orderData: [1, 0]
-        }, {
-            targets: [4],
-            orderData: [4, 0]
-        }],
-        "paging": true,
-        "responsive": true,
-        "ordering": true,
-        "info": true,
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
+    function resetUser(id) {
+        $('#ResetModal').modal('show');
+        console.log(id);
+        $(document).off("click", "#reset").on("click", "#reset", function(event) {
+            $.ajax({
+                type: "POST",
+                url: '/reset/user',
+                data: {
+                    "id": id,
+                    "_token": "{{ csrf_token()}}"
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#ResetModal').modal('hide');
+                }
+
+
+            })
+        });
+    };
+
+    var loginForm = $("#reset_form");
+
+            loginForm.submit(function (e) {
+                $('#ResetModal').modal('hide');
+                e.preventDefault();
+                var thisForm = $(this);
+                var endPoint = thisForm.attr("action") || window.location.href;
+                var method = thisForm.attr("method");
+                var formData = thisForm.serialize();
+
+                console.log(endPoint);
+                console.log(method);
+                Swal.fire({
+                    title: "User has been reset successfull",
+                    showConfirmButton: true,
+                    allowOutsideClick: true
+                });
+
+                this.submit();
+
+            });
+
+
     $(document).ready(function() {
         $('select[name="add_access_level"]').on('change', function() {
             var AccessID = $(this).val();
