@@ -16,6 +16,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
+            @if (Auth::user()->access_level == 'Facility')
             <li class="nav-item {{ request()->is('appointments/*') ? 'active' : '' }}" data-item="appointments">
                 <a class="nav-item-hold" href="#">
                 <i class="nav-icon i-Clock"></i>
@@ -46,7 +47,7 @@
                 <div class="triangle"></div>
             </li>
 
-
+            @endif
             <li class="nav-item {{ request()->is('admin/*') ? 'active' : '' }}" data-item="admin">
                 <a class="nav-item-hold" href="">
                 <i class="nav-icon i-Double-Tap"></i>
@@ -83,25 +84,32 @@
     <div class="sidebar-left-secondary rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
         <!-- Submenu Dashboards -->
         <ul class="childNav" data-parent="dashboard">
-            @if (Auth::user()->access_level == 'Facility')
+        @if (Auth::user()->access_level == 'Facility')
                 <li class="nav-item ">
+
 
                                 <a class="{{ Route::currentRouteName()=='Reports-facility_home' ? 'open' : '' }}" href="{{route('Reports-facility_home')}}">
                                     <span class=" text-muted">Summary</span>
                                 </a>
+                                </li>
                                 @endif
                                 @if (Auth::user()->access_level == 'Admin')
+                                <li class="nav-item ">
                                 <a class="{{ Route::currentRouteName()=='Reports-dashboard' ? 'open' : '' }}" href="{{route('Reports-dashboard')}}">
                                     <span class=" text-muted">Summary</span>
                                 </a>
+                                </li>
                                 @endif
                                 @if (Auth::user()->access_level == 'Partner')
+                                <li class="nav-item ">
                                 <a class="{{ Route::currentRouteName()=='Reports-dashboard' ? 'open' : '' }}" href="{{route('Reports-dashboard')}}">
                                     <span class=" text-muted">Summary</span>
                                 </a>
+                                </li>
+                                @endif
 
                 </li>
-                @endif
+
                 <li class="nav-item">
                      <a class="{{ Route::currentRouteName()=='report-appointment-dashboard' ? 'open' : '' }}" href="{{route('report-appointment-dashboard')}}">
                             <span class=" text-muted">Appointments</span>

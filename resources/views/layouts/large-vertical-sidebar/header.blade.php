@@ -47,7 +47,7 @@
         <div class="dropdown">
             <div class="user col align-self-end">
 
-                <img src="{{asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown"
+                <img src="{{asset('assets/images/login/profile.png')}}" id="userDropdown" alt="" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">

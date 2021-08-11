@@ -4,8 +4,6 @@
 @endsection
 
 @section('main-content')
-
-@if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
 <div class="breadcrumb">
                 <ul>
                     <li><a href="">Client Dashboard</a></li>
@@ -14,6 +12,9 @@
             </div>
 
 <div class="col-md-12">
+
+@if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+
 
     <form role="form" method="post" action="#" id="dataFilter">
         {{ csrf_field() }}
@@ -470,8 +471,7 @@ $(document).ready(function() {
 
 
 
-</div>
-</div>
+
                 <!-- end of col -->
 
 @endsection
