@@ -4,8 +4,14 @@
 @endsection
 
 @section('main-content')
+<div class="breadcrumb">
+                <ul>
+                    <li><a href="">Appointment Dashboard</a></li>
+                    <li></li>
+                </ul>
+            </div>
 @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
-<div class="separator-breadcrumb border-top"></div>
+
 
 <div class="col-md-12">
 

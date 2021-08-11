@@ -5,7 +5,14 @@
 @endsection
 @section('main-content')
 
-    <div class="separator-breadcrumb border-top"></div>
+<div class="breadcrumb">
+                <ul>
+                    <li><a href="">Dashboard</a></li>
+                    <li></li>
+                </ul>
+            </div>
+
+            <div class="separator-breadcrumb border-top"></div>
     <div style="margin-bottom:10px; ">
                 <a type="button" href="{{route('new_client')}}" class="btn btn-primary btn-md pull-right">Add Client</a>
             </div>
@@ -16,10 +23,10 @@
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <div class="content">
-                            <a class="has-arrow" href="{{route('Reports-clients-distribution')}}">
+
                                     <b><?php echo $clients_count; ?><br></b>
                                     Clients
-                                 </a>
+                       
                             </div>
                         </div>
                     </div>

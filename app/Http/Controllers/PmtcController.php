@@ -2377,10 +2377,9 @@ class PmtcController extends Controller
 
     public function hei_dashboard()
 {
+    $all_partners = Partner::where('status', '=', 'Active')
+    ->pluck('name', 'id');
     if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Donor') {
-
-        $all_partners = Partner::where('status', '=', 'Active')
-            ->pluck('name', 'id');
         $toone_booked_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) > 0) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) < 1)) then `tbl_pmtct`.`id` end)) AS count"))

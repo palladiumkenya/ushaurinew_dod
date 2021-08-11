@@ -1,12 +1,14 @@
 @extends('layouts.master')
 @section('main-content')
 <div class="breadcrumb">
-    <ul>
-        <li><a href="">Dashboard</a></li>
-    </ul>
-</div>
+                <h1>Dashboard</h1>
+                <ul>
+                    <li><a href="">Dashboard</a></li>
+                    <li></li>
+                </ul>
+            </div>
 
-<div class="separator-breadcrumb border-top"></div>
+            <div class="separator-breadcrumb border-top"></div>
 
 <div class="col-md-12">
 

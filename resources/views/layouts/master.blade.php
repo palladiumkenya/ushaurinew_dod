@@ -88,7 +88,7 @@
     <!-- ============ Vetical SIdebar Layout start ============= -->
 
 
-    @include('layouts.vertical-sidebar.master')
+    @include('layouts.large-vertical-sidebar.master')
 
     <!-- ============ Vetical SIdebar Layout End ============= -->
 

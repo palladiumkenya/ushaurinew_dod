@@ -68,7 +68,7 @@
 
                                 <div class="mt-3 text-center">
 
-                                    <a href="{{ route('password.request') }}" class="text-muted"><u>Forgot
+                                    <a href="" class="text-muted"><u>Forgot
                                             Password?</u></a>
                                 </div>
                                 @endif

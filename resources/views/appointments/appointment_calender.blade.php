@@ -12,6 +12,12 @@
 @endsection
 
 @section('main-content')
+<div class="breadcrumb">
+                <ul>
+                    <li><a href="">Appointment Calender</a></li>
+                    <li></li>
+                </ul>
+            </div>
 
 <div class="col-md-12 mb-4">
     <div class="row">

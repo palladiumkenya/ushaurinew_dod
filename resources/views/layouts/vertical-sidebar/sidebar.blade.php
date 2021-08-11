@@ -460,7 +460,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
+                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
                         <li class="item-name">
                             <a class="" href="{{route('broadcast')}}">
                                 <span class="item-name">Broadcast</span>
