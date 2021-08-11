@@ -10,7 +10,7 @@
     <div class="card text-left">
 
         <div class="card-body">
-            <h4 class="card-title mb-3">A list of Partners in the system</h4>
+            <h4 class="card-title mb-3">{{count($all_partners)}} Partners </h4>
             <div class="col-md-12" style="margin-bottom:20px;">
                 <a type="button" href="{{route('admin-partners-form')}}" class="btn btn-primary btn-md pull-right">Add Partner</a>
 

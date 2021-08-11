@@ -77,7 +77,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Outcome Report</h4>
+                        <! <h4 class="card-title mb-3">{{count($outcome_report)}} Outcome Report</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>

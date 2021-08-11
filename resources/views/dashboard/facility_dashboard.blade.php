@@ -5,15 +5,16 @@
 @endsection
 @section('main-content')
 
-<div class="breadcrumb">
+         <div class="breadcrumb">
                 <ul>
                     <li><a href="">Dashboard</a></li>
                     <li></li>
                 </ul>
-            </div>
+          </div>
 
             <div class="separator-breadcrumb border-top"></div>
-    <div style="margin-bottom:10px; ">
+   <div class="col-md-12">
+        <div style="margin-bottom:10px; ">
                 <a type="button" href="{{route('new_client')}}" class="btn btn-primary btn-md pull-right">Add Client</a>
             </div>
 
@@ -26,7 +27,7 @@
 
                                     <b><?php echo $clients_count; ?><br></b>
                                     Clients
-                       
+
                             </div>
                         </div>
                     </div>

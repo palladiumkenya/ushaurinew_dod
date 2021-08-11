@@ -8,7 +8,7 @@
 @section('main-content')
 <div class="breadcrumb">
                 <ul>
-                    <li><a href="">Users</a></li>
+                    <li><a href="">System Users</a></li>
                     <li></li>
                 </ul>
             </div>
@@ -17,6 +17,7 @@
     <div class="card text-left">
 
         <div class="card-body">
+        <h4 class="card-title mb-3">{{count($all_users)}} Users</h4>
 
             <div style="margin-bottom:10px; ">
                 <a type="button" href="{{route('admin-users-form')}}" class="btn btn-primary btn-md pull-right">Add User</a>
@@ -174,7 +175,7 @@
                                     </div>
 
                                     <div class="col-md-3 form-group mb-3" id="add_county_div">
-                                        <label for="lastName1">County</label>
+                                        <label for="county">County</label>
                                         <select class="form-control" data-width="100%" id="county" name="county">
                                             <option value="">Please select </option>
                                             @if (count($counties) > 0)
@@ -186,7 +187,7 @@
                                     </div>
 
                                     <div class="col-md-3 form-group mb-3" id="add_subcounty_div">
-                                        <label for="lastName1">Sub County</label>
+                                        <label for="sub_county">Sub County</label>
                                         <select class="form-control" data-width="100%" id="sub_county" name="sub_county">
                                             <option value="">Please select </option>
                                             <option></option>
@@ -194,7 +195,7 @@
                                     </div>
 
                                     <div class="col-md-3 form-group mb-3" id="add_partner_div">
-                                        <label for="lastName1">Partner</label>
+                                        <label for="partner">Partner</label>
                                         <select class="form-control" data-width="100%" id="partner" name="partner">
                                             <option value="">Please select </option>
                                             @if (count($partners) > 0)
@@ -390,13 +391,146 @@ $('#multicolumn_ordering_table').DataTable({
 
     function edituser(user) {
 
+        if (user.access_level == "") {
+            $('#rolenameDiv').hide();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').hide();
+            $('#add_county_div').hide();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').hide();
+            $('#add_facility_div').hide();
+            $('#add_clinic_div').hide();
+
+            $('#add_clinic_div').hide();
+            $('#add_bio_div').hide();
+            $('#add_app_div').hide();
+            $('#add_daily_div').hide();
+            $('#add_weekly_div').hide();
+            $('#add_mothly_div').hide();
+            $('#add_month3_div').hide();
+            $('#add_month6_div').hide();
+            $('#add_yearly_div').hide();
+            $('#add_status_div').hide();
+        } else if (user.access_level == "Admin") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').hide();
+            $('#add_county_div').hide();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').hide();
+            $('#add_facility_div').hide();
+
+            $('#add_clinic_div').hide();
+            $('#add_bio_div').show();
+            $('#add_app_div').show();
+            $('#add_daily_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        } else if (user.access_level == "Partner") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').hide();
+            $('#add_county_div').hide();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').show();
+            $('#add_facility_div').hide();
+
+
+            $('#add_clinic_div').hide();
+            $('#add_bio_div').show();
+            $('#add_app_div').show();
+            $('#add_daily_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        } else if (user.access_level == "Facility") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').show();
+            $('#add_county_div').hide();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').hide();
+            $('#add_clinic_div').show();
+
+            $('#add_bio_div').show();
+            $('#add_daily_div').show();
+            $('#add_app_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        } else if (user.access_level == "Donor") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').show();
+            $('#add_facility_div').hide();
+            $('#add_county_div').hide();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').hide();
+            $('#add_clinic_div').hide();
+
+            $('#add_bio_div').show();
+            $('#add_app_div').show();
+            $('#add_daily_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        } else if (user.access_level == "County") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').hide();
+            $('#add_county_div').show();
+            $('#add_subcounty_div').hide();
+            $('#add_partner_div').hide();
+            $('#add_clinic_div').hide();
+
+            $('#add_bio_div').show();
+            $('#add_app_div').show();
+            $('#add_daily_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        } else if (user.access_level == "Sub County") {
+            $('#rolenameDiv').show();
+            $('#adddonorDiv').hide();
+            $('#add_facility_div').hide();
+            $('#add_county_div').show();
+            $('#add_subcounty_div').show();
+            $('#add_partner_div').hide();
+            $('#add_clinic_div').hide();
+
+            $('#add_bio_div').show();
+            $('#add_app_div').show();
+            $('#add_daily_div').show();
+            $('#add_weekly_div').show();
+            $('#add_mothly_div').show();
+            $('#add_month3_div').show();
+            $('#add_month6_div').show();
+            $('#add_yearly_div').show();
+            $('#add_status_div').show();
+        }
+
         $('#fname').val(user.f_name);
         $('#mname').val(user.m_name);
         $('#lname').val(user.l_name);
         $('#email').val(user.e_mail);
         $('#phone').val(user.phone_no);
         $('#add_access_level').val(user.access_level);
-        $('#rolename').val(user.role_id);
+        $('#rolename').val(user.role);
         $('#donor').val(user.donor_id);
         $('#county').val(user.county_id);
         $('#sub_county').val(user.subcounty_id);
@@ -406,6 +540,7 @@ $('#multicolumn_ordering_table').DataTable({
         $('#bio_data').val(user.view_client);
         $('#app_receive').val(user.rcv_app_list);
         $('#daily_report').val(user.daily_report);
+        $('#weekly_report').val(user.daily_report);
         $('#monthly_report').val(user.monthly_report);
         $('#month3_report').val(user.month3_report);
         $('#month6_report').val(user.month6_report);

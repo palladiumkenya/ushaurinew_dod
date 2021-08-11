@@ -77,7 +77,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">Today's Appointments List</h4>
+                        <! <h4 class="card-title mb-3">{{count($all_today_appointments)}} Today's Appointments List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>

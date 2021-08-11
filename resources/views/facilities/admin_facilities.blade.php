@@ -16,7 +16,7 @@
     <div class="card text-left">
 
         <div class="card-body">
-            <h4 class="card-title mb-3">Facilities Lists</h4>
+            <h4 class="card-title mb-3">{{count($admin_facilities)}} Non Activated Facilities Lists</h4>
             <div class="col-md-12" style="margin-top:10px; ">
 
 

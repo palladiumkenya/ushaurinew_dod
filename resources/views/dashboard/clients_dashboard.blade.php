@@ -330,7 +330,7 @@ title: {
 
 xAxis: {
     visible: false,
-    categories: ['Single', 'Married Monogamous', 'Divorced', 'Widowed', 'Cohabating', 'Married Polygamous', 'Not Applicable', 'Unavailable']
+    categories: ['Single', 'Married Mono', 'Divorced', 'Widowed', 'Cohabating', 'Married Poly', 'Not Applicable', 'Unavailable']
 },
 
 yAxis: {

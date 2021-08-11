@@ -315,16 +315,7 @@
                   <span class="item-name">Content</span>
                  </a>
                 </li>
-                <li class="nav-item">
-                <a class="" href="">
-                    <span class="item-name">Module Mngr</span>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a class="" href="">
-                     <span class="item-name">Sender</span>
-                 </a>
-                </li>
+
                 <li class="nav-item">
                 <a class="" href="">
                      <span class="item-name">Roles</span>
@@ -333,16 +324,6 @@
                 <li class="nav-item">
                 <a class="" href="">
                      <span class="item-name">Language</span>
-                 </a>
-                </li>
-                <li class="nav-item">
-                <a class="" href="">
-                     <span class="item-name">Notification Conf</span>
-                 </a>
-                </li>
-                <li class="nav-item">
-                <a class="" href="">
-                     <span class="item-name">Role Modules</span>
                  </a>
                 </li>
                 <li class="nav-item">
@@ -474,11 +455,6 @@
                 </li>
             @endif
 		@if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
-                <li class="nav-item">
-                  <a class="" href="{{route('broadcast')}}">
-                    <span class="item-name">Broadcast</span>
-                  </a>
-                </li>
                 <li class="nav-item">
                    <a class="" href="{{route('tracing-cost')}}">
                      <span class="item-name">Tracing Cost</span>

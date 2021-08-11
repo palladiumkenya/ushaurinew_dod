@@ -16,7 +16,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                         <h4 class="card-title mb-3">A list of Groups in the system</h4>
+                         <h4 class="card-title mb-3">{{count($all_groups)}} Groups in the system</h4>
                             <div class="col-md-12" style="margin-bottom:20px;">
                             <a type="button" href="" class="btn btn-primary btn-md pull-right">Add Group</a>
 

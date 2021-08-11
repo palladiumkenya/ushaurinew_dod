@@ -77,7 +77,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                         <h4 class="card-title mb-3">Transfer Out Client List</h4>
+                         <h4 class="card-title mb-3">{{count($all_transfer_clients)}} Transfer Out Client List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
@@ -126,7 +126,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                         <h4 class="card-title mb-3">Transfer In Client List</h4>
+                         <h4 class="card-title mb-3">{{count($all_transfer_in)}} Transfer In Client List</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
