@@ -139,6 +139,9 @@ class FacilityController extends Controller
                 ->get();
             }
             if (Auth::user()->access_level == 'Partner') {
+                $all_partners = Partner::all()->where('status', '=', 'Active')
+                ->where('id', Auth::user()->partner_id);
+                
                 $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
                     ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
                    // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')

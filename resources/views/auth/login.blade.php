@@ -68,7 +68,7 @@
 
                                 <div class="mt-3 text-center">
 
-                                    <a href="" class="text-muted"><u>Forgot
+                                    <a href="javascript::void(0)" class="forgot_password_link" id="forgot_password_link""><u>Forgot
                                             Password?</u></a>
                                 </div>
                                 @endif
@@ -116,6 +116,15 @@
 
                 this.submit();
 
+            });
+
+            $(document).ready(function () {
+                $(".forgot_password_link").click(function () {
+                    Swal.fire({
+                        title: "Not Allowed!",
+                        text: "Kindly contact the Support / Your Help Desk Incharge to reset your password."
+                    });
+                });
             });
         </script>
 
