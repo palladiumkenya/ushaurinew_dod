@@ -7,7 +7,12 @@
 @section('main-content')
 <div class="breadcrumb">
                 <ul>
+                @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
                     <li><a href="">My Facilities</a></li>
+                    @endif
+                    @if (Auth::user()->access_level == 'Facility')
+                    <li><a href="">My Facility</a></li>
+                @endif
                     <li></li>
                 </ul>
             </div>
@@ -17,7 +22,7 @@
 
         <div class="card-body">
         @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
-            <h4 class="card-title mb-3">My Facilities Lists</h4>
+            <h4 class="card-title mb-3">{{count($facilities)}} My Facilities Lists</h4>
             @endif
             @if (Auth::user()->access_level == 'Facility')
             <h4 class="card-title mb-3">My Facility</h4>
