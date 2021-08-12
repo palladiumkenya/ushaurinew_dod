@@ -52,7 +52,7 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-header">
-                        <i class="i-Lock-User mr-1"></i>
+                        <i class="i-Lock-User mr-1"> <b>{{{ isset(Auth::user()->f_name) ? Auth::user()->f_name : Auth::user()->l_name }}}</b></i>
                     </div>
                     <a class="dropdown-item" href="{{route('logout')}}">Sign Out</a>
                 </div>
