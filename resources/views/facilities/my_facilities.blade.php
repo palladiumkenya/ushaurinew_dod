@@ -130,8 +130,9 @@
                         <form role="form" method="post" action="{{route('edit_facility')}}">
                                 {{ csrf_field() }}
 
-                                <input type="hidden" name="mflcode" id="mflcode">
+
                                 <div class="row">
+                                <input type="hidden" name="id" id="id">
                                 <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">Facility Name</label>
                                         <input type="text" class="form-control" id="facility_name" name="facility_name" placeholder="Facility Name" readonly />
@@ -147,16 +148,14 @@
                                         <input type="text" class="form-control" id="average_clients" name="average_clients" placeholder="No of Clients on ART" />
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="picker1">Partner Name</label>
-                                        <select id="partner" name="partner" class="form-control" required="">
-                                            <option>Select Partner</option>
+                                        <label for="partnername">Partner Name</label>
+                                        <select class="form-control" data-width="100%" id="partnername" name="partnername">
+                                            <option value="">Please select </option>
                                             @if (count($all_partners) > 0)
                                             @foreach($all_partners as $partner)
-                                            <option value="{{$partner->id }}">{{ ucwords($partner->name) }}</option>
+                                            <option value="{{$partner->id }}" {{ $partner->id == old('partnername',$result->partner_id) ? 'selected' : ''}}>{{ ucwords($partner->name) }}</option>
                                             @endforeach
                                             @endif
-
-                                            <option></option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,7 +187,8 @@
         $('#code').val(result.code);
         $('#facility_name').val(result.facility_name);
         $('#average_clients').val(result.average_clients);
-        $('#partner').val(result.partner_name);
+        $('#partnername').val(result.partner_id);
+        $('#id').val(result.id);
     }
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({

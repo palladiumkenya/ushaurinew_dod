@@ -88,7 +88,8 @@ class FacilityController extends Controller
                 'tbl_master_facility.facility_type',
                 'tbl_master_facility.keph_level as level',
                 'tbl_partner_facility.is_approved',
-                'tbl_partner_facility.id'
+                'tbl_partner_facility.id',
+                'tbl_partner_facility.partner_id'
                 //'tbl_partner.name as partner_name'
             )
             ->get();
@@ -141,7 +142,7 @@ class FacilityController extends Controller
             if (Auth::user()->access_level == 'Partner') {
                 $all_partners = Partner::all()->where('status', '=', 'Active')
                 ->where('id', Auth::user()->partner_id);
-                
+
                 $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
                     ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
                    // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')
@@ -193,7 +194,7 @@ class FacilityController extends Controller
     public function edit_facility(Request $request)
     {
         try {
-        $facility = PartnerFacility::where('mfl_code', $request->mfl_code)
+        $facility = PartnerFacility::where('id', $request->id)
         ->update([
             'avg_clients' =>$request->avg_clients,
             'partner_id' =>$request->partner,

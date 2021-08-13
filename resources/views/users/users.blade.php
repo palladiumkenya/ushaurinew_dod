@@ -168,7 +168,7 @@
                                             <option value="">Please select </option>
                                             @if (count($donors) > 0)
                                             @foreach($donors as $donor)
-                                            <option value="{{$donor->id }}" {{ donor->id == old('donor',$user->donor_id) ? 'selected' : ''}}>{{ ucwords($donor->name) }}</option>
+                                            <option value="{{$donor->id }}" >{{ ucwords($donor->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -180,7 +180,7 @@
                                             <option value="">Please select </option>
                                             @if (count($counties) > 0)
                                             @foreach($counties as $county)
-                                            <option value="{{$county->id }}" {{ county->id == old('county',$user->county_id) ? 'selected' : ''}}>{{ ucwords($county->name) }}</option>
+                                            <option value="{{$county->id }}">{{ ucwords($county->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -195,12 +195,12 @@
                                     </div>
 
                                     <div class="col-md-3 form-group mb-3" id="add_partner_div">
-                                        <label for="partner">Partner</label>
-                                        <select class="form-control" data-width="100%" id="partner" name="partner">
+                                        <label for="partnername">Partner</label>
+                                        <select class="form-control" data-width="100%" id="partnername" name="partnername">
                                             <option value="">Please select </option>
                                             @if (count($partners) > 0)
                                             @foreach($partners as $partner)
-                                            <option value="{{$partner->id }}" {{ partner->id == old('partner',$user->partner_id) ? 'selected' : ''}}>{{ ucwords($partner->name) }}</option>
+                                            <option value="{{$partner->id }}" {{ $partner->id == old('partnername',$user->partner_id) ? 'selected' : ''}}>{{ ucwords($partner->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -534,7 +534,7 @@ $('#multicolumn_ordering_table').DataTable({
         $('#donor').val(user.donor_id);
         $('#county').val(user.county_id);
         $('#sub_county').val(user.subcounty_id);
-        $('#partner').val(user.partner_id);
+        $('#partnername').val(user.partner_id);
         $('#facilityname').val(user.facility_id);
         $('#clinicname').val(user.clinic_id);
         $('#bio_data').val(user.view_client);
