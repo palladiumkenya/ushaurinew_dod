@@ -223,28 +223,28 @@ $(document).ready(function() {
         buttons: [
             {
             extend: 'copy',
-            title: 'Today's Appointments List',
-            filename: 'Today's Appointments List'
+            title: 'Todays Appointments List',
+            filename: 'Todays Appointments List'
             },
             {
             extend: 'csv',
-            title: 'Today's Appointments List',
-            filename: 'Today's Appointments List'
+            title: 'Todays Appointments List',
+            filename: 'Todays Appointments List'
             },
             {
             extend: 'excel',
-            title: 'Today's Appointments List',
-            filename: 'Today's Appointments List'
+            title: 'Todays Appointments List',
+            filename: 'Todays Appointments List'
             },
             {
             extend: 'pdf',
-            title: 'Today's Appointments List',
-            filename: 'Today's Appointments List'
+            title: 'Todays Appointments List',
+            filename: 'Todays Appointments List'
             },
             {
             extend: 'print',
-            title: 'Today's Appointments List',
-            filename: 'Today's Appointments List'
+            title: 'Todays Appointments List',
+            filename: 'Todays Appointments List'
             }
         ]
     });</script>
