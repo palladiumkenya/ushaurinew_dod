@@ -16,7 +16,7 @@
                     <div class="card text-left">
 
                         <div class="card-body">
-                        <! <h4 class="card-title mb-3">List of Clients Assigned To Tracers</h4>
+                        <! <h4 class="card-title mb-3">{{count($tracer_client_list)}} List of Clients Assigned To Tracers</h4>
                             <div class="col-md-12" style="margin-top:10px; ">
 
                             </div>
