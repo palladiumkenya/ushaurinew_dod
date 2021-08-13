@@ -158,7 +158,7 @@
                                         <label for="rolename">Role Name</label>
                                         <select class="form-control" data-width="100%" id="rolename" name="rolename">
                                             <option value="">Please select </option>
-                                            <option></option>
+
                                         </select>
                                     </div>
 
@@ -168,7 +168,7 @@
                                             <option value="">Please select </option>
                                             @if (count($donors) > 0)
                                             @foreach($donors as $donor)
-                                            <option value="{{$donor->id }}">{{ ucwords($donor->name) }}</option>
+                                            <option value="{{$donor->id }}" {{ donor->id == old('donor',$user->donor_id) ? 'selected' : ''}}>{{ ucwords($donor->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -180,7 +180,7 @@
                                             <option value="">Please select </option>
                                             @if (count($counties) > 0)
                                             @foreach($counties as $county)
-                                            <option value="{{$county->id }}">{{ ucwords($county->name) }}</option>
+                                            <option value="{{$county->id }}" {{ county->id == old('county',$user->county_id) ? 'selected' : ''}}>{{ ucwords($county->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -200,7 +200,7 @@
                                             <option value="">Please select </option>
                                             @if (count($partners) > 0)
                                             @foreach($partners as $partner)
-                                            <option value="{{$partner->id }}">{{ ucwords($partner->name) }}</option>
+                                            <option value="{{$partner->id }}" {{ partner->id == old('partner',$user->partner_id) ? 'selected' : ''}}>{{ ucwords($partner->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -212,7 +212,7 @@
                                             <option value="">Please select </option>
                                             @if (count($facilities) > 0)
                                             @foreach($facilities as $facility)
-                                            <option value="{{$facility->code }}">{{ ucwords($facility->name) }}</option>
+                                            <option value="{{$facility->code }}" {{ $facility->code == old('facilityname',$user->facility_id) ? 'selected' : ''}}>{{ ucwords($facility->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -224,7 +224,7 @@
                                             <option value="">Please select </option>
                                             @if (count($clinics) > 0)
                                             @foreach($clinics as $clinic)
-                                            <option value="{{$clinic->id }}">{{ ucwords($clinic->name) }}</option>
+                                            <option value="{{$clinic->id }}" {{ $clinic->id == old('clinicname',$user->clinic_id) ? 'selected' : ''}}>{{ ucwords($clinic->name) }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -530,13 +530,13 @@ $('#multicolumn_ordering_table').DataTable({
         $('#email').val(user.e_mail);
         $('#phone').val(user.phone_no);
         $('#add_access_level').val(user.access_level);
-        $('#rolename').val(user.role);
+        $('#rolename').val(user.role_id);
         $('#donor').val(user.donor_id);
         $('#county').val(user.county_id);
         $('#sub_county').val(user.subcounty_id);
         $('#partner').val(user.partner_id);
         $('#facilityname').val(user.facility_id);
-        $('#clinicname').val(user.clinic_name);
+        $('#clinicname').val(user.clinic_id);
         $('#bio_data').val(user.view_client);
         $('#app_receive').val(user.rcv_app_list);
         $('#daily_report').val(user.daily_report);

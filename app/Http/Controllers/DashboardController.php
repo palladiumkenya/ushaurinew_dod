@@ -377,6 +377,7 @@ class DashboardController extends Controller
     {
         $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
             ->where("tbl_partner_facility.sub_county_id", $id)
+           // ->where("tbl_partner_facility.partner_id", $id)
             ->pluck("tbl_master_facility.name", "tbl_master_facility.code");
 
             if (Auth::user()->access_level == 'Partner'){

@@ -142,6 +142,38 @@
     var Poly_registered =  <?php echo json_encode($polygamous_registered) ?>;
 
 
+    $('#dataFilter').on('submit', function(e) {
+        e.preventDefault();
+        let partners = $('#partners').val();
+        let counties = $('#counties').val();
+        let subcounties = $('#subcounties').val();
+        let facilities = $('#facilities').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            data: {
+                "partners": partners,
+                "counties": counties,
+                "subcounties": subcounties,
+                "facilities": facilities
+            },
+            url: "{{ route('filter_client_dashboard') }}",
+            success: function(data) {
+              console.log(data);
+                ageChart.series[0].setData([data.registered_forteen, data.registered_nineteen, data.registered_twenty_four, data.registered_over_twenty_five]);
+                ageChart.series[1].setData([data.consented_forteen, data.consented_nineteen, data.consented_twenty_four, data.consented_over_twenty_five]);
+
+                maritalChart.series[0].setData([data.single_registered, data.monogamous_registered, data.divorced_registered, data.widowed_registered, data.cohabating_registered, data.polygamous_registered, data.notapplicable_registered, data.unavailable_registered]);
+                maritalChart.series[1].setData([data.single_consented, data.monogamous_consented, data.divorced_consented, data.widowed_consented, data.cohabating_consented, data.polygamous_consented, data.notapplicable_registered, data.unavailable_registered]);
+
+            }
+        });
+    });
 
   Highcharts.drawTable = function() {
 
@@ -272,7 +304,7 @@ renderer.path(['M', x1, y1, 'L', x2, y2])
     })
     .add();
 }
-var ageChart = window.chart = new Highcharts.Chart({
+var ageChart =  new Highcharts.Chart({
 
 chart: {
     renderTo: 'container',
@@ -314,7 +346,7 @@ series: [{
 }]
 });
 
-var maritalChart = window.chart = new Highcharts.Chart({
+var maritalChart =  new Highcharts.Chart({
 
 chart: {
     renderTo: 'marital',
@@ -434,38 +466,7 @@ $(document).ready(function() {
             });
         });
 
-        $('#dataFilter').on('submit', function(e) {
-        e.preventDefault();
-        let partners = $('#partners').val();
-        let counties = $('#counties').val();
-        let subcounties = $('#subcounties').val();
-        let facilities = $('#facilities').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
 
-        $.ajax({
-            type: 'GET',
-            data: {
-                "partners": partners,
-                "counties": counties,
-                "subcounties": subcounties,
-                "facilities": facilities
-            },
-            url: "{{ route('filter_client_dashboard') }}",
-            success: function(data) {
-              console.log(data);
-                ageChart.series[0].setData([data.registered_forteen, data.registered_nineteen, data.registered_twenty_four, data.registered_over_twenty_five]);
-                ageChart.series[1].setData([data.consented_forteen, data.consented_nineteen, data.consented_twenty_four, data.consented_over_twenty_five]);
-
-                maritalChart.series[0].setData([data.single_registered, data.monogamous_registered, data.divorced_registered, data.widowed_registered, data.cohabating_registered, data.polygamous_registered, data.notapplicable_registered, data.unavailable_registered]);
-                maritalChart.series[1].setData([data.single_consented, data.monogamous_consented, data.divorced_consented, data.widowed_consented, data.cohabating_consented, data.polygamous_consented, data.notapplicable_registered, data.unavailable_registered]);
-
-            }
-        });
-    });
     </script>
 
 
