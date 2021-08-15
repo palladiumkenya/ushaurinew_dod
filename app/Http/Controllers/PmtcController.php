@@ -2434,6 +2434,7 @@ class PmtcController extends Controller
         ->whereNotNull('tbl_pmtct.date_confirmed_positive')
         ->pluck('count');
 
+
         $tofour_scheduled_heis = Pmtct::join('tbl_client', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
         ->join('tbl_appointment', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) >= 1) and ((year(curdate()) - year(`tbl_pmtct`.`hei_dob`)) <= 4)) then `tbl_pmtct`.`id` end)) AS count"))
@@ -2656,20 +2657,17 @@ class PmtcController extends Controller
         ->whereNotNull('tbl_client.hei_no')
         ->pluck('count');
 
-        $count_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_deceased_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Deceased')
         ->whereNotNull('tbl_client.hei_no')
         ->pluck('count');
 
-        $count_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_transfer_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Transfer Out')
         ->whereNotNull('tbl_client.hei_no')
         ->pluck('count');
 
-        $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_discharged_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no')
         ->pluck('count');
@@ -2694,7 +2692,7 @@ class PmtcController extends Controller
 
         $count_pcr_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
         ->join('tbl_pmtct', 'tbl_client.id', '=', 'tbl_pmtct.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        ->select(\DB::raw("COUNT(tbl_pmtct.hei_no) as count"))
         ->whereNotNull('tbl_pmtct.date_confirmed_positive')
         ->pluck('count');
 
@@ -3000,22 +2998,19 @@ class PmtcController extends Controller
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
 
-        $count_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_deceased_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Deceased')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
 
-        $count_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_transfer_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Transfer Out')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
         ->pluck('count');
 
-        $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_discharged_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.mfl_code', Auth::user()->facility_id)
@@ -3355,22 +3350,19 @@ class PmtcController extends Controller
         ->where('tbl_client.partner_id', Auth::user()->partner_id)
         ->pluck('count');
 
-        $count_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_deceased_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Deceased')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.partner_id', Auth::user()->partner_id)
         ->pluck('count');
 
-        $count_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_transfer_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Transfer Out')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.partner_id', Auth::user()->partner_id)
         ->pluck('count');
 
-        $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->select(\DB::raw("COUNT(tbl_client.id) as count"))
+        $count_discharged_heis = Client::select(\DB::raw("COUNT(tbl_client.id) as count"))
         ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no')
         ->where('tbl_client.partner_id', Auth::user()->partner_id)
@@ -3700,20 +3692,17 @@ class PmtcController extends Controller
         ->where('tbl_appointment.visit_type', '=', 'Un-Scheduled')
         ->whereNotNull('tbl_client.hei_no');
 
-        $count_deceased_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+        $count_deceased_heis = Client::join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
         ->select(\DB::raw("tbl_client.id"))
         ->where('tbl_client.status', '=', 'Deceased')
         ->whereNotNull('tbl_client.hei_no');
 
-        $count_transfer_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+        $count_transfer_heis = Client::join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
         ->select(\DB::raw("tbl_client.id"))
         ->where('tbl_client.status', '=', 'Transfer Out')
         ->whereNotNull('tbl_client.hei_no');
 
-        $count_discharged_heis = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
-        ->join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+        $count_discharged_heis = Client::join('tbl_partner_facility', 'tbl_client.mfl_code', '=', 'tbl_partner_facility.mfl_code')
         ->select(\DB::raw("tbl_client.id"))
         ->where('tbl_client.status', '=', 'Disabled')
         ->whereNotNull('tbl_client.hei_no');
