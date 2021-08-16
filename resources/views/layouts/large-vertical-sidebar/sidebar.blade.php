@@ -215,7 +215,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#">
+                  <a href="{{route('app_calendar')}}">
                     <span class="item-name">Calender</span>
                   </a>
                 </li>

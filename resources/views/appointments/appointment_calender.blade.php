@@ -1,13 +1,6 @@
 @extends('layouts.master')
 @section('page-css')
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 
 @endsection
 
@@ -36,20 +29,31 @@
 
 @section('page-js')
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+
 
 <script type="text/javascript">
 
-$(document).ready(function () {
+$(document).ready(function() {
+        // page is now ready, initialize the calendar...
+        $('#calendar').fullCalendar({
+            // put your options and callbacks here
+            initialView: 'dayGridMonth',
+            eventColor: 'green',
+            events : [
+                @foreach($app_calendar_data as $appointment)
+                {
+                    title : '{{ $appointment->app_type }}',
+                    start : '{{ $appointment->app_date }}',
+                    color: 'purple'
 
+                },
+                @endforeach
+            ],
+        });
 
-   $.ajaxSetup({
-       headers: {
-       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       }
-   });
-   var calendar = $('#calendar').fullCalendar();
-});
-
+    });
 </script>
 
 
