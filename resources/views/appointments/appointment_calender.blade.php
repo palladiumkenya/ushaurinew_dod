@@ -69,30 +69,30 @@ cal(document).ready(function () {
                     color: '#33FFE5',
                     textColor: 'black'
                 }, {
-                    url: '',
+                    url: '{{ route('refill_calendar') }}',
                     color: '#33FFE5',
                     textColor: 'black'
                 },
                 {
-                    url: '',
+                    url: '{{ route('clinical_calendar') }}',
                     color: '#33FFE5',
                     textColor: 'black'
                 },
                 {
-                    url: '',
+                    url: '{{ route('adherence_calendar') }}',
                     color: '#FF33FB',
                     textColor: 'black'
                 },{
-                    url: '',
+                    url: '{{ route('lab_calendar') }}',
                     color: '#FF33FB',
                     textColor: 'black'
                 }, {
-                    url: '',
+                    url: '{{ route('viral_load') }}',
                     color: '#AB99FB',
                     textColor: 'black'
                 },
                 {
-                    url: '',
+                    url: '{{ route('other_calendar') }}',
                     color: '#AB99FB',
                     textColor: 'black'
                 }

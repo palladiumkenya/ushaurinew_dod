@@ -119,6 +119,14 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report/lab_investigation', ['uses' => 'App\Http\Controllers\AppointmentController@lab_investigation', 'as' => 'report-lab_investigation']);
   Route::get('report/appointment_calendar', ['uses' => 'App\Http\Controllers\CalendarController@index', 'as' => 'app_calendar']);
   Route::get('report/app_count_calendar', ['uses' => 'App\Http\Controllers\CalendarController@app_calendar', 'as' => 'app_count_calendar']);
+  Route::get('report/normal_calender', ['uses' => 'App\Http\Controllers\CalendarController@normal_calender', 'as' => 'normal_calender']);
+  Route::get('report/pcr_calendar', ['uses' => 'App\Http\Controllers\CalendarController@pcr_calendar', 'as' => 'pcr_calendar']);
+  Route::get('report/other_calendar', ['uses' => 'App\Http\Controllers\CalendarController@other_calendar', 'as' => 'other_calendar']);
+  Route::get('report/viral_load', ['uses' => 'App\Http\Controllers\CalendarController@viral_load', 'as' => 'viral_load']);
+  Route::get('report/lab_calendar', ['uses' => 'App\Http\Controllers\CalendarController@lab_calendar', 'as' => 'lab_calendar']);
+  Route::get('report/adherence_calendar', ['uses' => 'App\Http\Controllers\CalendarController@adherence_calendar', 'as' => 'adherence_calendar']);
+  Route::get('report/clinical_calendar', ['uses' => 'App\Http\Controllers\CalendarController@clinical_calendar', 'as' => 'clinical_calendar']);
+  Route::get('report/refill_calendar', ['uses' => 'App\Http\Controllers\CalendarController@refill_calendar', 'as' => 'refill_calendar']);
 
   // wellness routes
   Route::get('report/ok_clients', ['uses' => 'App\Http\Controllers\WellnessController@get_ok_clients', 'as' => 'report-ok_clients']);
