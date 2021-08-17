@@ -117,7 +117,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report/appointments/calender', ['uses' => 'App\Http\Controllers\AppointmentController@get_appointment_count', 'as' => 'report-appointments-calender']);
   Route::get('report/appointments', ['uses' => 'App\Http\Controllers\AppointmentController@get_appointment_list', 'as' => 'report-appointments']);
   Route::get('report/lab_investigation', ['uses' => 'App\Http\Controllers\AppointmentController@lab_investigation', 'as' => 'report-lab_investigation']);
-  Route::get('report/appointment_calendar', ['uses' => 'App\Http\Controllers\CalendarController@app_calendar', 'as' => 'app_calendar']);
+  Route::get('report/appointment_calendar', ['uses' => 'App\Http\Controllers\CalendarController@index', 'as' => 'app_calendar']);
+  Route::get('report/app_count_calendar', ['uses' => 'App\Http\Controllers\CalendarController@app_calendar', 'as' => 'app_count_calendar']);
 
   // wellness routes
   Route::get('report/ok_clients', ['uses' => 'App\Http\Controllers\WellnessController@get_ok_clients', 'as' => 'report-ok_clients']);

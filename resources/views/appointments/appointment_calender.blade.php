@@ -30,30 +30,84 @@
 @section('page-js')
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
 
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-        // page is now ready, initialize the calendar...
-        $('#calendar').fullCalendar({
-            // put your options and callbacks here
-            initialView: 'dayGridMonth',
-            eventColor: 'green',
-            events : [
-                @foreach($app_calendar_data as $appointment)
-                {
-                    title : '{{ $appointment->app_type }}',
-                    start : '{{ $appointment->app_date }}',
-                    color: 'purple'
+var cal = jQuery.noConflict();
 
+
+cal(document).ready(function () {
+
+
+
+
+
+    function draw_calendar() {
+
+
+
+        cal('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            editable: true,
+            windowResize: true,
+            eventSources: [
+                {
+                    type: 'GET',
+                    url: '{{ route('app_count_calendar') }}',
+                    title: 'Total Apps:',
+                    color: '#A3FF33',
+                    textColor: 'black'
+                }, {
+                    url: '',
+                    color: '#33FFE5',
+                    textColor: 'black'
+                }, {
+                    url: '',
+                    color: '#33FFE5',
+                    textColor: 'black'
                 },
-                @endforeach
-            ],
+                {
+                    url: '',
+                    color: '#33FFE5',
+                    textColor: 'black'
+                },
+                {
+                    url: '',
+                    color: '#FF33FB',
+                    textColor: 'black'
+                },{
+                    url: '',
+                    color: '#FF33FB',
+                    textColor: 'black'
+                }, {
+                    url: '',
+                    color: '#AB99FB',
+                    textColor: 'black'
+                },
+                {
+                    url: '',
+                    color: '#AB99FB',
+                    textColor: 'black'
+                }
+
+            ]
         });
 
-    });
+
+
+
+    }
+
+    draw_calendar();
+
+});
 </script>
 
 
