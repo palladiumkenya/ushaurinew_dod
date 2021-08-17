@@ -86,4 +86,18 @@ class CalendarController extends Controller
         }
     }
 
+    public function viral_load()
+    {
+        if (Auth::user()->access_level == 'Facility') {
+            $app_calendar_data = Appointments::join('tbl_appointment_types', 'tbl_appointment_types.id', '=', 'tbl_appointment.app_type_1')
+            ->join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
+            ->select('tbl_appointment.appntmnt_date as start', DB::raw('COUNT(tbl_appointment_types.id) AS title'), 'tbl_appointment.appntmnt_date as end')
+            ->groupBy('tbl_appointment.appntmnt_date')
+            ->where('tbl_appointment_types.name' , '=', 'Viral Load')
+            ->where('tbl_client.mfl_code', Auth::user()->facility_id)
+            ->get();
+            return response()->json($app_calendar_data);
+        }
+    }
+
 }
