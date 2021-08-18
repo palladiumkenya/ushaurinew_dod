@@ -25,7 +25,9 @@
         </div>
     </div>
 
-    <div style="margin: auto"></div>
+    <div style="margin: auto">
+    
+    </div>
 
 
     <div class="header-part-right">

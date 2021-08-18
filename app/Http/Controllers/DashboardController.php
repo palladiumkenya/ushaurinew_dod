@@ -7,6 +7,7 @@ use App\Models\Dashboard;
 use App\Models\Facility;
 use App\Models\Client;
 use App\Models\Partner;
+use App\Models\Donor;
 use App\Models\ClientPerformance;
 use App\Models\Consented;
 use App\Models\Appointments;
@@ -33,6 +34,22 @@ class DashboardController extends Controller
     {
 
         return view('dashboard.dashboardv1');
+    }
+
+    public function user_level()
+    {
+        $facility_all = Facility::all()->where('code', Auth::user()->facility_id);
+
+        if (Auth::user()->access_level == 'Partner')
+        {
+        $partner_all = Partner::all()->where('id', Auth::user()->partner_id);
+        }
+        if (Auth::user()->access_level == 'Donor')
+        {
+        $donor_all = Donor::all()->where('id', Auth::user()->donor_id);
+        }
+
+        return view('layouts.large-vertical-sidebar.header', compact('facility_all', 'partner_all', 'donor_all'));
     }
 
     public function get_client_data()
