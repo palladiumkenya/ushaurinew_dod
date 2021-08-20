@@ -47,7 +47,7 @@ cal(document).ready(function () {
 
     function draw_calendar() {
 
-
+        var RefillURL = "{{ url('/report/refill_apps') }}";
 
         cal('#calendar').fullCalendar({
             header: {
@@ -94,6 +94,11 @@ cal(document).ready(function () {
                 {
                     url: '{{ route('other_calendar') }}',
                     color: '#AB99FB',
+                    textColor: 'black'
+                },
+                {
+                    url: '{{ route('vl_cd_calendar') }}',
+                    color: '#FFFF00',
                     textColor: 'black'
                 }
 
