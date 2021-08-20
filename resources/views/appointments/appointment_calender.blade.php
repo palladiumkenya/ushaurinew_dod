@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('page-css')
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.0/fullcalendar.min.css" />
 @endsection
 
 @section('main-content')
@@ -29,9 +29,11 @@
 
 @section('page-js')
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.0/fullcalendar.min.js"></script>
+
 
 
 <script type="text/javascript">
@@ -59,16 +61,12 @@ cal(document).ready(function () {
             windowResize: true,
             eventSources: [
                 {
-                    type: 'GET',
                     url: '{{ route('app_count_calendar') }}',
                     title: 'Total Apps:',
                     color: '#A3FF33',
                     textColor: 'black'
-                }, {
-                    url: '',
-                    color: '#33FFE5',
-                    textColor: 'black'
-                }, {
+                },
+                {
                     url: '{{ route('refill_calendar') }}',
                     color: '#33FFE5',
                     textColor: 'black'
