@@ -286,13 +286,18 @@
         <ul class="childNav" data-parent="admin">
             @if (Auth::user()->access_level == 'Admin')
                 <li class="nav-item">
-                  <a class="" href="{{route('admin-donors')}}">
-                    <span class="item-name">Donor</span>
-                  </a>
+                  <a class="" href="{{route('admin-partners')}}">
+                    <span class="item-name">Service</span>
+                 </a>
                 </li>
                 <li class="nav-item">
-                  <a class="" href="{{route('admin-partners')}}">
-                    <span class="item-name">Partner</span>
+                 <a class="" href="{{route('admin-units')}}">
+                  <span class="item-name">Units</span>
+                 </a>
+                </li>
+                <li class="nav-item">
+                 <a class="" href="{{route('adminranks')}}">
+                  <span class="item-name">Ranks</span>
                  </a>
                 </li>
                 <li class="nav-item">

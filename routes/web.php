@@ -190,6 +190,18 @@ Route::group(['middleware' => 'auth'], function () {
   //Broadcast routes
   Route::get('/broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@broadcast_form', 'as' => 'broadcast']);
   Route::post('/send-broadcast', ['uses' => 'App\Http\Controllers\BroadcastController@sendSMS', 'as' => 'send-broadcast']);
+
+  // Units routes
+  Route::get('/admin/units', ['uses' => 'App\Http\Controllers\UnitController@index', 'as' => 'admin-units']);
+  Route::post('/admin/add/units', ['uses' => 'App\Http\Controllers\UnitController@addUnit', 'as' => 'add-units']);
+  Route::post('/admin/edit/units', ['uses' => 'App\Http\Controllers\UnitController@editUnit', 'as' => 'editunits']);
+  Route::post('/admin/delete/units', ['uses' => 'App\Http\Controllers\UnitController@deleteUnit', 'as' => 'delete-units']);
+
+  // Rankss routes
+  Route::get('/admin/ranks', ['uses' => 'App\Http\Controllers\RankController@index', 'as' => 'adminranks']);
+  Route::post('/admin/add/ranks', ['uses' => 'App\Http\Controllers\RankController@addRank', 'as' => 'addranks']);
+  Route::post('/admin/edit/ranks', ['uses' => 'App\Http\Controllers\RankController@editRank', 'as' => 'editranks']);
+  Route::post('/admin/delete/ranks', ['uses' => 'App\Http\Controllers\RankController@deleteRank', 'as' => 'deleteranks']);
 });
 
 
