@@ -15,20 +15,12 @@ class FacilityController extends Controller
 {
     public function admin_facilities()
     {
-        $admin_facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
-            ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
-            ->join('tbl_consituency', 'tbl_master_facility.consituency_id', '=', 'tbl_consituency.id')
-            ->select(
+        $admin_facilities = Facility::select(
                 'tbl_master_facility.name as facility_name',
                 'tbl_master_facility.code',
                 'tbl_master_facility.owner',
-                'tbl_county.name as county_name',
-                'tbl_sub_county.name as sub_county_name',
-                'tbl_consituency.name as consituency_name',
                 'tbl_master_facility.facility_type',
                 'tbl_master_facility.keph_level as level',
-                'tbl_master_facility.county_id',
-                'tbl_master_facility.Sub_County_ID as sub_county_id'
             )
             ->where('tbl_master_facility.assigned', '=', '0')
             ->get();
@@ -72,19 +64,12 @@ class FacilityController extends Controller
     public function my_facility()
     {
         if (Auth::user()->access_level == 'Admin') {
-        $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
-            ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
-           // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')
-            ->join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-            ->join('tbl_consituency', 'tbl_master_facility.consituency_id', '=', 'tbl_consituency.id')
+        $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
             ->select(
                 'tbl_master_facility.name as facility_name',
                 'tbl_partner_facility.avg_clients as average_clients',
                 'tbl_master_facility.code',
                 'tbl_master_facility.owner',
-                'tbl_county.name as county_name',
-                'tbl_sub_county.name as sub_county_name',
-                'tbl_consituency.name as consituency_name',
                 'tbl_master_facility.facility_type',
                 'tbl_master_facility.keph_level as level',
                 'tbl_partner_facility.is_approved',
@@ -95,19 +80,12 @@ class FacilityController extends Controller
             ->get();
         }
         if (Auth::user()->access_level == 'Donor') {
-            $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
-                ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
-               // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')
-                ->join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-                ->join('tbl_consituency', 'tbl_master_facility.consituency_id', '=', 'tbl_consituency.id')
+            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
                     'tbl_master_facility.name as facility_name',
                     'tbl_partner_facility.avg_clients as average_clients',
                     'tbl_master_facility.code',
                     'tbl_master_facility.owner',
-                    'tbl_county.name as county_name',
-                    'tbl_sub_county.name as sub_county_name',
-                    'tbl_consituency.name as consituency_name',
                     'tbl_master_facility.facility_type',
                     'tbl_master_facility.keph_level as level',
                     'tbl_partner_facility.is_approved',
@@ -117,19 +95,12 @@ class FacilityController extends Controller
                 ->get();
             }
         if (Auth::user()->access_level == 'Facility') {
-            $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
-                ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
-               // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')
-                ->join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-                ->join('tbl_consituency', 'tbl_master_facility.consituency_id', '=', 'tbl_consituency.id')
+            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
                     'tbl_master_facility.name as facility_name',
                     'tbl_master_facility.code',
                     'tbl_master_facility.owner',
-                    'tbl_county.name as county_name',
                     'tbl_partner_facility.avg_clients as average_clients',
-                    'tbl_sub_county.name as sub_county_name',
-                    'tbl_consituency.name as consituency_name',
                     'tbl_master_facility.facility_type',
                     'tbl_master_facility.keph_level as level',
                     'tbl_partner_facility.is_approved',
@@ -143,19 +114,12 @@ class FacilityController extends Controller
                 $all_partners = Partner::all()->where('status', '=', 'Active')
                 ->where('id', Auth::user()->partner_id);
 
-                $facilities = Facility::join('tbl_county', 'tbl_master_facility.county_id', '=', 'tbl_county.id')
-                    ->join('tbl_sub_county', 'tbl_master_facility.Sub_County_ID', '=', 'tbl_sub_county.id')
-                   // ->join('tbl_partner', 'tbl_partner_facility.partner_id', '=', 'tbl_partner.id')
-                    ->join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-                    ->join('tbl_consituency', 'tbl_master_facility.consituency_id', '=', 'tbl_consituency.id')
+                $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                     ->select(
                         'tbl_master_facility.name as facility_name',
                         'tbl_master_facility.code',
                         'tbl_master_facility.owner',
-                        'tbl_county.name as county_name',
                         'tbl_partner_facility.avg_clients as average_clients',
-                        'tbl_sub_county.name as sub_county_name',
-                        'tbl_consituency.name as consituency_name',
                         'tbl_master_facility.facility_type',
                         'tbl_master_facility.keph_level as level',
                         'tbl_partner_facility.is_approved',

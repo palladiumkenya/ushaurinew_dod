@@ -27,9 +27,7 @@
                                 <th>No.</th>
                                 <th>Facility Name</th>
                                 <th>MFL Code</th>
-                                <th>County</th>
-                                <th>Sub County</th>
-                                <th>Consituency</th>
+                                <th>Facility Type</th>
                                 <th>Owner</th>
                                 <th>Action</th>
 
@@ -42,9 +40,7 @@
                                 <td> {{ $loop->iteration }}</td>
                                 <td> {{$result->facility_name}}</td>
                                 <td> {{$result->code}}</td>
-                                <td> {{$result->county_name}}</td>
-                                <td> {{$result->sub_county_name}}</td>
-                                <td> {{$result->consituency_name}}</td>
+                                <td> {{$result->facility_type}}</td>
                                 <td> {{$result->owner}}</td>
                                 <td>
                                     <button onclick="addfacility({{$result}});" data-toggle="modal" data-target="#addfacility" type="button" class="btn btn-primary btn-sm">Add Facility</button>
@@ -105,9 +101,9 @@
                                     </div>
 
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="picker1">Partner Name</label>
+                                        <label for="picker1">Service Name</label>
                                         <select id="partner" name="partner" class="form-control" required="">
-                                            <option>Select Partner</option>
+                                            <option>Select Service</option>
 
                                             @if (count($all_partners) > 0)
                                             @foreach($all_partners as $partner)
