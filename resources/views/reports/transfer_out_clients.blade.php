@@ -24,7 +24,7 @@
                 <div class="form-group">
 
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
-                        <option value="">Please select Partner</option>
+                        <option value="">Please select Service</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
                         @endforeach
@@ -35,16 +35,7 @@
             <div class="col">
                 <div class="form-group">
                     <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
-                        <option value="">Please select County:</option>
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                    <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
-                        <option value="">Please Select Sub County : </option>
+                        <option value="">Please select Unit:</option>
                         <option value=""></option>
                     </select>
                 </div>
@@ -86,8 +77,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>UPN</th>
-                                                <th>Serial No</th>
+                                                <th>KDOD No</th>
+                                                <th>Service No</th>
                                                 <th>Client Name</th>
                                                 <th>Phone No</th>
                                                 <th>DOB</th>
@@ -135,8 +126,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>UPN</th>
-                                                <th>Serial No</th>
+                                                <th>KDOD No</th>
+                                                <th>Service No</th>
                                                 <th>Client Name</th>
                                                 <th>Phone No</th>
                                                 <th>DOB</th>

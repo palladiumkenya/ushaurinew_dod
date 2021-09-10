@@ -29,7 +29,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>UPN</th>
+                                                <th>KDOD</th>
                                                 <th>Client Name</th>
                                                 <th>Appointment Date</th>
                                                 <th>Appointment Type</th>
@@ -92,7 +92,7 @@
                                 <input type="hidden" name="id" id="id">
                                         <input type="hidden" class="form-control" id="client_id" name="client_id" placeholder="CCC Number" readonly/>
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">CCC Number</label>
+                                        <label for="firstName1">KDOD Number</label>
                                         <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="CCC Number" readonly/>
                                     </div>
 

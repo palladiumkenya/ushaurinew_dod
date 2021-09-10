@@ -25,7 +25,7 @@
                                                 <thead>
                                             <tr>
                                             <th>No</th>
-                                            <th>CCC Number</th>
+                                            <th>KDOD Number</th>
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
@@ -68,7 +68,7 @@
                                                 <thead>
                                             <tr>
                                             <th>No</th>
-                                            <th>CCC Number</th>
+                                            <th>KDOD Number</th>
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-   
+
 
 
 

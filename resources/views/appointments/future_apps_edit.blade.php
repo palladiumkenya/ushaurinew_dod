@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Clinic Number</th>
+                            <th>KDOD Number</th>
                             <th>Appointment Date</th>
                             <th>Appointment Type</th>
                             <th>Action</th>
@@ -76,7 +76,7 @@
                                 <div class="row">
                                     <input type="hidden" name="id" id="id">
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">CCC Number</label>
+                                        <label for="firstName1">KDOD Number</label>
                                         <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="CCC Number" readonly />
                                     </div>
                                     <div class='col-sm-6'>

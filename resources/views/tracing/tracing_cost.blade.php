@@ -25,7 +25,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Clinic Number</th>
+                                                <th>KDOD Number</th>
                                                 <th>Appointment Status</th>
                                                 <th>Tracer Name</th>
                                                 <th>Tracing Cost</th>

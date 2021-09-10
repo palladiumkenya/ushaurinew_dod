@@ -25,8 +25,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Clinic Number</th>
-                                                <th>Serial No</th>
+                                                <th>KDOD Number</th>
+                                                <th>Service No</th>
                                                 <th>First Name</th>
                                                 <th>Middle Name</th>
                                                 <th>Last Name</th>

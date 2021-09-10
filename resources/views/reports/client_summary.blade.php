@@ -23,7 +23,7 @@
                 <div class="form-group">
 
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
-                        <option value="">Please select Partner</option>
+                        <option value="">Please select Service</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
                         @endforeach
@@ -34,16 +34,7 @@
             <div class="col">
                 <div class="form-group">
                     <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
-                        <option value="">Please select County:</option>
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                    <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
-                        <option value="">Please Select Sub County : </option>
+                        <option value="">Please select Unit:</option>
                         <option value=""></option>
                     </select>
                 </div>
@@ -85,8 +76,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>County</th>
-                                                <th>Sub County</th>
+                                                <th>Unit</th>
                                                 <th>MFL Code</th>
                                                 <th>Facility</th>
                                                 <th>No of Clients</th>
@@ -99,7 +89,6 @@
                                                     <tr>
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$summary->county}}</td>
-                                                        <td>  {{$summary->sub_county}}</td>
                                                         <td>  {{$summary->mfl_code}}</td>
                                                         <td>  {{$summary->facility_name}}</td>
                                                         <td>  {{$summary->no_clients}}</td>

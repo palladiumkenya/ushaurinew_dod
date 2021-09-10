@@ -69,7 +69,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Clinic Number</th>
+                                                <th>KDOD Number</th>
                                                 <th>Gender</th>
                                                 <th>Group</th>
                                                 <th>Marital Status</th>
@@ -79,9 +79,8 @@
                                                 <th>Text Time</th>
                                                 <th>Enrollment Date</th>
                                                 <th>ART Date</th>
-                                                <th>Partner</th>
-                                                <th>County</th>
-                                                <th>Sub County</th>
+                                                <th>Service</th>
+                                                <th>Unit</th>
                                                 <th>MFL Code</th>
                                                 <th>Facility</th>
                                                 <th>SMS Enable</th>
@@ -107,7 +106,6 @@
                                                         <td>  {{$clients->art_date}}</td>
                                                         <td>  {{$clients->partner_name}}</td>
                                                         <td>  {{$clients->county}}</td>
-                                                        <td>  {{$clients->sub_county}}</td>
                                                         <td>  {{$clients->mfl_code}}</td>
                                                         <td>  {{$clients->facility_name}}</td>
                                                         <td>  {{$clients->consented}}</td>
@@ -153,8 +151,8 @@
         buttons: [
             {
             extend: 'copy',
-            title: 'Active LTFU Appointments',
-            filename: 'Active LTFU Appointments'
+            title: 'Clients Extract',
+            filename: 'Clients Extract'
             },
             {
             extend: 'csv',

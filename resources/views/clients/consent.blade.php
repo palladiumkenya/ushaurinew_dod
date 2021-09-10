@@ -7,11 +7,11 @@
 
 @section('main-content')
 <div class="breadcrumb">
-                <ul>
-                    <li><a href="">Client Consent</a></li>
-                    <li></li>
-                </ul>
-            </div>
+    <ul>
+        <li><a href="">Client Consent</a></li>
+        <li></li>
+    </ul>
+</div>
 
 <div class="col-md-12 mb-4">
     <div class="card text-left">
@@ -29,8 +29,8 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>UPN</th>
-                            <th>Serial No</th>
+                            <th>KDOD No</th>
+                            <th>Service No</th>
                             <th>Client Name</th>
                             <th>Phone No</th>
                             <th>DOB</th>
@@ -97,7 +97,7 @@
                                 <div class="row">
                                     <input type="hidden" name="id" id="id">
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">CCC Number</label>
+                                        <label for="firstName1">KDOD Number</label>
                                         <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="CCC Number" readonly />
                                     </div>
                                     <div class='col-sm-6'>
@@ -192,7 +192,7 @@
 
         $('#clinic_number').val(consent.clinic_number);
         $('#phone_no').val(consent.phone_no);
-       // $('#id').val(consent.id);
+        // $('#id').val(consent.id);
 
     }
 
@@ -214,31 +214,30 @@
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Non Consented Clients List',
-            filename: 'Non Consented Clients List'
+        buttons: [{
+                extend: 'copy',
+                title: 'Non Consented Clients List',
+                filename: 'Non Consented Clients List'
             },
             {
-            extend: 'csv',
-            title: 'Non Consented Clients List',
-            filename: 'Non Consented Clients List'
+                extend: 'csv',
+                title: 'Non Consented Clients List',
+                filename: 'Non Consented Clients List'
             },
             {
-            extend: 'excel',
-            title: 'Non Consented Clients List',
-            filename: 'Non Consented Clients List'
+                extend: 'excel',
+                title: 'Non Consented Clients List',
+                filename: 'Non Consented Clients List'
             },
             {
-            extend: 'pdf',
-            title: 'Non Consented Clients List',
-            filename: 'Non Consented Clients List'
+                extend: 'pdf',
+                title: 'Non Consented Clients List',
+                filename: 'Non Consented Clients List'
             },
             {
-            extend: 'print',
-            title: 'Non Consented Clients List',
-            filename: 'Non Consented Clients List'
+                extend: 'print',
+                title: 'Non Consented Clients List',
+                filename: 'Non Consented Clients List'
             }
         ]
     });

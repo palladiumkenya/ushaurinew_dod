@@ -25,8 +25,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>UPN</th>
-                                                <th>Serial No</th>
+                                                <th>KDOD No</th>
+                                                <th>Service No</th>
                                                 <th>Client Name</th>
                                                 <th>Phone No</th>
                                                 <th>DOB</th>

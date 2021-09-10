@@ -10,6 +10,7 @@ use App\Models\Language;
 use App\Models\Condition;
 use App\Models\Gender;
 use App\Models\Marital;
+use App\Models\Transit;
 use Session;
 use Auth;
 
@@ -88,5 +89,12 @@ class ClientController extends Controller
 
         return back();
     }
+    }
+    public function transit_client(Request $request)
+    {
+
+        $all_transit = Transit::all();
+
+        return view('clients.transit_client', compact('all_transit'));
     }
 }

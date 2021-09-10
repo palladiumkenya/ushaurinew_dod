@@ -6,11 +6,11 @@
 
 @section('main-content')
 <div class="breadcrumb">
-                <ul>
-                    <li><a href="">Client Profile</a></li>
-                    <li></li>
-                </ul>
-            </div>
+    <ul>
+        <li><a href="">Client Profile</a></li>
+        <li></li>
+    </ul>
+</div>
 
 <div class="col-md-12 mb-4">
     <div class="card text-left">
@@ -41,7 +41,7 @@
                                 <div class="modal-body">
 
                                     <div class="search_field">
-                                        <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter UPN No : " />
+                                        <input type="text" class="upn_search form-control" id="upn_search" name="upn_search" placeholder="Please Enter KDOD No : " />
                                     </div>
 
                                     <div class="loading_div" style="display: none;">
@@ -97,8 +97,8 @@
                                                             <th>ART Date</th>
                                                             <th>Group</th>
                                                             <th>Status</th>
-                                                            <th>CCC Number</th>
-                                                            <th>File Number</th>
+                                                            <th>KDOD Number</th>
+                                                            <th>Service Number</th>
                                                             <th>Gender</th>
                                                             <th>Sms Enable</th>
                                                             <th>Consent Date</th>
@@ -197,7 +197,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>Clinic Number</th>
+                                                            <th>KDOD Number</th>
                                                             <th>Phone Number</th>
                                                             <th>Message Type</th>
                                                             <th>Message</th>
@@ -266,8 +266,8 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>Clinic Number</th>
-                                                            <th>File No</th>
+                                                            <th>KDOD Number</th>
+                                                            <th>Service No</th>
                                                             <th>Appointment Date</th>
                                                             <th>Appointment Type</th>
                                                             <th>Tracer Name</th>
@@ -346,31 +346,30 @@
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Clients Profile Registration Details',
-            filename: 'Clients Details'
+        buttons: [{
+                extend: 'copy',
+                title: 'Clients Profile Registration Details',
+                filename: 'Clients Details'
             },
             {
-            extend: 'csv',
-            title: 'Clients Profile Registration Details',
-            filename: 'Clients Details'
+                extend: 'csv',
+                title: 'Clients Profile Registration Details',
+                filename: 'Clients Details'
             },
             {
-            extend: 'excel',
-            title: 'Clients Profile Registration Details',
-            filename: 'Clients Details'
+                extend: 'excel',
+                title: 'Clients Profile Registration Details',
+                filename: 'Clients Details'
             },
             {
-            extend: 'pdf',
-            title: 'Clients Profile Registration Details',
-            filename: 'Clients Details'
+                extend: 'pdf',
+                title: 'Clients Profile Registration Details',
+                filename: 'Clients Details'
             },
             {
-            extend: 'print',
-            title: 'Clients Profile Registration Details',
-            filename: 'Clients Details'
+                extend: 'print',
+                title: 'Clients Profile Registration Details',
+                filename: 'Clients Details'
             }
         ]
     });
@@ -391,31 +390,30 @@
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Clients Profile Outgoing Messages',
-            filename: 'Clients Outgoing Messages'
+        buttons: [{
+                extend: 'copy',
+                title: 'Clients Profile Outgoing Messages',
+                filename: 'Clients Outgoing Messages'
             },
             {
-            extend: 'csv',
-            title: 'Clients Profile Outgoing Messages',
-            filename: 'Clients Outgoing Messages'
+                extend: 'csv',
+                title: 'Clients Profile Outgoing Messages',
+                filename: 'Clients Outgoing Messages'
             },
             {
-            extend: 'excel',
-            title: 'Clients Profile Outgoing Messages',
-            filename: 'Clients Outgoing Messages'
+                extend: 'excel',
+                title: 'Clients Profile Outgoing Messages',
+                filename: 'Clients Outgoing Messages'
             },
             {
-            extend: 'pdf',
-            title: 'Clients Profile Outgoing Messages',
-            filename: 'Clients Outgoing Messages'
+                extend: 'pdf',
+                title: 'Clients Profile Outgoing Messages',
+                filename: 'Clients Outgoing Messages'
             },
             {
-            extend: 'print',
-            title: 'Clients Profile Outgoing Messages',
-            filename: 'Clients Outgoing Messages'
+                extend: 'print',
+                title: 'Clients Profile Outgoing Messages',
+                filename: 'Clients Outgoing Messages'
             }
         ]
     });
@@ -436,31 +434,30 @@
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Clients Profile Appointment Outcome',
-            filename: 'Clients Appointment Outcome'
+        buttons: [{
+                extend: 'copy',
+                title: 'Clients Profile Appointment Outcome',
+                filename: 'Clients Appointment Outcome'
             },
             {
-            extend: 'csv',
-            title: 'Clients Profile Appointment Outcome',
-            filename: 'Clients Appointment Outcome'
+                extend: 'csv',
+                title: 'Clients Profile Appointment Outcome',
+                filename: 'Clients Appointment Outcome'
             },
             {
-            extend: 'excel',
-            title: 'Clients Profile Appointment Outcome',
-            filename: 'Clients Appointment Outcome'
+                extend: 'excel',
+                title: 'Clients Profile Appointment Outcome',
+                filename: 'Clients Appointment Outcome'
             },
             {
-            extend: 'pdf',
-            title: 'Clients Profile Appointment Outcome',
-            filename: 'Clients Appointment Outcome'
+                extend: 'pdf',
+                title: 'Clients Profile Appointment Outcome',
+                filename: 'Clients Appointment Outcome'
             },
             {
-            extend: 'print',
-            title: 'Clients Profile Appointment Outcome',
-            filename: 'Clients Appointment Outcome'
+                extend: 'print',
+                title: 'Clients Profile Appointment Outcome',
+                filename: 'Clients Appointment Outcome'
             }
         ]
     });

@@ -21,8 +21,12 @@
                     <div class="row">
                         <input type="hidden" name="id" id="id">
                         <div class="col-md-6 form-group mb-3">
-                            <label for="firstName1">CCC Number</label>
-                            <input type="text" class="form-control" id="clinic_number" name="clinic_number" minlength="10" maxlength="10" placeholder="CCC Number">
+                            <label for="firstName1">KDOD Number</label>
+                            <input type="text" class="form-control" id="clinic_number" name="clinic_number" placeholder="KDOD Number" readonly>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="firstName1">Service Number</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Service Number">
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">First Name</label>
@@ -186,6 +190,29 @@
                                 <option value="{{$clinic->id }}">{{ ucwords($clinic->name) }}</option>
                                 @endforeach
                                 @endif
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="add_partner_type">Service</label>
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="service" name="service">
+                                <option value="">Please select </option>
+                                @if (count($services) > 0)
+                                @foreach($services as $service)
+                                <option value="{{$clinic->id }}">{{ ucwords($service->name) }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label for="add_partner_type">Units </label>
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="unit" name="unit">
+                                <option value="">Please select </option>
+                                @if (count($units) > 0)
+                                @foreach($units as $unit)
+                                <option value="{{$clinic->id }}">{{ ucwords($unit->unit_name) }}</option>
+                                @endforeach
+                                @endif
+
                             </select>
                         </div>
 

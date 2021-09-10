@@ -25,7 +25,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Partner</th>
+                                                <th>Service</th>
                                                 <th>County</th>
                                                 <th>Sub County</th>
                                                 <th>MFL Code</th>
@@ -90,8 +90,8 @@
         buttons: [
             {
             extend: 'copy',
-            title: 'Future Appointments',
-            filename: 'Future Appointments'
+            title: 'Lab Investigation List',
+            filename: 'Lab Investigation List'
             },
             {
             extend: 'csv',
