@@ -15,6 +15,7 @@ use App\Models\TodayAppointment;
 use App\Models\Message;
 use App\Models\County;
 use App\Models\SubCounty;
+use App\Models\Unit;
 use App\Models\MainDashboardBar;
 use App\Models\ClientRegistration;
 use App\Models\PartnerFacility;
@@ -375,31 +376,31 @@ class DashboardController extends Controller
         return json_encode($counties);
     }
 
-    public function get_dashboard_sub_counties($id)
+    public function get_dashboard_units($id)
     {
-        $subcounties = PartnerFacility::join('tbl_sub_county', 'tbl_partner_facility.sub_county_id', '=', 'tbl_sub_county.id')
-            ->where("tbl_partner_facility.county_id", $id)
-            ->pluck("tbl_sub_county.name", "tbl_sub_county.id");
+        $units = PartnerFacility::join('tbl_unit', 'tbl_partner_facility.unit_id', '=', 'tbl_unit.id')
+            ->where("tbl_partner_facility.partner_id", $id)
+            ->pluck("tbl_unit.unit_name", "tbl_unit.id");
 
             if (Auth::user()->access_level == 'Partner'){
-                $subcounties = PartnerFacility::join('tbl_sub_county', 'tbl_partner_facility.sub_county_id', '=', 'tbl_sub_county.id')
-            ->where("tbl_partner_facility.county_id", $id)
+                $units = PartnerFacility::join('tbl_unit', 'tbl_partner_facility.unit_id', '=', 'tbl_unit.id')
+                ->where("tbl_partner_facility.partner_id", $id)
             ->where("tbl_partner_facility.partner_id", '=', Auth::user()->partner_id)
-            ->pluck("tbl_sub_county.name", "tbl_sub_county.id");
+            ->pluck("tbl_unit.unit_name", "tbl_unit.id");
             }
-        return json_encode($subcounties);
+        return json_encode($units);
     }
 
     public function get_dashboard_facilities($id)
     {
         $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
-            ->where("tbl_partner_facility.sub_county_id", $id)
+            ->where("tbl_partner_facility.unit_id", $id)
            // ->where("tbl_partner_facility.partner_id", $id)
             ->pluck("tbl_master_facility.name", "tbl_master_facility.code");
 
             if (Auth::user()->access_level == 'Partner'){
                 $facilities = PartnerFacility::join('tbl_master_facility', 'tbl_partner_facility.mfl_code', '=', 'tbl_master_facility.code')
-            ->where("tbl_partner_facility.sub_county_id", $id)
+            ->where("tbl_partner_facility.unit_id", $id)
             ->where("tbl_partner_facility.partner_id", '=', Auth::user()->partner_id)
             ->pluck("tbl_master_facility.name", "tbl_master_facility.code");
             }

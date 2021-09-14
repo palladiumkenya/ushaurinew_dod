@@ -36,19 +36,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                    <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
-                        <option value="">Please Select Sub County : </option>
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
+
             <div class="col">
                 <div class="form-group">
                     <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
-
                     <select class="form-control filter_facility input-rounded input-sm select2" id="facilities" name="facility">
                         <option value="">Please select Facility : </option>
                         <option value=""></option>
@@ -57,7 +48,6 @@
             </div>
             <div class="col">
                 <div class="form-group">
-
                     <button class="btn btn-default filter btn-round  btn-small btn-primary  " type="submit" name="filter" id="filter"> <i class="fa fa-filter"></i>
                         Filter</button>
                 </div>
