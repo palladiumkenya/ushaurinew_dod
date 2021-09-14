@@ -7,11 +7,11 @@
 
 
 <div class="breadcrumb">
-                <ul>
-                    <li><a href="">IL Dashboard</a></li>
-                    <li></li>
-                </ul>
-            </div>
+    <ul>
+        <li><a href="">IL Dashboard</a></li>
+        <li></li>
+    </ul>
+</div>
 
 <div class="col-md-12">
 
@@ -22,7 +22,7 @@
                 <div class="form-group">
 
                     <select class="form-control filter_partner  input-rounded input-sm select2" id="partners" name="partner">
-                        <option value="">Please select Partner</option>
+                        <option value="">Please select Service</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
                         @endforeach
@@ -34,22 +34,14 @@
             <div class="col">
                 <div class="form-group">
                     <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
-                        <option value="">Please select County:</option>
+                        <option value="">Please select Unit:</option>
                         <option></option>
                         <option value=""></option>
 
                     </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <span class="filter_sub_county_wait" style="display: none;">Loading , Please Wait ...</span>
-                    <select class="form-control subcounty input-rounded input-sm select2" id="subcounties" name="subcounty">
-                        <option value="">Please Select Sub County : </option>
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
+
             <div class="col">
                 <div class="form-group">
                     <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
@@ -194,14 +186,14 @@
                 var partnerID = $(this).val();
                 if (partnerID) {
                     $.ajax({
-                        url: '/get_dashboard_counties/' + partnerID,
+                        url: '/get_dashboard_units/' + partnerID,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
 
 
                             $('select[name="county"]').empty();
-                            $('select[name="county"]').append('<option value="">Please Select County</option>');
+                            $('select[name="county"]').append('<option value="">Please Unit</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
                             });
@@ -215,49 +207,22 @@
             });
         });
 
+
         $(document).ready(function() {
             $('select[name="county"]').on('change', function() {
                 var countyID = $(this).val();
                 if (countyID) {
                     $.ajax({
-                        url: '/get_dashboard_sub_counties/' + countyID,
+                        url: '/get_dashboard_facilities/' + countyID,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-
-
-                            $('select[name="subcounty"]').empty();
-                            $('select[name="subcounty"]').append('<option value="">Please Select SubCounty</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-
-
-                        }
-                    });
-                } else {
-                    $('select[name="subcounty"]').empty();
-                }
-            });
-        });
-
-        $(document).ready(function() {
-            $('select[name="subcounty"]').on('change', function() {
-                var subcountyID = $(this).val();
-                if (subcountyID) {
-                    $.ajax({
-                        url: '/get_dashboard_facilities/' + subcountyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
 
                             $('select[name="facility"]').empty();
                             $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
                             $.each(data, function(key, value) {
                                 $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
                             });
-
 
                         }
                     });
