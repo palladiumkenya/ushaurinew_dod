@@ -7,11 +7,11 @@
 @section('main-content')
 @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
 <div class="breadcrumb">
-                <ul>
-                    <li><a href="">Monthly Appointment Summary</a></li>
-                    <li></li>
-                </ul>
-            </div>
+    <ul>
+        <li><a href="">Monthly Appointment Summary</a></li>
+        <li></li>
+    </ul>
+</div>
 
 <div class="col-md-12">
 
@@ -132,84 +132,57 @@
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
 <script type="text/javascript">
-
-$(document).ready(function() {
-            $('select[name="partner"]').on('change', function() {
-                var partnerID = $(this).val();
-                if (partnerID) {
-                    $.ajax({
-                        url: '/get_dashboard_counties/' + partnerID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-
-                            $('select[name="county"]').empty();
-                            $('select[name="county"]').append('<option value="">Please Select County</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+    $(document).ready(function() {
+        $('select[name="partner"]').on('change', function() {
+            var partnerID = $(this).val();
+            if (partnerID) {
+                $.ajax({
+                    url: '/get_dashboard_units/' + partnerID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                        }
-                    });
-                } else {
-                    $('select[name="county"]').empty();
-                }
-            });
+                        $('select[name="county"]').empty();
+                        $('select[name="county"]').append('<option value="">Please Unit</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('select[name="county"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="county"]').on('change', function() {
-                var countyID = $(this).val();
-                if (countyID) {
-                    $.ajax({
-                        url: '/get_dashboard_sub_counties/' + countyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
+    });
 
 
-                            $('select[name="subcounty"]').empty();
-                            $('select[name="subcounty"]').append('<option value="">Please Select SubCounty</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+    $(document).ready(function() {
+        $('select[name="county"]').on('change', function() {
+            var countyID = $(this).val();
+            if (countyID) {
+                $.ajax({
+                    url: '/get_dashboard_facilities/' + countyID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                        }
-                    });
-                } else {
-                    $('select[name="subcounty"]').empty();
-                }
-            });
+                        $('select[name="facility"]').empty();
+                        $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('select[name="facility"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="subcounty"]').on('change', function() {
-                var subcountyID = $(this).val();
-                if (subcountyID) {
-                    $.ajax({
-                        url: '/get_dashboard_facilities/' + subcountyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-
-                            $('select[name="facility"]').empty();
-                            $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-
-
-                        }
-                    });
-                } else {
-                    $('select[name="facility"]').empty();
-                }
-            });
-        });
+    });
     // multi column ordering
     $('#multicolumn_ordering_table').DataTable({
         columnDefs: [{
@@ -227,31 +200,30 @@ $(document).ready(function() {
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Monthly Appointment Summary Report',
-            filename: 'Monthly Appointment Summary Report'
+        buttons: [{
+                extend: 'copy',
+                title: 'Monthly Appointment Summary Report',
+                filename: 'Monthly Appointment Summary Report'
             },
             {
-            extend: 'csv',
-            title: 'Monthly Appointment Summary Report',
-            filename: 'Monthly Appointment Summary Report'
+                extend: 'csv',
+                title: 'Monthly Appointment Summary Report',
+                filename: 'Monthly Appointment Summary Report'
             },
             {
-            extend: 'excel',
-            title: 'Monthly Appointment Summary Report',
-            filename: 'Monthly Appointment Summary Report'
+                extend: 'excel',
+                title: 'Monthly Appointment Summary Report',
+                filename: 'Monthly Appointment Summary Report'
             },
             {
-            extend: 'pdf',
-            title: 'Monthly Appointment Summary Report',
-            filename: 'Monthly Appointment Summary Report'
+                extend: 'pdf',
+                title: 'Monthly Appointment Summary Report',
+                filename: 'Monthly Appointment Summary Report'
             },
             {
-            extend: 'print',
-            title: 'Monthly Appointment Summary Report',
-            filename: 'Monthly Appointment Summary Report'
+                extend: 'print',
+                title: 'Monthly Appointment Summary Report',
+                filename: 'Monthly Appointment Summary Report'
             }
         ]
     });

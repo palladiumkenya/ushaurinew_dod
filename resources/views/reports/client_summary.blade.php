@@ -8,11 +8,11 @@
 
 @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
 <div class="breadcrumb">
-                <ul>
-                    <li><a href="">Client Summary</a></li>
-                    <li></li>
-                </ul>
-            </div>
+    <ul>
+        <li><a href="">Client Summary</a></li>
+        <li></li>
+    </ul>
+</div>
 
 <div class="col-md-12">
 
@@ -64,136 +64,109 @@
 @endif
 
 <div class="col-md-12 mb-4">
-                    <div class="card text-left">
+    <div class="card text-left">
 
-                        <div class="card-body">
-                        <! <h4 class="card-title mb-3">Summary Report</h4>
-                            <div class="col-md-12" style="margin-top:10px; ">
+        <div class="card-body">
+            <! <h4 class="card-title mb-3">Summary Report</h4>
+                <div class="col-md-12" style="margin-top:10px; ">
 
-                            </div>
-                                <div class="table-responsive">
-                                    <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Unit</th>
-                                                <th>MFL Code</th>
-                                                <th>Facility</th>
-                                                <th>No of Clients</th>
-                                                <th>No of Appointments</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if (count($client_summary) > 0)
-                                                @foreach($client_summary as $summary)
-                                                    <tr>
-                                                        <td> {{ $loop->iteration }}</td>
-                                                        <td>  {{$summary->county}}</td>
-                                                        <td>  {{$summary->mfl_code}}</td>
-                                                        <td>  {{$summary->facility_name}}</td>
-                                                        <td>  {{$summary->no_clients}}</td>
-                                                        <td>  {{$summary->no_appointments}}</td>
-
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-
-                                    </table>
-
-                                </div>
-
-                        </div>
-                    </div>
                 </div>
-                <!-- end of col -->
+                <div class="table-responsive">
+                    <table id="multicolumn_ordering_table" class="display table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Unit</th>
+                                <th>MFL Code</th>
+                                <th>Facility</th>
+                                <th>No of Clients</th>
+                                <th>No of Appointments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (count($client_summary) > 0)
+                            @foreach($client_summary as $summary)
+                            <tr>
+                                <td> {{ $loop->iteration }}</td>
+                                <td> {{$summary->county}}</td>
+                                <td> {{$summary->mfl_code}}</td>
+                                <td> {{$summary->facility_name}}</td>
+                                <td> {{$summary->no_clients}}</td>
+                                <td> {{$summary->no_appointments}}</td>
+
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+        </div>
+    </div>
+</div>
+<!-- end of col -->
 
 @endsection
 
 @section('page-js')
 
- <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
- <script type="text/javascript">
-
-$(document).ready(function() {
-            $('select[name="partner"]').on('change', function() {
-                var partnerID = $(this).val();
-                if (partnerID) {
-                    $.ajax({
-                        url: '/get_dashboard_counties/' + partnerID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-
-                            $('select[name="county"]').empty();
-                            $('select[name="county"]').append('<option value="">Please Select County</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+<script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select[name="partner"]').on('change', function() {
+            var partnerID = $(this).val();
+            if (partnerID) {
+                $.ajax({
+                    url: '/get_dashboard_units/' + partnerID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                        }
-                    });
-                } else {
-                    $('select[name="county"]').empty();
-                }
-            });
+                        $('select[name="county"]').empty();
+                        $('select[name="county"]').append('<option value="">Please Unit</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('select[name="county"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="county"]').on('change', function() {
-                var countyID = $(this).val();
-                if (countyID) {
-                    $.ajax({
-                        url: '/get_dashboard_sub_counties/' + countyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
+    });
 
 
-                            $('select[name="subcounty"]').empty();
-                            $('select[name="subcounty"]').append('<option value="">Please Select SubCounty</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+    $(document).ready(function() {
+        $('select[name="county"]').on('change', function() {
+            var countyID = $(this).val();
+            if (countyID) {
+                $.ajax({
+                    url: '/get_dashboard_facilities/' + countyID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                        }
-                    });
-                } else {
-                    $('select[name="subcounty"]').empty();
-                }
-            });
+                        $('select[name="facility"]').empty();
+                        $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('select[name="facility"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="subcounty"]').on('change', function() {
-                var subcountyID = $(this).val();
-                if (subcountyID) {
-                    $.ajax({
-                        url: '/get_dashboard_facilities/' + subcountyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-
-                            $('select[name="facility"]').empty();
-                            $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-
-
-                        }
-                    });
-                } else {
-                    $('select[name="facility"]').empty();
-                }
-            });
-        });
-   // multi column ordering
-   $('#multicolumn_ordering_table').DataTable({
+    });
+    // multi column ordering
+    $('#multicolumn_ordering_table').DataTable({
         columnDefs: [{
             targets: [0],
             orderData: [0, 1]
@@ -205,38 +178,38 @@ $(document).ready(function() {
             orderData: [4, 0]
         }],
         "paging": true,
-        "responsive":true,
+        "responsive": true,
         "ordering": true,
         "info": true,
         dom: 'Bfrtip',
-        buttons: [
-            {
-            extend: 'copy',
-            title: 'Summary Report',
-            filename: 'Summary Report'
+        buttons: [{
+                extend: 'copy',
+                title: 'Summary Report',
+                filename: 'Summary Report'
             },
             {
-            extend: 'csv',
-            title: 'Summary Report',
-            filename: 'Summary Report'
+                extend: 'csv',
+                title: 'Summary Report',
+                filename: 'Summary Report'
             },
             {
-            extend: 'excel',
-            title: 'Summary Report',
-            filename: 'Summary Report'
+                extend: 'excel',
+                title: 'Summary Report',
+                filename: 'Summary Report'
             },
             {
-            extend: 'pdf',
-            title: 'Summary Report',
-            filename: 'Summary Report'
+                extend: 'pdf',
+                title: 'Summary Report',
+                filename: 'Summary Report'
             },
             {
-            extend: 'print',
-            title: 'Summary Report',
-            filename: 'Summary Report'
+                extend: 'print',
+                title: 'Summary Report',
+                filename: 'Summary Report'
             }
         ]
-    });</script>
+    });
+</script>
 
 
 @endsection
