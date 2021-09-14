@@ -164,84 +164,57 @@
 
 
 
-$(document).ready(function() {
-            $('select[name="partner"]').on('change', function() {
-                var partnerID = $(this).val();
-                if (partnerID) {
-                    $.ajax({
-                        url: '/get_dashboard_counties/' + partnerID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
+    $(document).ready(function() {
+        $('select[name="partner"]').on('change', function() {
+            var partnerID = $(this).val();
+            if (partnerID) {
+                $.ajax({
+                    url: '/get_dashboard_units/' + partnerID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                            $('select[name="county"]').empty();
-                            $('select[name="county"]').append('<option value="">Please Select County</option>');
-                            $.each(data, function(key, value) {
+                        $('select[name="county"]').empty();
+                        $('select[name="county"]').append('<option value="">Please Unit</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
 
-                                $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
 
-
-                        }
-                    });
-                } else {
-                    $('select[name="county"]').empty();
-                }
-            });
+                    }
+                });
+            } else {
+                $('select[name="county"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="county"]').on('change', function() {
-                var countyID = $(this).val();
-                if (countyID) {
-                    $.ajax({
-                        url: '/get_dashboard_sub_counties/' + countyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
+    });
 
 
-                            $('select[name="subcounty"]').empty();
-                            $('select[name="subcounty"]').append('<option value="">Please Select Sub County</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="subcounty"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
+    $(document).ready(function() {
+        $('select[name="county"]').on('change', function() {
+            var countyID = $(this).val();
+            if (countyID) {
+                $.ajax({
+                    url: '/get_dashboard_facilities/' + countyID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
 
-                        }
-                    });
-                } else {
-                    $('select[name="subcounty"]').empty();
-                }
-            });
+                        $('select[name="facility"]').empty();
+                        $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
+                        $.each(data, function(key, value) {
+                            $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('select[name="facility"]').empty();
+            }
         });
-
-        $(document).ready(function() {
-            $('select[name="subcounty"]').on('change', function() {
-                var subcountyID = $(this).val();
-                if (subcountyID) {
-                    $.ajax({
-                        url: '/get_dashboard_facilities/' + subcountyID,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-
-
-                            $('select[name="facility"]').empty();
-                            $('select[name="facility"]').append('<option value="">Please select Facility</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
-                            });
-
-
-                        }
-                    });
-                } else {
-                    $('select[name="facility"]').empty();
-                }
-            });
-        });
+    });
 
         $('#dataFilter').on('submit', function(e) {
         e.preventDefault();

@@ -220,7 +220,6 @@
         e.preventDefault();
         let partners = $('#partners').val();
         let counties = $('#counties').val();
-        let subcounties = $('#subcounties').val();
         let facilities = $('#facilities').val();
 
 
@@ -235,7 +234,6 @@
             data: {
                 "partners": partners,
                 "counties": counties,
-                "subcounties": subcounties,
                 "facilities": facilities
             },
             url: "{{ route('filter_dashboard') }}",
