@@ -32,6 +32,7 @@
                     </select>
                 </div>
             </div>
+            
             <div class="col">
                 <div class="form-group">
                     <select class="form-control county  input-rounded input-sm select2" id="counties" name="county">
