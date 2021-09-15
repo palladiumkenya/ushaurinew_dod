@@ -254,8 +254,8 @@ class DashboardController extends Controller
         $data                = [];
 
         $selected_partners = $request->partners;
-        $selected_counties = $request->counties;
-        $selected_subcounties = $request->subcounties;
+        $selected_units = $request->counties;
+        // $selected_subcounties = $request->subcounties;
         $selected_facilites = $request->facilities;
 
         if (Auth::user()->access_level == 'Partner') { //user is partner
@@ -290,26 +290,26 @@ class DashboardController extends Controller
             $consented_clients_count = $consented_clients_count->where('partner_id', $selected_partners);
             $all_future_appointments = $all_future_appointments->where('tbl_partner_facility.partner_id', $selected_partners);
         }
-        if (!empty($selected_counties)) {
-            $all_clients_number = $all_clients_number->where('county_id', $selected_counties);
-            $pec_client_count = $pec_client_count->where('county_id', $selected_counties);
-            $all_target_clients = $all_target_clients->where('county_id', $selected_counties);
-            $all_consented_clients = $all_consented_clients->where('county_id', $selected_counties);
-            $number_of_facilities = $number_of_facilities->where('county_id', $selected_counties);
-            $registered_clients_count = $registered_clients_count->where('county_id', $selected_counties);
-            $consented_clients_count = $consented_clients_count->where('county_id', $selected_counties);
-            $all_future_appointments = $all_future_appointments->where('tbl_partner_facility.county_id', $selected_counties);
+        if (!empty($selected_units)) {
+            $all_clients_number = $all_clients_number->where('unit_id', $selected_units);
+            $pec_client_count = $pec_client_count->where('unit_id', $selected_units);
+            $all_target_clients = $all_target_clients->where('unit_id', $selected_units);
+            $all_consented_clients = $all_consented_clients->where('unit_id', $selected_units);
+            $number_of_facilities = $number_of_facilities->where('unit_id', $selected_units);
+            $registered_clients_count = $registered_clients_count->where('unit_id', $selected_units);
+            $consented_clients_count = $consented_clients_count->where('unit_id', $selected_units);
+            $all_future_appointments = $all_future_appointments->where('tbl_partner_facility.unit_id', $selected_units);
         }
-        if (!empty($selected_subcounties)) {
-            $all_clients_number = $all_clients_number->where('sub_county_id', $selected_subcounties);
-            $pec_client_count = $pec_client_count->where('sub_county_id', $selected_subcounties);
-            $all_target_clients = $all_target_clients->where('sub_county_id', $selected_subcounties);
-            $all_consented_clients = $all_consented_clients->where('sub_county_id', $selected_subcounties);
-            $number_of_facilities = $number_of_facilities->where('sub_county_id', $selected_subcounties);
-            $registered_clients_count = $registered_clients_count->where('sub_county_id', $selected_subcounties);
-            $consented_clients_count = $consented_clients_count->where('sub_county_id', $selected_subcounties);
-            $all_future_appointments = $all_future_appointments->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-        }
+        // if (!empty($selected_subcounties)) {
+        //     $all_clients_number = $all_clients_number->where('sub_county_id', $selected_subcounties);
+        //     $pec_client_count = $pec_client_count->where('sub_county_id', $selected_subcounties);
+        //     $all_target_clients = $all_target_clients->where('sub_county_id', $selected_subcounties);
+        //     $all_consented_clients = $all_consented_clients->where('sub_county_id', $selected_subcounties);
+        //     $number_of_facilities = $number_of_facilities->where('sub_county_id', $selected_subcounties);
+        //     $registered_clients_count = $registered_clients_count->where('sub_county_id', $selected_subcounties);
+        //     $consented_clients_count = $consented_clients_count->where('sub_county_id', $selected_subcounties);
+        //     $all_future_appointments = $all_future_appointments->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        // }
         if (!empty($selected_facilites)) {
             $all_clients_number = $all_clients_number->where('mfl_code', $selected_facilites);
             $pec_client_count = $pec_client_count->where('mfl_code', $selected_facilites);
@@ -1005,8 +1005,7 @@ class DashboardController extends Controller
     {
         $data                = [];
         $selected_partners = $request->partners;
-        $selected_counties = $request->counties;
-        $selected_subcounties = $request->subcounties;
+        $selected_units = $request->counties;
         $selected_facilites = $request->facilities;
 
         // registration by age group
@@ -1133,63 +1132,63 @@ class DashboardController extends Controller
             $polygamous_registered = $polygamous_registered->where('tbl_partner_facility.partner_id', $selected_partners);
         }
 
-        if (!empty($selected_counties)) {
-            $consented_nine = $consented_nine->where('tbl_partner_facility.county_id', $selected_counties);
-            $consented_forteen = $consented_forteen->where('tbl_partner_facility.county_id', $selected_counties);
-            $consented_nineteen = $consented_nineteen->where('tbl_partner_facility.county_id', $selected_counties);
-            $consented_twenty_four = $consented_twenty_four->where('tbl_partner_facility.county_id', $selected_counties);
-            $consented_over_twenty_five = $consented_over_twenty_five->where('tbl_partner_facility.county_id', $selected_counties);
-            $registered_nine = $registered_nine->where('tbl_partner_facility.county_id', $selected_counties);
-            $registered_forteen = $registered_forteen->where('tbl_partner_facility.county_id', $selected_counties);
-            $registered_nineteen = $registered_nineteen->where('tbl_partner_facility.county_id', $selected_counties);
-            $registered_twenty_four = $registered_twenty_four->where('tbl_partner_facility.county_id', $selected_counties);
-            $registered_over_twenty_five = $registered_over_twenty_five->where('tbl_partner_facility.county_id', $selected_counties);
-            $single_consented = $single_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $monogamous_consented = $monogamous_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $divorced_consented = $divorced_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $widowed_consented = $widowed_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $cohabating_consented = $cohabating_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $unavailable_consented = $unavailable_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $notapplicable_consented = $notapplicable_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $polygamous_consented = $polygamous_consented->where('tbl_partner_facility.county_id', $selected_counties);
-            $single_registered = $single_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $monogamous_registered = $monogamous_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $divorced_registered = $divorced_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $widowed_registered = $widowed_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $cohabating_registered = $cohabating_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $unavailable_registered = $unavailable_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $notapplicable_registered = $notapplicable_registered->where('tbl_partner_facility.county_id', $selected_counties);
-            $polygamous_registered = $polygamous_registered->where('tbl_partner_facility.county_id', $selected_counties);
+        if (!empty($selected_units)) {
+            $consented_nine = $consented_nine->where('tbl_partner_facility.unit_id', $selected_units);
+            $consented_forteen = $consented_forteen->where('tbl_partner_facility.unit_id', $selected_units);
+            $consented_nineteen = $consented_nineteen->where('tbl_partner_facility.unit_id', $selected_units);
+            $consented_twenty_four = $consented_twenty_four->where('tbl_partner_facility.unit_id', $selected_units);
+            $consented_over_twenty_five = $consented_over_twenty_five->where('tbl_partner_facility.unit_id', $selected_units);
+            $registered_nine = $registered_nine->where('tbl_partner_facility.unit_id', $selected_units);
+            $registered_forteen = $registered_forteen->where('tbl_partner_facility.unit_id', $selected_units);
+            $registered_nineteen = $registered_nineteen->where('tbl_partner_facility.unit_id', $selected_units);
+            $registered_twenty_four = $registered_twenty_four->where('tbl_partner_facility.unit_id', $selected_units);
+            $registered_over_twenty_five = $registered_over_twenty_five->where('tbl_partner_facility.unit_id', $selected_units);
+            $single_consented = $single_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $monogamous_consented = $monogamous_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $divorced_consented = $divorced_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $widowed_consented = $widowed_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $cohabating_consented = $cohabating_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $unavailable_consented = $unavailable_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $notapplicable_consented = $notapplicable_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $polygamous_consented = $polygamous_consented->where('tbl_partner_facility.unit_id', $selected_units);
+            $single_registered = $single_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $monogamous_registered = $monogamous_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $divorced_registered = $divorced_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $widowed_registered = $widowed_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $cohabating_registered = $cohabating_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $unavailable_registered = $unavailable_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $notapplicable_registered = $notapplicable_registered->where('tbl_partner_facility.unit_id', $selected_units);
+            $polygamous_registered = $polygamous_registered->where('tbl_partner_facility.unit_id', $selected_units);
         }
 
-        if (!empty($selected_subcounties)) {
-            $consented_nine = $consented_nine->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $consented_forteen = $consented_forteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $consented_nineteen = $consented_nineteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $consented_twenty_four = $consented_twenty_four->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $consented_over_twenty_five = $consented_over_twenty_five->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $registered_nine = $registered_nine->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $registered_forteen = $registered_forteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $registered_nineteen = $registered_nineteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $registered_twenty_four = $registered_twenty_four->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $registered_over_twenty_five = $registered_over_twenty_five->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $single_consented = $single_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $monogamous_consented = $monogamous_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $divorced_consented = $divorced_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $widowed_consented = $widowed_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $cohabating_consented = $cohabating_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $unavailable_consented = $unavailable_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $notapplicable_consented = $notapplicable_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $polygamous_consented = $polygamous_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $single_registered = $single_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $monogamous_registered = $monogamous_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $divorced_registered = $divorced_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $widowed_registered = $widowed_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $cohabating_registered = $cohabating_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $unavailable_registered = $unavailable_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $notapplicable_registered = $notapplicable_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-            $polygamous_registered = $polygamous_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
-        }
+        // if (!empty($selected_subcounties)) {
+        //     $consented_nine = $consented_nine->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $consented_forteen = $consented_forteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $consented_nineteen = $consented_nineteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $consented_twenty_four = $consented_twenty_four->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $consented_over_twenty_five = $consented_over_twenty_five->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $registered_nine = $registered_nine->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $registered_forteen = $registered_forteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $registered_nineteen = $registered_nineteen->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $registered_twenty_four = $registered_twenty_four->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $registered_over_twenty_five = $registered_over_twenty_five->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $single_consented = $single_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $monogamous_consented = $monogamous_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $divorced_consented = $divorced_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $widowed_consented = $widowed_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $cohabating_consented = $cohabating_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $unavailable_consented = $unavailable_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $notapplicable_consented = $notapplicable_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $polygamous_consented = $polygamous_consented->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $single_registered = $single_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $monogamous_registered = $monogamous_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $divorced_registered = $divorced_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $widowed_registered = $widowed_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $cohabating_registered = $cohabating_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $unavailable_registered = $unavailable_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $notapplicable_registered = $notapplicable_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        //     $polygamous_registered = $polygamous_registered->where('tbl_partner_facility.sub_county_id', $selected_subcounties);
+        // }
 
         if (!empty($selected_facilites)) {
             $consented_nine = $consented_nine->where('tbl_partner_facility.mfl_code', $selected_facilites);

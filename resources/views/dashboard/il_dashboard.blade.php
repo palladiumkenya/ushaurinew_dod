@@ -26,7 +26,6 @@
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
                         @endforeach
-
                         <option></option>
                     </select>
                 </div>
