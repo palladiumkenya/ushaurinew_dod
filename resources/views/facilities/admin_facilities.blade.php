@@ -114,6 +114,21 @@
                                             <option></option>
                                         </select>
                                     </div>
+
+                                    <div class="col-md-6 form-group mb-3">
+                                        <label for="picker1">Unit Name</label>
+                                        <select id="unit" name="unit" class="form-control" required="">
+                                            <option>Select Unit</option>
+
+                                            @if (count($all_units) > 0)
+                                            @foreach($all_units as $unit)
+                                            <option value="{{$unit->id }}">{{ ucwords($unit->unit_name) }}</option>
+                                            @endforeach
+                                            @endif
+
+                                            <option></option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="firstName1">Contact Name</label>
                                         <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Contact Name" />

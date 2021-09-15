@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Facility;
 use App\Models\County;
 use App\Models\Partner;
+use App\Models\Unit;
 use App\Models\SubCounty;
 use App\Models\PartnerFacility;
 use Session;
@@ -26,8 +27,9 @@ class FacilityController extends Controller
             ->get();
 
         $all_partners = Partner::all()->where('status', '=', 'Active');
+        $all_units = Unit::all();
 
-        return view('facilities.admin_facilities', compact('admin_facilities', 'all_partners'));
+        return view('facilities.admin_facilities', compact('admin_facilities', 'all_partners', 'all_units'));
     }
     public function add_facility(Request $request)
     {
@@ -41,6 +43,7 @@ class FacilityController extends Controller
             $facility->sub_county_id = $request->sub_county;
             $facility->is_approved = 'No';
             $facility->avg_clients = $request->average_clients;
+            $facility->unit_id = $request->unit;
 
             $master_update = Facility::where('code', $request->mfl_code)
                 ->update([
