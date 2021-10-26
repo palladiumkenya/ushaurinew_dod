@@ -203,6 +203,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/admin/add/ranks', ['uses' => 'App\Http\Controllers\RankController@addRank', 'as' => 'addranks']);
   Route::post('/admin/edit/ranks', ['uses' => 'App\Http\Controllers\RankController@editRank', 'as' => 'editranks']);
   Route::post('/admin/delete/ranks', ['uses' => 'App\Http\Controllers\RankController@deleteRank', 'as' => 'deleteranks']);
+
+  // Data routes
+  Route::post('/all/units', ['uses' => 'App\Http\Controllers\DataController@get_units', 'as' => 'allunits']);
+
 });
 
 

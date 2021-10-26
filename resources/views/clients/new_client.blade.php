@@ -194,24 +194,18 @@
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Service</label>
-                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="service" name="service">
+                            <select class="form-control dynamic" data-dependant="servicename" data-width="100%" id="service" name="service">
                                 <option value="">Please select </option>
                                 @if (count($services) > 0)
                                 @foreach($services as $service)
-                                <option value="{{$clinic->id }}">{{ ucwords($service->name) }}</option>
+                                <option value="{{$service->id }}">{{ ucwords($service->name) }}</option>
                                 @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Units </label>
-                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="unit" name="unit">
-                                <option value="">Please select </option>
-                                @if (count($units) > 0)
-                                @foreach($units as $unit)
-                                <option value="{{$clinic->id }}">{{ ucwords($unit->unit_name) }}</option>
-                                @endforeach
-                                @endif
+                            <select class="unit form-control selectpicker" data-dependant="unitname" data-width="100%" id="unit" name="unit" data-live-search="true">
 
                             </select>
                         </div>
@@ -234,7 +228,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js"></script>
 
 @endsection
 
@@ -246,6 +240,35 @@
             format: 'HH:mm'
         });
 
+    });
+
+    $("#service").change(function() {
+        let service = $('#service').val();
+        console.log('service', service)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            data: {
+                "service_id": service
+            },
+            url: "{{ route('allunits') }}",
+            success: function(data) {
+                $('#unit').empty();
+                $.each(data, function(number, unit) {
+                    $("#unit").append($('<option>').text(
+                            unit
+                            .unit_name)
+                        .attr(
+                            'value',
+                            unit.id));
+                });
+                $("#unit").selectpicker('refresh');
+            }
+        });
     });
 
 </script>

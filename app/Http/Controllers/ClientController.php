@@ -11,6 +11,8 @@ use App\Models\Condition;
 use App\Models\Gender;
 use App\Models\Marital;
 use App\Models\Transit;
+use App\Models\Partner;
+use App\Models\Unit;
 use Session;
 use Auth;
 
@@ -23,8 +25,10 @@ class ClientController extends Controller
         $treatment = Condition::all();
         $grouping = Group::all();
         $clinics = Clinic::all();
+        $services = Partner::all();
+        $units = Unit::all();
         $language = Language::all()->where('status', '=', 'Active');
-        return view('clients.new_client', compact('gender', 'marital', 'clinics', 'treatment', 'language', 'grouping'));
+        return view('clients.new_client', compact('gender', 'marital', 'clinics', 'treatment', 'language', 'grouping', 'services', 'units'));
     }
     public function add_client(Request $request)
     {
