@@ -13,6 +13,7 @@ use App\Models\Marital;
 use App\Models\Transit;
 use App\Models\Partner;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Validator;
 use Session;
 use Auth;
 
@@ -34,8 +35,8 @@ class ClientController extends Controller
     {
         try
         {
-            $request->validate([
-                'clinic_number' => 'required|numeric|digits:10',
+            $validator = Validator::make($request->all(), [
+                // 'clinic_number' => 'required|numeric|digits:10',
                 'f_name' => 'required',
                 'l_name' => 'required',
                 'dob' => 'required',
@@ -51,48 +52,59 @@ class ClientController extends Controller
                 'status' => 'required',
                 'group_id' => 'required',
             ]);
-        $new_client = new Client;
 
-       // $validate_client = Client::where('clinic_number', $request->clinic_number)
-        $new_client->clinic_number = $request->clinic_number;
-        $new_client->f_name = $request->first_name;
-        $new_client->m_name = $request->middle_name;
-        $new_client->l_name = $request->last_name;
-        $new_client->dob = $request->birth;
-        $new_client->gender = $request->gender;
-        $new_client->marital = $request->marital;
-        $new_client->client_status = $request->treatment;
-        $new_client->enrollment_date = date("Y-m-d", strtotime($request->enrollment_date));
-        $new_client->art_date = date("Y-m-d", strtotime($request->art_date));
-        $new_client->phone_no = $request->phone;
-        $new_client->language_id = $request->language;
-        $new_client->smsenable = $request->smsenable;
-        $new_client->motivational_enable = $request->motivational_enable;
-        $new_client->txt_time = date("H", strtotime($request->txt_time));
-        $new_client->status = $request->status;
-        $new_client->group_id = $request->group;
-        $new_client->clinic_id = $request->clinic;
+            if($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
 
-        $validate_ccc = Client::where('clinic_number', $request->clinic_number)
-        ->first();
+            $new_client = new Client;
 
-        if ($validate_ccc) {
-            Session::flash('statuscode', 'error');
+            $new_client->file_no = $request->service_number;
+            $new_client->f_name = $request->f_name;
+            $new_client->m_name = $request->m_name;
+            $new_client->l_name = $request->l_name;
+            $new_client->dob = $request->dob;
+            $new_client->gender = $request->gender;
+            $new_client->marital = $request->marital;
+            $new_client->client_status = $request->treatment;
+            $new_client->enrollment_date = date("Y-m-d", strtotime($request->enrollment_date));
+            $new_client->art_date = date("Y-m-d", strtotime($request->art_date));
+            $new_client->phone_no = $request->phone;
+            $new_client->language_id = $request->language_id;
+            $new_client->smsenable = $request->smsenable;
+            $new_client->motivational_enable = $request->motivational_enable;
+            $new_client->txt_time = date("H", strtotime($request->txt_time));
+            $new_client->status = $request->status;
+            $new_client->group_id = $request->group_id;
+            $new_client->clinic_id = $request->clinic;
+            $new_client->mfl_code = $request->facility;
+            $new_client->facility_id = $request->facility;
 
-            return redirect('add/client')->with('status', 'Clinic Number already exist in the system!');
-        }
-        if ($new_client->save()) {
-            Session::flash('statuscode', 'success');
+            // return $validate_ccc = Client::where('clinic_number', $request->clinic_number)->first();
 
-            return redirect('Reports/facility_home')->with('status', 'Client has been registered successfully!');
-        } else {
+            // if ($validate_ccc) {
+
+            //     return 'Clinic Number already exist in the system!';
+            //     Session::flash('statuscode', 'error');
+
+            //     return redirect('add/client')->with('status', 'Clinic Number already exist in the system!');
+            // }
+            if ($new_client->save()) {
+                $new_client->clinic_number = $new_client->id;
+                $new_client->service_number = $new_client->id;
+                Session::flash('statuscode', 'success');
+
+                return redirect('Reports/facility_home')->with('status', 'Client has been registered successfully!');
+            } else {
+
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'An error has occurred please try again later.');
+            }
+        } catch (Exception $e) {
+
             Session::flash('statuscode', 'error');
             return back()->with('error', 'An error has occurred please try again later.');
         }
-    } catch (Exception $e) {
-
-        return back();
-    }
     }
     public function transit_client(Request $request)
     {

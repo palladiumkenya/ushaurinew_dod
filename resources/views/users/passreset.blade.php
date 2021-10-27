@@ -15,7 +15,7 @@
             <div class="auth-content">
                 <div class="card o-hidden">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 text-center">
                             <div class="p-4">
                                 <div class="auth-logo text-center mb-4">
                                 <img src="{{ asset('/assets/images/ushauri_logo.png') }}" style="margin-left: 50px;" width="51%" height="60%" >
@@ -24,55 +24,57 @@
                                 </div>
 
                                 <form role="form" method="post" action="{{route('changepass')}}">
-                            {{ csrf_field() }}
-                            <div class="row">
-                                <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                                    {{ csrf_field() }}
+                                    <div class="row">
+                                        <input type="hidden" name="id" value="{{Auth::user()->id}}">
 
-                                <div class="form-group col-md-12">
-                                    <label for="new_password" class="col-sm-2 control-label "><b>New Password </b></label>
-                                    <div class="col-sm-10">
-                                        <input type="password" pattern=".{6,20}" required
-                                            title="password requires more than 6 characters"
-                                            class="form-control new_password password" name="new_password"
-                                            id="new_password" placeholder="New Password... ">
+                                        <div class="form-group col-md-12">
+                                            <label for="new_password" class="col-sm-4 control-label "><b>New Password </b></label>
+                                            <div class="col-sm-12">
+                                                <input type="password" pattern=".{6,20}" required
+                                                    title="password requires more than 6 characters"
+                                                    class="form-control new_password password" name="new_password"
+                                                    id="new_password" placeholder="New Password... ">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="confirm_new_password" class="col-sm-2 control-label">Confirm Password
-                                    </label>
-                                    <div class="col-sm-10">
-                                        <input type="password" pattern=".{6,20}" required
-                                            title="password requires more than 6 characters"
-                                            class="form-control confirm_new_password password"
-                                            name="confirm_new_password" id="confirm_new_password"
-                                            placeholder="Confirm Password... ">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="confirm_new_password" class="col-sm-4 control-label"><b>Confirm Password</b></label>
+                                            <div class="col-sm-12">
+                                                <input type="password" pattern=".{6,20}" required
+                                                    title="password requires more than 6 characters"
+                                                    class="form-control confirm_new_password password"
+                                                    name="confirm_new_password" id="confirm_new_password"
+                                                    placeholder="Confirm Password... ">
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div class="btn_div mt-3">
+                                        <button type="submit" class="btn btn-info pull-right">Change Password</button>
+                                    </div>
+                                </form>
+
+                                <div class="btn_div mt-3"> <b> Or </b> </div>
+
+                                <div class="btn_div mt-3">
+                                    <a type="button" href="{{url('/login')}}">Login</a>
                                 </div>
-                            </div>
-                            <div class="btn_div" style="display: none;">
-                                <button type="submit" class="btn btn-info pull-right">Change Password</button>
 
-                            </div>
-                        </form>
-
-                    </div><!-- /.box-body -->
-                </div>
-                <div class="modal-footer">
-
-                <a type="button" class="btn btn-info pull-right" href="{{route('logout')}}">Login</a>
-                </div>
-                                <div class="center">
-                                <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40" style="margin-left: 20px;">
-                                <img class="pl-3" src="{{ asset('assets/images/login/CDC-LOGO.jpg') }}" alt="ushauri" height="40" style="margin-left: 95px;">
-                                <img class="pl-3" src="{{ asset('assets/images/login/logo_3.png') }}" alt="ushauri" width="31%" style="margin-left: 95px;">
-                                </div>
-                                <div class="register-link m-t-15 text-center">
-                                    <p>&copy;  mHealth Kenya &nbsp;2016 - <?php echo date('Y'); ?> <b> Powered by : <a href="https://mhealthkenya.org/" target="_blank"> mHealth  Kenya </a></b> </p>
-                                 </div>
-                            </div>
+                            </div><!-- /.box-body -->
                         </div>
+                
+
+                        <div class="text-center">
+                            <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40" style="margin-left: 20px;">
+                            <img class="pl-3" src="{{ asset('assets/images/login/CDC-LOGO.jpg') }}" alt="ushauri" height="40" style="margin-left: 95px;">
+                            <img class="pl-3" src="{{ asset('assets/images/login/logo_3.png') }}" alt="ushauri" width="31%" style="margin-left: 95px;">
+
+                            <p>&copy;  mHealth Kenya &nbsp;2016 - <?php echo date('Y'); ?> <b> Powered by : <a href="https://mhealthkenya.org/" target="_blank"> mHealth  Kenya </a></b> </p>
+
+                        </div>
+
                     </div>
                 </div>
             </div>

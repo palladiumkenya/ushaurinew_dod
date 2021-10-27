@@ -352,13 +352,15 @@ class UserController extends Controller
         }
     }
 
-    public function resetshow()
-    {
-        return view('users.passreset');
-    }
     public function reset()
     {
         return view('users.reset');
+    }
+
+    //working reset password
+    public function resetshow()
+    {
+        return view('users.passreset');
     }
 
     public function changepass(Request $request)
@@ -382,4 +384,6 @@ class UserController extends Controller
             return back();
         }
     }
+
+
 }

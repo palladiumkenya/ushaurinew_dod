@@ -56,6 +56,7 @@
                     <div class="dropdown-header">
                         <i class="i-Lock-User mr-1"> <b>{{{ isset(Auth::user()->f_name) ? Auth::user()->f_name : Auth::user()->l_name }}}</b></i>
                     </div>
+                    <a class="dropdown-item" href="{{route('resetshow')}}">Reset Password</a>
                     <a class="dropdown-item" href="{{route('logout')}}">Sign Out</a>
                 </div>
             </div>

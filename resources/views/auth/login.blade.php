@@ -71,6 +71,7 @@
 
                                     <a href="javascript::void(0)" class="forgot_password_link" id="forgot_password_link""><u>Forgot
                                             Password?</u></a>
+                            
                                 </div>
                                 @endif
                                 <div class="center">

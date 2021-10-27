@@ -419,21 +419,25 @@ class DashboardController extends Controller
             $clients_count = Client::whereNotNull('clinic_number')
                 ->select(\DB::raw("COUNT(id) as count"))
                 ->where('mfl_code', Auth::user()->facility_id)
-                ->pluck('count');
+                ->pluck('count')
+                ->first();
             $consented_count = Client::where('smsenable', '=', 'Yes')
                 ->select(\DB::raw("COUNT(id) as count"))
                 ->where('mfl_code', Auth::user()->facility_id)
-                ->pluck('count');
+                ->pluck('count')
+                ->first();
             $appointment_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->whereNotNull('tbl_appointment.id')
                 ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
-                ->pluck('count');
+                ->pluck('count')
+                ->first();
             $messages_count = Message::join('tbl_client', 'tbl_client.id', '=', 'tbl_clnt_outgoing.clnt_usr_id')
                 ->where('tbl_clnt_outgoing.recepient_type', '=', 'Client')
                 ->select(\DB::raw("COUNT(tbl_clnt_outgoing.id) as count"))
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
-                ->pluck('count');
+                ->pluck('count')
+                ->first();
 
             // today's appointments
             $today_appointment = TodayAppointment::select('clinic_no', 'file_no', 'client_name', 'client_phone_no', 'appntmnt_date', 'appointment_type')
@@ -463,8 +467,8 @@ class DashboardController extends Controller
                 ->where('tbl_appointment.active_app', '=', 1)
                 ->where('tbl_client.mfl_code', Auth::user()->facility_id)
                 ->get();
-        }
 
+        } 
 
         return view('dashboard.facility_dashboard', compact('clients_count', 'consented_count', 'appointment_count', 'messages_count', 'today_appointment', 'missed_appoitment', 'defaulted_appoitment', 'ltfu_appoitment'));
     }

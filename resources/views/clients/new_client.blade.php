@@ -13,6 +13,12 @@
             </div>
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div>{{$error}}</div>
+            @endforeach
+        @endif
+
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title mb-3">Add Client</div>
@@ -26,19 +32,19 @@
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">Service Number</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Service Number">
+                            <input type="text" class="form-control" id="service_number" name="service_number" placeholder="Service Number">
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">First Name</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                            <input type="text" class="form-control" id="f_name" name="f_name" placeholder="First Name">
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">Middle Name</label>
-                            <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Middle Name">
+                            <input type="text" class="form-control" id="m_name" name="m_name" placeholder="Middle Name">
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">Last Name</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                            <input type="text" class="form-control" id="l_name" name="l_name" placeholder="Last Name">
                         </div>
 
                         <div class='col-sm-6'>
@@ -48,7 +54,7 @@
                                                     <label for="firstName1">Date of Birth</label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <input type="date" required="" id="birth" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="birth">
+                                                    <input type="date" required="" id="dob" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="dob">
                                                 </div>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-secondary" type="button">
@@ -82,11 +88,11 @@
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Treatment</label>
-                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="treatment" name="treatment">
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="client_status" name="client_status">
                                 <option value="">Please select </option>
                                 @if (count($treatment) > 0)
                                 @foreach($treatment as $treatments)
-                                <option value="{{$treatments->id }}">{{ ucwords($treatments->name) }}</option>
+                                <option value="{{$treatments->name }}">{{ ucwords($treatments->name) }}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -131,7 +137,7 @@
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Language</label>
-                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="language" name="language">
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="language_id" name="language_id">
                                 <option value="">Please select </option>
                                 @if (count($language) > 0)
                                 @foreach($language as $languages)
@@ -142,7 +148,7 @@
                         </div>
                         <div class="col-md-6 form-group mb-3" id="add_status_div">
                             <label>Enable Message Alerts?</label>
-                            <select name="status" class="form-control status" id="smsenable" name="smsenable">
+                            <select class="form-control status" id="smsenable" name="smsenable">
                                 <option value="">Please select</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -150,7 +156,7 @@
                         </div>
                         <div class="col-md-6 form-group mb-3" id="add_status_div">
                             <label>Receive Weekly Motivational Messages?</label>
-                            <select name="status" class="form-control status" id="motivational_enable" name="motivational_enable">
+                            <select class="form-control status" id="motivational_enable" name="motivational_enable">
                                 <option value="">Please select</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -161,7 +167,7 @@
                                         <input class="form-control" required="" type="text" id="txt_time" name="txt_time" placeholder="HH:MM" />
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
-                            <label for="add_partner_type">Client Status</label>
+                            <label for="add_partner_type">Status</label>
                             <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="status" name="status">
                                 <option value="">Please select </option>
                                 <option value="Active">Active</option>
@@ -172,11 +178,11 @@
                         </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Grouping</label>
-                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="group" name="group">
+                            <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="group_id" name="group_id">
                                 <option value="">Please select </option>
                                 @if (count($grouping) > 0)
-                                @foreach($grouping as $groupings)
-                                <option value="{{$groupings->id }}">{{ ucwords($groupings->name) }}</option>
+                                @foreach($grouping as $group)
+                                <option value="{{$group->id }}">{{ ucwords($group->name) }}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -192,23 +198,42 @@
                                 @endif
                             </select>
                         </div>
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="add_partner_type">Service</label>
-                            <select class="form-control dynamic" data-dependant="servicename" data-width="100%" id="service" name="service">
-                                <option value="">Please select </option>
-                                @if (count($services) > 0)
-                                @foreach($services as $service)
-                                <option value="{{$service->id }}">{{ ucwords($service->name) }}</option>
-                                @endforeach
-                                @endif
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group mb-3">
-                            <label for="add_partner_type">Units </label>
-                            <select class="unit form-control selectpicker" data-dependant="unitname" data-width="100%" id="unit" name="unit" data-live-search="true">
 
-                            </select>
-                        </div>
+                        @if(Auth::user()->access_level == 'Admin') 
+                        
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="add_partner_type">Service</label>
+                                <select class="form-control dynamic" data-dependant="servicename" data-width="100%" id="service" name="service">
+                                    <option value="">Please select </option>
+                                    @if (count($services) > 0)
+                                    @foreach($services as $service)
+                                    <option value="{{$service->id }}">{{ ucwords($service->name) }}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="add_partner_type">Units </label>
+                                <select class="unit form-control selectpicker" data-dependant="unitname" data-width="100%" id="unit" name="unit" data-live-search="true">
+
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="add_facility_type">Facility </label>
+                                <select class="facility form-control selectpicker" data-dependant="facilityname" data-width="100%" id="facility" name="facility" data-live-search="true">
+
+                                </select>
+                            </div>
+                        @elseif(Auth::user()->access_level == 'Facility')
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="firstName1">Facility</label>
+                                <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="facility" name="facility">
+                                    <option selected value="{{ Auth::user()->facility->code }}">{{ Auth::user()->facility->name }}</option>
+                                </select>
+                            </div>
+
+                        @endif
 
                     </div>
                     <button type="submit" class="btn btn-block btn-primary">Submit</button>
