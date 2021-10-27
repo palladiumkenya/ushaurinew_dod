@@ -32,7 +32,7 @@
 
     <div class="header-part-right">
         <!-- Full screen toggle -->
-        <img class=" pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri">
+        <img class=" pl-3" src="{{ asset('assets/images/NASCOP_Logo.png') }}" alt="ushauri" style="height: 50px">
         <!-- Grid menu Dropdown -->
         <div class="dropdown widget_dropdown">
 

@@ -67,7 +67,7 @@
                                 </form>
                                 @if (Route::has('password.request'))
 
-                                <div class="mt-3 text-center">
+                                <div class="mt-3 mb-1 text-center">
 
                                     <a href="javascript::void(0)" class="forgot_password_link" id="forgot_password_link""><u>Forgot
                                             Password?</u></a>
@@ -75,9 +75,24 @@
                                 </div>
                                 @endif
                                 <div class="center">
-                                <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40" style="margin-left: 20px;">
-                                <img class="pl-3" src="{{ asset('assets/images/login/CDC-LOGO.jpg') }}" alt="ushauri" height="40" style="margin-left: 95px;">
-                                <img class="pl-3" src="{{ asset('assets/images/login/logo_3.png') }}" alt="ushauri" width="31%" style="margin-left: 95px;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="pl-3" src="{{ asset('assets/images/login/moh.png') }}" alt="ushauri" height="40">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <img class="pl-3" src="{{ asset('assets/images/login/CDC-LOGO.jpg') }}" alt="ushauri" height="40">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <img class="pl-3" src="{{ asset('assets/images/login/logo_3.png') }}" alt="ushauri" >
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <img class="pl-3" src="{{ asset('assets/images/login/NASCOP_Logo.png') }}" alt="ushauri" width="50%">
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="register-link m-t-15 text-center">
                                     <p>&copy;  mHealth Kenya &nbsp;2016 - <?php echo date('Y'); ?> <b> Powered by : <a href="https://mhealthkenya.org/" target="_blank"> mHealth  Kenya </a></b> </p>

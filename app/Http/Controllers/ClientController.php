@@ -87,11 +87,10 @@ class ClientController extends Controller
             //     return 'Clinic Number already exist in the system!';
             //     Session::flash('statuscode', 'error');
 
-            //     return redirect('add/client')->with('status', 'Clinic Number already exist in the system!');
+            //     return redirect('add/client')->with('status', 'Kdod Number already exist in the system!');
             // }
             if ($new_client->save()) {
                 $new_client->clinic_number = $new_client->id;
-                $new_client->service_number = $new_client->id;
                 Session::flash('statuscode', 'success');
 
                 return redirect('Reports/facility_home')->with('status', 'Client has been registered successfully!');
