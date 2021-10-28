@@ -68,7 +68,7 @@ class ClientController extends Controller
             $new_client->dob = $request->dob;
             $new_client->gender = $request->gender;
             $new_client->marital = $request->marital;
-            $new_client->client_status = $request->treatment;
+            $new_client->client_status = $request->client_status;
             $new_client->enrollment_date = date("Y-m-d", strtotime($request->enrollment_date));
             $new_client->art_date = date("Y-m-d", strtotime($request->art_date));
             $new_client->phone_no = $request->phone;
@@ -138,7 +138,7 @@ class ClientController extends Controller
                     'dob' => $request->dob,
                     'gender' => $request->gender,
                     'marital' => $request->marital,
-                    'client_status' => $request->treatment,
+                    'client_status' => $request->client_status,
                     'enrollment_date' => date("Y-m-d", strtotime($request->enrollment_date)),
                     'art_date' => date("Y-m-d", strtotime($request->art_date)),
                     'phone_no' => $request->phone,
