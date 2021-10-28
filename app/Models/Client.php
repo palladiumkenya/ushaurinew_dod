@@ -11,6 +11,7 @@ class Client extends Model
     use HasFactory;
     public $table = 'tbl_client';
     public $timestamps = false;
+    protected $primaryKey = "id";
 
     protected $fillable = [
 

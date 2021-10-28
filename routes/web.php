@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/report/clients/profile', ['uses' => 'App\Http\Controllers\ClientListController@get_client_profile', 'as' => 'profile']);
   Route::get('/add/clients', ['uses' => 'App\Http\Controllers\ClientController@index', 'as' => 'new_client']);
   Route::post('/new/clients', ['uses' => 'App\Http\Controllers\ClientController@add_client', 'as' => 'add_client']);
+  Route::get('/edit/clientform/{client}', ['uses' => 'App\Http\Controllers\ClientController@edit_client_form', 'as' => 'edit_client_form']);
+  Route::post('/edit/client', ['uses' => 'App\Http\Controllers\ClientController@edit_client', 'as' => 'edit_client']);
   Route::get('/profile_search', ['uses' => 'App\Http\Controllers\ClientListController@profile_search', 'as' => 'profile_search']);
   Route::get('/report/clients/list', ['uses' => 'App\Http\Controllers\ClientListController@get_client_list', 'as' => 'report-clients-list']);
   Route::get('/report/clients/extract', ['uses' => 'App\Http\Controllers\ClientListController@client_extract', 'as' => 'clients-extract']);
@@ -204,6 +206,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Data routes
   Route::post('/all/units', ['uses' => 'App\Http\Controllers\DataController@get_units', 'as' => 'allunits']);
+  Route::post('/all/facilities', ['uses' => 'App\Http\Controllers\DataController@get_facilities', 'as' => 'allfacilities']);
+
 
 });
 

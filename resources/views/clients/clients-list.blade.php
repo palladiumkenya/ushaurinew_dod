@@ -38,6 +38,7 @@
                                 <th>Enrolment Date</th>
                                 <th>ART Date</th>
                                 <th>Date Added</th>
+                                <th>Edit</th>
 
                             </tr>
                         </thead>
@@ -58,6 +59,7 @@
                                 <td> {{$result->enrollment_date}}</td>
                                 <td> {{$result->art_date}}</td>
                                 <td> {{$result->created_at}}</td>
+                                <td> <a class="btn btn-success" href={{ url('/edit/clientform/'.$result->id.'/') }} > Edit </a> </td>
                             </tr>
                             @endforeach
                             @endif

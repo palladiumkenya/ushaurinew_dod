@@ -10,7 +10,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title mb-3">Add User</div>
-                <form role="form" method="post" action="{{route('adduser')}}">
+                <form role="form" method="post" action="{{route('edituser')}}">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6 form-group mb-3">

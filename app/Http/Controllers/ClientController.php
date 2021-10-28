@@ -31,6 +31,7 @@ class ClientController extends Controller
         $language = Language::all()->where('status', '=', 'Active');
         return view('clients.new_client', compact('gender', 'marital', 'clinics', 'treatment', 'language', 'grouping', 'services', 'units'));
     }
+
     public function add_client(Request $request)
     {
         try
@@ -91,6 +92,7 @@ class ClientController extends Controller
             // }
             if ($new_client->save()) {
                 $new_client->clinic_number = $new_client->id;
+                $new_client->save();
                 Session::flash('statuscode', 'success');
 
                 return redirect('Reports/facility_home')->with('status', 'Client has been registered successfully!');
@@ -105,6 +107,67 @@ class ClientController extends Controller
             return back()->with('error', 'An error has occurred please try again later.');
         }
     }
+
+    public function edit_client_form(Request $request, Client $client) {
+
+        $gender = Gender::all();
+        $marital = Marital::all();
+        $treatment = Condition::all();
+        $grouping = Group::all();
+        $clinics = Clinic::all();
+        $services = Partner::all();
+        $units = Unit::all();
+        $language = Language::all()->where('status', '=', 'Active');
+
+        return view('clients.edit_client', compact('client', 'gender', 'marital', 'clinics', 'treatment', 'language', 'grouping', 'services', 'units'));
+    }
+
+    public function edit_client(Request $request)
+    {
+        try
+        {
+
+            $client = Client::where('id', $request->id)
+                ->update([
+                    'file_no' => $request->service_number,
+                    'f_name' => $request->f_name,
+                    'm_name' => $request->m_name,
+                    'l_name' => $request->l_name,
+                    'dob' => $request->dob,
+                    'gender' => $request->gender,
+                    'marital' => $request->marital,
+                    'client_status' => $request->treatment,
+                    'enrollment_date' => date("Y-m-d", strtotime($request->enrollment_date)),
+                    'art_date' => date("Y-m-d", strtotime($request->art_date)),
+                    'phone_no' => $request->phone,
+                    'language_id' => $request->language_id,
+                    'smsenable' => $request->smsenable,
+                    'motivational_enable' => $request->motivational_enable,
+                    'txt_time' => date("H", strtotime($request->txt_time)),
+                    'status' => $request->status,
+                    'group_id' => $request->group_id,
+                    'clinic_id' => $request->clinic,
+                    'mfl_code' => $request->facility,
+                    'facility_id' => $request->facility,
+
+                ]);
+
+            if ($client) {
+                Session::flash('statuscode', 'success');
+
+                return redirect('report/clients/list')->with('status', 'Client has been updated successfully!');
+            } else {
+
+                Session::flash('statuscode', 'error');
+                return back()->with('error', 'An error has occurred please try again later.');
+            }
+        } catch (Exception $e) {
+
+            Session::flash('statuscode', 'error');
+            return back()->with('error', 'An error has occurred please try again later.');
+        }
+    }
+
     public function transit_client(Request $request)
     {
 
