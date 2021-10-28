@@ -228,7 +228,6 @@ class ReportController extends Controller
                 'month_year',
                 'msg',
                 'partner_name',
-                'county',
                 'sub_county',
                 'mfl_code',
                 'facility_name'
@@ -247,7 +246,6 @@ class ReportController extends Controller
                 'month_year',
                 'msg',
                 'partner_name',
-                'county',
                 'sub_county',
                 'mfl_code',
                 'facility_name'
@@ -270,7 +268,6 @@ class ReportController extends Controller
                 'month_year',
                 'msg',
                 'partner_name',
-                'county',
                 'sub_county',
                 'mfl_code',
                 'facility_name'

@@ -45,10 +45,11 @@
                                             @if (count($consented_clients) > 0)
                                                 @foreach($consented_clients as $consent)
                                                     <tr>
+
                                                         <td> {{ $loop->iteration }}</td>
                                                         <td>  {{$consent->clinic_number}}</td>
                                                         <td>  {{$consent->file_no}}</td>
-                                                        <td>  {{ucwords($consent->f_name)}} {{ucwords($consent->m_name)}} {{ucwords($consent->l_name)}}</td>
+                                                        <td>  {{ucwords($consent->full_name)}}</td>
                                                         <td>  {{$consent->phone_no}}</td>
                                                         <td>  {{$consent->dob}}</td>
                                                         <td>  {{$consent->name}}</td>
