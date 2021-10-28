@@ -13,6 +13,7 @@ use App\Models\Marital;
 use App\Models\Transit;
 use App\Models\Partner;
 use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use Auth;
@@ -73,6 +74,7 @@ class ClientController extends Controller
             $new_client->phone_no = $request->phone;
             $new_client->language_id = $request->language_id;
             $new_client->smsenable = $request->smsenable;
+            $new_client->consent_date = Carbon::now();
             $new_client->motivational_enable = $request->motivational_enable;
             $new_client->txt_time = date("H", strtotime($request->txt_time));
             $new_client->status = $request->status;
@@ -142,6 +144,7 @@ class ClientController extends Controller
                     'phone_no' => $request->phone,
                     'language_id' => $request->language_id,
                     'smsenable' => $request->smsenable,
+                    'consent_date' => Carbon::now(),
                     'motivational_enable' => $request->motivational_enable,
                     'txt_time' => date("H", strtotime($request->txt_time)),
                     'status' => $request->status,

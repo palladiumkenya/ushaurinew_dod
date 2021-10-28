@@ -98,39 +98,39 @@
                             </select>
                         </div>
                         <div class='col-sm-6'>
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="col-md-4">
-                                                    <label for="firstName1">HIV Enrollment Date</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input type="date" required="" id="enrollment_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="enrollment_date">
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-secondary" type="button">
-                                                        <i class="icon-regular i-Calendar-4"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="col-md-4">
+                                        <label for="firstName1">HIV Enrollment Date</label>
                                     </div>
-                                    <div class='col-sm-6'>
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="col-md-4">
-                                                    <label for="firstName1">ART Start Date</label>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <input type="date" required="" id="art_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="art_date">
-                                                </div>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-secondary" type="button">
-                                                        <i class="icon-regular i-Calendar-4"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-10">
+                                        <input type="date" required="" id="enrollment_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="enrollment_date">
                                     </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary" type="button">
+                                            <i class="icon-regular i-Calendar-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-sm-6'>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="col-md-4">
+                                        <label for="firstName1">ART Start Date</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="date" required="" id="art_date" class="form-control" data-width="100%" placeholder="YYYY-mm-dd" name="art_date">
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary" type="button">
+                                            <i class="icon-regular i-Calendar-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6 form-group mb-3">
                             <label for="firstName1">Phone Number</label>
                             <input type="text" name="phone" pattern="^(([0-9]{1})*[- .(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4})+$" minlength="10" maxlength="10" placeholder="Phone No should be 10 Digits " id="phone" class="input-rounded input-sm form-control phone_no" />
@@ -163,10 +163,10 @@
                             </select>
                         </div>
                         <div class="col-md-6 form-group mb-3">
-                                        <label for="firstName1">Prefered Messaging Time</label>
-                                        <input class="form-control" required="" type="text" id="txt_time" name="txt_time" placeholder="HH:MM" />
-                                    </div>
-                                    <div class="col-md-6 form-group mb-3">
+                            <label for="firstName1">Prefered Messaging Time</label>
+                            <input class="form-control" required="" type="text" id="txt_time" name="txt_time" placeholder="HH:MM" />
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
                             <label for="add_partner_type">Status</label>
                             <select class="form-control dynamic" data-dependant="rolename" data-width="100%" id="status" name="status">
                                 <option value="">Please select </option>
