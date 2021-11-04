@@ -18,7 +18,7 @@
             <div class="col">
                 <div class="form-group">
 
-                    <select class="form-control filter_partner  input-rounded input-sm select2 step2-select" id="partners" name="partner">
+                    <select class="form-control filter_partner  input-rounded input-sm select2 step2-select" id="partners" name="partners">
                         <option value="">Please select Service</option>
                         @foreach ($all_partners as $partner => $value)
                         <option value="{{ $partner }}"> {{ $value }}</option>
@@ -28,9 +28,10 @@
                     </select>
                 </div>
             </div>
+
             <div class="col">
                 <div class="form-group">
-                    <select class="form-control county  input-rounded input-sm select2 step2-select" id="counties" name="county">
+                    <select class="form-control county  input-rounded input-sm select2 step2-select" id="counties" name="counties">
                         <option value="">Please select Unit:</option>
                         <option value=""></option>
                     </select>
@@ -40,15 +41,16 @@
             <div class="col">
                 <div class="form-group">
                     <span class="filter_facility_wait" style="display: none;">Loading , Please Wait ...</span>
-                    <select class="form-control filter_facility input-rounded input-sm select2" id="facilities" name="facility">
+                    <select class="form-control filter_facility input-rounded input-sm select2" id="facilities" name="facilities">
                         <option value="">Please select Facility : </option>
                         <option value=""></option>
                     </select>
                 </div>
             </div>
+
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-default filter btn-round  btn-small btn-primary  " type="submit" name="filter" id="filter"> <i class="fa fa-filter"></i>
+                    <button class="btn btn-default filter btn-round  btn-small btn-primary  " type="submit" > <i class="fa fa-filter"></i>
                         Filter</button>
                 </div>
             </div>
@@ -67,7 +69,8 @@
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Target Active Clients</p>
 
-                    <p id="all_target_clients" class="text-primary text-20 line-height-1 mb-2">{{$all_target_clients}}</p>
+                    <p id="all_target_clients" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -78,7 +81,8 @@
             <div class="card-body text-center">
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">No. of Active Clients</p>
-                    <p id="all_clients_number" class="text-primary text-20 line-height-1 mb-2">{{$all_clients_number}}</p>
+                    <p id="all_clients_number" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -89,7 +93,8 @@
             <div class="card-body text-center">
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">% No. of Active Clients</p>
-                    <p id="pec_client_count" class="text-primary text-20 line-height-1 mb-2">{{$pec_client_count}}</p>
+                    <p id="pec_client_count" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -100,7 +105,8 @@
             <div class="card-body text-center">
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Consented Clients</p>
-                    <p id="all_consented_clients" class="text-primary text-20 line-height-1 mb-2">{{$all_consented_clients}}</p>
+                    <p id="all_consented_clients" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -110,7 +116,8 @@
             <div class="card-body text-center">
                 <div class="content">
                     <p class="text-muted mt-2 mb-0">Future Appointments</p>
-                    <p id="all_future_appointments" class="text-primary text-20 line-height-1 mb-2">{{$all_future_appointments}}</p>
+                    <p id="all_future_appointments" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -123,7 +130,8 @@
                     <a class="has-arrow" href="{{route('Reports-active-facilities')}}">
                         <p class="text-muted mt-2 mb-0">No. of Facilities</p>
                     </a>
-                    <p id="number_of_facilities" class="text-primary text-20 line-height-1 mb-2">{{$number_of_facilities}}</p>
+                    <p id="number_of_facilities" class="text-primary text-20 line-height-1 mb-2"></p>
+
                 </div>
             </div>
         </div>
@@ -163,7 +171,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('select[name="partner"]').on('change', function() {
+        $('select[name="partners"]').on('change', function() {
             var partnerID = $(this).val();
             if (partnerID) {
                 $.ajax({
@@ -172,25 +180,25 @@
                     dataType: "json",
                     success: function(data) {
 
-
-                        $('select[name="county"]').empty();
-                        $('select[name="county"]').append('<option value="">Please Unit</option>');
+                        console.log("units",data);
+                        $('select[name="counties"]').empty();
+                        $('select[name="counties"]').append('<option value="">Please Unit</option>');
                         $.each(data, function(key, value) {
-                            $('select[name="county"]').append('<option value="' + key + '">' + value + '</option>');
+                            $('select[name="counties"]').append('<option value="' + key + '">' + value + '</option>');
                         });
 
 
                     }
                 });
             } else {
-                $('select[name="county"]').empty();
+                $('select[name="counties"]').empty();
             }
         });
     });
 
 
     $(document).ready(function() {
-        $('select[name="county"]').on('change', function() {
+        $('select[name="counties"]').on('change', function() {
             var countyID = $(this).val();
             if (countyID) {
                 $.ajax({
@@ -200,28 +208,50 @@
                     success: function(data) {
 
 
-                        $('select[name="facility"]').empty();
-                        $('select[name="facility"]').append('<option value="">Please Select Facility</option>');
+                        $('select[name="facilities"]').empty();
+                        $('select[name="facilities"]').append('<option value="">Please Select Facility</option>');
                         $.each(data, function(key, value) {
-                            $('select[name="facility"]').append('<option value="' + key + '">' + value + '</option>');
+                            $('select[name="facilities"]').append('<option value="' + key + '">' + value + '</option>');
                         });
 
 
                     }
                 });
             } else {
-                $('select[name="facility"]').empty();
+                $('select[name="facilities"]').empty();
             }
         });
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "{{ route('dashboard_data') }}",
+        success: function(data) {
+
+            console.log("data here", data)
+
+            charts(data.registered_clients_count,data.consented_clients_count );
+            $("#all_clients_number").html(data.all_clients_number);
+            $("#pec_client_count").html(data.pec_client_count);
+            $("#all_target_clients").html(data.all_target_clients);
+            $("#all_consented_clients").html(data.all_consented_clients);
+            $("#all_future_appointments").html(data.all_future_appointments);
+            $("#number_of_facilities").html(data.number_of_facilities);
+
+            //mainChart.redraw();
+
+            console.log(data.consented_clients_count);
+
+        }
     });
 
 
     $('#dataFilter').on('submit', function(e) {
         e.preventDefault();
+
         let partners = $('#partners').val();
         let counties = $('#counties').val();
         let facilities = $('#facilities').val();
-
 
         $.ajaxSetup({
             headers: {
@@ -230,7 +260,7 @@
         });
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             data: {
                 "partners": partners,
                 "counties": counties,
@@ -239,9 +269,8 @@
             url: "{{ route('filter_dashboard') }}",
             success: function(data) {
 
-                    Registered = parseInt(data.registered_clients_count)
-                    Consented = parseInt(data.consented_clients_count)
-
+                console.log("filtered data here", data)
+                charts(data.registered_clients_count,data.consented_clients_count );
 
                 $("#all_clients_number").html(data.all_clients_number);
                 $("#pec_client_count").html(data.pec_client_count);
@@ -250,75 +279,69 @@
                 $("#all_future_appointments").html(data.all_future_appointments);
                 $("#number_of_facilities").html(data.number_of_facilities);
 
+                console.log(data.consented_clients_count);
 
-                mainChart.series[0].setData([Registered, Consented]);
-
-                //mainChart.redraw();
-
-               console.log(data.consented_clients_count);
-
-           }
+            }
         });
-    });
-
-
-
-    var RegisteredClients = <?php echo json_encode($registered_clients_count) ?>;
-    var ConsentedClients = <?php echo json_encode($consented_clients_count) ?>;
-
-    parseConsented = JSON.parse(ConsentedClients);
-    parseRegistered = JSON.parse(RegisteredClients);
-    //Registered = JSON.parse(Months);
-
-    //console.log(Months);
-
-    var mainChart = Highcharts.chart('mainGraph', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Number Series'
-        },
-        xAxis: {
-            categories: ['Registered Clients', 'Consented Clients']
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Count'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: ( // theme
-                        Highcharts.defaultOptions.title.style &&
-                        Highcharts.defaultOptions.title.style.color
-                    ) || 'gray'
-                }
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                return '<b>' + this.x + '</b><br/>' +
-                    this.series.name + ': ' + this.y + '<br/>' +
-                    'Total Clients: ' + this.point.stackTotal;
-            }
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-            }
-        },
-        series: [{
-
-            name: 'Clients Trends',
-            data: [parseRegistered, parseConsented]
-        }],
 
     });
 
-    var colors = Highcharts.getOptions().colors;
 </script>
 
+<script>
+
+    function charts(reg_clients, cons_clients) {
+
+        console.log("my chart",reg_clients, cons_clients)
+
+        let all_clients = parseInt(reg_clients);
+        let all_cons = parseInt(cons_clients);
+
+        var mainChart = Highcharts.chart('mainGraph', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Number Series'
+            },
+            xAxis: {
+                categories: ['Registered Clients', 'Consented Clients']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Count'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: ( // theme
+                            Highcharts.defaultOptions.title.style &&
+                            Highcharts.defaultOptions.title.style.color
+                        ) || 'gray'
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total Clients: ' + this.point.stackTotal;
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                }
+            },
+            series: [{
+
+                name: 'Clients Trends',
+                data: [all_clients, all_cons]
+            }],
+        });
+    }
+
+</script>
 @endsection

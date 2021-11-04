@@ -151,12 +151,19 @@ class DashboardController extends Controller
 
     public function main_graph_dashboard()
     {
+        
+        $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
+
+        return view('dashboard.dashboardv1', compact('all_partners'));
+    }
+
+    public function get_data()
+    {
         $data                = [];
 
         if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Donor') {
 
-        $all_partners = Partner::where('status', '=', 'Active')
-        ->pluck('name', 'id');
+        $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
 
         //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
 
@@ -173,8 +180,8 @@ class DashboardController extends Controller
         $bar_clients_data = BarClient::all();
 
 
-        $registered_clients_count = ClientRegistration::select('clients')->sum('clients');
-        $consented_clients_count = ClientRegistration::select('consented')->sum('consented');
+        $registered_clients_count = ClientRegistration::select('clients')->sum('clients');;
+        $consented_clients_count = ClientRegistration::select('consented')->sum('consented');;
         }
 
         if (Auth::user()->access_level == 'Partner'){
@@ -210,12 +217,12 @@ class DashboardController extends Controller
 
 
             $registered_clients_count = ClientRegistration::select('clients')
-            ->where('partner_id', Auth::user()->partner_id)->sum('clients');
+            ->where('partner_id', Auth::user()->partner_id)->count();
             $consented_clients_count = ClientRegistration::select('consented')
-            ->where('partner_id', Auth::user()->partner_id)->sum('consented');
+            ->where('partner_id', Auth::user()->partner_id)->count();
             $bar_appointments_data = BarAppointment::all()->where('partner_id', Auth::user()->partner_id);
             $bar_clients_data = BarClient::all()->where('partner_id', Auth::user()->partner_id);
-            }
+        }
 
 
         $data["all_clients_number"]        = $all_clients_number;
@@ -231,22 +238,10 @@ class DashboardController extends Controller
         $data["consented_clients_count"]         = $consented_clients_count;
 
 
+        return $data;
 
-
-        return view('dashboard.dashboardv1', compact(
-            'all_partners',
-            'all_clients_number',
-            'all_target_clients',
-            'all_consented_clients',
-            'all_future_appointments',
-            'number_of_facilities',
-            'pec_client_count',
-            'registered_clients_count',
-            'bar_clients_data',
-            'bar_appointments_data',
-            'consented_clients_count'
-        ));
     }
+
 
     public function filter_dashboard(Request $request)
     {
