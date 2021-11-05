@@ -151,6 +151,18 @@
     </div>
 </div>
 
+<div id="dashboard_overlay">
+    <img style="  position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+    margin:auto;" src="{{url('/images/loader.gif')}}" alt="loader" />
+
+</div>
+
 
 @endsection
 
@@ -242,12 +254,15 @@
 
             console.log(data.consented_clients_count);
 
+            $("#dashboard_overlay").hide();
+
         }
     });
 
 
     $('#dataFilter').on('submit', function(e) {
         e.preventDefault();
+        $("#dashboard_overlay").show();
 
         let partners = $('#partners').val();
         let counties = $('#counties').val();
@@ -280,6 +295,7 @@
                 $("#number_of_facilities").html(data.number_of_facilities);
 
                 console.log(data.consented_clients_count);
+                $("#dashboard_overlay").hide();
 
             }
         });
