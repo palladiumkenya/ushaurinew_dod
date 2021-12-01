@@ -49,6 +49,11 @@
                                     <span class=" text-muted">Summary</span>
                                 </a>
                                 @endif
+                                @if (Auth::user()->access_level == 'Unit')
+                                <a class="" href="{{route('Reports-dashboard')}}">
+                                    <span class=" text-muted">Summary</span>
+                                </a>
+                                @endif
                             </li>
                             <li class="item-name">
                                 <a class="" href="{{route('report-appointment-dashboard')}}">
@@ -98,7 +103,7 @@
                         </a>
                     </li>
                     @endif
-                    @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner')
+                    @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit')
                     <li class="item-name">
                                 <a href="{{route('Reports-clients_dashboard')}}">
                                     <span class="item-name">Clients</span>
@@ -341,7 +346,7 @@
                             </a>
                         </li>
                         @endif
-                        @if (Auth::user()->access_level == 'Partner')
+                        @if (Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit')
                         <li class="item-name">
                             <a class="" href={{route('admin-users')}}>
                                 <span class="item-name">Users</span>
@@ -384,7 +389,7 @@
                         <span class="item-name  text-muted">Reports</span>
                     </a>
                     <ul class="mm-collapse">
-                        @if (Auth::user()->role_id == 12 || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Admin')
+                        @if (Auth::user()->role_id == 12 || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Unit')
 
                         <li class="item-name">
                             <a class="" href="{{route('admin-tracer-clients')}}">
@@ -460,7 +465,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+                        @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor' || Auth::user()->access_level == 'Unit')
                         <li class="item-name">
                             <a class="" href="{{route('broadcast')}}">
                                 <span class="item-name">Broadcast</span>

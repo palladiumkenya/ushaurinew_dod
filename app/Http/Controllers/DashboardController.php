@@ -41,6 +41,10 @@ class DashboardController extends Controller
     {
         $facility_all = Facility::all()->where('code', Auth::user()->facility_id);
 
+        if (Auth::user()->access_level == 'Unit')
+        {
+        $unit_all = Unit::all()->where('id', Auth::user()->unit_id);
+        }
         if (Auth::user()->access_level == 'Partner')
         {
         $partner_all = Partner::all()->where('id', Auth::user()->partner_id);
@@ -50,7 +54,7 @@ class DashboardController extends Controller
         $donor_all = Donor::all()->where('id', Auth::user()->donor_id);
         }
 
-        return view('layouts.large-vertical-sidebar.header', compact('facility_all', 'partner_all', 'donor_all'));
+        return view('layouts.large-vertical-sidebar.header', compact('unit_all', 'facility_all', 'partner_all', 'donor_all'));
     }
 
     public function get_client_data()
@@ -154,34 +158,41 @@ class DashboardController extends Controller
         
         $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
 
+        if (Auth::user()->access_level == 'Unit'){
+            $all_partners = Partner::where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id)
+            ->pluck('name', 'id');
+        }
+
         return view('dashboard.dashboardv1', compact('all_partners'));
     }
 
     public function get_data()
     {
+
         $data                = [];
 
         if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Donor') {
 
-        $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
+            $all_partners = Partner::where('status', '=', 'Active')->pluck('name', 'id');
 
-        //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
-
-
-        $all_clients_number = ClientPerformance::whereNotNull('actual_clients')->sum('actual_clients');
-        $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
-        $pec_client_count = ClientRegistration::whereNotNull('total_percentage')->avg('total_percentage');
-        $all_target_clients = ClientPerformance::whereNotNull('target_clients')->sum('target_clients');
-        $all_consented_clients = ClientRegistration::whereNotNull('consented')->sum('consented');
-        $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')->count();
-        $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
-
-        $bar_appointments_data = BarAppointment::all();
-        $bar_clients_data = BarClient::all();
+            //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
 
 
-        $registered_clients_count = ClientRegistration::select('clients')->sum('clients');;
-        $consented_clients_count = ClientRegistration::select('consented')->sum('consented');;
+            $all_clients_number = ClientPerformance::whereNotNull('actual_clients')->sum('actual_clients');
+            $pec_client_sum = ClientRegistration::select('total_percentage')->sum('total_percentage');
+            $pec_client_count = ClientRegistration::whereNotNull('total_percentage')->avg('total_percentage');
+            $all_target_clients = ClientPerformance::whereNotNull('target_clients')->sum('target_clients');
+            $all_consented_clients = ClientRegistration::whereNotNull('consented')->sum('consented');
+            $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')->count();
+            $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')->count();
+
+            $bar_appointments_data = BarAppointment::all();
+            $bar_clients_data = BarClient::all();
+
+
+            $registered_clients_count = ClientRegistration::select('clients')->sum('clients');;
+            $consented_clients_count = ClientRegistration::select('consented')->sum('consented');;
         }
 
         if (Auth::user()->access_level == 'Partner'){
@@ -224,6 +235,51 @@ class DashboardController extends Controller
             $bar_clients_data = BarClient::all()->where('partner_id', Auth::user()->partner_id);
         }
 
+        if (Auth::user()->access_level == 'Unit'){
+
+            $all_partners = Partner::where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id)
+            ->pluck('name', 'id');
+
+            $all_units = Unit::where('id', Auth::user()->unit_id)
+            ->pluck('unit_name', 'id');
+
+            //$all_counties = County::select('id', 'name')->distinct('id')->whereIn('id', $counties_with_data)->get();
+
+
+            $all_clients_number = ClientPerformance::whereNotNull('actual_clients')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->sum('actual_clients');
+            $pec_client_sum = ClientRegistration::select('total_percentage')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->sum('total_percentage');
+            $pec_client_count = ClientRegistration::whereNotNull('total_percentage')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->avg('total_percentage');
+            $all_target_clients = ClientPerformance::whereNotNull('target_clients')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->sum('target_clients');
+            $all_consented_clients = ClientRegistration::whereNotNull('consented')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->sum('consented');
+            $all_future_appointments = FutureApp::join('tbl_partner_facility', 'tbl_future_appointments_query.mfl_code', '=', 'tbl_partner_facility.mfl_code')
+            ->where('tbl_partner_facility.unit_id', Auth::user()->unit_id)
+            ->count();
+            $number_of_facilities = ClientPerformance::whereNotNull('mfl_code')
+            ->where('unit_id', Auth::user()->unit_id)
+            ->count();
+
+
+            $registered_clients_count = ClientRegistration::select('clients')
+            ->where('unit_id', Auth::user()->unit_id)->count();
+            $consented_clients_count = ClientRegistration::select('consented')
+            ->where('unit_id', Auth::user()->unit_id)->count();
+            $bar_appointments_data = BarAppointment::all()->where('unit_id', Auth::user()->unit_id);
+            $bar_clients_data = BarClient::all()
+            ->where('unit_id', Auth::user()->unit_id);
+        }
+
+
 
         $data["all_clients_number"]        = $all_clients_number;
         $data["pec_client_count"]        = $pec_client_count;
@@ -253,6 +309,9 @@ class DashboardController extends Controller
         // $selected_subcounties = $request->subcounties;
         $selected_facilites = $request->facilities;
 
+        if (Auth::user()->access_level == 'Unit') { //user is partner
+            $selected_units = [Auth::user()->unit_id];
+        }
         if (Auth::user()->access_level == 'Partner') { //user is partner
             $selected_partners = [Auth::user()->partner_id];
         }

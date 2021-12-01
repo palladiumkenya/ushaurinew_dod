@@ -354,6 +354,33 @@
                 </a>
             </li>
             @endif
+            @if (Auth::user()->access_level == 'Unit')
+            <li class="nav-item">
+                <a class="" href="{{route('adminranks')}}">
+                    <span class="item-name">Ranks</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="" href="{{route('admin-groups')}}">
+                    <span class="item-name">Groups</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="" href="{{route('admin_facilities')}}">
+                    <span class="item-name">Facilities</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="" href="{{route('clients-booked')}}">
+                    <span class="item-name">Clients Tracing</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="" href="{{route('broadcast')}}">
+                    <span class="item-name">Broadcast</span>
+                </a>
+            </li>
+            @endif
             @if (Auth::user()->access_level == 'Partner')
             <li class="nav-item">
                 <a class="" href={{route('admin-users')}}>

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'f_name', 'm_name', 'l_name', 'dob', 'e_mail', 'email', 'phone_no', 'partner_id', 'facility_id', 'donor_id', 'f_name', 'created_at', 'updated_at', 'status', 'first_access', 'access_level', 'daily_report', 'weekly_report', 'monthly_report', 'month3_report', 'month6_report', 'Yearly_report', 'view_client', 'role_id', 'clinic_id',
+        'f_name', 'm_name', 'l_name','unit_id', 'dob', 'e_mail', 'email', 'phone_no', 'partner_id', 'facility_id', 'donor_id', 'f_name', 'created_at', 'updated_at', 'status', 'first_access', 'access_level', 'daily_report', 'weekly_report', 'monthly_report', 'month3_report', 'month6_report', 'Yearly_report', 'view_client', 'role_id', 'clinic_id',
     ];
 
     /**
@@ -43,6 +43,9 @@ class User extends Authenticatable
     }
     public function partner(){
         return $this->belongsTo('App\Partner','partner_id','id');
+    }
+    public function unit(){
+        return $this->belongsTo('App\Unit','unit_id','id');
     }
     public function donor(){
         return $this->belongsTo('App\Donor','donor_id','id');

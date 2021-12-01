@@ -18,7 +18,7 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
 
-        if(Auth::check() && Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+        if(Auth::check() && Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor' || Auth::user()->access_level == 'Unit')
         {
             return $next($request);
         }else {
