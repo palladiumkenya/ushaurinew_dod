@@ -2393,6 +2393,14 @@ class AppointmentController extends Controller
                 ->where('partner_id', Auth::user()->partner_id)
                 ->get();
         }
+
+        if (Auth::user()->access_level == 'Unit') {
+            $all_lab_app = Lab::select('partner_name', 'county_name', 'sub_county_name', 'facility_name', 'mfl_code', 'gender', 'age_group', \DB::raw('count(age_group) as total'))
+                ->groupBy('clinic_number')
+                ->where('unit_id', Auth::user()->unit_id)
+                ->get();
+        }
+
         return view('appointments.lab_investigation', compact('all_lab_app'));
     }
 }

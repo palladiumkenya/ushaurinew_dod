@@ -271,15 +271,13 @@ class DashboardController extends Controller
 
 
             $registered_clients_count = ClientRegistration::select('clients')
-            ->where('unit_id', Auth::user()->unit_id)->count();
+            ->where('unit_id', Auth::user()->unit_id)->pluck('clients')->first();
             $consented_clients_count = ClientRegistration::select('consented')
-            ->where('unit_id', Auth::user()->unit_id)->count();
+            ->where('unit_id', Auth::user()->unit_id)->pluck('consented')->first();
             $bar_appointments_data = BarAppointment::all()->where('unit_id', Auth::user()->unit_id);
             $bar_clients_data = BarClient::all()
             ->where('unit_id', Auth::user()->unit_id);
         }
-
-
 
         $data["all_clients_number"]        = $all_clients_number;
         $data["pec_client_count"]        = $pec_client_count;
