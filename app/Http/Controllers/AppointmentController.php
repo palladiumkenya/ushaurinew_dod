@@ -1655,14 +1655,14 @@ class AppointmentController extends Controller
                 ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
                 ->whereNotNull('tbl_appointment.id')
                 ->where('tbl_client.partner_id', Auth::user()->partner_id)
-                ->pluck('count');
+                ->pluck('count')->first();
 
             $kept_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->select(\DB::raw("COUNT(tbl_appointment.id) as count"))
                 ->whereNotNull('tbl_appointment.id')
                 ->where('tbl_appointment.appointment_kept', '=', 'Yes')
                 ->where('tbl_client.partner_id', Auth::user()->partner_id)
-                ->pluck('count');
+                ->pluck('count')->first();
 
             $defaulted_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
@@ -1671,7 +1671,7 @@ class AppointmentController extends Controller
                 ->where('tbl_appointment.active_app', '=', 1)
                 ->where('tbl_appointment.app_status', '=', 'Defaulted')
                 ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
-                ->pluck('count');
+                ->pluck('count')->first();
 
             $missed_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
@@ -1681,7 +1681,7 @@ class AppointmentController extends Controller
                 ->where('tbl_appointment.active_app', '=', 1)
                 ->where('tbl_appointment.app_status', '=', 'Missed')
                 ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
-                ->pluck('count');
+                ->pluck('count')->first();
 
             $ltfu_appointmnent_count = Appointments::join('tbl_client', 'tbl_client.id', '=', 'tbl_appointment.client_id')
                 ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
@@ -1690,7 +1690,7 @@ class AppointmentController extends Controller
                 ->where('tbl_appointment.active_app', '=', 1)
                 ->where('tbl_appointment.app_status', '=', 'LTFU')
                 ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
-                ->pluck('count');
+                ->pluck('count')->first();
 
 
             // single active appointment

@@ -100,7 +100,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->access_level == 'Partner')
+            @if (Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit' )
             <li class="nav-item ">
                 <a class="{{ Route::currentRouteName()=='Reports-dashboard' ? 'open' : '' }}" href="{{route('Reports-dashboard')}}">
                     <span class=" text-muted">Summary</span>
@@ -156,7 +156,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+            @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit' || Auth::user()->access_level == 'Donor')
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName()=='Reports-clients_dashboard' ? 'open' : '' }}" href="{{route('Reports-clients_dashboard')}}">

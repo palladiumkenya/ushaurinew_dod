@@ -701,100 +701,100 @@ class DashboardController extends Controller
 
             $all_partners = Partner::where('status', '=', 'Active')
             ->pluck('name', 'id');
-        // registration by age group
-        $consented_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            // registration by age group
+            $consented_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $registered_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        //registration by marital status
-        $single_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '1')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $monogamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '2')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $divorced_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '3')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $widowed_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '4')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $cohabating_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '5')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $unavailable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '6')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $notapplicable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '7')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $polygamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '8')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            //registration by marital status
+            $single_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '1')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $monogamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '2')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $divorced_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '3')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $widowed_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '4')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $cohabating_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '5')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $unavailable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '6')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $notapplicable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '7')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $polygamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '8')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $single_registered = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '1')
-        ->pluck('count');
-        $monogamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '2')
-        ->pluck('count');
-        $divorced_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '3')
-        ->pluck('count');
-        $widowed_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '4')
-        ->pluck('count');
-        $cohabating_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '5')
-        ->pluck('count');
-        $unavailable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '6')
-        ->pluck('count');
-        $notapplicable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '7')
-        ->pluck('count');
-        $polygamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '8')
-        ->pluck('count');
+            $single_registered = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '1')
+            ->pluck('count');
+            $monogamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '2')
+            ->pluck('count');
+            $divorced_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '3')
+            ->pluck('count');
+            $widowed_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '4')
+            ->pluck('count');
+            $cohabating_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '5')
+            ->pluck('count');
+            $unavailable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '6')
+            ->pluck('count');
+            $notapplicable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '7')
+            ->pluck('count');
+            $polygamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '8')
+            ->pluck('count');
 
         }
 
@@ -802,100 +802,100 @@ class DashboardController extends Controller
 
             $all_partners = Partner::where('status', '=', 'Active')
             ->pluck('name', 'id');
-        // registration by age group
-        $consented_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            // registration by age group
+            $consented_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $consented_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            $consented_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $registered_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        $registered_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
-        ->pluck('count');
+            $registered_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->pluck('count');
 
-        //registration by marital status
-        $single_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '1')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $monogamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '2')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $divorced_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '3')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $widowed_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '4')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $cohabating_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '5')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $unavailable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '6')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $notapplicable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '7')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
-        $polygamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '8')
-        ->where('smsenable', '=', 'Yes')
-        ->pluck('count');
+            //registration by marital status
+            $single_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '1')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $monogamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '2')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $divorced_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '3')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $widowed_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '4')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $cohabating_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '5')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $unavailable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '6')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $notapplicable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '7')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
+            $polygamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '8')
+            ->where('smsenable', '=', 'Yes')
+            ->pluck('count');
 
-        $single_registered = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '1')
-        ->pluck('count');
-        $monogamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '2')
-        ->pluck('count');
-        $divorced_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '3')
-        ->pluck('count');
-        $widowed_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '4')
-        ->pluck('count');
-        $cohabating_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '5')
-        ->pluck('count');
-        $unavailable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '6')
-        ->pluck('count');
-        $notapplicable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '7')
-        ->pluck('count');
-        $polygamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
-        ->where('marital', '=', '8')
-        ->pluck('count');
+            $single_registered = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '1')
+            ->pluck('count');
+            $monogamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '2')
+            ->pluck('count');
+            $divorced_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '3')
+            ->pluck('count');
+            $widowed_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '4')
+            ->pluck('count');
+            $cohabating_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '5')
+            ->pluck('count');
+            $unavailable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '6')
+            ->pluck('count');
+            $notapplicable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '7')
+            ->pluck('count');
+            $polygamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->where('marital', '=', '8')
+            ->pluck('count');
 
         }
 
@@ -1024,7 +1024,160 @@ class DashboardController extends Controller
             ->where('partner_id', Auth::user()->partner_id)
             ->pluck('count');
 
-            }
+        }
+
+        if (Auth::user()->access_level == 'Unit') {
+            $all_partners = Partner::where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id)
+            ->pluck('name', 'id');
+            // registration by age group
+            $consented_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $consented_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $consented_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $consented_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $consented_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $registered_nine = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 0) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 9)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $registered_forteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 10) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 14)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $registered_nineteen = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 15) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 19)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $registered_twenty_four = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 20) and ((year(curdate()) - year(`tbl_client`.`dob`)) <= 24)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $registered_over_twenty_five = Client::select(\DB::raw("count((case when (((year(curdate()) - year(`tbl_client`.`dob`)) >= 25)) then `tbl_client`.`id` end)) AS count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            //registration by marital status
+            $single_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '1')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $monogamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '2')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $divorced_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '3')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $widowed_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '4')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $cohabating_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '5')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $unavailable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '6')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $notapplicable_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '7')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $polygamous_consented = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '8')
+            ->where('smsenable', '=', 'Yes')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+            $single_registered = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '1')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $monogamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '2')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $divorced_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '3')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $widowed_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '4')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $cohabating_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '5')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $unavailable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '6')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $notapplicable_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '7')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+            $polygamous_registered  = Client::select(\DB::raw("COUNT(marital) as count"))
+            ->join('tbl_master_facility', 'tbl_master_facility.code', '=', 'tbl_client.mfl_code')
+            ->where('marital', '=', '8')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id)
+            ->pluck('count');
+
+        }
 
 
         return view('dashboard.clients_dashboard', compact(
