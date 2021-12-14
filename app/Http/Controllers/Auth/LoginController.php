@@ -33,13 +33,16 @@ use AuthenticatesUsers;
     else if (Auth::user()->access_level == 'Facility') {
         Session::flash('statuscode', 'Login Success!, You will be redirected to your Home page in a few.');
         return '/Reports/facility_home';
+    } else if (Auth::user()->access_level == 'Unit') {
+        Session::flash('statuscode', 'success');
+        return '/Reports/dashboard';
     } else if (Auth::user()->access_level == 'Partner') {
         Session::flash('statuscode', 'success');
         return '/Reports/dashboard';
     } else if (Auth::user()->access_level == 'Admin') {
         Session::flash('statuscode', 'success');
         return '/Reports/dashboard';
-    }else {
+    } else {
         return '/';
     }
 }

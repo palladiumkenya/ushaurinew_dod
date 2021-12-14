@@ -17,35 +17,35 @@
                 <div class="triangle"></div>
             </li>
             @if (Auth::user()->access_level == 'Facility')
-            <li class="nav-item {{ request()->is('appointments/*') ? 'active' : '' }}" data-item="appointments">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Clock"></i>
-                    <span class="nav-text">Appointments</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
-            <li class="nav-item {{ request()->is('wellness/*') ? 'active' : '' }}" data-item="wellness">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Computer-Secure"></i>
-                    <span class="nav-text">Wellness</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
-            <li class="nav-item {{ request()->is('groups/*') ? 'active' : '' }}" data-item="groups">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Business-Mens"></i>
-                    <span class="nav-text">Groups</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
+                <li class="nav-item {{ request()->is('appointments/*') ? 'active' : '' }}" data-item="appointments">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Clock"></i>
+                        <span class="nav-text">Appointments</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+                <li class="nav-item {{ request()->is('wellness/*') ? 'active' : '' }}" data-item="wellness">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Computer-Secure"></i>
+                        <span class="nav-text">Wellness</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+                <li class="nav-item {{ request()->is('groups/*') ? 'active' : '' }}" data-item="groups">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Business-Mens"></i>
+                        <span class="nav-text">Groups</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
 
-            <li class="nav-item {{ request()->is('tracing/*') ? 'active' : '' }}" data-item="tracing">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Find-User"></i>
-                    <span class="nav-text">Tracing</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
+                <li class="nav-item {{ request()->is('tracing/*') ? 'active' : '' }}" data-item="tracing">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Find-User"></i>
+                        <span class="nav-text">Tracing</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
 
             @endif
             <li class="nav-item {{ request()->is('admin/*') ? 'active' : '' }}" data-item="admin">
@@ -100,7 +100,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->access_level == 'Partner')
+            @if (Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit' )
             <li class="nav-item ">
                 <a class="{{ Route::currentRouteName()=='Reports-dashboard' ? 'open' : '' }}" href="{{route('Reports-dashboard')}}">
                     <span class=" text-muted">Summary</span>
@@ -156,7 +156,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Donor')
+            @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Partner' || Auth::user()->access_level == 'Unit' || Auth::user()->access_level == 'Donor')
 
             <li class="nav-item">
                 <a class="{{ Route::currentRouteName()=='Reports-clients_dashboard' ? 'open' : '' }}" href="{{route('Reports-clients_dashboard')}}">
@@ -342,6 +342,51 @@
                 </a>
             </li>
             @endif
+
+            @if (Auth::user()->access_level == 'Unit')
+                <li class="nav-item">
+                    <a class="" href="{{route('adminranks')}}">
+                        <span class="item-name">Ranks</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href="{{route('admin-groups')}}">
+                        <span class="item-name">Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href="{{route('admin_facilities')}}">
+                        <span class="item-name">Facilities</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href={{route('admin-users')}}>
+                        <span class="item-name">Users</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href="">
+                        <span class="item-name">Content</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="" href="">
+                        <span class="item-name">Roles</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href="">
+                        <span class="item-name">Language</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="" href="{{route('broadcast')}}">
+                        <span class="item-name">Broadcast</span>
+                    </a>
+                </li>
+            @endif
+
             @if (Auth::user()->access_level == 'Facility')
             <li class="nav-item">
                 <a class="" href="{{route('clients-booked')}}">
@@ -354,6 +399,7 @@
                 </a>
             </li>
             @endif
+            
             @if (Auth::user()->access_level == 'Partner')
             <li class="nav-item">
                 <a class="" href={{route('admin-users')}}>
@@ -503,14 +549,21 @@
                 </a>
             </li>
             @endif
-            <li class="nav-item">
-                <a href="{{route('report-consented')}}">
-                    <span class="item-name">Consented Reports</span>
-                </a>
-            </li>
+            @if (Auth::user()->access_level == 'Admin' || Auth::user()->access_level == 'Facility')
             <li class="nav-item">
                 <a href="{{route('report-today_appointments')}}">
                     <span class="item-name">Todays Appointment</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('tracing-outcome-report')}}">
+                    <span class="item-name">Tracing OutCome</span>
+                </a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a href="{{route('report-consented')}}">
+                    <span class="item-name">Consented Reports</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -523,11 +576,7 @@
                     <span class="item-name">Summary Report</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{route('tracing-outcome-report')}}">
-                    <span class="item-name">Tracing OutCome</span>
-                </a>
-            </li>
+            
 
         </ul>
     </div>

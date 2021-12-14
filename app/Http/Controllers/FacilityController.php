@@ -16,7 +16,8 @@ class FacilityController extends Controller
 {
     public function admin_facilities()
     {
-        $admin_facilities = Facility::select(
+        if (Auth::user()->access_level == 'Donor') {
+            $admin_facilities = Facility::select(
                 'tbl_master_facility.name as facility_name',
                 'tbl_master_facility.code',
                 'tbl_master_facility.owner',
@@ -26,8 +27,40 @@ class FacilityController extends Controller
             ->where('tbl_master_facility.assigned', '=', '0')
             ->get();
 
-        $all_partners = Partner::all()->where('status', '=', 'Active');
-        $all_units = Unit::all();
+            $all_partners = Partner::all()->where('status', '=', 'Active');
+            $all_units = Unit::all();
+        }
+
+        if (Auth::user()->access_level == 'Admin') {
+            $admin_facilities = Facility::select(
+                'tbl_master_facility.name as facility_name',
+                'tbl_master_facility.code',
+                'tbl_master_facility.owner',
+                'tbl_master_facility.facility_type',
+                'tbl_master_facility.keph_level as level',
+            )
+            ->where('tbl_master_facility.assigned', '=', '0')
+            ->get();
+
+            $all_partners = Partner::all()->where('status', '=', 'Active');
+            $all_units = Unit::all();
+        }
+
+        if (Auth::user()->access_level == 'Unit') {
+            $admin_facilities = Facility::select(
+                'tbl_master_facility.name as facility_name',
+                'tbl_master_facility.code',
+                'tbl_master_facility.owner',
+                'tbl_master_facility.facility_type',
+                'tbl_master_facility.keph_level as level',
+            )
+            ->where('tbl_master_facility.assigned', '=', '0')
+            ->where('tbl_master_facility.unit_id', Auth::user()->unit_id )
+            ->get();
+
+            $all_partners = Partner::all()->where('status', '=', 'Active');
+            $all_units = Unit::all();
+        }
 
         return view('facilities.admin_facilities', compact('admin_facilities', 'all_partners', 'all_units'));
     }
@@ -67,21 +100,22 @@ class FacilityController extends Controller
     public function my_facility()
     {
         if (Auth::user()->access_level == 'Admin') {
-        $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-            ->select(
-                'tbl_master_facility.name as facility_name',
-                'tbl_partner_facility.avg_clients as average_clients',
-                'tbl_master_facility.code',
-                'tbl_master_facility.owner',
-                'tbl_master_facility.facility_type',
-                'tbl_master_facility.keph_level as level',
-                'tbl_partner_facility.is_approved',
-                'tbl_partner_facility.id',
-                'tbl_partner_facility.partner_id'
-                //'tbl_partner.name as partner_name'
-            )
-            ->get();
+            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
+                ->select(
+                    'tbl_master_facility.name as facility_name',
+                    'tbl_partner_facility.avg_clients as average_clients',
+                    'tbl_master_facility.code',
+                    'tbl_master_facility.owner',
+                    'tbl_master_facility.facility_type',
+                    'tbl_master_facility.keph_level as level',
+                    'tbl_partner_facility.is_approved',
+                    'tbl_partner_facility.id',
+                    'tbl_partner_facility.partner_id'
+                    //'tbl_partner.name as partner_name'
+                )
+                ->get();
         }
+
         if (Auth::user()->access_level == 'Donor') {
             $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
@@ -96,7 +130,8 @@ class FacilityController extends Controller
                     //'tbl_partner.name as partner_name'
                 )
                 ->get();
-            }
+        }
+
         if (Auth::user()->access_level == 'Facility') {
             $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
@@ -112,28 +147,52 @@ class FacilityController extends Controller
                 )
                 ->where('tbl_partner_facility.mfl_code', Auth::user()->facility_id)
                 ->get();
-            }
-            if (Auth::user()->access_level == 'Partner') {
-                $all_partners = Partner::all()->where('status', '=', 'Active')
-                ->where('id', Auth::user()->partner_id);
+        }
 
-                $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
-                    ->select(
-                        'tbl_master_facility.name as facility_name',
-                        'tbl_master_facility.code',
-                        'tbl_master_facility.owner',
-                        'tbl_partner_facility.avg_clients as average_clients',
-                        'tbl_master_facility.facility_type',
-                        'tbl_master_facility.keph_level as level',
-                        'tbl_partner_facility.is_approved',
-                        'tbl_partner_facility.id'
-                       // 'tbl_partner.name as partner_name'
-                    )
-                    ->where('tbl_partner_facility.partner_id', Auth::user()->partner_id)
-                    ->get();
-            }
-            $all_partners = Partner::all()->where('status', '=', 'Active');
-        return view('facilities.my_facilities', compact('facilities', 'all_partners'));
+        if (Auth::user()->access_level == 'Partner') {
+            $all_partners = Partner::all()->where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id);
+
+            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
+                ->select(
+                    'tbl_master_facility.name as facility_name',
+                    'tbl_master_facility.code',
+                    'tbl_master_facility.owner',
+                    'tbl_partner_facility.avg_clients as average_clients',
+                    'tbl_master_facility.facility_type',
+                    'tbl_master_facility.keph_level as level',
+                    'tbl_partner_facility.is_approved',
+                    'tbl_partner_facility.id'
+                    // 'tbl_partner.name as partner_name'
+                )
+                ->where('tbl_partner_facility.partner_id', Auth::user()->partner_id)
+                ->get();
+        }
+
+        if (Auth::user()->access_level == 'Unit') {
+            $all_partners = Partner::all()->where('status', '=', 'Active')
+            ->where('id', Auth::user()->partner_id);
+
+            $all_units = Unit::all()->where('id', Auth::user()->unit_id);
+
+            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
+                ->select(
+                    'tbl_master_facility.name as facility_name',
+                    'tbl_master_facility.code',
+                    'tbl_master_facility.owner',
+                    'tbl_partner_facility.avg_clients as average_clients',
+                    'tbl_master_facility.facility_type',
+                    'tbl_master_facility.keph_level as level',
+                    'tbl_partner_facility.is_approved',
+                    'tbl_partner_facility.id'
+                    // 'tbl_partner.name as partner_name'
+                )
+                ->where('tbl_partner_facility.unit_id', Auth::user()->unit_id)
+                ->get();
+        }
+
+        // $all_partners = Partner::all()->where('status', '=', 'Active');
+        return view('facilities.my_facilities', compact('facilities', 'all_partners', 'all_units'));
     }
     public function approve_facility(Request $request)
     {
