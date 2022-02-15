@@ -101,7 +101,7 @@ class FacilityController extends Controller
     {
         if (Auth::user()->access_level == 'Admin') {
  	   $all_units = Unit::all();
-           $all_partners = Partner::all()->where('status', '=', 'Active');
+	   $all_partners = Partner::all()->where('status', '=', 'Active');
            $facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
                     'tbl_master_facility.name as facility_name',
@@ -119,8 +119,7 @@ class FacilityController extends Controller
         }
 
         if (Auth::user()->access_level == 'Donor') {
-	$all_units = Unit::all();
-        $all_partners = Partner::all()->where('status', '=', 'Active');
+	$all_units = Unit::all();          
  	$facilities = Facility::join('tbl_partner_facility', 'tbl_master_facility.code', '=', 'tbl_partner_facility.mfl_code')
                 ->select(
                     'tbl_master_facility.name as facility_name',
@@ -196,7 +195,7 @@ class FacilityController extends Controller
         }
 
         // $all_partners = Partner::all()->where('status', '=', 'Active');
-        return view('facilities.my_facilities', compact('facilities', 'all_partners', 'all_units'));
+        return view('facilities.my_facilities', compact('facilities', 'all_units'));
     }
     public function approve_facility(Request $request)
     {
