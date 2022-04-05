@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('auth/login'); });
+Route::get('/', function () {
+  return view('auth/login');
+});
 Route::post('/reset/user', ['uses' => 'App\Http\Controllers\UserController@resetuser', 'as' => 'resetuser']);
 Route::get('/admin/reset', ['uses' => 'App\Http\Controllers\UserController@reset', 'as' => 'reset']);
 Route::get('/user/passwordreset', ['uses' => 'App\Http\Controllers\UserController@resetshow', 'as' => 'resetshow']);
@@ -54,8 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Dashboard routes
   Route::get('/main_graph_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@main_graph_dashboard', 'as' => 'main_graph_dashboard']);
-  Route::get('/filter_client_dashboard', ['uses'=>'App\Http\Controllers\DashboardController@filter_client_dashboard', 'as' => 'filter_client_dashboard']);
-  Route::get('/filter_appointment_dashboard', ['uses'=>'App\Http\Controllers\AppointmentController@filter_appointment_dashboard', 'as' => 'filter_appointment_dashboard']);
+  Route::get('/filter_client_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@filter_client_dashboard', 'as' => 'filter_client_dashboard']);
+  Route::get('/filter_appointment_dashboard', ['uses' => 'App\Http\Controllers\AppointmentController@filter_appointment_dashboard', 'as' => 'filter_appointment_dashboard']);
   Route::get('/dashboard_data', ['uses' => 'App\Http\Controllers\DashboardController@get_data', 'as' => 'dashboard_data']);
   Route::post('/filter_dashboard', ['uses' => 'App\Http\Controllers\DashboardController@filter_dashboard', 'as' => 'filter_dashboard']);
   Route::get('/get_dashboard_counties/{id}', ['uses' => 'App\Http\Controllers\DashboardController@get_counties', 'as' => 'get_counties']);
@@ -209,7 +211,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/all/units', ['uses' => 'App\Http\Controllers\DataController@get_units', 'as' => 'allunits']);
   Route::post('/all/facilities', ['uses' => 'App\Http\Controllers\DataController@get_facilities', 'as' => 'allfacilities']);
 
-
+  Route::post('/kdod_save', ['uses' => 'App\Http\Controllers\KdodController@update_kdod', 'as' => 'kdod_save']);
+  Route::get('/unassigned_kdod', ['uses' => 'App\Http\Controllers\KdodController@unassigned_kdod', 'as' => 'unassigned_kdod']);
+ // Route::get('/request/unassigned_kdod', ['uses' => 'App\Http\Controllers\KdodController@unassigned_kdod', 'as' => 'unassigned_kdod']);
 });
-
-
