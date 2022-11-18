@@ -28,6 +28,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
   return view('auth/login');
 });
+
+//SMS Scheduler routes
+//schedule appointment notifications
+Route::get('/schedule/notified', ['uses' => 'App\Http\Controllers\ScheduleSMSController@notifiedScheduler', 'as' => 'notified-sms']);
+
+//schedule missed appointment notifications
+Route::get('/schedule/missed', ['uses' => 'App\Http\Controllers\ScheduleSMSController@missedScheduler', 'as' => 'missed-sms']);
+
+//schedule defaulter notifications
+Route::get('/schedule/defaulted', ['uses' => 'App\Http\Controllers\ScheduleSMSController@defaultedScheduler', 'as' => 'defaulted-sms']);
+
+//schedule LTFU notifications
+Route::get('/schedule/ltfu', ['uses' => 'App\Http\Controllers\ScheduleSMSController@ltfuScheduler', 'as' => 'ltfu-sms']);
+
+//send sms notifications
+Route::get('/sms/sender', ['uses' => 'App\Http\Controllers\ScheduleSMSController@sender', 'as' => 'sms-sender']);
+
 Route::post('/reset/user', ['uses' => 'App\Http\Controllers\UserController@resetuser', 'as' => 'resetuser']);
 Route::get('/admin/reset', ['uses' => 'App\Http\Controllers\UserController@reset', 'as' => 'reset']);
 Route::get('/user/passwordreset', ['uses' => 'App\Http\Controllers\UserController@resetshow', 'as' => 'resetshow']);
